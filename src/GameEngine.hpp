@@ -1,0 +1,41 @@
+#pragma once
+#include <memory>
+#include <stack>
+#include "managers/DialogManagers.hpp"
+#include "views/MainPage.hpp"
+#include "states/GameState.hpp"
+#include "managers/TimeCalendarManagers.hpp"
+#include "managers/PlaceManagers.hpp"
+#include "managers/QuestManagers.hpp"
+#include "managers/PlayerManager.hpp"
+
+class GameEngine {
+private:
+    DialogManager dialogs;
+    MainPage page;
+    TimeCalendarManagers calendar;
+    PlaceManagers places;
+    QuestManager quests;
+    PlayerManager player_manager;
+
+    std::stack<std::unique_ptr<GameState>> state_stack;
+    bool is_running = true;
+
+public:
+    void init(); // Setup ncurses, set initial state
+    
+    void push_state(GameState* new_state);
+
+    // Removes top state, returning to the one below it (e.g., Battle ends -> back to Dungeon)
+    void pop_state();
+    void run();
+
+    // Getters for states to access models
+    DialogManager& get_dialogs();
+    MainPage& get_layout();
+    TimeCalendarManagers& get_calendar();
+    PlaceManagers& get_places();
+    QuestManager& get_quests();
+    PlayerManager& get_player_manager();
+    void quit();
+};

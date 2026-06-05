@@ -1,4 +1,5 @@
 #pragma once
+#include "Activity.hpp"
 #include <string>
 #include <vector>
 
@@ -8,7 +9,12 @@ class Place {
     private:
         std::string id;
         std::string name;
+        std::string on_first_enter_dialog;
+        std::string on_enter_dialog;
+        bool has_entered_before = false;
+
         std::vector<NPC*> present_npcs;
+        std::vector<Activity> activities;
         
         std::vector<std::string> walkable_place_ids;
         std::vector<Place*> walkable_places;
@@ -18,6 +24,19 @@ class Place {
 
         const std::string& get_id() const { return id; }
         const std::string& get_name() const { return name; }
+
+        void set_on_first_enter(std::string d) { on_first_enter_dialog = std::move(d); }
+        const std::string& get_on_first_enter() const { return on_first_enter_dialog; }
+
+        void set_on_enter(std::string d) { on_enter_dialog = std::move(d); }
+        const std::string& get_on_enter() const { return on_enter_dialog; }
+
+        bool get_has_entered() const { return has_entered_before; }
+        void set_has_entered(bool b) { has_entered_before = b; }
+
+        void add_activity(Activity a) { activities.push_back(std::move(a)); }
+        const std::vector<Activity>& get_activities() const { return activities; }
+        std::vector<Activity>& get_mutable_activities() { return activities; }
 
         void add_npc(NPC* npc) { present_npcs.push_back(npc); }
         void clear_npcs() { present_npcs.clear(); }

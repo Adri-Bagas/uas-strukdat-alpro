@@ -1,0 +1,10 @@
+{
+  "id": "day1_cs8",
+  "trigger": "ANOTHER_DIALOG",
+  "next_scene": "day1_cs9",
+  "nodes": [
+    { "type": 3, "npc_name": "Location", "value": "Depan Kedai Usang | Malam" },
+    { "type": 3, "npc_name": "Narrator", "value": "Di ujung sebuah gang buntu yang kumuh, matamu menangkap sebuah papan nama kayu yang sudah pudar dan miring. Tempat ini terlihat seperti kedai minum tua yang sudah lama dilupakan oleh penduduk kota." },
+    { "type": 3, "npc_name": "Narrator", "value": "Jendelanya berdebui tebal, dan pintunya sedikit reyot. Namun, ada asap tipis mengepul dari cerobongnya. Tempat ini buka. Tanpa ragu, kamu mendorong pintunya dan masuk ke dalam." }
+  ]
+}

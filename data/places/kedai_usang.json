@@ -1,0 +1,21 @@
+{
+  "id": "kedai_usang",
+  "name": "Kedai Usang",
+  "on_first_enter": "day1_cs9",
+  "on_enter": "",
+  "walkable": ["jalanan_kota", "kamar_loteng"],
+  "activities": [
+    {
+      "id": "minum_susu",
+      "name": "Minum Susu Segar",
+      "time_cost": 1,
+      "stamina_cost": -20,
+      "schedule": {
+        "days": [],
+        "phases": ["Evening", "Night"]
+      },
+      "req": { "quest": "", "min_str": 0, "locked": false },
+      "effect": { "gold": -5, "str": 0, "finish_quest": "" }
+    }
+  ]
+}

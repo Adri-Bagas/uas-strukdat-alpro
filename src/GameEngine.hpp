@@ -8,6 +8,7 @@
 #include "managers/PlaceManagers.hpp"
 #include "managers/QuestManagers.hpp"
 #include "managers/PlayerManager.hpp"
+#include "./db/DB.hpp"
 
 class GameEngine {
 private:
@@ -17,6 +18,7 @@ private:
     PlaceManagers places;
     QuestManager quests;
     PlayerManager player_manager;
+    DB db;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
     bool is_running = true;
@@ -37,5 +39,6 @@ public:
     PlaceManagers& get_places();
     QuestManager& get_quests();
     PlayerManager& get_player_manager();
+    DB& get_db();
     void quit();
 };

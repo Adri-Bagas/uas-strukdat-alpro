@@ -1,0 +1,12 @@
+{
+  "id": "day1_cs14",
+  "on_exit": "day_end",
+  "next_scene": "",
+  "nodes": [
+    { "type": 3, "npc_name": "Location", "value": "Kamar Loteng Kedai | Malam" },
+    { "type": 3, "npc_name": "Narrator", "value": "Arthur mengantarmu menaiki tangga kayu yang berderit menuju loteng kedainya." },
+    { "type": 3, "npc_name": "Narrator", "value": "Kamar itu kecil, berdebu, dan hanya diterangi sebatang lilin. Ada sebuah ranjang jerami usang di sudut ruangan." },
+    { "type": 1, "npc_name": "Arthur", "value": "Tidurlah. Hari ini sudah terlalu panjang untukmu. Besok pagi, kita mulai memikirkan cara membersihkan namamu sebelum Hakim Bangsawan itu tiba." },
+    { "type": 3, "npc_name": "Narrator", "value": "Kamu merebahkan diri di atas ranjang jerami. Rasa lelah yang luar biasa akhirnya mengalahkan tegangnya otot-ototmu. Tanganmu yang mengenakan Gelang Penjara Suci terasa berat. Di luar, suara angin malam menderu melewati celah jendela. Hitung mundur telah dimulai. Tersisa 13 hari lagi." }
+  ]
+}

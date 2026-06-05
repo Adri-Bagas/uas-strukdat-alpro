@@ -1,0 +1,12 @@
+{
+  "id": "day1_cs12",
+  "trigger": "ANOTHER_DIALOG",
+  "next_scene": "day1_cs13",
+  "nodes": [
+    { "type": 3, "npc_name": "Location", "value": "Kedai Usang | Malam" },
+    { "type": 3, "npc_name": "Narrator", "value": "Kamu menghela napas panjang, bersiap untuk diusir atau dilaporkan ke penjaga." },
+    { "type": 1, "npc_name": "Player", "value": "Dengar, aku bahkan baru tiba di kota ini kemarin petang. Aku kehabisan uang, minum di kedai murah, dan tiba-tiba terbangun di kandang kuda bersama mayat Walikota. Belati yang ada di sana bahkan bukan milikku." },
+    { "type": 3, "npc_name": "Narrator", "value": "Kamu menceritakan semuanya. Mulai dari penggerebekan yang terlalu cepat, senyum sinis Guildmaster, hingga sidang pengadilan 14 hari yang terasa seperti jebakan kematian." },
+    { "type": 1, "npc_name": "Player", "value": "Aku tidak tahu apa-apa. Aku dijebak." }
+  ]
+}

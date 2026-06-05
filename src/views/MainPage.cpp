@@ -42,8 +42,8 @@ void MainPage::create_windows() {
     w_col2 = col2_w;
     w_col3 = col3_w;
 
-    win_thought = newwin(max_y, left_w, 0, 0);
-    win_dialog = newwin(top_h, right_w, 0, left_w);
+    win_dialog = newwin(max_y, left_w, 0, 0);
+    win_thought = newwin(top_h, right_w, 0, left_w);
 
     win_stat = newwin(box_h, col1_w, top_h, left_w);
     win_hp = newwin(box_h, col1_w, top_h + box_h, left_w);
@@ -107,17 +107,17 @@ void MainPage::draw() {
     // 4. draw_title() : Draw title on top
     // 5. wnoutrefresh(): Send to virtual screen (NO FLICKER)
 
-    wbkgdset(win_thought, COLOR_PAIR(2));
-    werase(win_thought);
-    box(win_thought, 0, 0);
-    draw_title(win_thought, "Thoughts & Desc", w_left);
-    wnoutrefresh(win_thought);
-
     wbkgdset(win_dialog, COLOR_PAIR(2));
     werase(win_dialog);
     box(win_dialog, 0, 0);
-    draw_title(win_dialog, "In World Dialog", w_right);
+    draw_title(win_dialog, "In World Dialog", w_left);
     wnoutrefresh(win_dialog);
+
+    wbkgdset(win_thought, COLOR_PAIR(2));
+    werase(win_thought);
+    box(win_thought, 0, 0);
+    draw_title(win_thought, "Inner Monolog", w_right);
+    wnoutrefresh(win_thought);
 
     wbkgdset(win_stat, COLOR_PAIR(2));
     werase(win_stat);
@@ -161,8 +161,8 @@ MainPage::~MainPage() {
 }
 
 void MainPage::type_new_text(WINDOW* win, const char* title, int width, 
-                             const std::vector<std::string>& history, 
-                             const std::string& new_text) {
+                             const std::vector<DialogNode>& history, 
+                             const DialogNode& new_text) {
     if (!win) return;
     
     int max_y, max_x;
@@ -177,7 +177,7 @@ void MainPage::type_new_text(WINDOW* win, const char* title, int width,
 
     // 2. Pre-wrap the NEW text so we know how many lines it needs
     std::vector<std::string> new_lines;
-    std::stringstream ss_new(new_text);
+    std::stringstream ss_new(new_text.value);
     std::string word, line = "";
     while (ss_new >> word) {
         if (line.empty()) { line = word; } 
@@ -186,15 +186,18 @@ void MainPage::type_new_text(WINDOW* win, const char* title, int width,
     }
     if (!line.empty()) { new_lines.push_back(line); }
 
+    // Calculate entire incoming block height first
     int required_lines = new_lines.size();
+    bool has_name = (new_text.npc_name != "");
+    int total_new_block_lines = required_lines + (has_name ? 1 : 0);
 
-    // 3. Draw history, shifted up to make room for the new multi-line text
+    // 3. Draw history, shifted up to make room for the name AND new multi-line text
     if (!history.empty()) {
         std::vector<std::string> wrapped;
         
         // Quick wrap for history
         for (const auto& entry : history) {
-            std::stringstream ss(entry);
+            std::stringstream ss(entry.value);
             std::string w, l = "";
             while (ss >> w) {
                 if (l.empty()) { l = w; } 
@@ -204,14 +207,14 @@ void MainPage::type_new_text(WINDOW* win, const char* title, int width,
             if (!l.empty()) { wrapped.push_back(l); }
         }
 
-        // Calculate how many history lines we can still fit
-        int available_history_lines = (max_y - 2) - required_lines;
+        // Calculate how many history lines fit below top border and above new block
+        int available_history_lines = (max_y - 2) - total_new_block_lines;
         if (available_history_lines > 0) {
             int draw_count = std::min((int)wrapped.size(), available_history_lines); 
             int start_idx = wrapped.size() - draw_count;
             
-            // Push history up by the number of required_lines
-            int start_y = (max_y - 1) - required_lines - draw_count; 
+            // Push history up by total incoming content size
+            int start_y = (max_y - 1) - total_new_block_lines - draw_count; 
 
             for(int i = 0; i < draw_count; i++) {
                 mvwprintw(win, start_y + i, 2, "%s", wrapped[start_idx + i].c_str());
@@ -219,10 +222,17 @@ void MainPage::type_new_text(WINDOW* win, const char* title, int width,
         }
     }
 
-    // 4. The Multi-Line Animation Loop
-    flushinp(); // Clear buffer so player doesn't accidentally skip
+    // 4. Draw content layout blocks
+    int block_start_y = (max_y - 1) - total_new_block_lines;
+
+    // Print NPC name at absolute top of current dialog chunk
+    if (has_name) {
+        mvwprintw(win, block_start_y, 2, "%s", new_text.npc_name.c_str());
+    }
+
+    // Text animation starts directly below name block
+    int anim_start_y = block_start_y + (has_name ? 1 : 0);
     bool skipped = false;
-    int anim_start_y = (max_y - 1) - required_lines;
 
     for (size_t i = 0; i < new_lines.size(); ++i) {
         int current_y = anim_start_y + i;
@@ -244,22 +254,33 @@ void MainPage::type_new_text(WINDOW* win, const char* title, int width,
             doupdate();        
 
             // Fast forward skip
-            if (getch() != ERR) {
+            int ch = getch();
+            if (ch != ERR) {
                 skipped = true;
+                // REMOVED ungetch(ch); so skip key consumed
+                
                 // Instantly finish the current line
                 mvwprintw(win, current_y, 2, "%s", new_lines[i].c_str());
                 wnoutrefresh(win);
                 doupdate();
-                flushinp();
-                break; // Break the character loop, move to next line
+                break; // Break character loop, move to fast-forward next lines
             }
             
             napms(30); // Typing speed
         }
     }
+
+    // NEW: Wait for Space or Enter to continue
+    while (true) {
+        int ch = getch();
+        if (ch == '\n' || ch == ' ') {
+            break;
+        }
+        napms(10);
+    }
 }
 
-void MainPage::render_history(WINDOW* win, const std::vector<std::string>& history) {
+void MainPage::render_history(WINDOW* win, const std::vector<DialogNode>& history) {
     if (!win || history.empty()) return;
 
     int max_y, max_x;
@@ -270,7 +291,12 @@ void MainPage::render_history(WINDOW* win, const std::vector<std::string>& histo
     // 1. Word wrap all history
     std::vector<std::string> wrapped;
     for (const auto& entry : history) {
-        std::stringstream ss(entry);
+
+        if (!entry.npc_name.empty()) {
+            wrapped.push_back(entry.npc_name);
+        }
+
+        std::stringstream ss(entry.value);
         std::string word, line = "";
         while (ss >> word) {
             if (line.empty()) { line = word; } 
@@ -286,7 +312,7 @@ void MainPage::render_history(WINDOW* win, const std::vector<std::string>& histo
     int start_idx = num_lines - draw_count;
     
     // Calculate starting Y so the last line sits exactly at (max_y - 2)
-    int start_y = (max_y - 1) - draw_count; 
+    int start_y = (max_y - 2) - draw_count; 
 
     // 3. Draw text
     for (int i = 0; i < draw_count; ++i) {
@@ -346,12 +372,12 @@ void MainPage::draw_calendar(WINDOW* win, int days_left, int month, int day, std
 
     wnoutrefresh(win);
 }
-void MainPage::draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity) {
+void MainPage::draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity, int gold) {
     if (!win) return;
     int max_y, max_x;
     getmaxyx(win, max_y, max_x);
 
-    int start_y = (max_y - 6) / 2;
+    int start_y = (max_y - 8) / 2;
     if (start_y < 1) start_y = 1;
 
     mvwprintw(win, start_y,     2, "STR : %d", str);
@@ -364,12 +390,16 @@ void MainPage::draw_player_stats(WINDOW* win, int str, int cons, int agi, int in
     mvwprintw(win, start_y + 6, 2, "Affinity: %-8s", affinity.c_str());
     wattroff(win, COLOR_PAIR(4) | A_BOLD);
 
+    mvwhline(win, start_y - 7, 1, ACS_HLINE, max_x - 2);
+    mvwprintw(win, start_y + 8, 2, "Gold: %d G", gold);
+    // mvwhline(win, 2, 1, ACS_HLINE, max_x - 2);
+
     wnoutrefresh(win);
 }
 
 void draw_bar(WINDOW* win, int y, int x, int width, int current, int max, int color_pair) {
     float fill = (max > 0) ? (float) current / max : 0;
-    int filled_width = (width * fill) - 2;
+    int filled_width = width * fill;
     
     mvwprintw(win, y, x, "[");
     wattron(win, COLOR_PAIR(color_pair) | A_REVERSE);
@@ -385,26 +415,23 @@ void MainPage::draw_vitals(WINDOW* win, int hp, int max_hp, int mp, int max_mp, 
     int max_y, max_x;
     getmaxyx(win, max_y, max_x);
 
-    int bar_width = max_x - 15;
+    int bar_width = max_x - 20;
     if (bar_width < 5) bar_width = 5;
 
-    int start_y = (max_y - 3) / 2;
+    int start_y = (max_y - 8) / 2;
     if (start_y < 1) start_y = 1;
 
-    mvwprintw(win, start_y,     2, "HP "); draw_bar(win, start_y,     5, bar_width, hp, max_hp, 5); // Red
-    mvwprintw(win, start_y + 1, 2, "MP "); draw_bar(win, start_y + 1, 5, bar_width, mp, max_mp, 3); // Blue
-    mvwprintw(win, start_y + 2, 2, "ST "); draw_bar(win, start_y + 2, 5, bar_width, stamina, max_stamina, 4); // Yellow
+    mvwprintw(win, start_y,     2, "HP "); draw_bar(win, start_y,     5, bar_width, 50, max_hp, 5); // Red
+    mvwprintw(win, start_y + 1, 2, "MP "); draw_bar(win, start_y + 1, 5, bar_width, 25, max_mp, 3); // Blue
+    mvwprintw(win, start_y + 2, 2, "ST "); draw_bar(win, start_y + 2, 5, bar_width, 30, max_stamina, 4); // Yellow
 
     wnoutrefresh(win);
 }
 
-void MainPage::draw_inventory(WINDOW* win, const std::vector<std::string>& item_names, int gold) {
+void MainPage::draw_inventory(WINDOW* win, const std::vector<std::string>& item_names) {
     if (!win) return;
     int max_y, max_x;
     getmaxyx(win, max_y, max_x);
-
-    mvwprintw(win, 1, 2, "Gold: %d G", gold);
-    mvwhline(win, 2, 1, ACS_HLINE, max_x - 2);
 
     for (size_t i = 0; i < item_names.size() && (int)i < max_y - 4; ++i) {
         mvwprintw(win, 3 + i, 2, "- %s", item_names[i].c_str());
@@ -419,7 +446,7 @@ void MainPage::draw_tasks(WINDOW* win, const std::vector<std::string>& tasks) {
     getmaxyx(win, max_y, max_x);
 
     for (size_t i = 0; i < tasks.size() && (int)i < max_y - 2; ++i) {
-        mvwprintw(win, 1 + i, 2, "* %s", tasks[i].c_str());
+        mvwprintw(win, 1 + i, 2, "%s", tasks[i].c_str());
     }
 
     wnoutrefresh(win);

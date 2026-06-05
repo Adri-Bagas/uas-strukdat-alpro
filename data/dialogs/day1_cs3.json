@@ -1,0 +1,11 @@
+{
+  "id": "day1_cs3",
+  "trigger": "ANOTHER_DIALOG",
+  "next_scene": "day1_cs4",
+  "nodes": [
+    { "type": 3, "npc_name": "Location", "value": "Balai Kota | Siang" },
+    { "type": 3, "npc_name": "Narrator", "value": "Kamu diseret paksa melewati jalanan utama Nirva. Matahari baru mengintip, menciptakan bayangan panjang di antara bangunan bata. Warga kota menatap takut dari balik jendela kayu yang tertutup rapat. Berbulan-bulan ini, rumor ketegangan politik menguat: Walikota ingin menaikkan pajak jalur perdagangan, sementara Guildmaster menolak karena memonopoli ekonomi kota." },
+    { "type": 3, "npc_name": "Narrator", "value": "Di aula utama Balai Kota, cahaya pagi menembus kaca patri. Duduk bersandar di kursi berlapis beludru yang seharusnya milik Walikota, adalah sang Guildmaster. Penguasa kota Nirva sekarang. Tatapannya sedingin udara pagi ini." },
+    { "type": 1, "npc_name": "Guildmaster", "value": "Seorang petualang miskin yang putus asa membunuh Walikota demi kepingan emas. Cerita klasik. Hukum Nirva tidak mengizinkan main hakim sendiri. Hakim Bangsawan dari ibukota baru akan tiba dalam 14 hari. Peraturan melarang eksekusi sebelum beliau datang." }
+  ]
+}

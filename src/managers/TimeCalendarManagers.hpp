@@ -23,4 +23,7 @@ class TimeCalendarManagers {
     int getDay();
 
     int getMonth();
+
+    void advanceTime(bool is_double);
+    void advanceDate();
 };

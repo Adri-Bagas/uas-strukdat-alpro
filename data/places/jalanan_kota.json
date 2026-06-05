@@ -1,0 +1,8 @@
+{
+  "id": "jalanan_kota",
+  "name": "Jalanan Kota Nirva",
+  "on_first_enter": "day1_cs7",
+  "on_enter": "",
+  "walkable": ["kandang_kuda", "balai_kota", "alun_alun", "kedai_usang"],
+  "activities": []
+}

@@ -1,0 +1,14 @@
+{
+  "id": "day1_cs6",
+  "trigger": "ANOTHER_DIALOG",
+  "next_scene": "day1_cs7",
+  "nodes": [
+    { "type": 3, "npc_name": "Location", "value": "Alun-alun Kota Nirva | Siang" },
+    { "type": 3, "npc_name": "Narrator", "value": "Langkahmu terasa berat. Di sekeliling alun-alun, tatapan warga Nirva menusuk tajam ke arahmu. Gosip menyebar lebih cepat daripada wabah penyakit." },
+    { "type": 1, "npc_name": "Warga", "value": "Itu dia... pembunuh bayaran itu." },
+    { "type": 1, "npc_name": "Warga", "value": "Kudengar dia menggorok leher Walikota saat sedang tidur." },
+    { "type": 1, "npc_name": "Warga", "value": "Kenapa Guildmaster tidak langsung menggantungnya saja di tengah alun-alun?" },
+    { "type": 3, "npc_name": "Narrator", "value": "Bisik-bisik mereka terdengar jelas. Beberapa ibu menarik anak-anak mereka menjauh saat kamu lewat. Tatapan mereka penuh dengan penghakiman sepihak." },
+    { "type": 2, "npc_name": "", "value": "Di mata mereka, aku sudah mati. Aku tidak bisa berpikir jernih di tengah keramaian ini." }
+  ]
+}

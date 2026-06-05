@@ -1,0 +1,21 @@
+{
+  "id": "kandang_kuda",
+  "name": "Kandang Kuda",
+  "on_first_enter": "day1_start",
+  "on_enter": "",
+  "walkable": ["jalanan_kota"],
+  "activities": [
+    {
+      "id": "bersihkan_kandang",
+      "name": "Bersihkan Kandang Kuda",
+      "time_cost": 1,
+      "stamina_cost": 15,
+      "schedule": {
+        "days": [1, 2, 3, 4, 5, 6, 7],
+        "phases": ["Morning", "Afternoon"]
+      },
+      "req": { "quest": "", "min_str": 0, "locked": false },
+      "effect": { "gold": 10, "str": 1, "finish_quest": "" }
+    }
+  ]
+}

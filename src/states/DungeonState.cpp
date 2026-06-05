@@ -4,7 +4,7 @@
 DungeonState::DungeonState(GameEngine* eng) : GameState(eng) {}
 
 void DungeonState::on_enter() {
-    engine->get_dialogs().add_thought("The air here smells like rust.");
+    
 }
 
 void DungeonState::handle_input(int ch) {

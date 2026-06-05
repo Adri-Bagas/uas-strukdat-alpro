@@ -1,0 +1,21 @@
+{
+  "id": "alun_alun",
+  "name": "Alun-alun Kota Nirva",
+  "on_first_enter": "day1_cs5",
+  "on_enter": "",
+  "walkable": ["jalanan_kota"],
+  "activities": [
+    {
+      "id": "dengar_gosip",
+      "name": "Dengar Gosip Warga",
+      "time_cost": 1,
+      "stamina_cost": 5,
+      "schedule": {
+        "days": [],
+        "phases": ["Morning", "Afternoon", "Evening"]
+      },
+      "req": { "quest": "", "min_str": 0, "locked": false },
+      "effect": { "gold": 0, "str": 0, "finish_quest": "" }
+    }
+  ]
+}

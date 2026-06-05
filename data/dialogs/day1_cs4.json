@@ -1,0 +1,11 @@
+{
+  "id": "day1_cs4",
+  "trigger": "ANOTHER_DIALOG",
+  "next_scene": "day1_cs5",
+  "nodes": [
+    { "type": 3, "npc_name": "Location", "value": "Balai Kota | Siang" },
+    { "type": 3, "npc_name": "Narrator", "value": "Seorang Pendeta Gereja berjubah putih melangkah maju dari bayangan pilar batu. Gereja Cahaya biasanya netral, tapi sepertinya Guildmaster telah membayar mereka dengan harga mahal." },
+    { "type": 3, "npc_name": "Narrator", "value": "Pendeta itu mengunci sebuah gelang logam tebal berukir rune kuno ke pergelangan tanganmu. Rune itu menyala merah, membakar hawa dingin pagi ini, seolah meresap ke dalam aliran darahmu." },
+    { "type": 1, "npc_name": "Guildmaster", "value": "Gelang Penjara Suci. Sihir pengikat jiwa. Kamu bebas berjalan di dalam tembok kota dan area pinggiran untuk mencari pembelaan. Tapi jika kamu mencoba kabur melewati batas pilar suci kota, rune itu akan merebus darahmu dan membakarmu hidup-hidup." }
+  ]
+}

@@ -1,11 +1,41 @@
 #include "Popup.hpp"
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
-Popup::Popup(int h, int w) : target_h(h), target_w(w) {
-    y = (LINES - h) / 2;
-    x = (COLS - w) / 2;
-    win = newwin(2, 4, y + (h/2), x + (w/2));
+Popup::Popup(const std::string &text) {
+    int max_width = 50;
+    
+    // 1. Word wrap logic
+    std::stringstream ss(text);
+    std::string word, current_line = "";
+    int longest_line = 0;
+
+    while (ss >> word) {
+        if (current_line.empty()) {
+            current_line = word;
+        } else if (current_line.length() + 1 + word.length() <= (size_t)max_width) {
+            current_line += " " + word;
+        } else {
+            wrapped_lines.push_back(current_line);
+            longest_line = std::max(longest_line, (int)current_line.length());
+            current_line = word;
+        }
+    }
+    if (!current_line.empty()) {
+        wrapped_lines.push_back(current_line);
+        longest_line = std::max(longest_line, (int)current_line.length());
+    }
+
+    // 2. Calculate dynamic dimensions
+    target_h = wrapped_lines.size() + 4; // Top/bottom border + padding
+    target_w = longest_line + 6;         // Left/right border + padding
+    if (target_w < 20) target_w = 20;    // Minimum width
+
+    y = (LINES - target_h) / 2;
+    x = (COLS - target_w) / 2;
+    
+    win = newwin(2, 4, y + (target_h/2), x + (target_w/2));
     keypad(win, TRUE);
 }
 
@@ -18,26 +48,37 @@ void Popup::animate() {
         wresize(win, h, w);
         mvwin(win, y + (target_h - h) / 2, x + (target_w - w) / 2);
         werase(win); box(win, 0, 0); wrefresh(win);
-        napms(20);
+        napms(15);
     }
 }
 
-void Popup::type_text(const std::string& text) {
-    std::stringstream ss(text);
-    std::string line;
-    std::vector<std::string> lines;
-    while(std::getline(ss, line, '\n')) lines.push_back(line);
-
-    int start_y = (target_h - lines.size()) / 2;
-    for (const auto& l : lines) {
+void Popup::type_text() {
+    int start_y = (target_h - wrapped_lines.size()) / 2;
+    
+    for (const auto& l : wrapped_lines) {
         int start_x = (target_w - (int)l.length()) / 2;
         for (char c : l) {
             mvwaddch(win, start_y, start_x++, c);
             wrefresh(win);
-            napms(40);
+            
+            // Skip typing if key pressed
+            int ch = getch();
+            if (ch != ERR) {
+                // Instantly draw remaining characters in line
+                mvwprintw(win, start_y, (target_w - (int)l.length()) / 2, "%s", l.c_str());
+                wrefresh(win);
+                break;
+            }
+            napms(20);
         }
         start_y++;
     }
-    while (wgetch(win) != '\n');
+    
+    // Wait for Space or Enter
+    while (true) {
+        int ch = getch();
+        if (ch == '\n' || ch == ' ') break;
+        napms(10);
+    }
     werase(win); wrefresh(win);
 }

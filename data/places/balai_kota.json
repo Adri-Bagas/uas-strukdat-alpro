@@ -1,0 +1,8 @@
+{
+  "id": "balai_kota",
+  "name": "Balai Kota",
+  "on_first_enter": "day1_cs3",
+  "on_enter": "",
+  "walkable": ["jalanan_kota"],
+  "activities": []
+}

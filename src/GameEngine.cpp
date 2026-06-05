@@ -3,10 +3,21 @@
 #include "./states/GameState.hpp"
 #include "./views/MainPage.hpp"
 #include "states/TownState.hpp"
+#include "./utils/Logger.hpp"
+#include "./utils/components/ErrorPopup.hpp"
 #include <memory>
 #include <ncurses.h>
 
 void GameEngine::init() {
+    db.load_dialogs("data/dialogs");
+    db.load_places("data/places");
+
+    for (auto* p_const : db.get_all_places()) {
+        places.add_place(const_cast<Place*>(p_const));
+    }
+    places.resolve_connections();
+    places.set_current_place("kandang_kuda");
+
     setlocale(LC_ALL, "");
     initscr();
     cbreak();
@@ -20,7 +31,7 @@ void GameEngine::init() {
 
     start_color();
     init_pair(1, -1, -1);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);  // Stale Color
+    init_pair(2, COLOR_WHITE, COLOR_BLACK);  // Stale Color
     init_pair(3, COLOR_BLUE, COLOR_BLACK);   // Idk
     init_pair(4, COLOR_YELLOW, COLOR_BLACK); // Active Color
     init_pair(5, COLOR_RED, COLOR_BLACK);    // Danger Color
@@ -42,18 +53,28 @@ void GameEngine::pop_state() {
         state_stack.pop();
     }
 }
-
 void GameEngine::run() {
-    while (is_running && !state_stack.empty()) {
-        int ch = getch();
+    Logger::log("Engine: Starting run loop.");
+    try {
+        while (is_running && !state_stack.empty()) {
+            int ch = getch();
 
-        state_stack.top()->handle_input(ch);
-        state_stack.top()->update();
+            state_stack.top()->handle_input(ch);
+            state_stack.top()->update();
+            state_stack.top()->render();
 
-        state_stack.top()->render();
-        doupdate();
+            doupdate();
 
-        napms(24);
+            napms(24);
+        }
+    } catch (const std::exception& e) {
+        Logger::log("ENGINE FATAL EXCEPTION: " + std::string(e.what()));
+        ErrorPopup err("Unexpected Engine Error: " + std::string(e.what()));
+        err.show_fatal();
+    } catch (...) {
+        Logger::log("ENGINE FATAL EXCEPTION: Unknown error");
+        ErrorPopup err("Unexpected Engine Error: Unknown");
+        err.show_fatal();
     }
 }
 
@@ -79,6 +100,10 @@ QuestManager &GameEngine::get_quests() {
 
 PlayerManager &GameEngine::get_player_manager() {
     return player_manager;
+}
+
+DB &GameEngine::get_db() {
+    return db;
 }
 
 void GameEngine::quit() {

@@ -1,0 +1,11 @@
+{
+  "id": "day1_cs9",
+  "trigger": "ANOTHER_DIALOG",
+  "next_scene": "day1_cs10",
+  "nodes": [
+    { "type": 3, "npc_name": "Location", "value": "Kedai Usang | Malam" },
+    { "type": 3, "npc_name": "Narrator", "value": "Bunyi lonceng kecil bergemerincing saat pintu terbuka. Bagian dalam kedai ini remang-remang, sepi, dan berbau kayu pinus tua serta sisa bir semalam. Tidak ada pelanggan satupun." },
+    { "type": 3, "npc_name": "Narrator", "value": "Di balik meja bar kayu yang sudah tergores-gores, berdiri seorang pria paruh baya. Dia sedang mengelap gelas kaca dengan lap kain. Wajahnya datar, seolah tidak peduli dengan dunia luar. Dia bahkan tidak repot-repot menatap matamu saat kamu melangkah masuk." },
+    { "type": 2, "npc_name": "", "value": "Bagus. Orang tua ini sepertinya tidak peduli dengan urusan di luar sana. Mungkin dia bahkan belum mendengar berita pembunuhan itu." }
+  ]
+}

@@ -22,6 +22,7 @@ class MainPage {
                        const DialogNode& new_text);
     
     void render_history(WINDOW* win, const std::vector<DialogNode>& history);
+    void draw_choices(WINDOW* win, const std::vector<DialogChoice>& choices, int selected_idx);
     
     void draw_calendar(WINDOW* win, int days_left, int month, int day, std::string time);
     

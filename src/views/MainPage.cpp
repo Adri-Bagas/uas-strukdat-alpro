@@ -451,3 +451,29 @@ void MainPage::draw_tasks(WINDOW* win, const std::vector<std::string>& tasks) {
 
     wnoutrefresh(win);
 }
+
+void MainPage::draw_choices(WINDOW* win, const std::vector<DialogChoice>& choices, int selected_idx) {
+    if (!win) return;
+    int max_y, max_x;
+    getmaxyx(win, max_y, max_x);
+    
+    wbkgdset(win, COLOR_PAIR(2));
+    werase(win);
+    box(win, 0, 0);
+    draw_title(win, "Make Your Choice", max_x, 4);
+
+    int start_y = 2;
+    for (size_t i = 0; i < choices.size(); ++i) {
+        if (start_y + (int)i >= max_y - 2) break;
+        if ((int)i == selected_idx) {
+            wattron(win, A_REVERSE | COLOR_PAIR(4) | A_BOLD);
+            mvwprintw(win, start_y + (int)i, 2, "> %s", choices[i].text.c_str());
+            wattroff(win, A_REVERSE | COLOR_PAIR(4) | A_BOLD);
+        } else {
+            wattron(win, COLOR_PAIR(2));
+            mvwprintw(win, start_y + (int)i, 2, "  %s", choices[i].text.c_str());
+            wattroff(win, COLOR_PAIR(2));
+        }
+    }
+    wnoutrefresh(win);
+}

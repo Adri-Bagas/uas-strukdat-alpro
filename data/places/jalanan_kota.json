@@ -4,5 +4,18 @@
   "on_first_enter": "day1_cs7",
   "on_enter": "",
   "walkable": ["kandang_kuda", "balai_kota", "alun_alun", "kedai_usang"],
-  "activities": []
+  "activities": [
+    {
+      "id": "masuk_dungeon",
+      "name": "Masuk Dungeon (Maze)",
+      "time_cost": 1,
+      "stamina_cost": 10,
+      "schedule": {
+        "days": [],
+        "phases": []
+      },
+      "req": { "quest": "", "min_str": 0, "locked": false },
+      "effect": { "gold": 0, "str": 0, "finish_quest": "" }
+    }
+  ]
 }

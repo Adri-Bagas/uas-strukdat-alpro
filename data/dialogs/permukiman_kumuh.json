@@ -1,0 +1,170 @@
+[
+  {
+    "id": "hub_permukiman_kumuh",
+    "on_enter": [
+      "move_to_outskirts",
+      "set_time_siang",
+      "check_zona_kuning"
+    ],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kamu melangkah keluar dari tembok kota menuju kawasan tenda dan gubuk liar yang dihuni oleh para pekerja kasar dan korban pengusiran pajak tinggi serikat dagang Nirva."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Jalanannya berlumpur pekat. Gelang di pergelangan tanganmu mulai memancarkan pendaran rune merah redup dan terasa hangat—peringatan bahwa kamu sedang berada di Zona Kuning."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Di sudut jalan, seorang pria kurus bernama Bara terbatuk hebat sambil memegangi perutnya. Ia adalah salah satu warga yang dibuang oleh Valerius."
+      },
+      {
+        "type": 2,
+        "npc_name": "",
+        "value": "Jika aku bisa membantunya, mungkin warga di sini mau membuka mulut soal Valerius..."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Ajak Bara bicara",
+        "next_scene": "dialog_bara_01"
+      },
+      {
+        "text": "Kunjungi Black Market Silas",
+        "next_scene": "hub_pasar_gelap"
+      },
+      {
+        "text": "Kembali ke dalam kota Nirva",
+        "next_scene": "hub_alun_alun"
+      }
+    ]
+  },
+  {
+    "id": "dialog_bara_01",
+    "on_enter": [],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Bara menepis tanganmu saat kamu mencoba mendekat."
+      },
+      {
+        "type": 1,
+        "npc_name": "Bara",
+        "value": "Pergi! Kami tidak butuh mata-mata Valerius di sini!"
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Napasnya tersengal. Kamu melihat kondisi sekitarnya. Warga di sini kelaparan akibat blokade logistik yang diatur oleh serikat dagang Valerius."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Berikan Ransum Kering",
+        "condition": "item_ransum >= 1",
+        "next_scene": "dialog_bara_bantu"
+      },
+      {
+        "text": "Tinggalkan dia sementara",
+        "next_scene": "hub_permukiman_kumuh"
+      }
+    ]
+  },
+  {
+    "id": "dialog_bara_bantu",
+    "on_enter": [
+      "add_trust_warga_5",
+      "remove_item_ransum_1",
+      "set_quest_warga_miskin_progres"
+    ],
+    "on_exit": [
+      "add_item_dokumen_gudang_1",
+      "add_clue_count_1",
+      "consume_time_1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Bara menerima ransum tersebut dengan tangan gemetar. Ia segera membagikannya kepada anak-anak di dekat tenda kumuhnya."
+      },
+      {
+        "type": 1,
+        "npc_name": "Bara",
+        "value": "Kamu bukan anjing peliharaan Valerius... Sebagai gantinya, aku akan memberitahumu rahasianya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Bara menyerahkan sebuah buku catatan kumal."
+      },
+      {
+        "type": 1,
+        "npc_name": "Bara",
+        "value": "Itu log manipulasi pajak Valerius untuk menyuap Gereja. Kemarin malam, aku juga melihat Pasukan Gagak Hitam membuang sesuatu ke Reruntuhan Menara Tua di utara. Cek tempat itu kalau kau berani."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Selidiki Reruntuhan Menara Tua",
+        "next_scene": "hub_menara_tua"
+      },
+      {
+        "text": "Kembali ke dalam kota",
+        "next_scene": "hub_permukiman_kumuh"
+      }
+    ]
+  },
+  {
+    "id": "hub_alun_alun",
+    "on_enter": [
+      "move_to_alun_alun"
+    ],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kamu kembali ke Alun-alun Kota Nirva."
+      }
+    ],
+    "choices": []
+  },
+  {
+    "id": "hub_pasar_gelap",
+    "on_enter": [
+      "move_to_pasar_gelap"
+    ],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kamu memasuki area tersembunyi Pasar Gelap Silas."
+      }
+    ],
+    "choices": []
+  },
+  {
+    "id": "hub_menara_tua",
+    "on_enter": [
+      "move_to_menara_tua"
+    ],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kamu melangkah dengan hati-hati menuju Reruntuhan Menara Tua di utara."
+      }
+    ],
+    "choices": []
+  }
+]

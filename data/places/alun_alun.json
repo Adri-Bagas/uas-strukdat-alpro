@@ -16,6 +16,18 @@
       },
       "req": { "quest": "", "min_str": 0, "locked": false },
       "effect": { "gold": 0, "str": 0, "finish_quest": "" }
+    },
+    {
+      "id": "ke_permukiman_kumuh",
+      "name": "Pergi ke Permukiman Kumuh",
+      "time_cost": 0,
+      "stamina_cost": 0,
+      "schedule": {
+        "days": [],
+        "phases": []
+      },
+      "req": { "quest": "", "min_str": 0, "locked": false },
+      "effect": { "gold": 0, "str": 0, "finish_quest": "" }
     }
   ]
 }

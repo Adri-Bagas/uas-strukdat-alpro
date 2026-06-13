@@ -1,4 +1,5 @@
 #include "TownState.hpp"
+#include "DungeonState.hpp"
 #include "../utils/components/Popup.hpp"
 #include "../GameEngine.hpp" // Full include allowed in .cpp
 #include "../utils/Logger.hpp"
@@ -19,13 +20,7 @@ TownState::TownState(GameEngine* eng) : GameState(eng) {}
 
 void execute_dialog_action(GameEngine* engine, const std::string& action) {
     if (action.empty()) return;
-    
-    if (action == "move_to_tavern") {
-        engine->get_places().set_current_place("kedai_usang");
-    }
-    else if (action == "move_to_attic") {
-        engine->get_places().set_current_place("kamar_loteng");
-    }
+    engine->get_dialogs().execute_actions({action}, engine);
 }
 
 void TownState::on_enter() {
@@ -48,12 +43,7 @@ void TownState::on_enter() {
     if (!scene_id.empty()) {
         const DialogScene* scene = engine->get_db().get_dialog_scene(scene_id);
         if (scene) {
-            execute_dialog_action(engine, scene->on_start);
-            engine->get_dialogs().set_on_exit(scene->on_exit);
-            engine->get_dialogs().set_next_scene(scene->next_scene_id);
-            for (const auto& node : scene->nodes) {
-                engine->get_dialogs().queue_dialog(node);
-            }
+            engine->get_dialogs().start_scene(*scene, engine);
         } else {
             Logger::log("TownState ERROR: Entry scene '" + scene_id + "' not found!");
         }
@@ -63,11 +53,29 @@ void TownState::on_enter() {
 void TownState::handle_input(int ch) {
     if (ch == 'q') {
         engine->quit(); 
+        return;
     } 
     else if (ch == KEY_RESIZE) {
         engine->get_layout().resize();
+        return;
     }
-    else if (ch == KEY_UP || ch == 'w') {
+
+    if (engine->get_dialogs().has_active_choices()) {
+        int idx = engine->get_dialogs().get_selected_choice_index();
+        int count = engine->get_dialogs().get_active_choices().size();
+        if (ch == KEY_UP || ch == 'w') {
+            if (idx > 0) engine->get_dialogs().set_selected_choice_index(idx - 1);
+        }
+        else if (ch == KEY_DOWN || ch == 's') {
+            if (idx < count - 1) engine->get_dialogs().set_selected_choice_index(idx + 1);
+        }
+        else if (ch == '\n' || ch == ' ') {
+            engine->get_dialogs().select_choice(idx, engine);
+        }
+        return;
+    }
+
+    if (ch == KEY_UP || ch == 'w') {
         if (selection_index > 0) selection_index--;
     }
     else if (ch == KEY_DOWN || ch == 's') {
@@ -77,6 +85,28 @@ void TownState::handle_input(int ch) {
         if (selection_index >= 0 && selection_index < (int)current_activities.size()) {
             const auto& act = current_activities[selection_index];
             Logger::log("TownState: Executing activity " + act.id);
+            
+            if (act.id == "masuk_dungeon") {
+                engine->push_state(new DungeonState(engine));
+                return;
+            }
+
+            if (act.id.rfind("travel_", 0) == 0) {
+                std::string dest_id = act.id.substr(7);
+                engine->get_places().set_current_place(dest_id);
+                on_enter();
+                return;
+            }
+
+            if (act.id == "ke_permukiman_kumuh") {
+                const DialogScene* scene = engine->get_db().get_dialog_scene("hub_permukiman_kumuh");
+                if (scene) {
+                    engine->get_dialogs().start_scene(*scene, engine);
+                } else {
+                    Logger::log("TownState ERROR: hub_permukiman_kumuh scene not found!");
+                }
+                return;
+            }
             
             // Apply effects
             Player* p = engine->get_player_manager().get_player();
@@ -125,23 +155,21 @@ void TownState::update() {
             engine->get_dialogs().add_dialog(separator);
             engine->get_dialogs().add_thought(separator);
 
-            std::string exit_action = engine->get_dialogs().get_on_exit();
-            execute_dialog_action(engine, exit_action);
+            engine->get_dialogs().execute_actions(engine->get_dialogs().get_on_exit(), engine);
 
-            std::string next_id = engine->get_dialogs().get_next_scene();
-            if (!next_id.empty()) {
-                const DialogScene* next_scene = engine->get_db().get_dialog_scene(next_id);
-                if (next_scene) {
-                    execute_dialog_action(engine, next_scene->on_start);
-                    engine->get_dialogs().set_on_exit(next_scene->on_exit);
-                    engine->get_dialogs().set_next_scene(next_scene->next_scene_id);
-                    for (const auto& node : next_scene->nodes) {
-                        engine->get_dialogs().queue_dialog(node);
-                    }
-                }
+            if (engine->get_dialogs().has_pending_choices()) {
+                engine->get_dialogs().activate_choices(engine);
             } else {
-                engine->get_dialogs().set_on_exit("");
-                engine->get_dialogs().set_next_scene("");
+                std::string next_id = engine->get_dialogs().get_next_scene();
+                if (!next_id.empty()) {
+                    const DialogScene* next_scene = engine->get_db().get_dialog_scene(next_id);
+                    if (next_scene) {
+                        engine->get_dialogs().start_scene(*next_scene, engine);
+                    }
+                } else {
+                    engine->get_dialogs().set_on_exit({});
+                    engine->get_dialogs().set_next_scene("");
+                }
             }
         }
     }
@@ -179,6 +207,11 @@ void TownState::render() {
     );
 
     std::vector<std::string> item_names;
+    for (auto* item : p->get_inventory()) {
+        if (item) {
+            item_names.push_back(item->get_name());
+        }
+    }
     engine->get_layout().draw_inventory(engine->get_layout().win_menu, item_names);
 
     // 8. TASK LIST RENDER (Quests & Activities)
@@ -203,6 +236,20 @@ void TownState::render() {
                 display_list.push_back(prefix + act.name);
             }
         }
+
+        for (const auto* p_walkable : cur->get_walkable_places()) {
+            if (p_walkable) {
+                Activity travel_act;
+                travel_act.id = "travel_" + p_walkable->get_id();
+                travel_act.name = "Travel to " + p_walkable->get_name();
+                travel_act.time_cost = 0;
+                travel_act.stamina_cost = 0;
+
+                current_activities.push_back(travel_act);
+                std::string prefix = (selection_index == (int)display_list.size()) ? "> " : "  ";
+                display_list.push_back(prefix + travel_act.name);
+            }
+        }
     }
 
     for (auto& pair : engine->get_quests().get_all_quests()) {
@@ -217,5 +264,13 @@ void TownState::render() {
     auto dialog_log = engine->get_dialogs().get_dialog();
 
     engine->get_layout().render_history(engine->get_layout().win_thought, thoughts_log);
-    engine->get_layout().render_history(engine->get_layout().win_dialog, dialog_log);
+    if (engine->get_dialogs().has_active_choices()) {
+        engine->get_layout().draw_choices(
+            engine->get_layout().win_dialog,
+            engine->get_dialogs().get_active_choices(),
+            engine->get_dialogs().get_selected_choice_index()
+        );
+    } else {
+        engine->get_layout().render_history(engine->get_layout().win_dialog, dialog_log);
+    }
 }

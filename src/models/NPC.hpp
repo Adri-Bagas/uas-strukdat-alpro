@@ -4,6 +4,11 @@
 #include <unordered_map>
 #include "../enums/Element.hpp"
 
+enum class NPCType {
+    NAMED,
+    UNNAMED
+};
+
 class Entity {
 protected:
     std::string id;
@@ -62,29 +67,63 @@ public:
     bool is_dead() const { return hp <= 0; }
 };
 
+struct ScheduleEntry {
+    std::vector<int> days; // Empty means everyday
+    std::string phase;
+    std::string location_id;
+};
+
 class NPC : public Entity {
 private:
-    std::unordered_map<std::string, std::string> schedule; 
+    NPCType type;
     std::string role;
+    std::string faction;
+    std::string full_name; // Hidden full name with titles
     int trust_level;
+    
+    std::vector<ScheduleEntry> schedules; 
+    std::string default_dialog_id;
+    bool is_known = false;
 
     // For Quest Triggers
     std::vector<std::string> quest_ids;
 
 public:
-    NPC(std::string id, std::string name, std::string role) 
-        : Entity(std::move(id), std::move(name)), role(std::move(role)), trust_level(0) {}
+    NPC(std::string id, std::string name, NPCType type, std::string role, std::string faction = "Neutral") 
+        : Entity(std::move(id), std::move(name)), type(type), role(std::move(role)), faction(std::move(faction)), trust_level(0) {}
 
-    void set_location(const std::string& time_phase, const std::string& location) {
-        schedule[time_phase] = location;
+    NPCType get_type() const { return type; }
+    const std::string& get_role() const { return role; }
+    const std::string& get_faction() const { return faction; }
+    const std::string& get_full_name() const { return full_name; }
+    void set_full_name(std::string name) { full_name = std::move(name); }
+
+    bool known() const { return type == NPCType::UNNAMED || is_known; }
+    void reveal() { is_known = true; }
+
+    void add_schedule_entry(ScheduleEntry entry) {
+        schedules.push_back(std::move(entry));
     }
 
-    std::string get_location(const std::string& time_phase) {
-        if (schedule.find(time_phase) != schedule.end()) {
-            return schedule[time_phase];
+    std::string get_location(int day, const std::string& time_phase) const {
+        std::string fallback = "Unknown";
+        for (const auto& entry : schedules) {
+            if (entry.phase == time_phase) {
+                // Check if days match
+                if (entry.days.empty()) {
+                    fallback = entry.location_id; // Store as fallback if no specific day match found
+                } else {
+                    for (int d : entry.days) {
+                        if (d == day) return entry.location_id; // Exact day match found!
+                    }
+                }
+            }
         }
-        return "Unknown";
+        return fallback;
     }
+
+    void set_default_dialog(std::string dialog_id) { default_dialog_id = std::move(dialog_id); }
+    const std::string& get_default_dialog() const { return default_dialog_id; }
 
     void modify_trust(int amount) { trust_level += amount; }
     int get_trust() const { return trust_level; }
@@ -105,20 +144,24 @@ struct Loot {
 
 class Monster : public Entity {
 private:
+    std::string description;
     int base_damage;
     std::vector<Loot> loot_table;
 
 public:
-    Monster(std::string id, std::string name, int max_hp, int damage, int agility)
+    Monster(std::string id, std::string name, std::string desc, int max_hp, int damage, int agility)
         : Entity(std::move(id), std::move(name), 10, 10, agility, 10, 10), 
-          base_damage(damage) {
+          description(std::move(desc)), base_damage(damage) {
         this->max_hp = max_hp;
         this->hp = max_hp;
     }
 
+    const std::string& get_description() const { return description; }
+    int get_damage() const { return base_damage; }
+
     void add_loot(std::string item_id, int chance) {
         loot_table.push_back({std::move(item_id), chance});
     }
-
-    int get_damage() const { return base_damage; }
+    
+    const std::vector<Loot>& get_loot_table() const { return loot_table; }
 };

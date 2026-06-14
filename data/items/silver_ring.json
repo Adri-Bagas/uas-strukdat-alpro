@@ -1,0 +1,15 @@
+{
+  "id": "silver_ring",
+  "name": "Cincin Perak",
+  "description": "Cincin indah yang meningkatkan fokus mental.",
+  "type": "equipment",
+  "value": 200,
+  "equip_slot": "ring",
+  "equip_stats": {
+    "intl": 2,
+    "wis": 2
+  },
+  "on_use": [
+    "equip_item silver_ring"
+  ]
+}

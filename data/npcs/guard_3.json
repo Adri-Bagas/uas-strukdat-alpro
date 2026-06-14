@@ -1,0 +1,15 @@
+{
+  "id": "npc_guard_3",
+  "name": "Patroli Malam",
+  "full_name": "Prajurit Shift Malam",
+  "type": "unnamed",
+  "role": "Guard",
+  "faction": "Penjaga Kota",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "balai_kota" },
+    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
+    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Night", "location": "jalanan_utama_kota" }
+  ],
+  "default_dialog": "scene_guard_patrol_idle"
+}

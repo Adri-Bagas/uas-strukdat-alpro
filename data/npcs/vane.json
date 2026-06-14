@@ -1,0 +1,16 @@
+{
+  "id": "npc_vane",
+  "name": "Vane",
+  "full_name": "Lord Inquisitor Vane 'The Unbending'",
+  "type": "named",
+  "role": "Hakim Agung Ibukota",
+  "faction": "Imperial Throne",
+  "schedules": [
+    { "days": [14], "phase": "Morning", "location": "alun_alun" },
+    { "days": [], "phase": "Morning", "location": "balai_kota" },
+    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
+    { "days": [], "phase": "Evening", "location": "balai_kota" },
+    { "days": [], "phase": "Night", "location": "balai_kota" }
+  ],
+  "default_dialog": "scene_vane_idle"
+}

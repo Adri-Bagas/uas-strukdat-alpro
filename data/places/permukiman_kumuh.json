@@ -1,0 +1,12 @@
+{
+  "id": "permukiman_kumuh",
+  "name": "Permukiman Kumuh (Outskirts)",
+  "on_first_enter": "",
+  "on_enter": "",
+  "walkable": [
+    "jalanan_utama_kota",
+    "menara_tua",
+    "gua_tambang"
+  ],
+  "activities": []
+}

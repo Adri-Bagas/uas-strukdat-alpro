@@ -64,6 +64,13 @@ void Popup::type_text() {
             // Skip typing if key pressed
             int ch = getch();
             if (ch != ERR) {
+                if (ch == KEY_RESIZE) {
+                    resizeterm(0, 0);
+                    y = (LINES - target_h) / 2;
+                    x = (COLS - target_w) / 2;
+                    mvwin(win, y, x);
+                    refresh();
+                }
                 // Instantly draw remaining characters in line
                 mvwprintw(win, start_y, (target_w - (int)l.length()) / 2, "%s", l.c_str());
                 wrefresh(win);
@@ -74,10 +81,22 @@ void Popup::type_text() {
         start_y++;
     }
     
+    // Anti-skip: Flush any keys pressed during animation and add a tiny delay
+    napms(150);
+    flushinp();
+
     // Wait for Space or Enter
     while (true) {
         int ch = getch();
         if (ch == '\n' || ch == ' ') break;
+        if (ch == KEY_RESIZE) {
+            resizeterm(0, 0);
+            y = (LINES - target_h) / 2;
+            x = (COLS - target_w) / 2;
+            mvwin(win, y, x);
+            refresh();
+            wrefresh(win);
+        }
         napms(10);
     }
     werase(win); wrefresh(win);

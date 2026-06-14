@@ -1,9 +1,8 @@
 {
-  "id": "jalanan_kota",
-  "name": "Jalanan Kota Nirva",
-  "on_first_enter": "day1_cs7",
+  "id": "jalanan_utama_kota",
+  "name": "Jalanan Utama Kota Nirva",
+  "on_first_enter": "",
   "on_enter": "",
-  "walkable": ["kandang_kuda", "balai_kota", "alun_alun", "kedai_usang"],
   "activities": [
     {
       "id": "masuk_dungeon",
@@ -17,5 +16,12 @@
       "req": { "quest": "", "min_str": 0, "locked": false },
       "effect": { "gold": 0, "str": 0, "finish_quest": "" }
     }
+  ],
+  "walkable": [
+    "kandang_kuda",
+    "balai_kota",
+    "alun_alun",
+    "kedai_usang",
+    "permukiman_kumuh"
   ]
 }

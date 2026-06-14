@@ -1,0 +1,15 @@
+{
+  "id": "fire_ring",
+  "name": "Cincin Api",
+  "description": "Cincin merah yang membara, memberikan kekuatan api kepada pemakainya.",
+  "type": "equipment",
+  "value": 500,
+  "equip_slot": "ring",
+  "equip_stats": {
+    "intl": 3
+  },
+  "equip_affinity": "fire",
+  "on_use": [
+    "equip_item fire_ring"
+  ]
+}

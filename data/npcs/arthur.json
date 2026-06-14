@@ -1,0 +1,16 @@
+{
+  "id": "npc_arthur",
+  "name": "Arthur",
+  "full_name": "Arthur 'Silent Blade' Thorne",
+  "type": "named",
+  "role": "Pemilik Kedai",
+  "faction": "Neutral",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "kedai_usang" },
+    { "days": [], "phase": "Afternoon", "location": "kedai_usang" },
+    { "days": [], "phase": "Evening", "location": "kedai_usang" },
+    { "days": [], "phase": "Night", "location": "kamar_loteng" }
+  ],
+  "default_dialog": "scene_arthur_idle",
+  "quests": ["quest_stable_investigation"]
+}

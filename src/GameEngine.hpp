@@ -9,6 +9,7 @@
 #include "managers/QuestManagers.hpp"
 #include "managers/PlayerManager.hpp"
 #include "./db/DB.hpp"
+#include "actions/Actions.hpp"
 
 class GameEngine {
 private:
@@ -19,13 +20,15 @@ private:
     QuestManager quests;
     PlayerManager player_manager;
     DB db;
+    Action actions;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
     bool is_running = true;
 
 public:
+    GameEngine();
     void init(); // Setup ncurses, set initial state
-    
+
     void push_state(GameState* new_state);
 
     // Removes top state, returning to the one below it (e.g., Battle ends -> back to Dungeon)
@@ -40,5 +43,6 @@ public:
     QuestManager& get_quests();
     PlayerManager& get_player_manager();
     DB& get_db();
+    Action& get_actions();
     void quit();
 };

@@ -1,0 +1,15 @@
+{
+  "id": "npc_citizen_3",
+  "name": "Anak Jalanan",
+  "full_name": "Yatim Piatu Nirva",
+  "type": "unnamed",
+  "role": "Citizen",
+  "faction": "Commoners",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "alun_alun" },
+    { "days": [], "phase": "Afternoon", "location": "permukiman_kumuh" },
+    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Night", "location": "permukiman_kumuh" }
+  ],
+  "default_dialog": "scene_child_idle"
+}

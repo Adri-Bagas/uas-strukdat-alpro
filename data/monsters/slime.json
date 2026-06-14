@@ -1,0 +1,11 @@
+{
+  "id": "mon_slime",
+  "name": "Slime Lendir",
+  "description": "Makhluk kenyal yang sering mengganggu petualang pemula.",
+  "max_hp": 30,
+  "damage": 5,
+  "agility": 8,
+  "loot": [
+    {"item_id": "item_slime_gel", "chance": 80}
+  ]
+}

@@ -8,16 +8,9 @@
 #include <memory>
 #include <ncurses.h>
 
+GameEngine::GameEngine() : actions(this) {}
+
 void GameEngine::init() {
-    db.load_dialogs("data/dialogs");
-    db.load_places("data/places");
-
-    for (auto* p_const : db.get_all_places()) {
-        places.add_place(const_cast<Place*>(p_const));
-    }
-    places.resolve_connections();
-    places.set_current_place("kandang_kuda");
-
     setlocale(LC_ALL, "");
     initscr();
     cbreak();
@@ -27,14 +20,37 @@ void GameEngine::init() {
     nodelay(stdscr, TRUE);
     refresh();
 
-    page.resize();
-
     start_color();
+    use_default_colors();
     init_pair(1, -1, -1);
-    init_pair(2, COLOR_WHITE, COLOR_BLACK);  // Stale Color
-    init_pair(3, COLOR_BLUE, COLOR_BLACK);   // Idk
-    init_pair(4, COLOR_YELLOW, COLOR_BLACK); // Active Color
-    init_pair(5, COLOR_RED, COLOR_BLACK);    // Danger Color
+    init_pair(2, COLOR_WHITE, -1);  // Stale Color
+    init_pair(3, COLOR_BLUE, -1);   // Idk
+    init_pair(4, COLOR_YELLOW, -1); // Active Color
+    init_pair(5, COLOR_RED, -1);    // Danger Color
+
+    db.load_dialogs("data/dialogs");
+    db.load_places("data/places");
+    db.load_items("data/items"); // Load item data dari folder JSON
+    db.load_npcs("data/npcs");
+    db.load_monsters("data/monsters");
+    db.load_quests("data/quests");
+
+    for (auto* p_const : db.get_all_places()) {
+        places.add_place(const_cast<Place*>(p_const));
+    }
+    
+    for (auto* npc_const : db.get_all_npcs()) {
+        places.register_npc(const_cast<NPC*>(npc_const));
+    }
+
+    for (auto* q_const : db.get_all_quests()) {
+        quests.add_quest(const_cast<Quest*>(q_const));
+    }
+
+    places.resolve_connections();
+    places.set_current_place("kandang_kuda");
+
+    page.resize();
 
     player_manager.init_player("hero", "Nirva Hero");
 
@@ -104,6 +120,10 @@ PlayerManager &GameEngine::get_player_manager() {
 
 DB &GameEngine::get_db() {
     return db;
+}
+
+Action &GameEngine::get_actions() {
+    return actions;
 }
 
 void GameEngine::quit() {

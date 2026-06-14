@@ -1,6 +1,7 @@
 #pragma once
 #include "../models/Place.hpp"
 #include "../models/NPC.hpp"
+#include "../utils/components/Popup.hpp"
 #include "TimeCalendarManagers.hpp"
 #include "QuestManagers.hpp"
 #include <vector>
@@ -32,7 +33,13 @@ public:
     }
 
     void set_current_place(const std::string& id) {
-        current_place = get_place(id);
+        Place* target = get_place(id);
+        if (target && target != current_place) {
+            current_place = target;
+            Popup p {"Tiba di: " + current_place->get_name()};
+            p.animate();
+            p.type_text();
+        }
     }
 
     Place* get_current_place() const {
@@ -56,6 +63,9 @@ public:
         for (auto* p : current_place->get_walkable_places()) {
             if (p->get_id() == destination_id) {
                 current_place = p;
+                Popup pop {"Bepergian ke: " + current_place->get_name()};
+                pop.animate();
+                pop.type_text();
                 return true;
             }
         }
@@ -69,11 +79,12 @@ public:
         }
 
         std::string current_phase = calendar.getTimeString();
+        int current_day = calendar.getDay();
 
         // 2. Distribute NPCs
         for (auto* npc : npc_list) {
             // A. Scheduled Location
-            std::string scheduled_loc_id = npc->get_location(current_phase);
+            std::string scheduled_loc_id = npc->get_location(current_day, current_phase);
             Place* sched_place = get_place(scheduled_loc_id);
             if (sched_place) {
                 sched_place->add_npc(npc);

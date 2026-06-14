@@ -8,12 +8,10 @@
 class GameEngine;
 
 class DialogManager {
-    std::vector<DialogNode> thought_log;
-    std::vector<DialogNode> dialog_log;
     std::vector<DialogNode> pop_up_log;
+    std::vector<DialogNode> combined_log;
 
     std::queue<DialogNode> dialog_queue;
-
     std::vector<std::string> on_exit_actions;
     std::string next_scene_id;
 
@@ -26,9 +24,8 @@ class DialogManager {
 
 public:
     // Getters for the View
-    const std::vector<DialogNode>& get_thoughts() const { return thought_log; }
-    const std::vector<DialogNode>& get_dialog() const { return dialog_log; }
     const std::vector<DialogNode>& get_popup() const { return pop_up_log; }
+    const std::vector<DialogNode>& get_combined_log() const { return combined_log; }
 
     void add_thought(const DialogNode& text);
     void add_dialog(const DialogNode& text);

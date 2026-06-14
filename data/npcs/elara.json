@@ -1,0 +1,15 @@
+{
+  "id": "npc_elara",
+  "name": "Elara",
+  "full_name": "Elara 'The Truth-Seeker' Moonwhisper",
+  "type": "named",
+  "role": "Pendeta Muda / Pustakawan",
+  "faction": "Gereja Cahaya",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "balai_kota" },
+    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
+    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Night", "location": "jalanan_utama_kota" }
+  ],
+  "default_dialog": "scene_elara_idle"
+}

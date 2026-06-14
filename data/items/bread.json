@@ -1,0 +1,11 @@
+{
+  "id": "bread",
+  "name": "Roti Gandum",
+  "description": "Makanan sederhana untuk mengganjal perut.",
+  "type": "consumable",
+  "value": 5,
+  "on_use": [
+    "heal_hp 10",
+    "remove_item bread 1"
+  ]
+}

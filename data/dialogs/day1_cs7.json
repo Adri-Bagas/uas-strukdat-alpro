@@ -1,10 +1,18 @@
 {
   "id": "day1_cs7",
-  "trigger": "ANOTHER_DIALOG",
+  "on_enter": ["move_to_main_street", "set_time_evening"],
+  "on_exit": [],
   "next_scene": "day1_cs8",
   "nodes": [
-    { "type": 3, "npc_name": "Location", "value": "Jalanan Kota Nirva | Malam" },
-    { "type": 3, "npc_name": "Narrator", "value": "Kamu menundukkan kepala dan mempercepat langkah, menjauhi jalanan utama. Kamu berbelok dari satu gang sempit ke gang lainnya, menghindari rute patroli penjaga berseragam gagak hitam." },
-    { "type": 3, "npc_name": "Narrator", "value": "Perutmu berbunyi, dan kepalamu masih berdenyut sisa efek obat bius semalam. Kamu butuh tempat yang aman. Tempat di mana tidak ada mata yang mengawasi, setidaknya untuk mengumpulkan sisa tenagamu dan merencanakan langkah selanjutnya." }
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Kamu menundukkan kepala dan mempercepat langkah, menjauhi jalanan utama. Kamu berbelok dari satu gang sempit ke gang lainnya, menghindari rute patroli penjaga berseragam gagak hitam."
+    },
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Perutmu berbunyi, dan kepalamu masih berdenyut sisa efek obat bius semalam. Kamu butuh tempat yang aman. Tempat di mana tidak ada mata yang mengawasi, setidaknya untuk mengumpulkan sisa tenagamu dan merencanakan langkah selanjutnya."
+    }
   ]
 }

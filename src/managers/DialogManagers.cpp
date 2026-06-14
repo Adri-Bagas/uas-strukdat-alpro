@@ -4,16 +4,16 @@
 #include <sstream>
 
 void DialogManager::add_thought(const DialogNode &data) {
-    thought_log.push_back(data);
-    if (thought_log.size() > max_history) {
-        thought_log.erase(thought_log.begin());
+    combined_log.push_back(data);
+    if (combined_log.size() > max_history) {
+        combined_log.erase(combined_log.begin());
     }
 }
 
 void DialogManager::add_dialog(const DialogNode &data) {
-    dialog_log.push_back(data);
-    if (dialog_log.size() > max_history) {
-        dialog_log.erase(dialog_log.begin());
+    combined_log.push_back(data);
+    if (combined_log.size() > max_history) {
+        combined_log.erase(combined_log.begin());
     }
 }
 

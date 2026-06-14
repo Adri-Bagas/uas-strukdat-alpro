@@ -1,12 +1,31 @@
 {
   "id": "day1_start",
-  "on_exit": "",
+  "on_enter": [
+    "move_to_stable",
+    "set_time_morning"
+  ],
+  "on_exit": [],
   "next_scene": "day1_cs2",
   "nodes": [
-    { "type": 3, "npc_name": "Location", "value": "Kandang Kuda | Pagi" },
-    { "type": 3, "npc_name": "Narrator", "value": "Pagi buta di penghujung Musim Gugur. Kabut tebal masih menyelimuti jalanan batu kota perdagangan Nirva. Udara sedingin es." },
-    { "type": 3, "npc_name": "Narrator", "value": "Kamu terbangun di kandang kuda yang pengap, dengan kepala pusing dan bau kotoran hewan yang menusuk hidung. Kamu petualang pangkat rendah. Gagal menyelesaikan quest pembersihan slime di hutan pinggiran, kehabisan uang, dan terpaksa tidur di tempat menjijikkan ini. Nirva seharusnya hanya kota persinggahan." },
-    { "type": 3, "npc_name": "Narrator", "value": "Pakaianmu basah oleh embun dan lumpur. Saat mencoba bangkit, tanganmu menyentuh sesuatu yang lengket. Di sebelahmu, Walikota Nirva tergeletak kaku. Lehernya tergorok. Darah segar masih mengalir lambat ke tanah berlumpur. Belati perak berlumuran darah tergeletak tepat di samping tanganmu." },
-    { "type": 2, "npc_name": "", "value": "Tunggu... belati mahal ini bukan milikku. Aku bahkan tidak mampu beli pedang besi yang layak. Sial, apa yang sebenarnya terjadi semalam di kedai?" }
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Pagi buta di penghujung Musim Gugur. Kabut tebal masih menyelimuti jalanan batu kota perdagangan Nirva. Udara sedingin es."
+    },
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Kamu terbangun di kandang kuda yang pengap, dengan kepala pusing dan bau kotoran hewan yang menusuk hidung. Kamu petualang pangkat rendah. Gagal menyelesaikan quest pembersihan slime di hutan pinggiran, kehabisan uang, dan terpaksa tidur di tempat menjijikkan ini. Nirva seharusnya hanya kota persinggahan."
+    },
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Pakaianmu basah oleh embun dan lumpur. Saat mencoba bangkit, tanganmu menyentuh sesuatu yang lengket. Di sebelahmu, Walikota Nirva tergeletak kaku. Lehernya tergorok. Darah segar masih mengalir lambat ke tanah berlumpur. Belati perak berlumuran darah tergeletak tepat di samping tanganmu."
+    },
+    {
+      "type": 2,
+      "npc_name": "",
+      "value": "Tunggu... belati mahal ini bukan milikku. Aku bahkan tidak mampu beli pedang besi yang layak. Sial, apa yang sebenarnya terjadi semalam di kedai?"
+    }
   ]
 }

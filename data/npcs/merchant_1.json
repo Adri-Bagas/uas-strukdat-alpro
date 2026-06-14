@@ -1,0 +1,15 @@
+{
+  "id": "npc_merchant_1",
+  "name": "Pedagang Pasar",
+  "full_name": "Pedagang Sayur Lokal",
+  "type": "unnamed",
+  "role": "Merchant",
+  "faction": "Serikat Dagang",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "pasar_kota" },
+    { "days": [], "phase": "Afternoon", "location": "pasar_kota" },
+    { "days": [], "phase": "Evening", "location": "kedai_usang" },
+    { "days": [], "phase": "Night", "location": "pasar_kota" }
+  ],
+  "default_dialog": "scene_merchant_idle"
+}

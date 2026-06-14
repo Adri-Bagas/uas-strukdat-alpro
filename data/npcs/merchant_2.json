@@ -1,0 +1,15 @@
+{
+  "id": "npc_merchant_2",
+  "name": "Pedagang Asing",
+  "full_name": "Pedagang dari Ibukota",
+  "type": "unnamed",
+  "role": "Merchant",
+  "faction": "Independent",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "pasar_kota" },
+    { "days": [], "phase": "Afternoon", "location": "pasar_kota" },
+    { "days": [], "phase": "Evening", "location": "alun_alun" },
+    { "days": [], "phase": "Night", "location": "kedai_usang" }
+  ],
+  "default_dialog": "scene_merchant_foreign_idle"
+}

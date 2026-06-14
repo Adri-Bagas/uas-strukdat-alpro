@@ -1,0 +1,15 @@
+{
+  "id": "npc_garrick",
+  "name": "Garrick",
+  "full_name": "Captain Garrick of the Iron Guard",
+  "type": "named",
+  "role": "Kapten Penjaga",
+  "faction": "Penjaga Kota",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
+    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Night", "location": "balai_kota" }
+  ],
+  "default_dialog": "scene_garrick_idle"
+}

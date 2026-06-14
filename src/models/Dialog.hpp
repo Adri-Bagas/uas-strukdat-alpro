@@ -1,6 +1,7 @@
 #pragma once 
 #include <string>
 #include <vector>
+#include "Condition.hpp"
 
 struct DialogNode {
     std::string value;
@@ -10,8 +11,9 @@ struct DialogNode {
 
 struct DialogScene {
     std::string id;
+    Condition condition;
     std::vector<DialogNode> nodes;
-    std::string on_start;
-    std::string on_exit;
+    std::vector<std::string> on_enter;
+    std::vector<std::string> on_exit;
     std::string next_scene_id;
 };

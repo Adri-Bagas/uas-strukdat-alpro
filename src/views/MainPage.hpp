@@ -23,12 +23,14 @@ class MainPage {
     
     void render_history(WINDOW* win, const std::vector<DialogNode>& history);
     
-    void draw_calendar(WINDOW* win, int days_left, int month, int day, std::string time);
+    void draw_calendar(WINDOW* win, int days_left, int month, int day, std::string time, std::string location_name);
     
-    void draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity, int gold);
-    void draw_vitals(WINDOW* win, int hp, int max_hp, int mp, int max_mp, int stamina, int max_stamina);
+    void draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity, int gold, const std::vector<std::string>& equipped_info);
+    void draw_vitals(WINDOW* win, int hp, int max_hp, int mp, int max_mp);
     void draw_inventory(WINDOW* win, const std::vector<std::string>& item_names);
     void draw_tasks(WINDOW* win, const std::vector<std::string>& tasks);
+
+    bool is_initialized() const;
 
     ~MainPage();
 };

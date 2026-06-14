@@ -1,0 +1,15 @@
+{
+  "id": "npc_kael",
+  "name": "Kael",
+  "full_name": "High Priest Kaelen 'The Radiant' Lux",
+  "type": "named",
+  "role": "Pemilik Gereja Cahaya",
+  "faction": "Gereja Cahaya",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "balai_kota" },
+    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
+    { "days": [], "phase": "Evening", "location": "balai_kota" },
+    { "days": [], "phase": "Night", "location": "balai_kota" }
+  ],
+  "default_dialog": "scene_kael_idle"
+}

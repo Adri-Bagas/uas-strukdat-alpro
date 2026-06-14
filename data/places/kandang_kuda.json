@@ -3,19 +3,55 @@
   "name": "Kandang Kuda",
   "on_first_enter": "day1_start",
   "on_enter": "",
-  "walkable": ["jalanan_kota"],
+  "walkable": [
+    "jalanan_utama_kota"
+  ],
   "activities": [
     {
       "id": "bersihkan_kandang",
       "name": "Bersihkan Kandang Kuda",
       "time_cost": 1,
-      "stamina_cost": 15,
       "schedule": {
-        "days": [1, 2, 3, 4, 5, 6, 7],
+        "days": [],
         "phases": ["Morning", "Afternoon"]
       },
-      "req": { "quest": "", "min_str": 0, "locked": false },
-      "effect": { "gold": 10, "str": 1, "finish_quest": "" }
+      "req": {
+        "stats": {
+          "str": 5
+        },
+        "locked": false
+      },
+      "dialogs": {
+        "success": "Kamu menyapu kotoran kuda dengan cekatan. Melelahkan, tapi setidaknya kamu merasa lebih kuat.",
+        "fail": "Kamu terlalu lemas untuk mengangkat sekop besar ini. (Butuh STR 5)",
+        "locked": "Kandang ini sedang digunakan untuk kuda bangsawan, kamu tidak boleh masuk."
+      },
+      "on_execute": ["add_gold 10", "add_var str 1", "advance_time 1"]
+    },
+    {
+      "id": "investigasi_tkp",
+      "name": "Investigasi TKP",
+      "visible_condition": {
+        "type": "var_equal",
+        "key": "stable_clue_found",
+        "value": 0
+      },
+      "time_cost": 1,
+      "schedule": {
+        "days": [],
+        "phases": ["Morning", "Afternoon", "Evening"]
+      },
+      "req": {
+        "stats": {
+          "intl": 5
+        },
+        "locked": false
+      },
+      "dialogs": {
+        "success": "Kamu memeriksa tumpukan jerami dengan teliti. Di sana, kamu menemukan sobekan kain hitam dengan simbol burung gagak.",
+        "fail": "Matamu terlalu lelah untuk melihat detail kecil di kegelapan ini. (Butuh INT 5)"
+      },
+      "on_execute": ["set_var stable_clue_found 1", "advance_time 1"]
     }
   ]
 }

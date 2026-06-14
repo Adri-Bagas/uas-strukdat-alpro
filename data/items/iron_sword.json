@@ -1,0 +1,15 @@
+{
+  "id": "iron_sword",
+  "name": "Pedang Besi",
+  "description": "Senjata standar untuk petualang pemula.",
+  "type": "equipment",
+  "value": 100,
+  "equip_slot": "weapon",
+  "equip_stats": {
+    "str": 5,
+    "agi": -1
+  },
+  "on_use": [
+    "equip_item iron_sword"
+  ]
+}

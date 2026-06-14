@@ -1,0 +1,10 @@
+{
+  "id": "menara_tua",
+  "name": "Reruntuhan Menara Tua",
+  "on_first_enter": "",
+  "on_enter": "",
+  "walkable": [
+    "permukiman_kumuh"
+  ],
+  "activities": []
+}

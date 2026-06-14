@@ -1,0 +1,20 @@
+{
+  "id": "quest_stable_investigation",
+  "name": "Investigasi Kandang Kuda",
+  "description": "Cari bukti di TKP pembunuhan Walikota.",
+  "target_npc_id": "npc_arthur",
+  "start_scene_id": "scene_arthur_give_stable_quest",
+  "complete_scene_id": "scene_arthur_complete_stable_quest",
+  "unlock_condition": {
+    "type": "none"
+  },
+  "condition": {
+    "type": "var_equal",
+    "key": "stable_clue_found",
+    "value": 1
+  },
+  "on_complete": [
+    "add_gold 100",
+    "add_var clues_found 1"
+  ]
+}

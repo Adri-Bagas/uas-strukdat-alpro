@@ -1,0 +1,15 @@
+{
+  "id": "npc_citizen_4",
+  "name": "Pengemis Tua",
+  "full_name": "Mantan Penambang yang Terlupakan",
+  "type": "unnamed",
+  "role": "Citizen",
+  "faction": "Commoners",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Afternoon", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Night", "location": "permukiman_kumuh" }
+  ],
+  "default_dialog": "scene_beggar_idle"
+}

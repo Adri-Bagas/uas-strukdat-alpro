@@ -1,0 +1,15 @@
+{
+  "id": "npc_citizen_2",
+  "name": "Warga Biasa",
+  "full_name": "Penduduk Nirva yang Kelelahan",
+  "type": "unnamed",
+  "role": "Citizen",
+  "faction": "Commoners",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "pasar_kota" },
+    { "days": [], "phase": "Afternoon", "location": "pasar_kota" },
+    { "days": [], "phase": "Evening", "location": "alun_alun" },
+    { "days": [], "phase": "Night", "location": "jalanan_utama_kota" }
+  ],
+  "default_dialog": "scene_citizen_idle"
+}

@@ -1,11 +1,23 @@
 {
   "id": "day1_cs13",
-  "on_exit": "move_to_attic",
+  "on_enter": [],
+  "on_exit": ["reveal_name npc_arthur"],
   "next_scene": "day1_cs14",
   "nodes": [
-    { "type": 3, "npc_name": "Location", "value": "Kedai Usang | Malam" },
-    { "type": 3, "npc_name": "Narrator", "value": "Hening sejenak. Barkeep itu menatapmu dalam-dalam, mencari kebohongan di matamu. Lalu, dia menghela napas berat dan menyodorkannya sepiring kecil roti gandum ke sebelah gelas susumu." },
-    { "type": 1, "npc_name": "Arthur", "value": "Kota ini memang sudah busuk dari dalam sejak Guildmaster berkuasa. Orang jujur lebih cepat mati di Nirva. Jika ceritamu benar, kamu sedang melawan monster yang jauh lebih licik dari yang ada di dungeon." },
-    { "type": 1, "npc_name": "Arthur", "value": "Namaku Arthur. Gunakan kedai ini sebagai tempat persembunyianmu. Tidak ada penjaga yang mau repot-repot mampir ke tempat rongsok ini. Kita punya 14 hari, Nak. Mari kita cari tahu siapa yang sebenarnya memegang pisau itu." }
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Hening sejenak. Barkeep itu menatapmu dalam-dalam, mencari kebohongan di matamu. Lalu, dia menghela napas berat dan menyodorkannya sepiring kecil roti gandum ke sebelah gelas susumu."
+    },
+    {
+      "type": 1,
+      "npc_name": "???",
+      "value": "Kota ini memang sudah busuk dari dalam sejak Guildmaster berkuasa. Orang jujur lebih cepat mati di Nirva. Jika ceritamu benar, kamu sedang melawan monster yang jauh lebih licik dari yang ada di dungeon."
+    },
+    {
+      "type": 1,
+      "npc_name": "Arthur",
+      "value": "Namaku Arthur. Gunakan kedai ini sebagai tempat persembunyianmu. Tidak ada penjaga yang mau repot-repot mampir ke tempat rongsok ini. Kita punya 14 hari, Nak. Mari kita cari tahu siapa yang sebenarnya memegang pisau itu."
+    }
   ]
 }

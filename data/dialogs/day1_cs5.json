@@ -1,11 +1,28 @@
 {
   "id": "day1_cs5",
-  "trigger": "ANOTHER_DIALOG",
+  "on_enter": ["move_to_town_center"],
+  "on_exit": [],
   "next_scene": "day1_cs6",
   "nodes": [
-    { "type": 3, "npc_name": "Location", "value": "Alun-alun Kota Nirva | Siang" },
-    { "type": 3, "npc_name": "Narrator", "value": "Penjaga melepaskan ikatan tanganmu dan mendorongmu keluar dari Balai Kota. Pintu kayu jati tertutup rapat di belakangmu. Kamu kini berdiri sendirian di alun-alun kota Nirva. Lonceng menara berdentang menandakan pukul enam pagi." },
-    { "type": 2, "npc_name": "", "value": "Dia terlihat terlalu tenang. Pengamanan yang cepat, motif yang dipaksakan, dan sihir pembakar... dia sengaja mengurungku di sini sebagai kambing hitam yang sempurna sementara dia mengambil alih total kota ini." },
-    { "type": 3, "npc_name": "Narrator", "value": "Kamu tahu kamu dijebak. Hitung mundur dimulai. Kamu punya waktu 14 hari penuh untuk mencari bukti korupsinya, meyakinkan warga, dan membalikkan keadaan di meja pengadilan. Jika gagal, tiang gantungan sudah menanti." }
+    {
+      "type": 3,
+      "npc_name": "Location",
+      "value": "Alun-alun Kota Nirva | Siang"
+    },
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Penjaga melepaskan ikatan tanganmu dan mendorongmu keluar dari Balai Kota. Pintu kayu jati tertutup rapat di belakangmu. Kamu kini berdiri sendirian di alun-alun kota Nirva. Lonceng menara berdentang menandakan pukul enam pagi."
+    },
+    {
+      "type": 2,
+      "npc_name": "",
+      "value": "Dia terlihat terlalu tenang. Pengamanan yang cepat, motif yang dipaksakan, dan sihir pembakar... dia sengaja mengurungku di sini sebagai kambing hitam yang sempurna sementara dia mengambil alih total kota ini."
+    },
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Kamu tahu kamu dijebak. Hitung mundur dimulai. Kamu punya waktu 14 hari penuh untuk mencari bukti korupsinya, meyakinkan warga, dan membalikkan keadaan di meja pengadilan. Jika gagal, tiang gantungan sudah menanti."
+    }
   ]
 }

@@ -1,0 +1,17 @@
+{
+  "id": "npc_silas",
+  "name": "Silas",
+  "full_name": "Silas 'The Rat' Blackwater",
+  "type": "named",
+  "role": "Penyelundup Utama",
+  "faction": "Independent",
+  "schedules": [
+    { "days": [3, 7, 10], "phase": "Morning", "location": "menara_tua" },
+    { "days": [3, 7, 10], "phase": "Afternoon", "location": "gua_tambang" },
+    { "days": [], "phase": "Morning", "location": "permukiman_kumuh" },
+    { "days": [], "phase": "Afternoon", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Evening", "location": "permukiman_kumuh" },
+    { "days": [], "phase": "Night", "location": "permukiman_kumuh" }
+  ],
+  "default_dialog": "scene_silas_idle"
+}

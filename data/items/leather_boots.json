@@ -1,0 +1,14 @@
+{
+  "id": "leather_boots",
+  "name": "Sepatu Kulit",
+  "description": "Sepatu bot yang nyaman untuk perjalanan jauh.",
+  "type": "equipment",
+  "value": 40,
+  "equip_slot": "boots",
+  "equip_stats": {
+    "agi": 2
+  },
+  "on_use": [
+    "equip_item leather_boots"
+  ]
+}

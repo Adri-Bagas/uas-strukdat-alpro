@@ -1,13 +1,33 @@
 {
   "id": "day1_cs11",
-  "trigger": "ANOTHER_DIALOG",
+  "on_enter": [],
+  "on_exit": [],
   "next_scene": "day1_cs12",
   "nodes": [
-    { "type": 3, "npc_name": "Location", "value": "Kedai Usang | Malam" },
-    { "type": 3, "npc_name": "Narrator", "value": "Pria itu mengangguk pelan tanpa ekspresi. Dia berbalik, menuangkan susu putih dari teko tanah liat ke dalam gelas kayu, lalu menyodorkannya ke hadapanmu." },
-    { "type": 1, "npc_name": "Arthur", "value": "Ini." },
-    { "type": 3, "npc_name": "Narrator", "value": "Namun, saat tangannya melepaskan gelas, matanya tertuju pada pergelangan tanganmu. Cahaya merah redup dari ukiran rune Gelang Penjara Suci berpendar di ruangan yang remang ini. Ekspresi stoik pria itu mendadak retak. Tangannya berhenti di udara." },
-    { "type": 1, "npc_name": "Arthur", "value": "Itu... gelang kutukan Gereja." },
-    { "type": 1, "npc_name": "Arthur", "value": "Kamu... petualang yang dituduh membunuh Walikota pagi ini, kan?" }
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Pria itu mengangguk pelan tanpa ekspresi. Dia berbalik, menuangkan susu putih dari teko tanah liat ke dalam gelas kayu, lalu menyodorkannya ke hadapanmu."
+    },
+    {
+      "type": 1,
+      "npc_name": "???",
+      "value": "Ini."
+    },
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Namun, saat tangannya melepaskan gelas, matanya tertuju pada pergelangan tanganmu. Cahaya merah redup dari ukiran rune Gelang Penjara Suci berpendar di ruangan yang remang ini. Ekspresi stoik pria itu mendadak retak. Tangannya berhenti di udara."
+    },
+    {
+      "type": 1,
+      "npc_name": "???",
+      "value": "Itu... gelang kutukan Gereja."
+    },
+    {
+      "type": 1,
+      "npc_name": "???",
+      "value": "Kamu... petualang yang dituduh membunuh Walikota pagi ini, kan?"
+    }
   ]
 }

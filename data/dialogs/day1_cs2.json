@@ -1,11 +1,23 @@
 {
   "id": "day1_cs2",
-  "on_exit": "",
+  "on_enter": [],
+  "on_exit": [],
   "next_scene": "day1_cs3",
   "nodes": [
-    { "type": 3, "npc_name": "Location", "value": "Kandang Kuda | Pagi" },
-    { "type": 3, "npc_name": "Narrator", "value": "Sebelum kabut di kepalamu hilang, pintu kayu kandang didobrak kasar. Angin pagi yang membeku masuk. Dua penjaga berseragam lambang gagak hitam merangsek ke dalam dengan pedang terhunus. Lambang itu milik pasukan elit pribadi Guildmaster, bukan penjaga reguler kota." },
-    { "type": 1, "npc_name": "Penjaga", "value": "Jangan bergerak! Walikota telah tewas! Tangkap bedebah ini!" },
-    { "type": 2, "npc_name": "", "value": "Mereka bergerak terlalu cepat. Kandang ini jauh dari rute patroli utama. Mereka sudah tahu ada mayat di sini sebelum masuk. Melawan hanya akan membuatku mati di tempat." }
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Sebelum kabut di kepalamu hilang, pintu kayu kandang didobrak kasar. Angin pagi yang membeku masuk. Dua penjaga berseragam lambang gagak hitam merangsek ke dalam dengan pedang terhunus. Lambang itu milik pasukan elit pribadi Guildmaster, bukan penjaga reguler kota."
+    },
+    {
+      "type": 1,
+      "npc_name": "Penjaga",
+      "value": "Jangan bergerak! Walikota telah tewas! Tangkap bedebah ini!"
+    },
+    {
+      "type": 2,
+      "npc_name": "",
+      "value": "Mereka bergerak terlalu cepat. Kandang ini jauh dari rute patroli utama. Mereka sudah tahu ada mayat di sini sebelum masuk. Melawan hanya akan membuatku mati di tempat."
+    }
   ]
 }

@@ -1,8 +1,14 @@
 {
-  "id": "jalanan_kota",
-  "name": "Jalanan Kota Nirva",
-  "on_first_enter": "day1_cs7",
+  "id": "jalanan_utama_kota",
+  "name": "Jalanan Utama Kota Nirva",
+  "on_first_enter": "",
   "on_enter": "",
-  "walkable": ["kandang_kuda", "balai_kota", "alun_alun", "kedai_usang"],
+  "walkable": [
+    "kandang_kuda",
+    "balai_kota",
+    "alun_alun",
+    "kedai_usang",
+    "permukiman_kumuh"
+  ],
   "activities": []
 }

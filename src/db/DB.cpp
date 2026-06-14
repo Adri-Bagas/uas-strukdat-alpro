@@ -52,44 +52,76 @@ void DB::load_dialogs(const std::string& directory_path) {
                 json root;
                 file >> root;
 
-                auto parse_scene = [&](const json& j) {
+                auto parse_scene = [&](const json& scene_j) {
                     DialogScene scene;
-                    scene.id = j["id"].get<std::string>();
+                    scene.id = scene_j["id"].get<std::string>();
 
-                    if (j.contains("condition")) {
-                        scene.condition = parse_condition(j["condition"]);
+                    if (scene_j.contains("condition")) {
+                        scene.condition = parse_condition(scene_j["condition"]);
                     }
 
-                    if (j.contains("on_enter") && j["on_enter"].is_array()) {
-                        for (const auto& item : j["on_enter"]) {
-                            scene.on_enter.push_back(item.get<std::string>());
+                    std::vector<std::string> on_enter_list;
+                    std::string key_start = scene_j.contains("on_enter") ? "on_enter" : "on_start";
+                    if (scene_j.contains(key_start)) {
+                        const auto& start_val = scene_j[key_start];
+                        if (start_val.is_array()) {
+                            for (const auto& val : start_val) {
+                                if (val.is_string()) on_enter_list.push_back(val.get<std::string>());
+                            }
+                        } else if (start_val.is_string() && !start_val.get<std::string>().empty()) {
+                            on_enter_list.push_back(start_val.get<std::string>());
+                        }
+                    }
+                    scene.on_enter = on_enter_list;
+
+                    std::vector<std::string> on_exit_list;
+                    if (scene_j.contains("on_exit")) {
+                        const auto& exit_val = scene_j["on_exit"];
+                        if (exit_val.is_array()) {
+                            for (const auto& val : exit_val) {
+                                if (val.is_string()) on_exit_list.push_back(val.get<std::string>());
+                            }
+                        } else if (exit_val.is_string() && !exit_val.get<std::string>().empty()) {
+                            on_exit_list.push_back(exit_val.get<std::string>());
+                        }
+                    }
+                    scene.on_exit = on_exit_list;
+
+                    scene.next_scene_id = scene_j.value("next_scene", "");
+
+                    if (scene_j.contains("nodes")) {
+                        for (const auto& node_j : scene_j["nodes"]) {
+                            DialogNode node;
+                            node.type = node_j["type"].get<int>();
+                            node.npc_name = node_j.value("npc_name", "");
+                            node.value = node_j["value"].get<std::string>();
+                            scene.nodes.push_back(node);
                         }
                     }
 
-                    if (j.contains("on_exit") && j["on_exit"].is_array()) {
-                        for (const auto& item : j["on_exit"]) {
-                            scene.on_exit.push_back(item.get<std::string>());
+                    if (scene_j.contains("choices")) {
+                        for (const auto& choice_j : scene_j["choices"]) {
+                            DialogChoice choice;
+                            choice.text = choice_j["text"].get<std::string>();
+                            choice.condition = choice_j.value("condition", "");
+                            choice.next_scene = choice_j.value("next_scene", "");
+                            scene.choices.push_back(choice);
                         }
                     }
 
-                    scene.next_scene_id = j.value("next_scene", "");
-
-                    for (const auto& node_j : j["nodes"]) {
-                        DialogNode node;
-                        node.type = node_j["type"].get<int>();
-                        node.npc_name = node_j.value("npc_name", "");
-                        node.value = node_j["value"].get<std::string>();
-                        scene.nodes.push_back(node);
-                    }
-
-                    dialog_scenes[scene.id] = scene;
-                    Logger::log("DB: Registered scene '" + scene.id + "'");
+                    return scene;
                 };
 
                 if (root.is_array()) {
-                    for (const auto& scene_j : root) parse_scene(scene_j);
+                    for (const auto& scene_j : root) {
+                        DialogScene scene = parse_scene(scene_j);
+                        dialog_scenes[scene.id] = scene;
+                        Logger::log("DB: Registered scene '" + scene.id + "' from array");
+                    }
                 } else {
-                    parse_scene(root);
+                    DialogScene scene = parse_scene(root);
+                    dialog_scenes[scene.id] = scene;
+                    Logger::log("DB: Registered scene '" + scene.id + "'");
                 }
             } catch (const std::exception& e) {
                 Logger::log("DB ERROR: JSON parse failure in " + entry.path().string() + ": " + e.what());

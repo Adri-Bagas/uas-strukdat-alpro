@@ -81,5 +81,5 @@ list(REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
 
 add_executable(ftdd src/main.cpp src/GameEngine.cpp ${SOURCES})
 
-target_include_directories(ftdd PRIVATE ${CURSES_INCLUDE_DIRS} ${libvlcpp_SOURCE_DIR})
+target_include_directories(ftdd PRIVATE ${CURSES_INCLUDE_DIRS} ${CURSES_INCLUDE_DIRS}/ncursesw ${CURSES_INCLUDE_DIRS}/ncurses ${libvlcpp_SOURCE_DIR})
 target_link_libraries(ftdd PRIVATE nlohmann_json::nlohmann_json PkgConfig::VLC ${CURSES_LIBRARIES} ${MENU_LIBRARY} ${PANEL_LIBRARY})

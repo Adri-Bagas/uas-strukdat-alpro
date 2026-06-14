@@ -1,4 +1,5 @@
 #include "TownState.hpp"
+#include "DungeonState.hpp"
 #include "../utils/components/Popup.hpp"
 #include "../GameEngine.hpp" // Full include allowed in .cpp
 #include "../utils/Logger.hpp"
@@ -26,6 +27,9 @@ void TownState::on_enter() {
     if (!scene_id.empty()) {
         const DialogScene* scene = engine->get_db().get_dialog_scene(scene_id);
         if (scene) {
+//<<<<<<< feature/poor-citizens-quest
+            // engine->get_dialogs().start_scene(*scene, engine);
+//=======
             engine->get_dialogs().set_on_exit(scene->on_exit);
             engine->get_dialogs().set_next_scene(scene->next_scene_id);
             for (auto node : scene->nodes) {
@@ -38,6 +42,7 @@ void TownState::on_enter() {
                 }
                 engine->get_dialogs().queue_dialog(node);
             }
+//>>>>>>> bagas/core_mechanic
         } else {
             Logger::log("TownState ERROR: Entry scene '" + scene_id + "' not found!");
         }
@@ -51,11 +56,30 @@ void TownState::handle_input(int ch) {
 
     if (ch == 'q') {
         engine->quit(); 
+        return;
     } 
     else if (ch == KEY_RESIZE) {
         engine->get_layout().resize();
+        return;
     }
 
+    if (engine->get_dialogs().has_active_choices()) {
+        int idx = engine->get_dialogs().get_selected_choice_index();
+        int count = engine->get_dialogs().get_active_choices().size();
+        if (ch == KEY_UP || ch == 'w') {
+            if (idx > 0) engine->get_dialogs().set_selected_choice_index(idx - 1);
+        }
+        else if (ch == KEY_DOWN || ch == 's') {
+            if (idx < count - 1) engine->get_dialogs().set_selected_choice_index(idx + 1);
+        }
+        else if (ch == '\n' || ch == ' ') {
+            engine->get_dialogs().select_choice(idx, engine);
+        }
+        return;
+    }
+
+//<<<<<<< feature/poor-citizens-quest
+//=======
     // A. QUEST MENU MODE
     if (is_in_quest_menu) {
         int total_quest_options = available_quests.size() + 1; // +1 for Exit
@@ -119,6 +143,7 @@ void TownState::handle_input(int ch) {
     // B. STANDARD WORLD MODE
     int total_options = current_npcs.size() + current_activities.size() + current_exits.size();
 
+//>>>>>>> bagas/core_mechanic
     if (ch == KEY_UP || ch == 'w') {
         if (selection_index > 0) selection_index--;
     }
@@ -126,6 +151,35 @@ void TownState::handle_input(int ch) {
         if (selection_index < total_options - 1) selection_index++;
     }
     else if (ch == '\n' || ch == ' ') {
+// <<<<<<< feature/poor-citizens-quest
+//         if (selection_index >= 0 && selection_index < (int)current_activities.size()) {
+//             const auto& act = current_activities[selection_index];
+//             Logger::log("TownState: Executing activity " + act.id);
+            
+//             if (act.id == "masuk_dungeon") {
+//                 engine->push_state(new DungeonState(engine));
+//                 return;
+//             }
+
+//             if (act.id.rfind("travel_", 0) == 0) {
+//                 std::string dest_id = act.id.substr(7);
+//                 engine->get_places().set_current_place(dest_id);
+//                 on_enter();
+//                 return;
+//             }
+
+//             if (act.id == "ke_permukiman_kumuh") {
+//                 const DialogScene* scene = engine->get_db().get_dialog_scene("hub_permukiman_kumuh");
+//                 if (scene) {
+//                     engine->get_dialogs().start_scene(*scene, engine);
+//                 } else {
+//                     Logger::log("TownState ERROR: hub_permukiman_kumuh scene not found!");
+//                 }
+//                 return;
+//             }
+            
+//             // Apply effects
+// =======
         if (selection_index < 0) return;
 
         // 1. Check if NPC was selected
@@ -134,6 +188,7 @@ void TownState::handle_input(int ch) {
             Logger::log("TownState: Talking to " + interacting_npc->get_name());
 
             // Check for quests
+//>>>>>>> bagas/core_mechanic
             Player* p = engine->get_player_manager().get_player();
             engine->get_quests().check_npc_quests(interacting_npc, p);
             
@@ -242,6 +297,18 @@ void TownState::update() {
             DialogNode separator {"--------------------------------", "", 0};
             engine->get_dialogs().add_dialog(separator);
 
+// <<<<<<< feature/poor-citizens-quest
+//             engine->get_dialogs().execute_actions(engine->get_dialogs().get_on_exit(), engine);
+
+//             if (engine->get_dialogs().has_pending_choices()) {
+//                 engine->get_dialogs().activate_choices(engine);
+//             } else {
+//                 std::string next_id = engine->get_dialogs().get_next_scene();
+//                 if (!next_id.empty()) {
+//                     const DialogScene* next_scene = engine->get_db().get_dialog_scene(next_id);
+//                     if (next_scene) {
+//                         engine->get_dialogs().start_scene(*next_scene, engine);
+// =======
             std::vector<std::string> exit_actions = engine->get_dialogs().get_on_exit();
             for (const auto& action : exit_actions) {
                 engine->get_actions().execute(action);
@@ -259,11 +326,18 @@ void TownState::update() {
                             if (n_ptr && !n_ptr->known()) next_node.npc_name = "???";
                         }
                         engine->get_dialogs().queue_dialog(next_node);
+// >>>>>>> bagas/core_mechanic
                     }
+                } else {
+                    engine->get_dialogs().set_on_exit({});
+                    engine->get_dialogs().set_next_scene("");
                 }
+// <<<<<<< feature/poor-citizens-quest
+// =======
             } else {
                 engine->get_dialogs().set_on_exit({});
                 engine->get_dialogs().set_next_scene("");
+// >>>>>>> bagas/core_mechanic
             }
 
             if (interacting_npc) {
@@ -309,7 +383,17 @@ void TownState::render() {
     Place* cur_place = engine->get_places().get_current_place();
     if (cur_place) loc_name = cur_place->get_name();
 
+// <<<<<<< feature/poor-citizens-quest
+//     std::vector<std::string> item_names;
+//     for (auto* item : p->get_inventory()) {
+//         if (item) {
+//             item_names.push_back(item->get_name());
+//         }
+//     }
+//     engine->get_layout().draw_inventory(engine->get_layout().win_menu, item_names);
+// =======
     engine->get_layout().draw_calendar(engine->get_layout().win_cal, days_left, current_month, current_day, current_time, loc_name);
+// >>>>>>> bagas/core_mechanic
 
     // 7. CATEGORIZED MENU RENDER
     std::vector<std::string> menu_display;
@@ -372,6 +456,20 @@ void TownState::render() {
                 }
             }
         }
+
+        for (const auto* p_walkable : cur->get_walkable_places()) {
+            if (p_walkable) {
+                Activity travel_act;
+                travel_act.id = "travel_" + p_walkable->get_id();
+                travel_act.name = "Travel to " + p_walkable->get_name();
+                travel_act.time_cost = 0;
+                travel_act.stamina_cost = 0;
+
+                current_activities.push_back(travel_act);
+                std::string prefix = (selection_index == (int)display_list.size()) ? "> " : "  ";
+                display_list.push_back(prefix + travel_act.name);
+            }
+        }
     }
 
     if (engine->get_dialogs().has_queued_dialog()) {
@@ -388,6 +486,18 @@ void TownState::render() {
         if (q && (q->get_state() == QuestState::AVAILABLE || q->get_state() == QuestState::IN_PROGRESS)) info_display.push_back(" Q: " + q->get_name());
     }
 
+// <<<<<<< feature/poor-citizens-quest
+//     engine->get_layout().render_history(engine->get_layout().win_thought, thoughts_log);
+//     if (engine->get_dialogs().has_active_choices()) {
+//         engine->get_layout().draw_choices(
+//             engine->get_layout().win_dialog,
+//             engine->get_dialogs().get_active_choices(),
+//             engine->get_dialogs().get_selected_choice_index()
+//         );
+//     } else {
+//         engine->get_layout().render_history(engine->get_layout().win_dialog, dialog_log);
+//     }
+// =======
     info_display.push_back(""); info_display.push_back("--- Inventaris ---");
     for (const auto& pair : p->get_inventory()) {
         const std::string& item_id = pair.first; int amount = pair.second;
@@ -399,4 +509,5 @@ void TownState::render() {
     engine->get_layout().draw_tasks(engine->get_layout().win_task, info_display);
     auto dialog_log = engine->get_dialogs().get_combined_log();
     engine->get_layout().render_history(engine->get_layout().win_dialog, dialog_log);
+// >>>>>>> bagas/core_mechanic
 }

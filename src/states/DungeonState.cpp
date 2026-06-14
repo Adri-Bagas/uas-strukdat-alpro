@@ -257,8 +257,7 @@ void DungeonState::render() {
         mvprintw(5, panel_x, "Name:    %s", p->get_name().c_str());
         mvprintw(6, panel_x, "HP:      %d / %d", p->get_hp(), p->get_max_hp());
         mvprintw(7, panel_x, "MP:      %d / %d", p->get_mp(), p->get_max_mp());
-        mvprintw(8, panel_x, "Stamina: %d / %d", p->get_stamina(), p->get_max_stamina());
-        mvprintw(9, panel_x, "Gold:    %d GP", p->get_gold());
+        mvprintw(8, panel_x, "Gold:    %d GP", p->get_gold());
         attroff(COLOR_PAIR(2));
     }
 

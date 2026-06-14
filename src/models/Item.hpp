@@ -30,6 +30,7 @@ struct Item {
     std::vector<std::string> on_use;
     
 public:
+    Item() = default;
     Item(std::string id, std::string name, std::string description) : id(std::move(id)), name(std::move(name)), description(std::move(description)) {}
     
     const std::string& get_id() const { return id; }

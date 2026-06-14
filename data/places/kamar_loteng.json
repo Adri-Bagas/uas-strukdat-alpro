@@ -6,5 +6,19 @@
   "walkable": [
     "kedai_usang"
   ],
-  "activities": []
+  "activities": [
+    {
+      "id": "tidur",
+      "name": "Tidur",
+      "time_cost": 0,
+      "schedule": {
+        "days": [],
+        "phases": ["Morning", "Afternoon", "Evening"]
+      },
+      "dialogs": {
+        "success": "Kamu tidur dengan nyenyak. Seluruh tenagamu telah pulih."
+      },
+      "on_execute": ["heal_full", "advance_day"]
+    }
+  ]
 }

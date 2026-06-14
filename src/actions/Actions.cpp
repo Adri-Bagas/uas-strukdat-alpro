@@ -65,6 +65,20 @@ Action::Action(GameEngine* eng) : engine(eng) {
         }
     });
 
+    register_action("heal_full", [this](const std::string&) {
+        Player* p = engine->get_player_manager().get_player();
+        if (p) {
+            p->heal_hp(p->get_max_hp());
+            p->restore_mp(p->get_max_mp());
+            Logger::log("Action: Healed player to full HP and MP");
+        }
+    });
+
+    register_action("advance_day", [this](const std::string&) {
+        engine->get_calendar().advanceDate();
+        Logger::log("Action: Advanced to the next day");
+    });
+
     // Inventory Actions
     register_action("give_item", [this](const std::string& arg) {
         if (!arg.empty()) {

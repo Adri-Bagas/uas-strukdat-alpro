@@ -1,0 +1,10 @@
+{
+  "id": "potion_hp",
+  "name": "Health Potion",
+  "description": "Ramuan merah yang dapat menyembuhkan luka.",
+  "type": "consumable",
+  "value": 20,
+  "on_use": [
+    "add_hp 50"
+  ]
+}

@@ -14,18 +14,27 @@ Quest* QuestManager::get_quest(const std::string& id) {
     return nullptr;
 }
 
+std::vector<Quest*> QuestManager::get_available_quests_for_npc(const std::string& npc_id) {
+    std::vector<Quest*> found;
+    for (auto& pair : quests) {
+        Quest* q = pair.second;
+        if (q && q->get_target_npc_id() == npc_id && q->get_state() == QuestState::AVAILABLE) {
+            found.push_back(q);
+        }
+    }
+    return found;
+}
+
 std::unordered_map<std::string, Quest*>& QuestManager::get_all_quests() {
     return quests;
 }
 
-void QuestManager::check_npc_quests(const NPC* npc) {
-    if (!npc) return;
+void QuestManager::check_npc_quests(const NPC* npc, const Player* player) {
+    if (!npc || !player) return;
     for (const auto& q_id : npc->get_quests()) {
         Quest* q = get_quest(q_id);
         if (q) {
-            q->try_unlock();
-            // If AVAILABLE, show in UI dialog options.
-            // If IN_PROGRESS, show current objective dialog.
+            q->try_unlock(player);
         }
     }
 }

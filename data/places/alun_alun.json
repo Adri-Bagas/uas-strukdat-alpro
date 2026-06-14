@@ -1,9 +1,8 @@
 {
   "id": "alun_alun",
   "name": "Alun-alun Kota Nirva",
-  "on_first_enter": "day1_cs5",
+  "on_first_enter": "",
   "on_enter": "",
-  "walkable": ["jalanan_kota"],
   "activities": [
     {
       "id": "dengar_gosip",
@@ -16,6 +15,23 @@
       },
       "req": { "quest": "", "min_str": 0, "locked": false },
       "effect": { "gold": 0, "str": 0, "finish_quest": "" }
+    },
+    {
+      "id": "ke_permukiman_kumuh",
+      "name": "Pergi ke Permukiman Kumuh",
+      "time_cost": 0,
+      "stamina_cost": 0,
+      "schedule": {
+        "days": [],
+        "phases": []
+      },
+      "req": { "quest": "", "min_str": 0, "locked": false },
+      "effect": { "gold": 0, "str": 0, "finish_quest": "" }
     }
+  ],
+  "walkable": [
+    "jalanan_utama_kota",
+    "pasar_kota",
+    "balai_kota"
   ]
 }

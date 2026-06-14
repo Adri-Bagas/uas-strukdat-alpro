@@ -1,0 +1,15 @@
+{
+  "id": "npc_guard_1",
+  "name": "Penjaga Kota",
+  "full_name": "Prajurit Reguler Nirva",
+  "type": "unnamed",
+  "role": "Guard",
+  "faction": "Penjaga Kota",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "alun_alun" },
+    { "days": [], "phase": "Afternoon", "location": "kandang_kuda" },
+    { "days": [], "phase": "Evening", "location": "balai_kota" },
+    { "days": [], "phase": "Night", "location": "alun_alun" }
+  ],
+  "default_dialog": "scene_guard_idle"
+}

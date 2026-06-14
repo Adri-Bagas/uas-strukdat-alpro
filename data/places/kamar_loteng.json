@@ -1,21 +1,24 @@
 {
   "id": "kamar_loteng",
   "name": "Kamar Loteng Kedai",
-  "on_first_enter": "day1_cs14",
+  "on_first_enter": "",
   "on_enter": "",
-  "walkable": ["kedai_usang"],
+  "walkable": [
+    "kedai_usang"
+  ],
   "activities": [
     {
       "id": "tidur",
-      "name": "Tidur (Akhiri Hari)",
-      "time_cost": 4,
-      "stamina_cost": -100,
+      "name": "Tidur",
+      "time_cost": 0,
       "schedule": {
         "days": [],
-        "phases": ["Night"]
+        "phases": ["Morning", "Afternoon", "Evening"]
       },
-      "req": { "quest": "", "min_str": 0, "locked": false },
-      "effect": { "gold": 0, "str": 0, "finish_quest": "day_end" }
+      "dialogs": {
+        "success": "Kamu tidur dengan nyenyak. Seluruh tenagamu telah pulih."
+      },
+      "on_execute": ["heal_full", "advance_day"]
     }
   ]
 }

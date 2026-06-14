@@ -1,0 +1,15 @@
+{
+  "id": "npc_guard_2",
+  "name": "Penjaga Gerbang",
+  "full_name": "Penjaga Gerbang Selatan",
+  "type": "unnamed",
+  "role": "Guard",
+  "faction": "Penjaga Kota",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Afternoon", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
+    { "days": [], "phase": "Night", "location": "jalanan_utama_kota" }
+  ],
+  "default_dialog": "scene_guard_gate_idle"
+}

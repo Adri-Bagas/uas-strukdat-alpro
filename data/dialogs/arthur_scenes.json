@@ -1,0 +1,48 @@
+[
+  {
+    "id": "scene_arthur_idle",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Arthur",
+        "value": "Ah, kamu rupanya. Masih hidup rupanya setelah kejadian semalam."
+      }
+    ]
+  },
+  {
+    "id": "scene_arthur_give_stable_quest",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Arthur",
+        "value": "Dengar, mayat Walikota ditemukan di kandang kuda. Para penjaga bilang itu cuma kecelakaan, tapi aku tahu Valerius ada di balik ini."
+      },
+      {
+        "type": 1,
+        "npc_name": "Arthur",
+        "value": "Pergilah ke sana. Cari apa pun yang mereka lewatkan. Kalau kamu temukan sesuatu, beri tahu aku."
+      }
+    ],
+    "on_exit": ["accept_quest quest_stable_investigation"]
+  },
+  {
+    "id": "scene_arthur_complete_stable_quest",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Arthur",
+        "value": "Kau kembali. Apa yang kau temukan di kandang itu?"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku menemukan robekan kain ini di tumpukan jerami. Sepertinya seragam pasukan bayaran."
+      },
+      {
+        "type": 1,
+        "npc_name": "Arthur",
+        "value": "Gagak Hitam... Aku sudah menduganya. Kerja bagus. Simpan emas ini, kau akan membutuhkannya."
+      }
+    ]
+  }
+]

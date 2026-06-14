@@ -1,0 +1,15 @@
+{
+  "id": "npc_valerius",
+  "name": "Valerius",
+  "full_name": "Valerius 'The Black Crow' von Draken",
+  "type": "named",
+  "role": "Guildmaster / Penguasa Sementara",
+  "faction": "Gagak Hitam",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "balai_kota" },
+    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
+    { "days": [], "phase": "Evening", "location": "pasar_kota" },
+    { "days": [], "phase": "Night", "location": "balai_kota" }
+  ],
+  "default_dialog": "scene_valerius_idle"
+}

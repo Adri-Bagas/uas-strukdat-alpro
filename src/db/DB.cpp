@@ -4,66 +4,173 @@
 #include <nlohmann/json.hpp>
 #include "../utils/Logger.hpp"
 #include "../utils/components/ErrorPopup.hpp"
+#include "../enums/Element.hpp"
+#include "../models/Condition.hpp"
 
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
+/**
+ * Fungsi pembantu untuk memparsing objek "condition" dari JSON.
+ * Digunakan oleh Dialog, Quest, dan Activity untuk menentukan apakah sesuatu bisa muncul/selesai.
+ */
+Condition parse_condition(const json& j) {
+    Condition cond;
+    // Jika data kosong atau tidak punya tipe, anggap tidak ada syarat (NONE)
+    if (j.is_null() || !j.contains("type")) return cond;
+
+    std::string type_str = j["type"].get<std::string>();
+    
+    // Memetakan string dari JSON ke enum C++
+    if (type_str == "var_equal") cond.type = ConditionType::VAR_EQUAL;
+    else if (type_str == "var_greater_equal") cond.type = ConditionType::VAR_GREATER_EQUAL;
+    else if (type_str == "var_less_equal") cond.type = ConditionType::VAR_LESS_EQUAL;
+    else if (type_str == "has_item") cond.type = ConditionType::HAS_ITEM;
+    else if (type_str == "quest_state") cond.type = ConditionType::QUEST_STATE;
+
+    // Mengambil data tambahan seperti nama variabel (key) atau nilai target (value)
+    cond.key = j.value("key", "");
+    cond.value = j.value("value", 0);
+    cond.string_value = j.value("string_value", "");
+    return cond;
+}
+
 DB::DB() {}
 
+/**
+ * Memuat semua file dialog dari folder tertentu.
+ * Mendukung format satu file berisi satu scene ({}) atau satu file berisi banyak scene ([]).
+ */
 void DB::load_dialogs(const std::string& directory_path) {
-    Logger::log("DB: Starting to load dialogs from " + directory_path);
+    Logger::log("DB: Mulai memuat dialog dari " + directory_path);
 
     if (!fs::exists(directory_path)) {
-        Logger::log("DB FATAL: Directory " + directory_path + " not found!");
-        ErrorPopup err("Missing data folder: " + directory_path);
+        Logger::log("DB FATAL: Direktori " + directory_path + " tidak ditemukan!");
+        ErrorPopup err("Folder data hilang: " + directory_path);
         err.show_fatal();
         return;
     }
 
     for (const auto& entry : fs::directory_iterator(directory_path)) {
         if (entry.path().extension() == ".json") {
-            Logger::log("DB: Loading file " + entry.path().string());
+            Logger::log("DB: Membaca file " + entry.path().string());
             std::ifstream file(entry.path());
             if (!file.is_open()) {
-                Logger::log("DB ERROR: Could not open " + entry.path().string());
+                Logger::log("DB ERROR: Tidak bisa membuka " + entry.path().string());
                 continue;
             }
 
             try {
-                json j;
-                file >> j;
+                json root;
+                file >> root;
 
-                DialogScene scene;
-                scene.id = j["id"].get<std::string>();
+                // Lambda function untuk memproses satu objek DialogScene
+                auto parse_scene = [&](const json& scene_j) {
+                    DialogScene scene;
+                    scene.id = scene_j["id"].get<std::string>();
 
-                scene.on_start = j.value("on_start", "");
-                scene.on_exit = j.value("on_exit", "");
-                scene.next_scene_id = j.value("next_scene", "");
+                    // Parsing syarat munculnya dialog (opsional)
+                    if (scene_j.contains("condition")) {
+                        scene.condition = parse_condition(scene_j["condition"]);
+                    }
 
-                for (const auto& node_j : j["nodes"]) {
-                    DialogNode node;
-                    node.type = node_j["type"].get<int>();
-                    node.npc_name = node_j.value("npc_name", "");
-                    node.value = node_j["value"].get<std::string>();
-                    scene.nodes.push_back(node);
+                    // Parsing aksi saat dialog dimulai (on_start / on_enter)
+                    std::vector<std::string> on_start_list;
+                    std::string key_start = scene_j.contains("on_enter") ? "on_enter" : "on_start";
+                    if (scene_j.contains(key_start)) {
+                        const auto& start_val = scene_j[key_start];
+                        if (start_val.is_array()) {
+                            for (const auto& val : start_val) {
+                                if (val.is_string()) on_start_list.push_back(val.get<std::string>());
+                            }
+                        } else if (start_val.is_string() && !start_val.get<std::string>().empty()) {
+                            on_start_list.push_back(start_val.get<std::string>());
+                        }
+                    }
+                    scene.on_start = on_start_list;
+
+                    // Parsing aksi saat dialog selesai
+                    std::vector<std::string> on_exit_list;
+                    if (scene_j.contains("on_exit")) {
+                        const auto& exit_val = scene_j["on_exit"];
+                        if (exit_val.is_array()) {
+                            for (const auto& val : exit_val) {
+                                if (val.is_string()) on_exit_list.push_back(val.get<std::string>());
+                            }
+                        } else if (exit_val.is_string() && !exit_val.get<std::string>().empty()) {
+                            on_exit_list.push_back(exit_val.get<std::string>());
+                        }
+                    }
+                    scene.on_exit = on_exit_list;
+
+                    // ID scene berikutnya jika ada (rantaian otomatis)
+                    scene.next_scene_id = scene_j.value("next_scene", "");
+
+                    // Parsing isi percakapan (nodes)
+                    if (scene_j.contains("nodes")) {
+                        for (const auto& node_j : scene_j["nodes"]) {
+                            DialogNode node;
+                            node.type = node_j["type"].get<int>(); // 1: Dialog, 2: Pikiran, 3: Popup
+                            node.npc_name = node_j.value("npc_name", "");
+                            node.value = node_j["value"].get<std::string>();
+                            scene.nodes.push_back(node);
+                        }
+                    }
+
+                    // Parsing pilihan jawaban di akhir dialog (branching)
+                    if (scene_j.contains("choices")) {
+                        for (const auto& choice_j : scene_j["choices"]) {
+                            DialogChoice choice;
+                            choice.text = choice_j["text"].get<std::string>();
+                            choice.condition = choice_j.value("condition", ""); // Syarat munculnya pilihan ini
+                            choice.next_scene = choice_j.value("next_scene", ""); // Scene tujuan jika dipilih
+                            scene.choices.push_back(choice);
+                        }
+                    }
+
+                    return scene;
+                };
+
+                // Jika file berisi array [], proses tiap elemennya
+                if (root.is_array()) {
+                    for (const auto& scene_j : root) {
+                        DialogScene scene = parse_scene(scene_j);
+                        dialog_scenes[scene.id] = scene;
+                        Logger::log("DB: Terdaftar scene '" + scene.id + "' dari array");
+                    }
+                } else {
+                    // Jika hanya satu objek {}, proses langsung
+                    DialogScene scene = parse_scene(root);
+                    dialog_scenes[scene.id] = scene;
+                    Logger::log("DB: Terdaftar scene '" + scene.id + "'");
                 }
-
-                dialog_scenes[scene.id] = scene;
-                Logger::log("DB: Registered scene '" + scene.id + "'");
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: JSON parse failure in " + entry.path().string() + ": " + e.what());
+                Logger::log("DB ERROR: Gagal parse JSON di " + entry.path().string() + ": " + e.what());
             }
         }
     }
-    Logger::log("DB: Load complete.");
+    Logger::log("DB: Memuat dialog selesai.");
 }
 
+/**
+ * Mengambil data scene dialog berdasarkan ID.
+ */
+const DialogScene* DB::get_dialog_scene(const std::string& id) const {
+    auto it = dialog_scenes.find(id);
+    if (it != dialog_scenes.end()) return &(it->second);
+    return nullptr;
+}
+
+/**
+ * Memuat semua lokasi (places) dari folder JSON.
+ * Lokasi berisi koneksi antar wilayah (walkable) dan kegiatan (activities).
+ */
 void DB::load_places(const std::string& directory_path) {
-    Logger::log("DB: Starting to load places from " + directory_path);
+    Logger::log("DB: Mulai memuat lokasi dari " + directory_path);
 
     if (!fs::exists(directory_path)) {
-        Logger::log("DB FATAL: Directory " + directory_path + " not found!");
-        ErrorPopup err("Missing data folder: " + directory_path);
+        Logger::log("DB FATAL: Direktori " + directory_path + " tidak ditemukan!");
+        ErrorPopup err("Folder data hilang: " + directory_path);
         err.show_fatal();
         return;
     }
@@ -81,57 +188,314 @@ void DB::load_places(const std::string& directory_path) {
                 p.set_on_first_enter(j.value("on_first_enter", ""));
                 p.set_on_enter(j.value("on_enter", ""));
 
-                for (const auto& w_id : j["walkable"]) {
-                    p.add_walkable_id(w_id.get<std::string>());
+                // Memuat daftar ID lokasi yang bisa dikunjungi dari sini
+                if (j.contains("walkable") && j["walkable"].is_array()) {
+                    for (const auto& target_id : j["walkable"]) {
+                        p.add_walkable_id(target_id.get<std::string>());
+                    }
                 }
 
-                for (const auto& act_j : j["activities"]) {
-                    Activity act;
-                    act.id = act_j["id"].get<std::string>();
-                    act.name = act_j["name"].get<std::string>();
-                    act.time_cost = act_j.value("time_cost", 1);
-                    act.stamina_cost = act_j.value("stamina_cost", 0);
+                // Memuat semua kegiatan yang bisa dilakukan di lokasi ini
+                if (j.contains("activities") && j["activities"].is_array()) {
+                    for (const auto& act_j : j["activities"]) {
+                        Activity act;
+                        act.id = act_j["id"].get<std::string>();
+                        act.name = act_j["name"].get<std::string>();
+                        
+                        // Syarat apakah menu kegiatan ini muncul atau tidak
+                        if (act_j.contains("visible_condition")) {
+                            act.visible_condition = parse_condition(act_j["visible_condition"]);
+                        }
 
-                    const auto& sched = act_j["schedule"];
-                    for (int d : sched["days"]) act.days.push_back(d);
-                    for (const auto& ph : sched["phases"]) act.phases.push_back(ph.get<std::string>());
+                        act.time_cost = act_j.value("time_cost", 1);
 
-                    const auto& req = act_j["req"];
-                    act.req_quest = req.value("quest", "");
-                    act.min_str = req.value("min_str", 0);
-                    act.is_locked = req.value("locked", false);
+                        // Jadwal kegiatan (hari apa saja / fase waktu apa saja)
+                        const auto& sched = act_j["schedule"];
+                        if (sched.contains("days")) for (int d : sched["days"]) act.days.push_back(d);
+                        if (sched.contains("phases")) for (const auto& ph : sched["phases"]) act.phases.push_back(ph.get<std::string>());
 
-                    const auto& eff = act_j["effect"];
-                    act.reward_gold = eff.value("gold", 0);
-                    act.reward_str = eff.value("str", 0);
-                    act.finish_quest_id = eff.value("finish_quest", "");
+                        // Syarat statistik untuk melakukan kegiatan (misal butuh STR 5)
+                        if (act_j.contains("req")) {
+                            const auto& req = act_j["req"];
+                            if (req.contains("stats")) {
+                                for (auto& [stat, val] : req["stats"].items()) {
+                                    act.req_stats[stat] = val.get<int>();
+                                }
+                            }
+                            act.is_locked = req.value("locked", false);
+                        }
 
-                    p.add_activity(std::move(act));
+                        // Pesan popup yang muncul saat berhasil/gagal/terkunci
+                        if (act_j.contains("dialogs")) {
+                            const auto& d = act_j["dialogs"];
+                            act.dialog_success = d.value("success", "");
+                            act.dialog_fail = d.value("fail", "");
+                            act.dialog_locked = d.value("locked", "");
+                        }
+
+                        // Daftar aksi yang dieksekusi saat kegiatan dilakukan (reward/efek)
+                        if (act_j.contains("on_execute") && act_j["on_execute"].is_array()) {
+                            for (const auto& action : act_j["on_execute"]) {
+                                act.on_execute.push_back(action.get<std::string>());
+                            }
+                        }
+
+                        p.add_activity(std::move(act));
+                    }
                 }
 
                 places_db.emplace(p.get_id(), std::move(p));
-                Logger::log("DB: Registered place '" + j["id"].get<std::string>() + "'");
+                Logger::log("DB: Terdaftar lokasi '" + j["id"].get<std::string>() + "'");
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: JSON parse failure in place " + entry.path().string() + ": " + e.what());
+                Logger::log("DB ERROR: Gagal parse JSON di lokasi " + entry.path().string() + ": " + e.what());
             }
         }
     }
 }
 
+/**
+ * Mengambil pointer lokasi berdasarkan ID.
+ */
 const Place* DB::get_place(const std::string& id) const {
     auto it = places_db.find(id);
     if (it != places_db.end()) return &(it->second);
     return nullptr;
 }
 
+/**
+ * Mengambil daftar semua lokasi yang terdaftar.
+ */
 std::vector<const Place*> DB::get_all_places() const {
     std::vector<const Place*> all;
     for (auto& pair : places_db) all.push_back(&(pair.second));
     return all;
 }
 
-const DialogScene* DB::get_dialog_scene(const std::string& id) const {
-    auto it = dialog_scenes.find(id);
-    if (it != dialog_scenes.end()) return &(it->second);
+/**
+ * Memuat template item dari folder JSON.
+ * Item bisa berupa peralatan (equipment) atau barang konsumsi.
+ */
+void DB::load_items(const std::string& directory_path) {
+    Logger::log("DB: Mulai memuat item dari " + directory_path);
+    if (!fs::exists(directory_path)) return;
+
+    for (const auto& entry : fs::directory_iterator(directory_path)) {
+        if (entry.path().extension() == ".json") {
+            std::ifstream file(entry.path());
+            if (!file.is_open()) continue;
+            try {
+                json j;
+                file >> j;
+                Item item(j["id"].get<std::string>(), j["name"].get<std::string>(), j.value("description", ""));
+                item.value = j.value("value", 0);
+                item.equip_slot = j.value("equip_slot", ""); // "weapon", "armor", dll.
+                
+                // Bonus statistik saat item ini dipakai
+                item.equip_stats["str"] = j.value("str", 0);
+                item.equip_stats["cons"] = j.value("cons", 0);
+                item.equip_stats["agi"] = j.value("agi", 0);
+                item.equip_stats["intl"] = j.value("intl", 0);
+                item.equip_stats["wis"] = j.value("wis", 0);
+
+                // Aksi yang dijalankan saat item "digunakan" dari menu
+                if (j.contains("on_use") && j["on_use"].is_array()) {
+                    for (const auto& action : j["on_use"]) item.on_use.push_back(action.get<std::string>());
+                }
+
+                items_db.emplace(item.get_id(), std::move(item));
+                Logger::log("DB: Terdaftar item '" + j["id"].get<std::string>() + "'");
+            } catch (const std::exception& e) {
+                Logger::log("DB ERROR: Gagal parse JSON di item " + entry.path().string() + ": " + e.what());
+            }
+        }
+    }
+}
+
+/**
+ * Mengambil template item berdasarkan ID.
+ */
+const Item* DB::get_item(const std::string& id) const {
+    auto it = items_db.find(id);
+    if (it != items_db.end()) return &(it->second);
     return nullptr;
+}
+
+/**
+ * Memuat semua NPC dari folder JSON.
+ * Mendukung jadwal dinamis (schedules) dan daftar misi (quests) yang dimiliki NPC.
+ */
+void DB::load_npcs(const std::string& directory_path) {
+    Logger::log("DB: Mulai memuat NPC dari " + directory_path);
+    if (!fs::exists(directory_path)) return;
+
+    for (const auto& entry : fs::directory_iterator(directory_path)) {
+        if (entry.path().extension() == ".json") {
+            std::ifstream file(entry.path());
+            if (!file.is_open()) continue;
+            try {
+                json j;
+                file >> j;
+                
+                NPCType type = (j.value("type", "named") == "named") ? NPCType::NAMED : NPCType::UNNAMED;
+                NPC npc(j["id"].get<std::string>(), j["name"].get<std::string>(), type, j.value("role", ""), j.value("faction", "Neutral"));
+                npc.set_full_name(j.value("full_name", ""));
+                
+                // Memuat jadwal pergerakan NPC berdasarkan hari dan fase waktu
+                if (j.contains("schedules") && j["schedules"].is_array()) {
+                    for (auto& s_j : j["schedules"]) {
+                        ScheduleEntry entry_s;
+                        if (s_j.contains("days")) {
+                            for (int d : s_j["days"]) entry_s.days.push_back(d);
+                        }
+                        entry_s.phase = s_j.value("phase", "Morning");
+                        entry_s.location_id = s_j.value("location", "Unknown");
+                        npc.add_schedule_entry(std::move(entry_s));
+                    }
+                } else if (j.contains("schedule")) {
+                    // Fallback untuk format lama
+                    for (auto& [phase, place_id] : j["schedule"].items()) {
+                        ScheduleEntry entry_s;
+                        entry_s.phase = phase;
+                        entry_s.location_id = place_id.get<std::string>();
+                        npc.add_schedule_entry(std::move(entry_s));
+                    }
+                }
+                npc.set_default_dialog(j.value("default_dialog", ""));
+
+                // Daftar misi yang bisa dipicu lewat NPC ini
+                if (j.contains("quests") && j["quests"].is_array()) {
+                    for (const auto& q_id : j["quests"]) {
+                        npc.assign_quest_id(q_id.get<std::string>());
+                    }
+                }
+
+                npcs_db.emplace(npc.get_id(), std::move(npc));
+                Logger::log("DB: Terdaftar NPC '" + j["id"].get<std::string>() + "'");
+            } catch (const std::exception& e) {
+                Logger::log("DB ERROR: Gagal parse JSON di NPC " + entry.path().string() + ": " + e.what());
+            }
+        }
+    }
+}
+
+const NPC* DB::get_npc(const std::string& id) const {
+    auto it = npcs_db.find(id);
+    if (it != npcs_db.end()) return &(it->second);
+    return nullptr;
+}
+
+std::vector<const NPC*> DB::get_all_npcs() const {
+    std::vector<const NPC*> all;
+    for (auto& pair : npcs_db) all.push_back(&(pair.second));
+    return all;
+}
+
+/**
+ * Memuat template monster untuk sistem pertarungan.
+ */
+void DB::load_monsters(const std::string& directory_path) {
+    Logger::log("DB: Mulai memuat monster dari " + directory_path);
+    if (!fs::exists(directory_path)) return;
+
+    for (const auto& entry : fs::directory_iterator(directory_path)) {
+        if (entry.path().extension() == ".json") {
+            std::ifstream file(entry.path());
+            if (!file.is_open()) continue;
+            try {
+                json j;
+                file >> j;
+                
+                Monster mon(j["id"].get<std::string>(), j["name"].get<std::string>(), j.value("description", ""), 
+                            j.value("max_hp", 50), j.value("damage", 5), j.value("agility", 10));
+                
+                // Daftar item yang bisa dijatuhkan monster saat mati
+                if (j.contains("loot") && j["loot"].is_array()) {
+                    for (const auto& l_j : j["loot"]) {
+                        mon.add_loot(l_j["item_id"].get<std::string>(), l_j["chance"].get<int>());
+                    }
+                }
+
+                monsters_db.emplace(mon.get_id(), std::move(mon));
+                Logger::log("DB: Terdaftar monster '" + j["id"].get<std::string>() + "'");
+            } catch (const std::exception& e) {
+                Logger::log("DB ERROR: Gagal parse JSON di monster " + entry.path().string() + ": " + e.what());
+            }
+        }
+    }
+}
+
+const Monster* DB::get_monster(const std::string& id) const {
+    auto it = monsters_db.find(id);
+    if (it != monsters_db.end()) return &(it->second);
+    return nullptr;
+}
+
+std::vector<const Monster*> DB::get_all_monsters() const {
+    std::vector<const Monster*> all;
+    for (auto& pair : monsters_db) all.push_back(&(pair.second));
+    return all;
+}
+
+/**
+ * Memuat semua misi (quests) dari folder JSON.
+ * Misi memiliki syarat buka (unlock), syarat selesai (condition), dan rantaian dialog.
+ */
+void DB::load_quests(const std::string& directory_path) {
+    Logger::log("DB: Mulai memuat misi dari " + directory_path);
+    if (!fs::exists(directory_path)) return;
+
+    for (const auto& entry : fs::directory_iterator(directory_path)) {
+        if (entry.path().extension() == ".json") {
+            std::ifstream file(entry.path());
+            if (!file.is_open()) continue;
+            try {
+                json j;
+                file >> j;
+
+                Quest q(j["id"].get<std::string>(), j["name"].get<std::string>(), j.value("description", ""));
+                q.set_target_npc(j.value("target_npc_id", ""));
+                q.set_target_location(j.value("target_location", ""));
+                q.set_start_scene(j.value("start_scene_id", ""));
+                q.set_complete_scene(j.value("complete_scene_id", ""));
+
+                // Syarat agar misi ini bisa diambil oleh pemain
+                if (j.contains("unlock_condition")) {
+                    q.set_unlock_condition(parse_condition(j["unlock_condition"]));
+                }
+
+                // Syarat agar misi ini dianggap selesai (Progress tracking)
+                if (j.contains("condition")) {
+                    q.set_completion_condition(parse_condition(j["condition"]));
+                } else if (j.contains("completion_condition")) {
+                    q.set_completion_condition(parse_condition(j["completion_condition"]));
+                }
+
+                // Hadiah atau efek yang didapat saat misi ini diselesaikan
+                if (j.contains("on_complete") && j["on_complete"].is_array()) {
+                    std::vector<std::string> effects;
+                    for (const auto& effect : j["on_complete"]) {
+                        effects.push_back(effect.get<std::string>());
+                    }
+                    q.set_on_complete(std::move(effects));
+                }
+
+                quests_db.emplace(q.get_id(), std::move(q));
+                Logger::log("DB: Terdaftar misi '" + j["id"].get<std::string>() + "'");
+            } catch (const std::exception& e) {
+                Logger::log("DB ERROR: Gagal parse JSON di misi " + entry.path().string() + ": " + e.what());
+            }
+        }
+    }
+}
+
+const Quest* DB::get_quest(const std::string& id) const {
+    auto it = quests_db.find(id);
+    if (it != quests_db.end()) return &(it->second);
+    return nullptr;
+}
+
+std::vector<const Quest*> DB::get_all_quests() const {
+    std::vector<const Quest*> all;
+    for (auto& pair : quests_db) all.push_back(&(pair.second));
+    return all;
 }

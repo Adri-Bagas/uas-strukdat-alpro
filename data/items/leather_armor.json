@@ -1,0 +1,15 @@
+{
+  "id": "leather_armor",
+  "name": "Zirah Kulit",
+  "description": "Zirah ringan yang memberikan perlindungan dasar.",
+  "type": "equipment",
+  "value": 80,
+  "equip_slot": "armor",
+  "equip_stats": {
+    "cons": 3,
+    "agi": 1
+  },
+  "on_use": [
+    "equip_item leather_armor"
+  ]
+}

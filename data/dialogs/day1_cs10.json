@@ -1,12 +1,28 @@
 {
   "id": "day1_cs10",
-  "trigger": "ANOTHER_DIALOG",
+  "on_enter": [],
+  "on_exit": [],
   "next_scene": "day1_cs11",
   "nodes": [
-    { "type": 3, "npc_name": "Location", "value": "Kedai Usang | Malam" },
-    { "type": 3, "npc_name": "Narrator", "value": "Kamu menarik sebuah kursi kayu panjang dan duduk bersandar di meja bar. Otot-ototmu yang tegang perlahan mulai rileks." },
-    { "type": 3, "npc_name": "Narrator", "value": "Barkeep itu masih sibuk mengelap gelas yang sama." },
-    { "type": 1, "npc_name": "Arthur", "value": "Minum apa?" },
-    { "type": 1, "npc_name": "Player", "value": "Susu. Satu gelas susu segar. Kepalaku terlalu pusing untuk alkohol." }
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Kamu menarik sebuah kursi kayu panjang dan duduk bersandar di meja bar. Otot-ototmu yang tegang perlahan mulai rileks."
+    },
+    {
+      "type": 3,
+      "npc_name": "Narrator",
+      "value": "Barkeep itu masih sibuk mengelap gelas yang sama."
+    },
+    {
+      "type": 1,
+      "npc_name": "???",
+      "value": "Minum apa?"
+    },
+    {
+      "type": 1,
+      "npc_name": "Player",
+      "value": "Susu. Satu gelas susu segar. Kepalaku terlalu pusing untuk alkohol."
+    }
   ]
 }

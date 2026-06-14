@@ -1,0 +1,15 @@
+{
+  "id": "npc_acolyte_1",
+  "name": "Biarawan",
+  "full_name": "Biarawan Gereja Cahaya",
+  "type": "unnamed",
+  "role": "Cleric",
+  "faction": "Gereja Cahaya",
+  "schedules": [
+    { "days": [], "phase": "Morning", "location": "balai_kota" },
+    { "days": [], "phase": "Afternoon", "location": "alun_alun" },
+    { "days": [], "phase": "Evening", "location": "balai_kota" },
+    { "days": [], "phase": "Night", "location": "balai_kota" }
+  ],
+  "default_dialog": "scene_acolyte_idle"
+}

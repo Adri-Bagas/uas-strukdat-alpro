@@ -1,0 +1,221 @@
+[
+  {
+    "id": "start_day_2",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "cutscene_15",
+    "nodes": [
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Sinar mentari menghantam wajahku, memanggil dalam senja. Kabut musim gugur yang masuk ke dalam kamar ini... jika aku bisa hidup setiap hari seperti ini."
+      },
+      {
+        "type": 1,
+        "npc_name": "Hero",
+        "value": "Huuh~~"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Lega rasanya seperti tidak ada beban."
+      },
+      {
+        "type": 3,
+        "npc_name": "Sistem",
+        "value": "-BUGH-"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Suara hantaman keras terdengar dari bawah... Aku pun sadar bahwa dalam 13 hari lagi aku akan mati. Aku harus bergegas ke bawah."
+      }
+    ]
+  },
+  {
+    "id": "cutscene_15",
+    "on_start": [
+      "move_to_arthur_bar"
+    ],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Bagaimana, kau mau terima tawaran ku, Arthur?"
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "..."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Idealisme tidak bisa dipakai untuk membeli roti. Walikota sudah membusuk di tanah, dan lihat apa yang tersisa dari kotamu? Kekacauan."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Suka atau tidak, pasukanku adalah satu-satunya hal yang menahan kota ini agar tidak saling bantai."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "..."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Ah, aku tahu. Ini bukan soal kota, kan? Kau sengaja mempersulit diri... hanya karena wanita itu membenciku?"
+      },
+      {
+        "type": 3,
+        "npc_name": "Sistem",
+        "value": "-BUGH-  'DIAM KAU!!!'"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Sembunyi",
+        "next_scene": "cutscene_16"
+      },
+      {
+        "text": "Tampakan Diri",
+        "next_scene": "cutscene_17"
+      }
+    ]
+  },
+  {
+    "id": "cutscene_16",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dari balik tempat persembunyian, kau menahan napas. Jantungmu berdegup kencang, takut gesekan bajumu memicu perhatian mereka."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di tengah kedai, Arthur terengah-engah. Tinjunya masih mengepal, gemetar oleh amarah. Namun, Sang Guildmaster hanya menyeka sudut bibirnya yang sedikit berdarah dengan punggung tangan. Dia malah tersenyum—senyum dingin yang muak."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Pukulan yang bagus, Arthur. Tapi kepalan tangan tidak akan mengubah kenyataan."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Keluar dari kedaiku,"
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Aku akan keluar setelah kau sadar. Kau mengorbankan keamanan kota ini, membiarkan orang-orang kelaparan, hanya demi egomu. Demi ilusi bahwa kau masih punya peluang dengannya."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "KUBILANG DIAM! Jangan pernah kau sebut nama Lili dengan mulut busukmu itu!"
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sang Guildmaster tidak melawan. Dia justru menatap lurus ke mata Arthur, menikmati kehancuran emosional pria di depannya."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Kenyataan memang pahit, kawan. Pikirkan tawaranku sebelum pasukanku mengambil alih kota ini dengan paksa. Tanpa bantuanmu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Langkah kaki terdengar menjauh, diikuti suara pintu kedai yang tertutup keras. Suasana mendadak sunyi, hanya menyisakan suara napas Arthur yang berat dan frustrasi."
+      }
+    ],
+    "next_scene": "cutscene_18"
+  },
+  {
+    "id": "cutscene_17",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kau melangkah keluar dari bayang-bayang, menuruni tangga kayu yang berderit pelan. Langkahmu terhenti di anak tangga terakhir saat menyadari dua pasang mata kini tertuju padamu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di tengah ruangan, Arthur masih berdiri dengan napas memburu dan tinju gemetar, sementara sang Guild Master hanya menyeka darah di sudut bibirnya dengan saputangan."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Ah... Jadi ini alasan keduamu, Arthur? Sekarang kau membuka jasa merawat seorang kriminal?"
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Dia tidak ada hubungannya dengan urusan kita. Keluar dari sini."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Tentu saja ada hubungannya. Nikmati sisa hari-harimu di kedai ini, Nak. Dalam tiga belas hari, Hakim Agung akan tiba di kota ini."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Dan dia tidak akan pulang sebelum memastikan lehermu tergantung di tiang gantungan."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Pikirkan lagi tawaranku, Arthur. Selamatkan kotamu... atau selamatkan tikus kecilmu itu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pintu kedai tertutup dengan dentuman keras, meninggalkan keheningan yang mencekam di antara kau dan Arthur."
+      }
+    ],
+    "next_scene": "cutscene_19"
+  },
+  {
+    "id": "cutscene_18",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kau keluar dari balik tembok anak tangga, melangkah pelan agar tidak mengejutkan Arthur. Namun, derit lantai kayu tetap membuat pria itu menoleh dengan cepat."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Sejak kapan kau di sana? Kau... mendengar semuanya?"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kau terdiam sejenak, melihat kekacauan di kedai ini dan rahasia besar yang baru saja kau ketahui tentang masa lalu Arthur."
+      }
+    ]
+  },
+  {
+    "id": "cutscene_19",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Terima kasih karena tidak terpancing ucapan bajingan itu tadi. Dia sengaja memancingmu agar punya alasan untuk bertindak lebih cepat."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Tiga belas hari bukan waktu yang lama... Jadi, apa yang mau kau lakukan sekarang?"
+      }
+    ]
+  }
+]

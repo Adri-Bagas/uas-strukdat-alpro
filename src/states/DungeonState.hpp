@@ -1,17 +1,21 @@
 #pragma once
 #include "GameState.hpp"
+#include "../models/Dungeon.hpp"
 #include <vector>
+#include <ncurses.h>
 
 class DungeonState : public GameState {
 private:
-    int height;
-    int width;
-    std::vector<std::vector<int>> grid; // 1 = WALL, 0 = PASSAGE
-    int player_r, player_c;
-    int exit_r, exit_c;
+    Dungeon dungeon;
     bool has_won;
+    int active_tab; // 0 = Party, 1 = Map
 
-    void generate_maze();
+    std::vector<std::vector<int>> generate_maze_grid(int h, int w, int exit_r, int exit_c);
+    void update_visited(DungeonFloor& floor);
+
+    void render_thought_tabs();
+    void render_party_tab(WINDOW* win);
+    void render_map_tab(WINDOW* win, const DungeonFloor& floor);
 
 public:
     DungeonState(GameEngine* eng);
@@ -21,3 +25,4 @@ public:
     void render() override;
     void on_enter() override;
 };
+

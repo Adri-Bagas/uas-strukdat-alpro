@@ -2,7 +2,7 @@
 #include "Activity.hpp"
 #include <string>
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 class NPC;
 
@@ -17,8 +17,8 @@ class Place {
         std::vector<NPC*> present_npcs;
         std::vector<Activity> activities;
         
-        std::map<std::string, std::string> walkable_place_ids;
-        std::map<std::string, Place*> walkable_places;
+        std::unordered_map<std::string, std::string> walkable_place_ids;
+        std::unordered_map<std::string, Place*> walkable_places;
 
     public:
         Place(std::string id, std::string name) : id(std::move(id)), name(std::move(name)) {}
@@ -44,10 +44,10 @@ class Place {
         const std::vector<NPC*>& get_npcs() const { return present_npcs; }
 
         void add_walkable_id(const std::string& dir, const std::string& wid) { walkable_place_ids[dir] = wid; }
-        const std::map<std::string, std::string>& get_walkable_ids() const { return walkable_place_ids; }
+        const std::unordered_map<std::string, std::string>& get_walkable_ids() const { return walkable_place_ids; }
         
         void add_walkable_place(const std::string& dir, Place* p) { walkable_places[dir] = p; }
-        const std::map<std::string, Place*>& get_walkable_places() const { return walkable_places; }
+        const std::unordered_map<std::string, Place*>& get_walkable_places() const { return walkable_places; }
 
         ~Place() {}
 };

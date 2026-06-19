@@ -23,6 +23,18 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("move_to_arthur_bar", [this](const std::string&) {
         engine->get_places().set_current_place("kedai_usang");
     });
+    register_action("move_to_outskirts", [this](const std::string&) {
+        engine->get_places().set_current_place("permukiman_kumuh");
+    });
+    register_action("move_to_pasar_gelap", [this](const std::string&) {
+        engine->get_places().set_current_place("permukiman_kumuh"); // Placeholder
+    });
+    register_action("move_to_menara_tua", [this](const std::string&) {
+        engine->get_places().set_current_place("menara_tua");
+    });
+    register_action("move_to_alun_alun", [this](const std::string&) {
+        engine->get_places().set_current_place("alun_alun");
+    });
 
     // Time Actions
     register_action("set_time_morning", [this](const std::string&) {
@@ -33,6 +45,12 @@ Action::Action(GameEngine* eng) : engine(eng) {
     });
     register_action("set_time_evening", [this](const std::string&) {
         engine->get_calendar().setDayTime(EVENING);
+    });
+    register_action("set_time_siang", [this](const std::string&) {
+        engine->get_calendar().setDayTime(AFTERNOON);
+    });
+    register_action("check_zona_kuning", [this](const std::string&) {
+        engine->get_dialogs().queue_popup("Peringatan: Memasuki Zona Kuning!");
     });
 
     // Generic Activity Actions

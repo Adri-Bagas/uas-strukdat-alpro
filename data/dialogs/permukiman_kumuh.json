@@ -68,7 +68,11 @@
     "choices": [
       {
         "text": "Berikan Ransum Kering",
-        "condition": "item_ransum >= 1",
+        "condition": {
+          "type": "has_item",
+          "var_name": "ransum",
+          "value": 1
+        },
         "next_scene": "dialog_bara_bantu"
       },
       {
@@ -80,14 +84,14 @@
   {
     "id": "dialog_bara_bantu",
     "on_enter": [
-      "add_trust_warga_5",
-      "remove_item_ransum_1",
-      "set_quest_warga_miskin_progres"
+      "add_var trust_warga 5",
+      "remove_item ransum 1",
+      "accept_quest warga_miskin"
     ],
     "on_exit": [
-      "add_item_dokumen_gudang_1",
-      "add_clue_count_1",
-      "consume_time_1"
+      "give_item dokumen_gudang 1",
+      "add_var clue_count 1",
+      "advance_time 1"
     ],
     "nodes": [
       {

@@ -122,7 +122,9 @@ void DB::load_dialogs(const std::string& directory_path) {
                         for (const auto& choice_j : scene_j["choices"]) {
                             DialogChoice choice;
                             choice.text = choice_j["text"].get<std::string>();
-                            choice.condition = choice_j.value("condition", ""); // Syarat munculnya pilihan ini
+                            if (choice_j.contains("condition")) {
+                                choice.condition = parse_condition(choice_j["condition"]);
+                            }
                             choice.next_scene = choice_j.value("next_scene", ""); // Scene tujuan jika dipilih
                             scene.choices.push_back(choice);
                         }

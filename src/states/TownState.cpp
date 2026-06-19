@@ -89,10 +89,14 @@ void TownState::handle_input(int ch) {
     if (engine->get_dialogs().has_active_choices()) {
         int idx = engine->get_dialogs().get_selected_choice_index();
         int count = engine->get_dialogs().get_active_choices().size();
-        if (ch == KEY_UP || ch == 'w') {
-            if (idx > 0) engine->get_dialogs().set_selected_choice_index(idx - 1);
-        } else if (ch == KEY_DOWN || ch == 's') {
-            if (idx < count - 1) engine->get_dialogs().set_selected_choice_index(idx + 1);
+        if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
+            idx--;
+            if (idx < 0) idx = count - 1;
+            engine->get_dialogs().set_selected_choice_index(idx);
+        } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
+            idx++;
+            if (idx >= count) idx = 0;
+            engine->get_dialogs().set_selected_choice_index(idx);
         } else if (ch == '\n' || ch == ' ') {
             engine->get_dialogs().select_choice(idx, engine);
         }
@@ -230,10 +234,12 @@ void TownState::render() {
 
 void TownState::handle_quest_menu_input(int ch) {
     int total_quest_options = available_quests.size() + 1; 
-    if (ch == KEY_UP || ch == 'w') {
-        if (quest_selection_index > 0) quest_selection_index--;
-    } else if (ch == KEY_DOWN || ch == 's') {
-        if (quest_selection_index < total_quest_options - 1) quest_selection_index++;
+    if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
+        quest_selection_index--;
+        if (quest_selection_index < 0) quest_selection_index = total_quest_options - 1;
+    } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
+        quest_selection_index++;
+        if (quest_selection_index >= total_quest_options) quest_selection_index = 0;
     } else if (ch == '\n' || ch == ' ') {
         if (quest_selection_index == (int)available_quests.size()) {
             interacting_npc = nullptr; available_quests.clear(); is_in_quest_menu = false; selection_index = 0;
@@ -266,10 +272,12 @@ void TownState::handle_quest_menu_input(int ch) {
 void TownState::handle_map_menu_input(int ch) {
     if (map_places.empty()) return;
     
-    if (ch == KEY_UP || ch == 'w') {
-        if (map_selection_index > 0) map_selection_index--;
-    } else if (ch == KEY_DOWN || ch == 's') {
-        if (map_selection_index < (int)map_places.size() - 1) map_selection_index++;
+    if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
+        map_selection_index--;
+        if (map_selection_index < 0) map_selection_index = (int)map_places.size() - 1;
+    } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
+        map_selection_index++;
+        if (map_selection_index >= (int)map_places.size()) map_selection_index = 0;
     } else if (ch == '\n' || ch == ' ') {
         Place* cur = engine->get_places().get_current_place();
         Place* target = map_places[map_selection_index];
@@ -299,10 +307,14 @@ void TownState::handle_map_menu_input(int ch) {
 
 void TownState::handle_world_menu_input(int ch) {
     int total_options = current_npcs.size() + current_activities.size() + current_exits.size();
-    if (ch == KEY_UP || ch == 'w') {
-        if (selection_index > 0) selection_index--;
-    } else if (ch == KEY_DOWN || ch == 's') {
-        if (selection_index < total_options - 1) selection_index++;
+    if (total_options == 0) return;
+    
+    if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
+        selection_index--;
+        if (selection_index < 0) selection_index = total_options - 1;
+    } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
+        selection_index++;
+        if (selection_index >= total_options) selection_index = 0;
     } else if (ch == '\n' || ch == ' ') {
         if (selection_index < 0) return;
         if (selection_index < (int)current_npcs.size()) {

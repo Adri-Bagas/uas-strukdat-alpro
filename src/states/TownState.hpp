@@ -5,6 +5,9 @@
 #include "../models/Quest.hpp"
 #include "../models/Place.hpp"
 #include <vector>
+#include <memory>
+
+class ChoicePopup;
 
 class TownState : public GameState {
     int selection_index = 0;
@@ -22,6 +25,9 @@ class TownState : public GameState {
     bool is_in_map_mode = false;
     int map_selection_index = 0;
     std::vector<Place*> map_places;
+
+    // Choice Component
+    std::unique_ptr<ChoicePopup> current_choice_popup;
 
 private:
     // --- Input Helpers ---

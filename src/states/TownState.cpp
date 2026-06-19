@@ -76,7 +76,11 @@ void TownState::handle_input(int ch) {
     if (engine->get_dialogs().has_queued_dialog()) return;
 
     if (ch == 'q') { engine->quit(); return; } 
-    else if (ch == KEY_RESIZE) { engine->get_layout().resize(); return; }
+    else if (ch == KEY_RESIZE) { 
+        engine->get_layout().resize(); 
+        if (current_choice_popup) current_choice_popup.reset();
+        return; 
+    }
     else if (ch == '\t') { 
         is_in_map_mode = !is_in_map_mode; 
         return; 
@@ -199,18 +203,25 @@ void TownState::render() {
     engine->get_layout().draw_tasks(engine->get_layout().win_menu, menu_display);
 
     if (engine->get_dialogs().has_active_choices()) {
-        auto log = engine->get_dialogs().get_combined_log();
-        std::string latest_dialog = "(Sesuatu telah dikatakan)";
-        if (!log.empty()) {
-            latest_dialog = log.back().value;
-            if (!log.back().npc_name.empty()) {
-                latest_dialog = "[" + log.back().npc_name + "]: " + latest_dialog;
+        if (!current_choice_popup) {
+            auto log = engine->get_dialogs().get_combined_log();
+            std::string latest_dialog = "(Pilih Salah Satu)";
+            for (auto it = log.rbegin(); it != log.rend(); ++it) {
+                if (it->value != "--------------------------------") {
+                    latest_dialog = it->value;
+                    if (!it->npc_name.empty()) {
+                        latest_dialog = "[" + it->npc_name + "]: " + latest_dialog;
+                    }
+                    break;
+                }
             }
+            current_choice_popup = std::make_unique<ChoicePopup>(latest_dialog, engine->get_dialogs().get_active_choices(), engine->get_dialogs().get_selected_choice_index());
+        } else {
+            current_choice_popup->set_selected_index(engine->get_dialogs().get_selected_choice_index());
         }
-        
-        ChoicePopup cp(latest_dialog, engine->get_dialogs().get_active_choices(), engine->get_dialogs().get_selected_choice_index());
-        cp.render();
+        current_choice_popup->render();
     } else {
+        if (current_choice_popup) current_choice_popup.reset();
         render_sidebars(p);
     }
 }

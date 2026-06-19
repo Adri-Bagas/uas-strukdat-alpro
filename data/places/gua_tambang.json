@@ -3,8 +3,8 @@
   "name": "Gua Tambang Terabaikan",
   "on_first_enter": "",
   "on_enter": "",
-  "walkable": [
-    "permukiman_kumuh"
-  ],
+  "walkable": {
+    "north": "permukiman_kumuh"
+  },
   "activities": []
 }

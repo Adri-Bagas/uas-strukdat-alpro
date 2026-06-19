@@ -20,6 +20,9 @@ void GameEngine::init() {
     nodelay(stdscr, TRUE);
     refresh();
 
+    calendar.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
+    places.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
+
     start_color();
     use_default_colors();
     init_pair(1, -1, -1);
@@ -75,9 +78,28 @@ void GameEngine::run() {
         while (is_running && !state_stack.empty()) {
             int ch = getch();
 
-            state_stack.top()->handle_input(ch);
-            state_stack.top()->update();
+            if (ch == KEY_RESIZE) {
+                state_stack.top()->handle_input(ch);
+                if (active_popup) active_popup->handle_input(ch);
+            }
+
+            if (active_popup) {
+                if (ch != KEY_RESIZE) active_popup->handle_input(ch);
+                active_popup->update();
+                if (active_popup->is_dismissed()) {
+                    active_popup.reset();
+                }
+            } else if (dialogs.has_queued_popup()) {
+                active_popup = std::make_unique<Popup>(dialogs.pop_popup());
+            } else {
+                if (ch != KEY_RESIZE) state_stack.top()->handle_input(ch);
+                state_stack.top()->update();
+            }
+
             state_stack.top()->render();
+            if (active_popup) {
+                active_popup->render();
+            }
 
             doupdate();
 

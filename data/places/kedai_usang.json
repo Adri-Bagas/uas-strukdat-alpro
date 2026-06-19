@@ -3,9 +3,10 @@
   "name": "Kedai Usang",
   "on_first_enter": "",
   "on_enter": "",
-  "walkable": [
-    "jalanan_utama_kota",
-    "kamar_loteng"
-  ],
+  "walkable": {
+    "north": "jalanan_utama_kota",
+    "east": "permukiman_kumuh",
+    "south": "kamar_loteng"
+  },
   "activities": []
 }

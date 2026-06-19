@@ -3,6 +3,19 @@
 #include <string>
 #include <vector>
 #include "../models/Dialog.hpp"
+#include <string_view>
+
+struct GraphNode {
+    std::string id;
+    std::string name;
+    int lx; 
+    int ly; 
+};
+
+struct GraphEdge {
+    std::string u;
+    std::string v;
+};
 
 class MainPage {
     static const char* big_digits[10][5];
@@ -22,9 +35,10 @@ class MainPage {
                        const DialogNode& new_text);
     
     void render_history(WINDOW* win, const std::vector<DialogNode>& history);
-    void draw_choices(WINDOW* win, const std::vector<DialogChoice>& choices, int selected_idx);
     
     void draw_calendar(WINDOW* win, int days_left, int month, int day, std::string time, std::string location_name);
+    
+    void draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const std::vector<GraphEdge>& edges, std::string_view selected_id, bool is_focused, std::string_view current_id);
     
     void draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity, int gold, const std::vector<std::string>& equipped_info);
     void draw_vitals(WINDOW* win, int hp, int max_hp, int mp, int max_mp);

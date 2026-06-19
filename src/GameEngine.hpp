@@ -10,6 +10,7 @@
 #include "managers/PlayerManager.hpp"
 #include "./db/DB.hpp"
 #include "actions/Actions.hpp"
+#include "utils/components/Popup.hpp"
 
 class GameEngine {
 private:
@@ -23,6 +24,7 @@ private:
     Action actions;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
+    std::unique_ptr<Popup> active_popup;
     bool is_running = true;
 
 public:

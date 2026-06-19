@@ -1,0 +1,54 @@
+{
+  "version": "3.0.0",
+  "operations": [
+    {
+      "timestamp": "2026-06-19T14:17:37.466094",
+      "action": "install",
+      "skill_name": "cpp-pro",
+      "source": "/home/bagasw/.gemini/antigravity-cli/skills/cpp-pro",
+      "destination": "C:\\Users\\renat\\skills/cpp-pro",
+      "registered": true,
+      "registry_updated": false,
+      "backup_path": null,
+      "success": false,
+      "verification": {
+        "success": false,
+        "checks": [
+          {
+            "check": "skill_dir_exists",
+            "pass": true,
+            "path": "C:\\Users\\renat\\skills/cpp-pro"
+          },
+          {
+            "check": "skill_md_readable",
+            "pass": true,
+            "path": "C:\\Users\\renat\\skills/cpp-pro/SKILL.md"
+          },
+          {
+            "check": "frontmatter_parseable",
+            "pass": true,
+            "name": "cpp-pro"
+          },
+          {
+            "check": "claude_registered",
+            "pass": true,
+            "path": "C:\\Users\\renat\\skills/.claude/skills/cpp-pro/SKILL.md"
+          },
+          {
+            "check": "in_registry",
+            "pass": false
+          }
+        ],
+        "total": 5,
+        "passed": 4,
+        "failed": 1
+      },
+      "warnings": [
+        "Registry update warning: scan_registry.py not found at C:\\Users\\renat\\skills/agent-orchestrator/scripts/scan_registry.py",
+        "Verification: 1 check(s) failed: in_registry"
+      ]
+    }
+  ],
+  "total_operations": 1,
+  "last_updated": "2026-06-19T14:17:37.466445"
+}

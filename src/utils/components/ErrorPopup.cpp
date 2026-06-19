@@ -16,12 +16,12 @@ void ErrorPopup::show_fatal() {
     start_color();
     init_pair(99, COLOR_WHITE, COLOR_RED);
     
-    this->animate();
+    this->animate_blocking();
     wbkgd(win, COLOR_PAIR(99)); 
     wattron(win, COLOR_PAIR(99));
     wrefresh(win);
     
-    this->type_text();
+    this->type_text_blocking();
     wattroff(win, COLOR_PAIR(99));
     
     endwin();

@@ -4,6 +4,7 @@
 #include <sstream>
 #include <algorithm>
 #include <map>
+#include <unordered_map>
 #include <cmath>
 
 const char* MainPage::big_digits[10][5] = {
@@ -282,7 +283,7 @@ void MainPage::draw_calendar(WINDOW* win, int days_left, int month, int day, std
     wnoutrefresh(win);
 }
 
-void MainPage::draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const std::vector<GraphEdge>& edges, const std::string& selected_id, bool is_focused, const std::string& current_id) {
+void MainPage::draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const std::vector<GraphEdge>& edges, std::string_view selected_id, bool is_focused, std::string_view current_id) {
     if (!win) return;
     int max_y, max_x; getmaxyx(win, max_y, max_x);
     
@@ -315,7 +316,7 @@ void MainPage::draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const 
     int offset_y = (max_y - grid_h) / 2;
     if (offset_y < 1) offset_y = 1;
 
-    std::map<std::string, std::pair<int, int>> screen_coords;
+    std::unordered_map<std::string, std::pair<int, int>> screen_coords;
     for (const auto& n : nodes) {
         int sy = offset_y + (n.ly * cell_height);
         int sx = offset_x + (n.lx * cell_width);
@@ -324,9 +325,11 @@ void MainPage::draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const 
 
     wattron(win, COLOR_PAIR(2));
     for (const auto& e : edges) {
-        if (screen_coords.count(e.u) && screen_coords.count(e.v)) {
-            auto p1 = screen_coords[e.u];
-            auto p2 = screen_coords[e.v];
+        auto it_u = screen_coords.find(e.u);
+        auto it_v = screen_coords.find(e.v);
+        if (it_u != screen_coords.end() && it_v != screen_coords.end()) {
+            auto p1 = it_u->second;
+            auto p2 = it_v->second;
             int y1 = p1.first, x1 = p1.second + 1;
             int y2 = p2.first, x2 = p2.second + 1;
 

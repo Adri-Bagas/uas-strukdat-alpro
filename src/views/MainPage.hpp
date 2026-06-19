@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "../models/Dialog.hpp"
+#include <string_view>
 
 struct GraphNode {
     std::string id;
@@ -37,7 +38,7 @@ class MainPage {
     
     void draw_calendar(WINDOW* win, int days_left, int month, int day, std::string time, std::string location_name);
     
-    void draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const std::vector<GraphEdge>& edges, const std::string& selected_id, bool is_focused, const std::string& current_id);
+    void draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const std::vector<GraphEdge>& edges, std::string_view selected_id, bool is_focused, std::string_view current_id);
     
     void draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity, int gold, const std::vector<std::string>& equipped_info);
     void draw_vitals(WINDOW* win, int hp, int max_hp, int mp, int max_mp);

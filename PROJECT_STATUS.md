@@ -22,6 +22,10 @@ The core foundation and engine of the game are solid and fully operational:
 *   **Dialogue System**:
     *   Typewriter effect for dialogue, thought bubbles, and popups.
     *   Branching narrative choices utilizing the new object-oriented `ChoicePopup` component.
+*   **Interactive City Map (Map Mode)**:
+    *   Repurposed the `win_thought` window to display a node-based ASCII map of Nirva.
+    *   Players can press `TAB` to shift focus to the map, preview locations, and instantly travel to adjacent districts.
+    *   Wrap-around list navigation implemented for all Town menus.
 *   **Resilient Ncurses UI**: 
     *   Localized to Indonesian.
     *   Robust `KEY_RESIZE` handling prevents terminal crashes when resizing or zooming (Ctrl +/-).
@@ -58,9 +62,8 @@ To finish the project, the following major features must be built:
     *   **Complex Completion Triggers**: Upgrade the `Condition` evaluator to support diverse quest objectives beyond just variable tracking. This includes specific item fetching, targeted monster kills, talking to a specific NPC in a sequence, or triggering completion simply by entering a specific area.
 3.  **Bulletin Board System (Papan Pengumuman)**:
     *   Create a centralized hub (likely in the `alun_alun` or `balai_kota`) for procedural or generic "Unnamed NPC" quests. This prevents the player from having to hunt down random citizens for basic fetch/kill tasks.
-4.  **Area Interaction & Map UI Overhaul**:
+4.  **Area Interaction Overhaul**:
     *   Redesign how players interact with their current location. The current unified list of Activities, People, and Exits works, but needs to be more immersive or context-sensitive as the number of interactions grows.
-    *   **Interactive City Map**: Repurpose the currently unused `win_thought` (Thoughts) window to display an interactive ASCII map of Nirva. Players will be able to shift focus to this map, select different districts, and "preview" which NPCs or activities are currently available there before deciding to travel.
 5.  **Interactive Inventory UI**:
     *   A new sub-menu (perhaps triggered by pressing 'i' in `TownState`) where players can view item descriptions, consume healing items, and equip gear.
 6.  **Stat Calculation Fix**:
@@ -80,5 +83,5 @@ These are technical debts and bugs currently existing in the code that should be
 
 ### Code Smells (Needs Refactoring)
 *   **Hardcoded Dialogue Choice Parser**: In `src/managers/DialogManagers.cpp`, the `evaluate_choice_condition` function uses a very rudimentary string parser (e.g., `condition.rfind("item_", 0) == 0`) left over from a branch merge. **Fix:** It should be updated to use the robust `parse_condition` and `Condition::evaluate` system we use everywhere else.
-*   **Blocking UI Loops**: Components like `Popup` and `ChoicePopup` use synchronous `while(true)` loops with `getch()`. While acceptable for simple Ncurses apps, this completely blocks the `GameEngine::run()` loop, meaning background timers, animations, or music (if `libvlcpp` is implemented) will freeze while waiting for user input.
+*   **Blocking UI Loops**: Components like `Popup` use synchronous `while(true)` loops with `getch()`. While acceptable for simple Ncurses apps, this completely blocks the `GameEngine::run()` loop, meaning background timers, animations, or music (if `libvlcpp` is implemented) will freeze while waiting for user input. (`ChoicePopup` was successfully refactored to be non-blocking).
 *   **Action Dispatcher Duplication**: Some old actions in `Actions.cpp` (like `add_trust_warga_5`) were converted to use `add_var trust_warga 5`, but the old specific string parsers might still be lingering in the `execute_actions` block inside `DialogManagers.cpp`. They should all be routed cleanly through `engine->get_actions().execute()`.

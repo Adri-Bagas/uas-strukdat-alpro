@@ -3,8 +3,8 @@
   "name": "Pasar Kota & Distrik Dagang",
   "on_first_enter": "",
   "on_enter": "",
-  "walkable": [
-    "alun_alun"
-  ],
+  "walkable": {
+    "west": "alun_alun"
+  },
   "activities": []
 }

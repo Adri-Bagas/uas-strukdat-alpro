@@ -3,9 +3,9 @@
   "name": "Kamar Loteng Kedai",
   "on_first_enter": "",
   "on_enter": "",
-  "walkable": [
-    "kedai_usang"
-  ],
+  "walkable": {
+    "north": "kedai_usang"
+  },
   "activities": [
     {
       "id": "tidur",
@@ -13,12 +13,19 @@
       "time_cost": 0,
       "schedule": {
         "days": [],
-        "phases": ["Morning", "Afternoon", "Evening"]
+        "phases": [
+          "Morning",
+          "Afternoon",
+          "Evening"
+        ]
       },
       "dialogs": {
         "success": "Kamu tidur dengan nyenyak. Seluruh tenagamu telah pulih."
       },
-      "on_execute": ["heal_full", "advance_day"]
+      "on_execute": [
+        "heal_full",
+        "advance_day"
+      ]
     }
   ]
 }

@@ -48,10 +48,10 @@ public:
 
     void resolve_connections() {
         for (auto* p : all_places) {
-            for (const std::string& target_id : p->get_walkable_ids()) {
+            for (const auto& [dir, target_id] : p->get_walkable_ids()) {
                 Place* target = get_place(target_id);
                 if (target) {
-                    p->add_walkable_place(target);
+                    p->add_walkable_place(dir, target);
                 }
             }
         }
@@ -60,7 +60,7 @@ public:
     bool travel(const std::string& destination_id) {
         if (!current_place) return false;
 
-        for (auto* p : current_place->get_walkable_places()) {
+        for (const auto& [dir, p] : current_place->get_walkable_places()) {
             if (p->get_id() == destination_id) {
                 current_place = p;
                 Popup pop {"Bepergian ke: " + current_place->get_name()};

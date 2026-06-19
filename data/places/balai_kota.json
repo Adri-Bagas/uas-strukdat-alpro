@@ -3,9 +3,9 @@
   "name": "Balai Kota",
   "on_first_enter": "",
   "on_enter": "",
-  "walkable": [
-    "jalanan_utama_kota",
-    "alun_alun"
-  ],
+  "walkable": {
+    "east": "alun_alun",
+    "south": "jalanan_utama_kota"
+  },
   "activities": []
 }

@@ -13,15 +13,21 @@
         "days": [],
         "phases": []
       },
-      "req": { "quest": "", "min_str": 0, "locked": false },
-      "effect": { "gold": 0, "str": 0, "finish_quest": "" }
+      "req": {
+        "quest": "",
+        "min_str": 0,
+        "locked": false
+      },
+      "effect": {
+        "gold": 0,
+        "str": 0,
+        "finish_quest": ""
+      }
     }
   ],
-  "walkable": [
-    "kandang_kuda",
-    "balai_kota",
-    "alun_alun",
-    "kedai_usang",
-    "permukiman_kumuh"
-  ]
+  "walkable": {
+    "north": "balai_kota",
+    "east": "kandang_kuda",
+    "south": "kedai_usang"
+  }
 }

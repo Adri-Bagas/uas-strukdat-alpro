@@ -137,7 +137,9 @@ void DungeonState::handle_input(int ch) {
     } else if (ch == KEY_RIGHT || ch == 'd' || ch == 'D') {
         next_c++;
     } else if (ch == KEY_RESIZE) {
+        resizeterm(0, 0);
         clear();
+        refresh();
     }
 
     // Verify cell boundaries and ensure the destination is not a wall

@@ -189,9 +189,9 @@ void DB::load_places(const std::string& directory_path) {
                 p.set_on_enter(j.value("on_enter", ""));
 
                 // Memuat daftar ID lokasi yang bisa dikunjungi dari sini
-                if (j.contains("walkable") && j["walkable"].is_array()) {
-                    for (const auto& target_id : j["walkable"]) {
-                        p.add_walkable_id(target_id.get<std::string>());
+                if (j.contains("walkable") && j["walkable"].is_object()) {
+                    for (auto& [dir, target_id] : j["walkable"].items()) {
+                        p.add_walkable_id(dir, target_id.get<std::string>());
                     }
                 }
 

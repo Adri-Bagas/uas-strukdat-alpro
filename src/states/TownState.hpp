@@ -18,10 +18,16 @@ class TownState : public GameState {
     bool is_in_quest_menu = false;
     int quest_selection_index = 0;
 
+    // Map Mode
+    bool is_in_map_mode = false;
+    int map_selection_index = 0;
+    std::vector<Place*> map_places;
+
 private:
     // --- Input Helpers ---
     void handle_quest_menu_input(int ch);
     void handle_world_menu_input(int ch);
+    void handle_map_menu_input(int ch);
     void execute_npc_interaction(NPC* npc);
     void execute_activity(const Activity& act);
     void execute_movement(Place* target);
@@ -34,6 +40,7 @@ private:
     void render_player_status(Player* p);
     void render_quest_menu(Player* p, std::vector<std::string>& menu_display);
     void render_world_menu(Player* p, std::vector<std::string>& menu_display);
+    void render_map_preview(Player* p, std::vector<std::string>& menu_display);
     void render_sidebars(Player* p);
 
 public:

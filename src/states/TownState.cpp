@@ -1,9 +1,13 @@
 #include "TownState.hpp"
 #include "DungeonState.hpp"
 #include "../utils/components/Popup.hpp"
+#include "../utils/components/ChoicePopup.hpp"
 #include "../GameEngine.hpp" 
 #include "../utils/Logger.hpp"
 #include <ncurses.h>
+#include <queue>
+#include <map>
+#include <algorithm>
 
 TownState::TownState(GameEngine* eng) : GameState(eng) {}
 
@@ -15,6 +19,12 @@ void TownState::on_enter() {
 
     engine->get_places().update_npc_locations(engine->get_calendar(), engine->get_quests());
     
+    // Populate map
+    map_places.clear();
+    for (const Place* p : engine->get_db().get_all_places()) {
+        map_places.push_back(const_cast<Place*>(p));
+    }
+
     // Day 2 Trigger: Special story for morning in attic
     int day = engine->get_calendar().getDay();
     std::string phase = engine->get_calendar().getTimeString();
@@ -67,6 +77,10 @@ void TownState::handle_input(int ch) {
 
     if (ch == 'q') { engine->quit(); return; } 
     else if (ch == KEY_RESIZE) { engine->get_layout().resize(); return; }
+    else if (ch == '\t') { 
+        is_in_map_mode = !is_in_map_mode; 
+        return; 
+    }
 
     if (engine->get_dialogs().has_active_choices()) {
         int idx = engine->get_dialogs().get_selected_choice_index();
@@ -82,6 +96,7 @@ void TownState::handle_input(int ch) {
     }
 
     if (is_in_quest_menu) handle_quest_menu_input(ch);
+    else if (is_in_map_mode) handle_map_menu_input(ch);
     else handle_world_menu_input(ch);
 }
 
@@ -101,9 +116,78 @@ void TownState::render() {
 
     render_player_status(p);
 
+    // Render the Map
+    std::map<std::string, std::pair<int, int>> coords;
+    std::vector<GraphEdge> edges;
+    std::queue<std::pair<std::string, std::pair<int, int>>> q;
+    
+    std::string root_id = engine->get_places().get_current_place()->get_id();
+    q.push({root_id, {50, 50}});
+    coords[root_id] = {50, 50};
+
+    while (!q.empty()) {
+        auto [curr_id, pos] = q.front(); q.pop();
+        Place* curr_place = nullptr;
+        for (Place* p : map_places) { if (p->get_id() == curr_id) { curr_place = p; break; } }
+        if (!curr_place) continue;
+
+        for (const auto& [dir, wp] : curr_place->get_walkable_places()) {
+            std::string nbr_id = wp->get_id();
+            if (curr_id < nbr_id) {
+                edges.push_back({curr_id, nbr_id});
+            }
+            if (coords.find(nbr_id) == coords.end()) {
+                int nx = pos.first;
+                int ny = pos.second;
+                if (dir == "north") ny -= 1;
+                else if (dir == "south") ny += 1;
+                else if (dir == "east") nx += 1;
+                else if (dir == "west") nx -= 1;
+
+                coords[nbr_id] = {nx, ny};
+                q.push({nbr_id, {nx, ny}});
+            }
+        }
+    }
+
+    int min_x = 9999, min_y = 9999, max_x = -9999, max_y = -9999;
+    for (const auto& [id, pos] : coords) {
+        if (pos.first < min_x) min_x = pos.first;
+        if (pos.first > max_x) max_x = pos.first;
+        if (pos.second < min_y) min_y = pos.second;
+        if (pos.second > max_y) max_y = pos.second;
+    }
+
+    std::vector<GraphNode> graph_nodes;
+    for (const auto& [id, pos] : coords) {
+        std::string n_name = "";
+        for (Place* p : map_places) {
+            if (p->get_id() == id) { n_name = p->get_name(); break; }
+        }
+        int norm_x = pos.first - min_x;
+        int norm_y = pos.second - min_y;
+        graph_nodes.push_back({id, n_name, norm_x, norm_y});
+    }
+    
+    int overflow_y = (max_y == -9999) ? 0 : (max_y - min_y + 1);
+    for (Place* p : map_places) {
+        if (coords.find(p->get_id()) == coords.end()) {
+            graph_nodes.push_back({p->get_id(), p->get_name(), 0, overflow_y++});
+        }
+    }
+
+    std::string selected_id = "";
+    if (map_selection_index >= 0 && map_selection_index < (int)map_places.size()) {
+        selected_id = map_places[map_selection_index]->get_id();
+    }
+
+    engine->get_layout().draw_map(engine->get_layout().win_thought, graph_nodes, edges, selected_id, is_in_map_mode, root_id);
+
     std::vector<std::string> menu_display;
     if (is_in_quest_menu && interacting_npc) {
         render_quest_menu(p, menu_display);
+    } else if (is_in_map_mode) {
+        render_map_preview(p, menu_display);
     } else {
         render_world_menu(p, menu_display);
     }
@@ -115,7 +199,17 @@ void TownState::render() {
     engine->get_layout().draw_tasks(engine->get_layout().win_menu, menu_display);
 
     if (engine->get_dialogs().has_active_choices()) {
-        engine->get_layout().draw_choices(engine->get_layout().win_dialog, engine->get_dialogs().get_active_choices(), engine->get_dialogs().get_selected_choice_index());
+        auto log = engine->get_dialogs().get_combined_log();
+        std::string latest_dialog = "(Sesuatu telah dikatakan)";
+        if (!log.empty()) {
+            latest_dialog = log.back().value;
+            if (!log.back().npc_name.empty()) {
+                latest_dialog = "[" + log.back().npc_name + "]: " + latest_dialog;
+            }
+        }
+        
+        ChoicePopup cp(latest_dialog, engine->get_dialogs().get_active_choices(), engine->get_dialogs().get_selected_choice_index());
+        cp.render();
     } else {
         render_sidebars(p);
     }
@@ -154,6 +248,40 @@ void TownState::handle_quest_menu_input(int ch) {
                 Popup p_box {q->get_state() == QuestState::IN_PROGRESS ? "Kamu masih mengerjakan ini: " + q->get_description() : "Tahap misi ini belum memiliki cerita."};
                 p_box.animate(); p_box.type_text();
             }
+        }
+    }
+}
+
+void TownState::handle_map_menu_input(int ch) {
+    if (map_places.empty()) return;
+    
+    if (ch == KEY_UP || ch == 'w') {
+        if (map_selection_index > 0) map_selection_index--;
+    } else if (ch == KEY_DOWN || ch == 's') {
+        if (map_selection_index < (int)map_places.size() - 1) map_selection_index++;
+    } else if (ch == '\n' || ch == ' ') {
+        Place* cur = engine->get_places().get_current_place();
+        Place* target = map_places[map_selection_index];
+        
+        if (cur->get_id() == target->get_id()) {
+            is_in_map_mode = false;
+            return;
+        }
+        
+        bool is_adjacent = false;
+        for (const auto& [dir, exit] : cur->get_walkable_places()) {
+            if (exit->get_id() == target->get_id()) {
+                is_adjacent = true; break;
+            }
+        }
+        
+        if (is_adjacent) {
+            is_in_map_mode = false;
+            execute_movement(target);
+        } else {
+            Popup pop {"Kamu tidak bisa langsung pergi ke sana dari sini."};
+            pop.animate();
+            pop.type_text();
         }
     }
 }
@@ -344,13 +472,70 @@ void TownState::render_world_menu(Player* p, std::vector<std::string>& menu_disp
     }
 
     if (!cur->get_walkable_places().empty()) {
-        menu_display.push_back("--- Pergerakan ---");
-        for (auto* exit : cur->get_walkable_places()) {
+        menu_display.push_back("--- Jalan Keluar ---");
+        for (const auto& [dir, exit] : cur->get_walkable_places()) {
             current_exits.push_back(exit);
             std::string pref = (selection_index == (int)menu_display.size() - 1 ? "> " : "  ");
-            menu_display.push_back(pref + "[Pergi] " + exit->get_name());
+            std::string dir_id = dir;
+            if (dir == "north") dir_id = "Utara";
+            else if (dir == "south") dir_id = "Selatan";
+            else if (dir == "east") dir_id = "Timur";
+            else if (dir == "west") dir_id = "Barat";
+            menu_display.push_back(pref + "[Pergi ke " + dir_id + "] " + exit->get_name());
         }
     }
+}
+
+void TownState::render_map_preview(Player* p, std::vector<std::string>& menu_display) {
+    if (map_places.empty() || map_selection_index >= (int)map_places.size()) return;
+    
+    Place* target = map_places[map_selection_index];
+    Place* cur = engine->get_places().get_current_place();
+    int day = engine->get_calendar().getDay(); 
+    std::string phase = engine->get_calendar().getTimeString();
+
+    menu_display.push_back("--- Pratinjau: " + target->get_name() + " ---");
+    
+    bool can_walk = false;
+    for (const auto& [dir, exit] : cur->get_walkable_places()) {
+        if (exit->get_id() == target->get_id()) can_walk = true;
+    }
+    
+    if (cur->get_id() == target->get_id()) {
+        menu_display.push_back("[Kamu berada di sini]");
+    } else if (can_walk) {
+        menu_display.push_back("[Bisa diakses dari sini]");
+    } else {
+        menu_display.push_back("[Tidak bisa diakses langsung]");
+    }
+    
+    menu_display.push_back("");
+
+    if (!target->get_npcs().empty()) {
+        menu_display.push_back("- Orang di sana -");
+        for (auto* npc : target->get_npcs()) {
+            std::string name = npc->known() ? npc->get_name() : "??? (" + npc->get_role() + ")";
+            menu_display.push_back("  " + name);
+        }
+    }
+
+    std::vector<Activity> valid_acts;
+    for (const auto& act : target->get_activities()) {
+        if (!act.visible_condition.evaluate(p, &engine->get_quests())) continue;
+        bool day_ok = act.days.empty(); for (int d : act.days) if (d == day) day_ok = true;
+        bool phase_ok = act.phases.empty(); for (const auto& ph : act.phases) if (ph == phase) phase_ok = true;
+        if (day_ok && phase_ok) valid_acts.push_back(act);
+    }
+    
+    if (!valid_acts.empty()) {
+        menu_display.push_back("- Aktivitas -");
+        for (const auto& act : valid_acts) {
+            std::string lock = (act.is_locked || day == 1 ? "[TERKUNCI] " : "");
+            menu_display.push_back("  " + lock + act.name);
+        }
+    }
+    
+    engine->get_layout().draw_title(engine->get_layout().win_menu, "Informasi Lokasi", engine->get_layout().w_col2, 4);
 }
 
 void TownState::render_sidebars(Player* p) {
@@ -363,6 +548,10 @@ void TownState::render_sidebars(Player* p) {
         const Item* item = engine->get_db().get_item(pair.first);
         info.push_back(" - " + (item ? item->name : pair.first) + " x" + std::to_string(pair.second));
     }
+
+    info.push_back(""); info.push_back("--- Pintasan ---");
+    info.push_back(" [TAB] Buka Peta");
+
     engine->get_layout().draw_tasks(engine->get_layout().win_task, info);
     engine->get_layout().render_history(engine->get_layout().win_dialog, engine->get_dialogs().get_combined_log());
 }

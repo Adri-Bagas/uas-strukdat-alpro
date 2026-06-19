@@ -81,6 +81,10 @@ These are technical debts and bugs currently existing in the code that should be
 *   **Stat Bonus Ignored**: The `Item` model has `equip_stats` (e.g., +5 STR for Iron Sword), and the UI displays equipped items. However, the `Player` model currently does not add these item bonuses to the base stats. Activities that check for `str >= 10` only check base stats.
 *   **Dungeon Terminal Size Crash**: `DungeonState::render()` requires a minimum terminal size of 110x24. If the terminal is resized smaller than this *while* inside the dungeon, it shows an error overlay, but rapid resizing might still cause `std::vector` out-of-bounds exceptions if the player moves while the terminal is too small.
 
-### Code Smells (Needs Refactoring)
-*   **Hardcoded Dialogue Choice Parser**: In `src/managers/DialogManagers.cpp`, the `evaluate_choice_condition` function uses a very rudimentary string parser (e.g., `condition.rfind("item_", 0) == 0`) left over from a branch merge. **Fix:** It should be updated to use the robust `parse_condition` and `Condition::evaluate` system we use everywhere else.
-*   **Action Dispatcher Duplication**: Some old actions in `Actions.cpp` (like `add_trust_warga_5`) were converted to use `add_var trust_warga 5`, but the old specific string parsers might still be lingering in the `execute_actions` block inside `DialogManagers.cpp`. They should all be routed cleanly through `engine->get_actions().execute()`.
+### Known Bugs / Code Smells
+- None currently.
+
+### Completed Refactors
+- **Blocking UI Loops**: Refactored `Popup` to use a non-blocking state machine via `GameEngine::run()`.
+- **Hardcoded Dialogue Choice Parser**: Replaced custom string parsing in `DialogManagers.cpp` with the `Condition` system.
+- **Action Dispatcher Duplication**: Replaced hardcoded string parsing in `execute_actions` with standard action dispatcher.

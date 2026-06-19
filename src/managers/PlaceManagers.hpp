@@ -14,6 +14,8 @@ private:
     Place* current_place = nullptr;
 
 public:
+    std::function<void(std::string)> on_popup;
+
     PlaceManagers() = default;
     ~PlaceManagers() = default;
 
@@ -36,9 +38,7 @@ public:
         Place* target = get_place(id);
         if (target && target != current_place) {
             current_place = target;
-            Popup p {"Tiba di: " + current_place->get_name()};
-            p.animate();
-            p.type_text();
+            if (on_popup) on_popup("Tiba di: " + current_place->get_name());
         }
     }
 
@@ -63,9 +63,7 @@ public:
         for (const auto& [dir, p] : current_place->get_walkable_places()) {
             if (p->get_id() == destination_id) {
                 current_place = p;
-                Popup pop {"Bepergian ke: " + current_place->get_name()};
-                pop.animate();
-                pop.type_text();
+                if (on_popup) on_popup("Bepergian ke: " + current_place->get_name());
                 return true;
             }
         }

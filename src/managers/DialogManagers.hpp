@@ -12,6 +12,7 @@ class DialogManager {
     std::vector<DialogNode> combined_log;
 
     std::queue<DialogNode> dialog_queue;
+    std::queue<std::string> popup_queue;
     std::vector<std::string> on_exit_actions;
     std::string next_scene_id;
 
@@ -34,6 +35,10 @@ public:
     void queue_dialog(const DialogNode& node);
     bool has_queued_dialog() const;
     DialogNode pop_dialog();
+
+    void queue_popup(const std::string& msg);
+    bool has_queued_popup() const;
+    std::string pop_popup();
 
     void set_on_exit(const std::vector<std::string>& actions) { on_exit_actions = actions; }
     const std::vector<std::string>& get_on_exit() const { return on_exit_actions; }

@@ -3,6 +3,8 @@
 #include "../enums/DayTime.hpp"
 
 
+#include <functional>
+
 class TimeCalendarManagers {
     DayTime dayTime = MORNING;
 
@@ -10,6 +12,8 @@ class TimeCalendarManagers {
     int day = 1;
 
   public:
+    std::function<void(std::string)> on_popup;
+
     DayTime getDayTime();
 
     void setDayTime(DayTime dayTime);

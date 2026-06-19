@@ -262,8 +262,7 @@ void TownState::handle_quest_menu_input(int ch) {
                     }
                 }
             } else {
-                Popup p_box {q->get_state() == QuestState::IN_PROGRESS ? "Kamu masih mengerjakan ini: " + q->get_description() : "Tahap misi ini belum memiliki cerita."};
-                p_box.animate(); p_box.type_text();
+                engine->get_dialogs().queue_popup(q->get_state() == QuestState::IN_PROGRESS ? "Kamu masih mengerjakan ini: " + q->get_description() : "Tahap misi ini belum memiliki cerita.");
             }
         }
     }
@@ -298,9 +297,7 @@ void TownState::handle_map_menu_input(int ch) {
             is_in_map_mode = false;
             execute_movement(target);
         } else {
-            Popup pop {"Kamu tidak bisa langsung pergi ke sana dari sini."};
-            pop.animate();
-            pop.type_text();
+            engine->get_dialogs().queue_popup("Kamu tidak bisa langsung pergi ke sana dari sini.");
         }
     }
 }
@@ -350,7 +347,7 @@ void TownState::execute_npc_interaction(NPC* npc) {
         }
     } else {
         if (available_quests.empty()) {
-            Popup pop {"Karakter ini tidak memiliki apa pun untuk dikatakan."}; pop.animate(); pop.type_text(); interacting_npc = nullptr;
+            engine->get_dialogs().queue_popup("Karakter ini tidak memiliki apa pun untuk dikatakan."); interacting_npc = nullptr;
         } else is_in_quest_menu = true;
     }
 }
@@ -360,8 +357,7 @@ void TownState::execute_activity(const Activity& act) {
 
     bool actually_locked = act.is_locked || (engine->get_calendar().getDay() == 1);
     if (actually_locked) {
-        Popup p_box {act.dialog_locked.empty() ? "Aktivitas ini sedang terkunci." : act.dialog_locked};
-        p_box.animate(); p_box.type_text(); return;
+        engine->get_dialogs().queue_popup(act.dialog_locked.empty() ? "Aktivitas ini sedang terkunci." : act.dialog_locked); return;
     }
 
     Player* p = engine->get_player_manager().get_player();
@@ -373,9 +369,9 @@ void TownState::execute_activity(const Activity& act) {
             break;
         }
     }
-    if (!can_do) { Popup pop {fail_msg}; pop.animate(); pop.type_text(); return; }
+    if (!can_do) { engine->get_dialogs().queue_popup(fail_msg); return; }
 
-    if (!act.dialog_success.empty()) { Popup pop {act.dialog_success}; pop.animate(); pop.type_text(); }
+    if (!act.dialog_success.empty()) { engine->get_dialogs().queue_popup(act.dialog_success); }
     for (const auto& action : act.on_execute) engine->get_actions().execute(action);
 }
 
@@ -392,7 +388,7 @@ void TownState::process_dialogue_queue() {
         if (node.type == 1) engine->get_dialogs().add_dialog(node);
         else engine->get_dialogs().add_thought(node);
     } else if (node.type == 3) {
-        Popup otp {node.value}; otp.animate(); otp.type_text(); engine->get_dialogs().add_popup(node);
+        engine->get_dialogs().queue_popup(node.value); engine->get_dialogs().add_popup(node);
     }
     this->render();
 }

@@ -9,23 +9,17 @@ void TimeCalendarManagers::setDayTime(DayTime dayTime) {
     this->dayTime = dayTime;
     
     std::string phase = getTimeString();
-    Popup p {"Phase changed to: " + phase};
-    p.animate();
-    p.type_text();
+    if (on_popup) on_popup("Phase changed to: " + phase);
 }
 
 void TimeCalendarManagers::incrementDay() {
     day++;
-    Popup p {"A new day has dawned: Day " + std::to_string(day)};
-    p.animate();
-    p.type_text();
+    if (on_popup) on_popup("A new day has dawned: Day " + std::to_string(day));
 }
 
 void TimeCalendarManagers::incrementMonth() {
     month++;
-    Popup p {"A new month has begun: Month " + std::to_string(month)};
-    p.animate();
-    p.type_text();
+    if (on_popup) on_popup("A new month has begun: Month " + std::to_string(month));
 }
 
 int TimeCalendarManagers::getDay() {
@@ -76,16 +70,12 @@ void TimeCalendarManagers::advanceTime(bool is_double) {
 
     if (oldTime != this->dayTime) {
         std::string phase = getTimeString();
-        Popup p {"Waktu telah berlalu. Sekarang waktu " + phase};
-        p.animate();
-        p.type_text();
+        if (on_popup) on_popup("Waktu telah berlalu. Sekarang waktu " + phase);
     }
 }
 
 void TimeCalendarManagers::advanceDate() {
     this->day += 1;
     this->dayTime = MORNING;
-    Popup p {"Hari telah berakhir. Kamu terbangun pada Hari ke-" + std::to_string(this->day)};
-    p.animate();
-    p.type_text();
+    if (on_popup) on_popup("Hari telah berakhir. Kamu terbangun pada Hari ke-" + std::to_string(this->day));
 }

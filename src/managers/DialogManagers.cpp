@@ -65,6 +65,20 @@ DialogNode DialogManager::pop_dialog() {
     return node;
 }
 
+void DialogManager::queue_popup(const std::string &msg) {
+    popup_queue.push(msg);
+}
+
+bool DialogManager::has_queued_popup() const {
+    return !popup_queue.empty();
+}
+
+std::string DialogManager::pop_popup() {
+    std::string msg = popup_queue.front();
+    popup_queue.pop();
+    return msg;
+}
+
 void DialogManager::start_scene(const DialogScene& scene, GameEngine* engine) {
     clear_choices();
     next_scene_id = scene.next_scene_id;
@@ -127,8 +141,7 @@ void DialogManager::execute_actions(const std::vector<std::string>& actions, Gam
             engine->get_calendar().setDayTime(AFTERNOON);
         }
         else if (action == "check_zona_kuning") {
-            Popup p {"Peringatan: Memasuki Zona Kuning!"};
-            p.animate(); p.type_text();
+            engine->get_dialogs().queue_popup("Peringatan: Memasuki Zona Kuning!");
         }
         else if (action.rfind("add_trust_warga_", 0) == 0) {
             int amt = std::stoi(action.substr(16));

@@ -6,10 +6,37 @@
   "role": "Citizen",
   "faction": "Commoners",
   "schedules": [
-    { "days": [], "phase": "Morning", "location": "alun_alun" },
-    { "days": [], "phase": "Afternoon", "location": "permukiman_kumuh" },
-    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
-    { "days": [], "phase": "Night", "location": "permukiman_kumuh" }
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "alun_alun"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "permukiman_kumuh"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "jalanan_utama_kota"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "permukiman_kumuh"
+    }
   ],
-  "default_dialog": "scene_child_idle"
+  "default_dialog": "scene_child_idle",
+  "str": 10,
+  "cons": 13,
+  "agi": 14,
+  "intl": 10,
+  "wis": 12,
+  "max_hp": 100,
+  "max_mp": 50,
+  "level": 2,
+  "magics": [],
+  "affinity": "none",
+  "weakness": "none"
 }

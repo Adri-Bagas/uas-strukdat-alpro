@@ -1,7 +1,7 @@
 #include "Player.hpp"
 
 Player::Player(std::string id, std::string name) 
-    : Entity(std::move(id), std::move(name), 10, 10, 10, 10, 10, Element::NONE), 
+    : Entity(std::move(id), std::move(name), 10, 10, 10, 10, 10, 1, Element::NONE), 
       gold(0) {
     
     // Initialize derived stats

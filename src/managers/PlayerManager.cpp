@@ -2,7 +2,8 @@
 
 void PlayerManager::init_player(const std::string& id, const std::string& name) {
     player = std::make_unique<Player>(id, name);
-    player->add_item("ransum", 1);
+    player->add_item("potion_hp", 3);
+    player->add_item("bread", 5);
 
     // Initialize slots to nullptr
     for (int i = 0; i < 4; ++i) {

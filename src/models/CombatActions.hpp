@@ -3,6 +3,12 @@
 #include <vector>
 #include "../enums/Element.hpp"
 
+enum class TargetRange {
+    DIRECT,
+    REACH,
+    AOE
+};
+
 enum class MagicType {
     ATTACKING,
     SUPPORT,
@@ -22,6 +28,7 @@ struct Magic {
     int mana_cost = 0;
     int power = 0; // Base damage or heal amount
     Element elem = Element::NONE;
+    TargetRange range = TargetRange::REACH;
     std::vector<CombatModifier> modifiers; // Buffs/Debuffs
 };
 
@@ -32,5 +39,6 @@ struct SpecialMove {
     int current_uses = 0;
     int power = 0;
     Element elem = Element::NONE;
+    TargetRange range = TargetRange::AOE;
     std::vector<CombatModifier> modifiers;
 };

@@ -55,6 +55,9 @@ void GameEngine::init() {
     places.set_current_place("kandang_kuda");
 
     player_manager.init_player("hero", "Nirva Hero");
+    // For testing: add party members
+    if (auto arthur = db.get_npc("npc_arthur")) player_manager.add_ally(*arthur);
+    if (auto silas = db.get_npc("npc_silas")) player_manager.add_ally(*silas);
 
     // Add dummy skills for testing
     Player* p = player_manager.get_player();

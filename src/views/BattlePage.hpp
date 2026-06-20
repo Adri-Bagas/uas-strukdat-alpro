@@ -20,6 +20,8 @@ public:
         int active_entity_idx,
         int current_menu_selection,
         const std::vector<std::string>& menu_options,
-        const std::string& battle_log
+        const std::vector<std::string>& battle_log,
+        size_t enemy_pool_size,
+        Entity* flashing_entity = nullptr
     );
 };

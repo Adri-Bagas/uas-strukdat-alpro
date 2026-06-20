@@ -2,6 +2,7 @@
 #include "../GameEngine.hpp"
 #include "../utils/Logger.hpp"
 #include "../enums/Element.hpp"
+#include "StatAllocationState.hpp"
 #include <ncurses.h>
 #include <random>
 #include <algorithm>
@@ -161,6 +162,11 @@ void DungeonState::handle_input(int ch) {
         engine->pop_state();
         return;
     }
+    
+    if (ch == 'c' || ch == 'C') {
+        engine->push_state(new StatAllocationState(engine));
+        return;
+    }
 
     // Tab toggling controls
     if (ch == '\t' || ch == 't' || ch == 'T') {
@@ -269,6 +275,7 @@ void DungeonState::render() {
         engine->get_layout().draw_player_stats(
             engine->get_layout().win_stat, 
             p->get_str(), p->get_cons(), p->get_agi(), p->get_intl(), p->get_wis(), 
+            p->get_stat_points(),
             element_to_string(p->get_affinity()), p->get_gold(), equip_info
         );
         

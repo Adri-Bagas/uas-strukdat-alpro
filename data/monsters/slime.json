@@ -2,10 +2,23 @@
   "id": "mon_slime",
   "name": "Slime Lendir",
   "description": "Makhluk kenyal yang sering mengganggu petualang pemula.",
-  "max_hp": 30,
+  "level": 1,
+  "max_hp": 50,
+  "max_mp": 10,
   "damage": 5,
   "agility": 8,
+  "str": 10,
+  "cons": 10,
+  "agi": 8,
+  "intl": 5,
+  "wis": 5,
   "loot": [
-    {"item_id": "item_slime_gel", "chance": 80}
-  ]
+    {
+      "item_id": "item_slime_gel",
+      "chance": 80
+    }
+  ],
+  "magics": [],
+  "affinity": "none",
+  "weakness": "fire"
 }

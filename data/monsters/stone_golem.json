@@ -1,0 +1,24 @@
+{
+  "id": "mon_stone_golem",
+  "name": "Stone Golem",
+  "description": "Raksasa batu dengan pertahanan yang luar biasa.",
+  "level": 6,
+  "max_hp": 300,
+  "max_mp": 0,
+  "damage": 20,
+  "agility": 5,
+  "str": 25,
+  "cons": 30,
+  "agi": 5,
+  "intl": 1,
+  "wis": 5,
+  "loot": [
+    {
+      "item_id": "item_stone_heart",
+      "chance": 50
+    }
+  ],
+  "magics": [],
+  "affinity": "earth",
+  "weakness": "wind"
+}

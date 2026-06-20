@@ -6,11 +6,57 @@
   "role": "Pemilik Kedai",
   "faction": "Neutral",
   "schedules": [
-    { "days": [], "phase": "Morning", "location": "kedai_usang" },
-    { "days": [], "phase": "Afternoon", "location": "kedai_usang" },
-    { "days": [], "phase": "Evening", "location": "kedai_usang" },
-    { "days": [], "phase": "Night", "location": "kamar_loteng" }
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "kedai_usang"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "kedai_usang"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "kedai_usang"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "kamar_loteng"
+    }
   ],
   "default_dialog": "scene_arthur_idle",
-  "quests": ["quest_stable_investigation"]
+  "quests": [
+    "quest_stable_investigation"
+  ],
+  "str": 60,
+  "cons": 25,
+  "agi": 49,
+  "intl": 21,
+  "wis": 30,
+  "max_hp": 370,
+  "max_mp": 290,
+  "level": 21,
+  "magics": [
+    {
+      "id": "mag_blade_aura",
+      "name": "Blade Aura",
+      "type": "attacking",
+      "mana_cost": 15,
+      "power": 25,
+      "element": "wind",
+      "range": "reach"
+    }
+  ],
+  "special_move": {
+    "id": "sp_silent_strike",
+    "name": "Silent Strike",
+    "max_uses_per_day": 3,
+    "power": 80,
+    "element": "none"
+  },
+  "affinity": "none",
+  "weakness": "none"
 }

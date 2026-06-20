@@ -6,10 +6,37 @@
   "role": "Thug",
   "faction": "Gagak Hitam",
   "schedules": [
-    { "days": [], "phase": "Morning", "location": "pasar_kota" },
-    { "days": [], "phase": "Afternoon", "location": "pasar_kota" },
-    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
-    { "days": [], "phase": "Night", "location": "kedai_usang" }
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "jalanan_utama_kota"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "kedai_usang"
+    }
   ],
-  "default_dialog": "scene_thug_idle"
+  "default_dialog": "scene_thug_idle",
+  "str": 10,
+  "cons": 12,
+  "agi": 12,
+  "intl": 15,
+  "wis": 14,
+  "max_hp": 100,
+  "max_mp": 50,
+  "level": 1,
+  "magics": [],
+  "affinity": "none",
+  "weakness": "none"
 }

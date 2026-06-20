@@ -1,0 +1,24 @@
+{
+  "id": "mon_wolf",
+  "name": "Dire Wolf",
+  "description": "Serigala besar yang berburu dalam kawanan.",
+  "level": 3,
+  "max_hp": 100,
+  "max_mp": 0,
+  "damage": 12,
+  "agility": 15,
+  "str": 14,
+  "cons": 12,
+  "agi": 15,
+  "intl": 6,
+  "wis": 10,
+  "loot": [
+    {
+      "item_id": "item_wolf_pelt",
+      "chance": 60
+    }
+  ],
+  "magics": [],
+  "affinity": "none",
+  "weakness": "none"
+}

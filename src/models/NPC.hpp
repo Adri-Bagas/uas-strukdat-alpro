@@ -16,8 +16,11 @@ protected:
     std::string name;
     
     // Base RPG Stats
+    int level;
+    int exp = 0;
     int str, cons, agi, intl, wis;
     Element affinity;
+    Element weakness;
 
     // Vitality
     int hp, max_hp;
@@ -30,9 +33,9 @@ protected:
     std::vector<CombatModifier> active_modifiers;
 
 public:
-    Entity(std::string id, std::string name, int s=10, int c=10, int a=10, int i=10, int w=10, Element elem=Element::NONE) 
+    Entity(std::string id, std::string name, int s=10, int c=10, int a=10, int i=10, int w=10, int lvl=1, Element elem=Element::NONE, Element weak=Element::NONE) 
         : id(std::move(id)), name(std::move(name)), 
-          str(s), cons(c), agi(a), intl(i), wis(w), affinity(elem) {
+          level(lvl), str(s), cons(c), agi(a), intl(i), wis(w), affinity(elem), weakness(weak) {
         
         // Simple health formula based on Constitution
         max_hp = cons * 10;
@@ -40,6 +43,17 @@ public:
     }
           
     virtual ~Entity() = default;
+
+    int get_level() const { return level; }
+    void set_level(int v) { level = v; }
+    int get_exp() const { return exp; }
+    void add_exp(int amount) { exp += amount; }
+    
+    Element get_affinity() const { return affinity; }
+    void set_affinity(Element e) { affinity = e; }
+    
+    Element get_weakness() const { return weakness; }
+    void set_weakness(Element e) { weakness = e; }
 
     const std::string& get_id() const { return id; }
     const std::string& get_name() const { return name; }
@@ -49,14 +63,12 @@ public:
     int get_agi() const { return agi; }
     int get_intl() const { return intl; }
     int get_wis() const { return wis; }
-    Element get_affinity() const { return affinity; }
 
     void set_str(int v) { str = v; }
     void set_cons(int v) { cons = v; }
     void set_agi(int v) { agi = v; }
     void set_intl(int v) { intl = v; }
     void set_wis(int v) { wis = v; }
-    void set_affinity(Element e) { affinity = e; }
 
     int get_hp() const { return hp; }
     int get_max_hp() const { return max_hp; }
@@ -94,6 +106,29 @@ public:
     void set_special_move(const SpecialMove& sm) { special_move = sm; has_special_move = true; }
 
     bool is_dead() const { return hp <= 0; }
+    
+    int exp_to_next_level() const {
+        return level * level * 100;
+    }
+    
+    int stat_points = 0;
+    int get_stat_points() const { return stat_points; }
+    void add_stat_points(int amt) { stat_points += amt; }
+    
+    int check_level_up() {
+        int levels_gained = 0;
+        while (exp >= exp_to_next_level()) {
+            exp -= exp_to_next_level();
+            level++;
+            stat_points += 5; // Give 5 stat points per level
+            max_hp += 10;     // Small base boost
+            hp = max_hp;
+            max_mp += 5;
+            mp = max_mp;
+            levels_gained++;
+        }
+        return levels_gained;
+    }
 };
 
 struct ScheduleEntry {
@@ -118,8 +153,9 @@ private:
     std::vector<std::string> quest_ids;
 
 public:
-    NPC(std::string id, std::string name, NPCType type, std::string role, std::string faction = "Neutral") 
-        : Entity(std::move(id), std::move(name)), type(type), role(std::move(role)), faction(std::move(faction)), trust_level(0) {}
+    NPC(std::string id, std::string name, NPCType type, std::string role, std::string faction = "Neutral",
+        int s=10, int c=10, int a=10, int i=10, int w=10, int lvl=1) 
+        : Entity(std::move(id), std::move(name), s, c, a, i, w, lvl), type(type), role(std::move(role)), faction(std::move(faction)), trust_level(0) {}
 
     NPCType get_type() const { return type; }
     const std::string& get_role() const { return role; }
@@ -176,10 +212,13 @@ private:
     std::string description;
     int base_damage;
     std::vector<Loot> loot_table;
+    int exp_drop = 0;
+    int gold_drop = 0;
 
 public:
-    Monster(std::string id, std::string name, std::string desc, int max_hp, int damage, int agility)
-        : Entity(std::move(id), std::move(name), 10, 10, agility, 10, 10), 
+    Monster(std::string id, std::string name, std::string desc, int max_hp, int damage, int agility,
+            int s=10, int c=10, int i=10, int w=10, int lvl=1)
+        : Entity(std::move(id), std::move(name), s, c, agility, i, w, lvl), 
           description(std::move(desc)), base_damage(damage) {
         this->max_hp = max_hp;
         this->hp = max_hp;
@@ -193,4 +232,10 @@ public:
     }
     
     const std::vector<Loot>& get_loot_table() const { return loot_table; }
+    
+    int get_exp_drop() const { return exp_drop; }
+    void set_exp_drop(int val) { exp_drop = val; }
+    
+    int get_gold_drop() const { return gold_drop; }
+    void set_gold_drop(int val) { gold_drop = val; }
 };

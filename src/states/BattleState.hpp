@@ -6,12 +6,12 @@
 #include <vector>
 #include <array>
 #include <string>
+#include "../utils/components/Popup.hpp"
 
 class GameEngine;
 
 class BattleState : public GameState {
 private:
-    GameEngine* engine;
     BattlePage view;
 
     // The combatants
@@ -29,7 +29,8 @@ private:
     // UI states
     int current_menu_selection;
     std::vector<std::string> menu_options;
-    std::string battle_log;
+    std::vector<std::string> battle_log;
+    bool skip_animations = false;
 
     // Sub-states
     enum class Phase {
@@ -38,17 +39,39 @@ private:
         SELECTING_TARGET_ALLY,
         SELECTING_MAGIC,
         SELECTING_ITEM,
-        PROCESSING_TURN
+        SELECTING_SWAP_SLOT,
+        PROCESSING_TURN,
+        WAITING_FOR_INPUT, // Wait for user to read log
+        BATTLE_END
     };
     Phase current_phase;
     std::string pending_action; // e.g., "Attack", "Magic:Fireball"
+    
+    // End Battle Drops
+    int accumulated_exp = 0;
+    int accumulated_gold = 0;
+    std::vector<std::string> end_battle_logs;
+    int selected_magic_idx = -1;
+    int selected_item_idx = -1;
+    std::string selected_item_id;
+    std::vector<std::string> current_item_menu_ids;
 
     void populate_enemies(const std::string& monster_group_id);
     void build_turn_queue();
     void next_turn();
-    void execute_enemy_turn(Entity* enemy);
+    void execute_ai_turn(Entity* active, bool is_ally);
+    void add_log(const std::string& msg);
+    void animate_hit(Entity* target);
+    
+    std::unique_ptr<Popup> end_popup;
     
     void build_main_menu();
+    void build_enemy_target_menu();
+    void build_ally_target_menu();
+    void build_swap_slot_menu();
+    void build_magic_menu();
+    void build_item_menu();
+    void execute_action(Entity* target);
 
 public:
     BattleState(GameEngine* engine, const std::string& monster_group_id);

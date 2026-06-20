@@ -1,6 +1,6 @@
 [
     {
-    "id": "general_store_shop_dialog_anton",
+    "id": "sh_gs_ant_shop_dialog",
     "on_start": [],
     "on_exit": [],
     "next_scene": "",
@@ -13,7 +13,7 @@
     ]
   },
   {
-    "id": "general_store_shop_dialog_anton_EXIT",
+    "id": "sh_gs_ant_shop_dialog_EXIT",
     "on_start": [],
     "on_exit": [],
     "next_scene": "",

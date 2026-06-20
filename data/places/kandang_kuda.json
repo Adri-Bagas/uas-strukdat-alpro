@@ -5,7 +5,7 @@
   "on_enter": "",
   "walkable": {
     "north": "alun_alun",
-    "west": "jalanan_utama_kota"
+    "west": "jalanan_timur_kota"
   },
   "activities": [
     {

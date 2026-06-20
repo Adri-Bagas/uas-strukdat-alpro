@@ -10,6 +10,7 @@ private:
         "Start New",
         "Load",
         "Test Battle",
+        "Test Dungeon",
         "Settings",
         "Exit"
     };

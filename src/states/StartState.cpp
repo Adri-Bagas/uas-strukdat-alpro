@@ -25,6 +25,7 @@ void StartState::handle_input(int ch) {
         if (selection_index >= (int)menu_options.size()) selection_index = 0;
     } else if (ch == '\n' || ch == ' ') {
         if (selection_index == 0) { // Start New
+            engine->get_places().set_current_place("kandang_kuda");
             engine->push_state(new TownState(engine));
         } else if (selection_index == 1) { // Load
             engine->get_dialogs().queue_popup("Fitur Load belum diimplementasikan.");

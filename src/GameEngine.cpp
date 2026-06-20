@@ -52,7 +52,7 @@ void GameEngine::init() {
     }
 
     places.resolve_connections();
-    places.set_current_place("kandang_kuda");
+    // places.set_current_place("kandang_kuda");
 
     player_manager.init_player("hero", "Nirva Hero");
     // For testing: add party members

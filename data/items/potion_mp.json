@@ -1,0 +1,10 @@
+{
+  "id": "potion_mp",
+  "name": "Mana Potion",
+  "description": "Ramuan merah yang dapat menyembuhkan luka.",
+  "type": "consumable",
+  "value": 40,
+  "on_use": [
+    "add_mp 35"
+  ]
+}

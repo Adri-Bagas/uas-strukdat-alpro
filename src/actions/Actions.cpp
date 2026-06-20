@@ -215,6 +215,12 @@ Action::Action(GameEngine* eng) : engine(eng) {
             }
         }
     });
+
+    register_action("set_next_dialog", [this](const std::string& arg) {
+        if(!arg.empty()) {
+            engine->get_dialogs().set_next_scene(arg);
+        }
+    });
 }
 
 

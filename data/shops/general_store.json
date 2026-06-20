@@ -1,0 +1,29 @@
+{
+    "id": "sh_gen",
+    "name": "Warung Madura Anton",
+    "items": [
+        {"item": "bread", "base_stock": 5},
+        {"item": "fire_ring", "base_stock": 1},
+        {"item": "potion_hp", "base_stock": 3},
+        {"item": "potion_mp", "base_stock": 3},
+        {"item": "leather_boots", "base_stock": 1}  
+    ],
+    "restock_schedule": [
+        {
+            "day": 1,
+            "items": [
+                "bread",
+                "potion_hp"
+            ]
+        },
+        {
+            "day": 5,
+            "items": [
+                "bread",
+                "potion_mp"
+            ]
+        }
+    ], 
+    "on_enter": ["set_next_dialog general_store_shop_dialog_anton"],
+    "on_exit": ["set_next_dialog general_store_shop_dialog_anton_EXIT"]
+}

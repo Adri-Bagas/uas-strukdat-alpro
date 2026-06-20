@@ -9,6 +9,7 @@ private:
     std::vector<std::string> menu_options = {
         "Start New",
         "Load",
+        "Test Battle",
         "Settings",
         "Exit"
     };

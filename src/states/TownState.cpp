@@ -8,12 +8,16 @@
 #include <queue>
 #include <map>
 #include <algorithm>
+#include "StatAllocationState.hpp"
 
 TownState::TownState(GameEngine* eng) : GameState(eng) {}
 
 void TownState::on_enter() {
     Logger::log("TownState: Entering state.");
     selection_index = 0;
+    
+    engine->get_layout().resize(); // Ensure UI is drawn properly when entering TownState
+
     Place* cur = engine->get_places().get_current_place();
     if (!cur) return;
 
@@ -80,6 +84,10 @@ void TownState::handle_input(int ch) {
         engine->get_layout().resize(); 
         if (current_choice_popup) current_choice_popup.reset();
         return; 
+    }
+    else if (ch == 'c' || ch == 'C') {
+        engine->push_state(new StatAllocationState(engine));
+        return;
     }
     else if (ch == '\t') { 
         is_in_map_mode = !is_in_map_mode; 
@@ -437,7 +445,7 @@ void TownState::render_player_status(Player* p) {
     };
     format_equip("weapon", "Sjt"); format_equip("armor", "Zir"); format_equip("boots", "Sep"); format_equip("ring", "Cin");
 
-    engine->get_layout().draw_player_stats(engine->get_layout().win_stat, p->get_str(), p->get_cons(), p->get_agi(), p->get_intl(), p->get_wis(), element_to_string(p->get_affinity()), p->get_gold(), equip_info);
+    engine->get_layout().draw_player_stats(engine->get_layout().win_stat, p->get_str(), p->get_cons(), p->get_agi(), p->get_intl(), p->get_wis(), p->get_stat_points(), element_to_string(p->get_affinity()), p->get_gold(), equip_info);
     engine->get_layout().draw_vitals(engine->get_layout().win_hp, p->get_hp(), p->get_max_hp(), p->get_mp(), p->get_max_mp());
 
     int day = engine->get_calendar().getDay();

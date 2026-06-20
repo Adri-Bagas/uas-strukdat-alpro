@@ -1,0 +1,36 @@
+{
+  "id": "mon_forest_troll",
+  "name": "Forest Troll",
+  "description": "Troll besar dengan kemampuan regenerasi.",
+  "level": 7,
+  "max_hp": 250,
+  "max_mp": 20,
+  "damage": 22,
+  "agility": 9,
+  "str": 22,
+  "cons": 25,
+  "agi": 9,
+  "intl": 4,
+  "wis": 8,
+  "exp_drop": 450,
+  "gold_drop": 30,
+  "loot": [
+    {
+      "item_id": "item_troll_blood",
+      "chance": 60
+    }
+  ],
+  "magics": [
+    {
+      "id": "mag_nature_grasp",
+      "name": "Nature's Grasp",
+      "type": "attacking",
+      "mana_cost": 5,
+      "power": 12,
+      "element": "earth",
+      "range": "reach"
+    }
+  ],
+  "affinity": "earth",
+  "weakness": "none"
+}

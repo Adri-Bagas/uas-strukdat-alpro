@@ -17,6 +17,7 @@ pkgs.mkShell {
     cacert
     
     watchexec
+    gdb
 
     nlohmann_json
   ];

@@ -1,0 +1,31 @@
+{
+  "id": "mon_orc_boss",
+  "name": "Grommash the Orc Chief",
+  "description": "Pemimpin klan Orc yang ganas dengan kekuatan besar.",
+  "level": 10,
+  "max_hp": 400,
+  "max_mp": 50,
+  "damage": 25,
+  "agility": 18,
+  "str": 30,
+  "cons": 28,
+  "agi": 18,
+  "intl": 15,
+  "wis": 15,
+  "loot": [
+    {
+      "item_id": "item_orc_axe",
+      "chance": 100
+    }
+  ],
+  "magics": [],
+  "special_move": {
+    "id": "sp_brutal_smash",
+    "name": "Brutal Smash",
+    "max_uses_per_day": 2,
+    "power": 80,
+    "element": "none"
+  },
+  "affinity": "none",
+  "weakness": "none"
+}

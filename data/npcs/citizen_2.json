@@ -6,10 +6,37 @@
   "role": "Citizen",
   "faction": "Commoners",
   "schedules": [
-    { "days": [], "phase": "Morning", "location": "pasar_kota" },
-    { "days": [], "phase": "Afternoon", "location": "pasar_kota" },
-    { "days": [], "phase": "Evening", "location": "alun_alun" },
-    { "days": [], "phase": "Night", "location": "jalanan_utama_kota" }
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "alun_alun"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "jalanan_utama_kota"
+    }
   ],
-  "default_dialog": "scene_citizen_idle"
+  "default_dialog": "scene_citizen_idle",
+  "str": 13,
+  "cons": 11,
+  "agi": 14,
+  "intl": 14,
+  "wis": 12,
+  "max_hp": 100,
+  "max_mp": 50,
+  "level": 2,
+  "magics": [],
+  "affinity": "none",
+  "weakness": "none"
 }

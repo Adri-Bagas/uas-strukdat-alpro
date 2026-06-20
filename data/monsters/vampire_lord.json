@@ -1,0 +1,31 @@
+{
+  "id": "mon_vampire_lord",
+  "name": "Lord Malakar",
+  "description": "Penguasa klan penghisap darah. Cepat, kuat, dan mematikan.",
+  "level": 15,
+  "max_hp": 600,
+  "max_mp": 300,
+  "damage": 40,
+  "agility": 35,
+  "str": 30,
+  "cons": 25,
+  "agi": 35,
+  "intl": 40,
+  "wis": 30,
+  "loot": [
+    {
+      "item_id": "item_vampire_fang",
+      "chance": 100
+    }
+  ],
+  "magics": [],
+  "special_move": {
+    "id": "sp_blood_drain",
+    "name": "Blood Drain",
+    "max_uses_per_day": 3,
+    "power": 100,
+    "element": "none"
+  },
+  "affinity": "none",
+  "weakness": "light"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "mon_goblin",
+  "name": "Goblin",
+  "description": "Monster hijau kecil yang licik dan suka mencuri.",
+  "level": 2,
+  "max_hp": 80,
+  "max_mp": 20,
+  "damage": 8,
+  "agility": 12,
+  "str": 12,
+  "cons": 10,
+  "agi": 12,
+  "intl": 8,
+  "wis": 8,
+  "loot": [
+    {
+      "item_id": "item_goblin_ear",
+      "chance": 50
+    }
+  ],
+  "magics": [],
+  "affinity": "none",
+  "weakness": "none"
+}

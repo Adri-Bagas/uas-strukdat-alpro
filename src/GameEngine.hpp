@@ -3,6 +3,7 @@
 #include <stack>
 #include "managers/DialogManagers.hpp"
 #include "views/MainPage.hpp"
+#include "views/StartMenuPage.hpp"
 #include "states/GameState.hpp"
 #include "managers/TimeCalendarManagers.hpp"
 #include "managers/PlaceManagers.hpp"
@@ -16,6 +17,7 @@ class GameEngine {
 private:
     DialogManager dialogs;
     MainPage page;
+    StartMenuPage start_page;
     TimeCalendarManagers calendar;
     PlaceManagers places;
     QuestManager quests;
@@ -40,6 +42,7 @@ public:
     // Getters for states to access models
     DialogManager& get_dialogs();
     MainPage& get_layout();
+    StartMenuPage& get_start_layout();
     TimeCalendarManagers& get_calendar();
     PlaceManagers& get_places();
     QuestManager& get_quests();

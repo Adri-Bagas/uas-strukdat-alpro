@@ -3,6 +3,7 @@
 #include "./states/GameState.hpp"
 #include "./views/MainPage.hpp"
 #include "states/TownState.hpp"
+#include "states/StartState.hpp"
 #include "./utils/Logger.hpp"
 #include "./utils/components/ErrorPopup.hpp"
 #include <memory>
@@ -51,13 +52,42 @@ void GameEngine::init() {
     }
 
     places.resolve_connections();
-    places.set_current_place("kandang_kuda");
-
-    page.resize();
+    // places.set_current_place("kandang_kuda");
 
     player_manager.init_player("hero", "Nirva Hero");
+    // For testing: add party members
+    if (auto arthur = db.get_npc("npc_arthur")) player_manager.add_ally(*arthur);
+    if (auto silas = db.get_npc("npc_silas")) player_manager.add_ally(*silas);
 
-    push_state(new TownState(this));
+    // Add dummy skills for testing
+    Player* p = player_manager.get_player();
+    p->set_max_mp(100);
+    p->restore_mp(100);
+    
+    Magic fire;
+    fire.id = "fire_1";
+    fire.name = "Fireball";
+    fire.type = MagicType::ATTACKING;
+    fire.mana_cost = 15;
+    fire.power = 40;
+    p->add_magic(fire);
+
+    Magic heal;
+    heal.id = "heal_1";
+    heal.name = "Minor Heal";
+    heal.type = MagicType::HEALING;
+    heal.mana_cost = 10;
+    heal.power = 30;
+    p->add_magic(heal);
+
+    SpecialMove slash;
+    slash.id = "slash_1";
+    slash.name = "Cross Slash";
+    slash.max_uses_per_day = 3;
+    slash.power = 80;
+    p->set_special_move(slash);
+
+    push_state(new StartState(this));
 } // Setup ncurses, set initial state
 
 void GameEngine::push_state(GameState *new_state) {
@@ -122,6 +152,10 @@ DialogManager &GameEngine::get_dialogs() {
 
 MainPage &GameEngine::get_layout() {
     return page;
+}
+
+StartMenuPage& GameEngine::get_start_layout() {
+    return start_page;
 }
 
 TimeCalendarManagers &GameEngine::get_calendar() {

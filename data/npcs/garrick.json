@@ -6,10 +6,44 @@
   "role": "Kapten Penjaga",
   "faction": "Penjaga Kota",
   "schedules": [
-    { "days": [], "phase": "Morning", "location": "jalanan_utama_kota" },
-    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
-    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
-    { "days": [], "phase": "Night", "location": "balai_kota" }
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "jalanan_utama_kota"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "balai_kota"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "jalanan_utama_kota"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "balai_kota"
+    }
   ],
-  "default_dialog": "scene_garrick_idle"
+  "default_dialog": "scene_garrick_idle",
+  "str": 42,
+  "cons": 34,
+  "agi": 30,
+  "intl": 32,
+  "wis": 38,
+  "max_hp": 230,
+  "max_mp": 320,
+  "level": 14,
+  "magics": [],
+  "special_move": {
+    "id": "sp_heroic_blow",
+    "name": "Heroic Blow",
+    "max_uses_per_day": 1,
+    "power": 50,
+    "element": "none"
+  },
+  "affinity": "none",
+  "weakness": "none"
 }

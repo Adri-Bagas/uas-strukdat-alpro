@@ -1,0 +1,24 @@
+{
+  "id": "mon_skeleton_warrior",
+  "name": "Skeleton Warrior",
+  "description": "Prajurit kerangka yang dibangkitkan dari kuburan tua.",
+  "level": 4,
+  "max_hp": 120,
+  "max_mp": 0,
+  "damage": 12,
+  "agility": 10,
+  "str": 15,
+  "cons": 15,
+  "agi": 10,
+  "intl": 2,
+  "wis": 2,
+  "loot": [
+    {
+      "item_id": "item_bone",
+      "chance": 70
+    }
+  ],
+  "magics": [],
+  "affinity": "none",
+  "weakness": "light"
+}

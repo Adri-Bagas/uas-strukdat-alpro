@@ -1,0 +1,28 @@
+[
+    {
+    "id": "general_store_shop_dialog_anton",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Anton",
+        "value": "Mau beli apa mas?"
+      }
+    ]
+  },
+  {
+    "id": "general_store_shop_dialog_anton_EXIT",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Anton",
+        "value": "Oke Kalau Begitu... Terima Kasih!"
+      }
+    ]
+  }
+]

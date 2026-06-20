@@ -1,0 +1,40 @@
+{
+  "id": "mon_ancient_dragon",
+  "name": "Ignis the Ancient",
+  "description": "Naga legendaris penyembur api. Mimpi buruk bagi semua petualang.",
+  "level": 20,
+  "max_hp": 1500,
+  "max_mp": 500,
+  "damage": 80,
+  "agility": 20,
+  "str": 60,
+  "cons": 50,
+  "agi": 20,
+  "intl": 40,
+  "wis": 40,
+  "loot": [
+    {
+      "item_id": "item_dragon_scale",
+      "chance": 100
+    }
+  ],
+  "magics": [
+    {
+      "id": "mag_inferno",
+      "name": "Inferno",
+      "type": "attacking",
+      "mana_cost": 30,
+      "power": 50,
+      "element": "fire"
+    }
+  ],
+  "special_move": {
+    "id": "sp_dragon_breath",
+    "name": "Dragon's Breath",
+    "max_uses_per_day": 5,
+    "power": 150,
+    "element": "fire"
+  },
+  "affinity": "fire",
+  "weakness": "water"
+}

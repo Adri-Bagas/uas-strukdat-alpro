@@ -2,6 +2,8 @@
 #include "../GameEngine.hpp"
 #include "../utils/Logger.hpp"
 #include "../enums/Element.hpp"
+#include "StatAllocationState.hpp"
+#include "BattleState.hpp"
 #include <ncurses.h>
 #include <random>
 #include <algorithm>
@@ -161,6 +163,11 @@ void DungeonState::handle_input(int ch) {
         engine->pop_state();
         return;
     }
+    
+    if (ch == 'c' || ch == 'C') {
+        engine->push_state(new StatAllocationState(engine));
+        return;
+    }
 
     // Tab toggling controls
     if (ch == '\t' || ch == 't' || ch == 'T') {
@@ -197,9 +204,21 @@ void DungeonState::handle_input(int ch) {
     // Verify cell boundaries and ensure the destination is not a wall
     if (next_r >= 0 && next_r < current_floor.height && next_c >= 0 && next_c < current_floor.width) {
         if (current_floor.grid[next_r][next_c] == 0) {
+            bool moved = (current_floor.player_r != next_r || current_floor.player_c != next_c);
             current_floor.player_r = next_r;
             current_floor.player_c = next_c;
             update_visited(current_floor); // Update fog of war
+            
+            if (moved && !(next_r == current_floor.exit_r && next_c == current_floor.exit_c) && !(next_r == current_floor.start_r && next_c == current_floor.start_c)) {
+                int encounter_chance = rand() % 100;
+                if (encounter_chance < 10) { // 10% chance to encounter enemies
+                    // Note: Here we could randomize the monster group based on floor depth
+                    // For now, we'll hardcode or random select from a few basic groups
+                    std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
+                    engine->push_state(new BattleState(engine, group));
+                    return;
+                }
+            }
         }
     }
 
@@ -269,6 +288,7 @@ void DungeonState::render() {
         engine->get_layout().draw_player_stats(
             engine->get_layout().win_stat, 
             p->get_str(), p->get_cons(), p->get_agi(), p->get_intl(), p->get_wis(), 
+            p->get_stat_points(),
             element_to_string(p->get_affinity()), p->get_gold(), equip_info
         );
         
@@ -470,41 +490,43 @@ void DungeonState::render_party_tab(WINDOW* win) {
     int wy, wx;
     getmaxyx(win, wy, wx);
 
-    int col_w = (wx - 4) / 3;
+    int col_w = (wx - 5) / 4; // 4 slots with borders in between
 
     // Draw vertical column separators
     wattron(win, COLOR_PAIR(2));
     for (int y = 3; y < wy - 1; ++y) {
         mvwaddch(win, y, 2 + col_w, '|');
-        mvwaddch(win, y, 2 + col_w * 2, '|');
+        mvwaddch(win, y, 2 + col_w * 2 + 1, '|');
+        mvwaddch(win, y, 2 + col_w * 3 + 2, '|');
     }
     wattroff(win, COLOR_PAIR(2));
 
-    // Column 1: Leader (Hero)
-    Player* p = engine->get_player_manager().get_player();
-    int hp = p ? p->get_hp() : 100;
-    int max_hp = p ? p->get_max_hp() : 100;
-    int mp = p ? p->get_mp() : 50;
-    int max_mp = p ? p->get_max_mp() : 50;
+    const auto& party = engine->get_player_manager().get_party_slots();
 
-    wattron(win, COLOR_PAIR(4) | A_BOLD);
-    mvwprintw(win, 3, 4, "Leader");
-    wattroff(win, COLOR_PAIR(4) | A_BOLD);
-    mvwprintw(win, 4, 4, "Nirva Hero");
-    mvwprintw(win, 5, 4, "HP: %d/%d", hp, max_hp);
-    mvwprintw(win, 6, 4, "MP: %d/%d", mp, max_mp);
-
-    // Column 2: Empty slot
-    wattron(win, COLOR_PAIR(2));
-    mvwprintw(win, 3, 2 + col_w + 3, "Slot 2");
-    mvwprintw(win, 4, 2 + col_w + 3, "(Kosong)");
-    wattroff(win, COLOR_PAIR(2));
-
-    // Column 3: Empty slot
-    wattron(win, COLOR_PAIR(2));
-    mvwprintw(win, 3, 2 + col_w * 2 + 3, "Slot 3");
-    mvwprintw(win, 4, 2 + col_w * 2 + 3, "(Kosong)");
-    wattroff(win, COLOR_PAIR(2));
+    for (int i = 0; i < 4; ++i) {
+        int x_offset = 2 + (col_w + 1) * i + 2;
+        
+        if (party[i] == nullptr) {
+            wattron(win, COLOR_PAIR(2));
+            mvwprintw(win, 3, x_offset, "Slot %d", i + 1);
+            mvwprintw(win, 4, x_offset, "(Kosong)");
+            wattroff(win, COLOR_PAIR(2));
+        } else {
+            if (i == 0 && party[i]->get_id() == "hero") { // Just a visual highlight for the player
+                wattron(win, COLOR_PAIR(4) | A_BOLD);
+                mvwprintw(win, 3, x_offset, "Leader");
+                wattroff(win, COLOR_PAIR(4) | A_BOLD);
+            } else {
+                wattron(win, COLOR_PAIR(3) | A_BOLD);
+                mvwprintw(win, 3, x_offset, "Ally %d", i + 1);
+                wattroff(win, COLOR_PAIR(3) | A_BOLD);
+            }
+            
+            mvwprintw(win, 4, x_offset, "%s", party[i]->get_name().c_str());
+            mvwprintw(win, 5, x_offset, "HP: %d/%d", party[i]->get_hp(), party[i]->get_max_hp());
+            mvwprintw(win, 6, x_offset, "MP: %d/%d", party[i]->get_mp(), party[i]->get_max_mp());
+        }
+    }
 }
 
 void DungeonState::render_map_tab(WINDOW* win, const DungeonFloor& floor) {

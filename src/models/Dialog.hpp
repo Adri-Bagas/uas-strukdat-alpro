@@ -11,7 +11,7 @@ struct DialogNode {
 
 struct DialogChoice {
     std::string text;
-    std::string condition;
+    Condition condition;
     std::string next_scene;
 };
 

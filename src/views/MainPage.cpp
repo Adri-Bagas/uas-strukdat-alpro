@@ -410,7 +410,7 @@ void MainPage::draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const 
     wnoutrefresh(win);
 }
 
-void MainPage::draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity, int gold, const std::vector<std::string>& equipped_info) {
+void MainPage::draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, int stat_points, std::string affinity, int gold, const std::vector<std::string>& equipped_info) {
     if (!win) return;
     int max_y, max_x; getmaxyx(win, max_y, max_x);
     int start_y = std::max(1, (max_y - 8) / 2);
@@ -419,7 +419,16 @@ void MainPage::draw_player_stats(WINDOW* win, int str, int cons, int agi, int in
     mvwprintw(win, start_y + 2, 2, "AGI : %d", agi);
     mvwprintw(win, start_y + 3, 2, "INT : %d", intl);
     mvwprintw(win, start_y + 4, 2, "WIS : %d", wis);
-    int equip_x = std::max(15, max_x / 2 - 2);
+    
+    if (stat_points > 0) {
+        wattron(win, COLOR_PAIR(4) | A_BOLD);
+        mvwprintw(win, start_y + 5, 2, "Pts : %d (Press 'C' to level up!)", stat_points);
+        wattroff(win, COLOR_PAIR(4) | A_BOLD);
+    } else {
+        mvwprintw(win, start_y + 5, 2, "Pts : %d", stat_points);
+    }
+    
+    int equip_x = std::max(20, max_x / 2 - 2);
     for (size_t i = 0; i < equipped_info.size() && (int)(start_y + i) < max_y - 2; ++i) {
         mvwprintw(win, start_y + i, equip_x, "%s", equipped_info[i].c_str());
     }

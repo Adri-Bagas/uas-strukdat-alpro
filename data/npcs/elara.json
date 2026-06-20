@@ -6,10 +6,69 @@
   "role": "Pendeta Muda / Pustakawan",
   "faction": "Gereja Cahaya",
   "schedules": [
-    { "days": [], "phase": "Morning", "location": "balai_kota" },
-    { "days": [], "phase": "Afternoon", "location": "balai_kota" },
-    { "days": [], "phase": "Evening", "location": "jalanan_utama_kota" },
-    { "days": [], "phase": "Night", "location": "jalanan_utama_kota" }
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "balai_kota"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "balai_kota"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "jalanan_utama_kota"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "jalanan_utama_kota"
+    }
   ],
-  "default_dialog": "scene_elara_idle"
+  "default_dialog": "scene_elara_idle",
+  "str": 23,
+  "cons": 29,
+  "agi": 30,
+  "intl": 20,
+  "wis": 25,
+  "max_hp": 290,
+  "max_mp": 200,
+  "level": 11,
+  "magics": [
+    {
+      "id": "mag_heal",
+      "name": "Heal",
+      "type": "healing",
+      "mana_cost": 8,
+      "power": 20,
+      "element": "light"
+    },
+    {
+      "id": "mag_fireball",
+      "name": "Fireball",
+      "type": "attacking",
+      "mana_cost": 10,
+      "power": 15,
+      "element": "fire"
+    },
+    {
+      "id": "mag_inferno",
+      "name": "Inferno",
+      "type": "attacking",
+      "mana_cost": 30,
+      "power": 50,
+      "element": "fire"
+    }
+  ],
+  "special_move": {
+    "id": "sp_heroic_blow",
+    "name": "Heroic Blow",
+    "max_uses_per_day": 1,
+    "power": 50,
+    "element": "none"
+  },
+  "affinity": "light",
+  "weakness": "none"
 }

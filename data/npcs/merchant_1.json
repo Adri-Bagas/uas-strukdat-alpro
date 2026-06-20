@@ -6,10 +6,37 @@
   "role": "Merchant",
   "faction": "Serikat Dagang",
   "schedules": [
-    { "days": [], "phase": "Morning", "location": "pasar_kota" },
-    { "days": [], "phase": "Afternoon", "location": "pasar_kota" },
-    { "days": [], "phase": "Evening", "location": "kedai_usang" },
-    { "days": [], "phase": "Night", "location": "pasar_kota" }
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "kedai_usang"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "pasar_kota"
+    }
   ],
-  "default_dialog": "scene_merchant_idle"
+  "default_dialog": "scene_merchant_idle",
+  "str": 15,
+  "cons": 15,
+  "agi": 14,
+  "intl": 13,
+  "wis": 14,
+  "max_hp": 100,
+  "max_mp": 50,
+  "level": 2,
+  "magics": [],
+  "affinity": "none",
+  "weakness": "none"
 }

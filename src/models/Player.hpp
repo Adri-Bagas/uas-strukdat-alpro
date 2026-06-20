@@ -6,8 +6,6 @@
 
 class Player : public Entity {
 private:
-    int mp, max_mp;
-    
     int gold;
     
     // Menyimpan inventaris pemain menggunakan ID item dan jumlah (kuantitas)
@@ -20,13 +18,6 @@ public:
     Player(std::string id, std::string name);
     ~Player() override = default;
 
-    // Mana
-    int get_mp() const { return mp; }
-    int get_max_mp() const { return max_mp; }
-    
-    void consume_mp(int amount);
-    void restore_mp(int amount);
-    
     // Progression
     int get_gold() const { return gold; }
     void add_gold(int amount) { gold += amount; }

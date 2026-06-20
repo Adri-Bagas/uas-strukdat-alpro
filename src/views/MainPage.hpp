@@ -40,7 +40,7 @@ class MainPage {
     
     void draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const std::vector<GraphEdge>& edges, std::string_view selected_id, bool is_focused, std::string_view current_id);
     
-    void draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, std::string affinity, int gold, const std::vector<std::string>& equipped_info);
+    void draw_player_stats(WINDOW* win, int str, int cons, int agi, int intl, int wis, int stat_points, std::string affinity, int gold, const std::vector<std::string>& equipped_info);
     void draw_vitals(WINDOW* win, int hp, int max_hp, int mp, int max_mp);
     void draw_inventory(WINDOW* win, const std::vector<std::string>& item_names);
     void draw_tasks(WINDOW* win, const std::vector<std::string>& tasks);

@@ -110,7 +110,7 @@ Activities live inside the `"activities": []` array of a Place.
 
 ## 4. Characters (NPCs) (`data/npcs/`)
 
-NPCs inhabit Places. They have dynamic schedules and serve as hubs for Quests and Dialogue.
+NPCs inhabit Places. They have dynamic schedules and serve as hubs for Quests and Dialogue. They can also have combat stats and magic.
 
 ```json
 {
@@ -128,13 +128,47 @@ NPCs inhabit Places. They have dynamic schedules and serve as hubs for Quests an
     { "days": [], "phase": "Night", "location": "kamar_loteng" }
   ],
   "default_dialog": "scene_arthur_idle",
-  "quests": ["quest_stable_investigation"]
+  "quests": ["quest_stable_investigation"],
+  "str": 60,
+  "cons": 25,
+  "agi": 49,
+  "intl": 21,
+  "wis": 30,
+  "max_hp": 370,
+  "max_mp": 290,
+  "level": 21,
+  "affinity": "none",
+  "weakness": "none",
+  "magics": [
+    {
+      "id": "mag_blade_aura",
+      "name": "Blade Aura",
+      "type": "attacking",
+      "mana_cost": 15,
+      "power": 25,
+      "element": "wind",
+      "range": "reach"
+    }
+  ],
+  "special_move": {
+    "id": "sp_silent_strike",
+    "name": "Silent Strike",
+    "max_uses_per_day": 3,
+    "power": 80,
+    "element": "none"
+  }
 }
 ```
 *   `type`: Use `"named"` for story characters (who can utilize the Identity Discovery system). Use `"unnamed"` for generic background characters (like guards or merchants).
 *   `full_name`: The complete title revealed only after the `"reveal_name"` action is executed.
 *   `schedules`: Defines where the NPC is at any given time. The engine evaluates from top to bottom. It prioritizes specific days (e.g., Day 14). If `days` is empty `[]`, that entry serves as the default daily routine.
 *   `quests`: A list of Quest IDs attached to this NPC. The engine will automatically generate the "New Quest", "In Progress", and "Complete Quest" menus based on the status of the quests listed here.
+*   `str`, `cons`, `agi`, `intl`, `wis`: Combat stats for the NPC.
+*   `max_hp`, `max_mp`: The max health and mana for the NPC.
+*   `level`: The current level of the NPC.
+*   `affinity` & `weakness`: The elemental affinity or weakness of the character (`none`, `fire`, `water`, `earth`, `wind`, `holy`, `dark`).
+*   `magics`: An array of magical spells the NPC can cast. Spells use `type` (`attacking`, `healing`, `support`) and `element`.
+*   `special_move`: A powerful special attack that the NPC can use a limited number of times per day.
 
 ---
 
@@ -221,3 +255,74 @@ Dialogues drive the story. It is highly recommended to group related scenes toge
     *   `condition` *(Optional)*: A string parser evaluated to show/hide specific choices. Currently supports simple item checks (`"item_id >= amount"`) or boolean variable checks.
     *   `next_scene`: The ID of the dialogue scene to jump to if this choice is selected.
 *   `on_exit`: Action Dispatcher commands executed after the dialogue (and choices) have completely finished. Do not use this if you are jumping to a `next_scene`, as it may cause logic conflicts.
+
+---
+
+## 7. Monsters (`data/monsters/`)
+
+Monsters are adversaries encountered in dungeons or random battles.
+
+```json
+{
+  "id": "mon_slime",
+  "name": "Slime Lendir",
+  "description": "Makhluk kenyal yang sering mengganggu petualang pemula.",
+  "level": 1,
+  "max_hp": 50,
+  "max_mp": 10,
+  "damage": 5,
+  "agility": 8,
+  "str": 10,
+  "cons": 10,
+  "agi": 8,
+  "intl": 5,
+  "wis": 5,
+  "tactic": "ACT_FREELY",
+  "exp_drop": 10,
+  "gold_drop": 5,
+  "affinity": "none",
+  "weakness": "fire",
+  "loot": [
+    {
+      "item_id": "item_slime_gel",
+      "chance": 80
+    }
+  ],
+  "magics": []
+}
+```
+*   `level`, `str`, `cons`, `agi`, `intl`, `wis`: Combat stats for the monster. Note: `damage` and `agility` are fallback fields, prefer standard stats.
+*   `tactic`: The AI behavior for the monster during combat (`ACT_FREELY`, `FULL_ASSAULT`, `HEAL_SUPPORT`, `CONSERVE_SP`).
+*   `exp_drop`, `gold_drop`: Experience points and gold awarded to the player upon defeating the monster.
+*   `affinity` & `weakness`: The elemental affinity or weakness (`none`, `fire`, `water`, `earth`, `wind`, `holy`, `dark`).
+*   `loot`: An array of items dropped by the monster upon death, along with the percentage chance (`0` to `100`).
+*   `magics`: An array of magical spells the monster can cast (follows the same structure as NPC magics).
+
+---
+
+## 8. Items (`data/items/`)
+
+Items can be consumables or equipment.
+
+```json
+{
+  "id": "iron_sword",
+  "name": "Pedang Besi",
+  "description": "Senjata standar untuk petualang pemula.",
+  "type": "equipment",
+  "value": 100,
+  "equip_slot": "weapon",
+  "equip_stats": {
+    "str": 5,
+    "agi": -1
+  },
+  "on_use": [
+    "equip_item iron_sword"
+  ]
+}
+```
+*   `type`: `"equipment"` for equippable gear, `"consumable"` for items that are used and depleted, or `"misc"` for quest items/loot.
+*   `value`: The base price of the item in gold.
+*   `equip_slot`: The slot the item equips into (e.g., `"weapon"`, `"armor"`). Applicable only if type is `"equipment"`.
+*   `equip_stats`: A dictionary of stat bonuses granted while equipped (`str`, `cons`, `agi`, `intl`, `wis`).
+*   `on_use`: Action Dispatcher commands executed when the player uses the item from their inventory. Consumables typically use `"heal_hp <amount>"` or similar, while equipment use `"equip_item <item_id>"`.

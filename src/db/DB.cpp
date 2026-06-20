@@ -10,6 +10,47 @@
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
+MagicType parse_magic_type(const std::string& str) {
+    if (str == "healing") return MagicType::HEALING;
+    if (str == "support") return MagicType::SUPPORT;
+    return MagicType::ATTACKING;
+}
+
+TargetRange parse_target_range(const std::string& range_str) {
+    if (range_str == "direct") return TargetRange::DIRECT;
+    if (range_str == "aoe") return TargetRange::AOE;
+    return TargetRange::REACH; // default
+}
+
+void parse_magics_and_special(const json& j, Entity& entity) {
+    if (j.contains("magics") && j["magics"].is_array()) {
+        for (const auto& m_j : j["magics"]) {
+            Magic m;
+            m.id = m_j.value("id", "magic_0");
+            m.name = m_j.value("name", "Unknown Magic");
+            m.type = parse_magic_type(m_j.value("type", "attacking"));
+            m.mana_cost = m_j.value("mana_cost", 10);
+            m.power = m_j.value("power", 10);
+            m.elem = string_to_element(m_j.value("element", "none"));
+            m.range = parse_target_range(m_j.value("range", "reach"));
+            entity.add_magic(m);
+        }
+    }
+    
+    if (j.contains("special_move")) {
+        auto s_j = j["special_move"];
+        SpecialMove sm;
+        sm.id = s_j.value("id", "sm_0");
+        sm.name = s_j.value("name", "Unknown Special");
+        sm.max_uses_per_day = s_j.value("max_uses_per_day", 1);
+        sm.current_uses = 0;
+        sm.power = s_j.value("power", 50);
+        sm.elem = string_to_element(s_j.value("element", "none"));
+        sm.range = parse_target_range(s_j.value("range", "aoe"));
+        entity.set_special_move(sm);
+    }
+}
+
 /**
  * Fungsi pembantu untuk memparsing objek "condition" dari JSON.
  * Digunakan oleh Dialog, Quest, dan Activity untuk menentukan apakah sesuatu bisa muncul/selesai.
@@ -122,7 +163,9 @@ void DB::load_dialogs(const std::string& directory_path) {
                         for (const auto& choice_j : scene_j["choices"]) {
                             DialogChoice choice;
                             choice.text = choice_j["text"].get<std::string>();
-                            choice.condition = choice_j.value("condition", ""); // Syarat munculnya pilihan ini
+                            if (choice_j.contains("condition")) {
+                                choice.condition = parse_condition(choice_j["condition"]);
+                            }
                             choice.next_scene = choice_j.value("next_scene", ""); // Scene tujuan jika dipilih
                             scene.choices.push_back(choice);
                         }
@@ -288,6 +331,7 @@ void DB::load_items(const std::string& directory_path) {
                 file >> j;
                 Item item(j["id"].get<std::string>(), j["name"].get<std::string>(), j.value("description", ""));
                 item.value = j.value("value", 0);
+                item.type = string_to_item_type(j.value("type", "misc"));
                 item.equip_slot = j.value("equip_slot", ""); // "weapon", "armor", dll.
                 
                 // Bonus statistik saat item ini dipakai
@@ -335,10 +379,15 @@ void DB::load_npcs(const std::string& directory_path) {
             try {
                 json j;
                 file >> j;
-                
                 NPCType type = (j.value("type", "named") == "named") ? NPCType::NAMED : NPCType::UNNAMED;
-                NPC npc(j["id"].get<std::string>(), j["name"].get<std::string>(), type, j.value("role", ""), j.value("faction", "Neutral"));
+                NPC npc(j["id"].get<std::string>(), j["name"].get<std::string>(), type, j.value("role", ""), j.value("faction", "Neutral"),
+                        j.value("str", 10), j.value("cons", 10), j.value("agi", 10), j.value("intl", 10), j.value("wis", 10), j.value("level", 1));
                 npc.set_full_name(j.value("full_name", ""));
+                npc.set_max_mp(j.value("max_mp", 20));
+                npc.restore_mp(npc.get_max_mp());
+                npc.set_affinity(string_to_element(j.value("affinity", "none")));
+                npc.set_weakness(string_to_element(j.value("weakness", "none")));
+                parse_magics_and_special(j, npc);
                 
                 // Memuat jadwal pergerakan NPC berdasarkan hari dan fase waktu
                 if (j.contains("schedules") && j["schedules"].is_array()) {
@@ -404,10 +453,25 @@ void DB::load_monsters(const std::string& directory_path) {
             try {
                 json j;
                 file >> j;
-                
                 Monster mon(j["id"].get<std::string>(), j["name"].get<std::string>(), j.value("description", ""), 
-                            j.value("max_hp", 50), j.value("damage", 5), j.value("agility", 10));
+                            j.value("max_hp", 50), j.value("damage", 5), j.value("agility", 10),
+                            j.value("str", 10), j.value("cons", 10), j.value("intl", 10), j.value("wis", 10), j.value("level", 1));
                 
+                mon.set_max_mp(j.value("max_mp", 20));
+                mon.restore_mp(mon.get_max_mp());
+                mon.set_affinity(string_to_element(j.value("affinity", "none")));
+                mon.set_weakness(string_to_element(j.value("weakness", "none")));
+                
+                std::string tactic_str = j.value("tactic", "ACT_FREELY");
+                if (tactic_str == "FULL_ASSAULT") mon.set_tactic(Tactic::FULL_ASSAULT);
+                else if (tactic_str == "HEAL_SUPPORT") mon.set_tactic(Tactic::HEAL_SUPPORT);
+                else if (tactic_str == "CONSERVE_SP") mon.set_tactic(Tactic::CONSERVE_SP);
+                else mon.set_tactic(Tactic::ACT_FREELY);
+                
+                mon.set_exp_drop(j.value("exp_drop", 10 * j.value("level", 1)));
+                mon.set_gold_drop(j.value("gold_drop", 5 * j.value("level", 1)));
+                
+                parse_magics_and_special(j, mon);
                 // Daftar item yang bisa dijatuhkan monster saat mati
                 if (j.contains("loot") && j["loot"].is_array()) {
                     for (const auto& l_j : j["loot"]) {

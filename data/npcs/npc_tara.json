@@ -1,0 +1,52 @@
+{
+  "id": "npc_tara",
+  "name": "Tara",
+  "full_name": "Tara",
+  "type": "named",
+  "role": "Pedagang Kaki Lima",
+  "faction": "Neutral",
+  "schedules": [
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "kamar_loteng"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "kamar_loteng"
+    }
+  ],
+  "default_dialog": "scene_tara_idle",
+  "quests": [
+    "quest_warga_miskin"
+  ],
+  "str": 15,
+  "cons": 15,
+  "agi": 25,
+  "intl": 18,
+  "wis": 15,
+  "max_hp": 150,
+  "max_mp": 80,
+  "level": 5,
+  "magics": [],
+  "special_move": {
+    "id": "none",
+    "name": "none",
+    "max_uses_per_day": 0,
+    "power": 0,
+    "element": "none"
+  },
+  "affinity": "none",
+  "weakness": "none"
+}

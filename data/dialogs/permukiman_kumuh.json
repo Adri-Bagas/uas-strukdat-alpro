@@ -6,26 +6,25 @@
       "set_time_siang",
       "check_zona_kuning"
     ],
-    "on_exit": [],
     "nodes": [
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Kamu melangkah keluar dari tembok kota menuju kawasan tenda dan gubuk liar yang dihuni oleh para pekerja kasar dan korban pengusiran pajak tinggi serikat dagang Nirva."
       },
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Jalanannya berlumpur pekat. Gelang di pergelangan tanganmu mulai memancarkan pendaran rune merah redup dan terasa hangat—peringatan bahwa kamu sedang berada di Zona Kuning."
       },
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Di sudut jalan, seorang pria kurus bernama Bara terbatuk hebat sambil memegangi perutnya. Ia adalah salah satu warga yang dibuang oleh Valerius."
       },
       {
         "type": 2,
-        "npc_name": "",
+        "npc_name": "Hero",
         "value": "Jika aku bisa membantunya, mungkin warga di sini mau membuka mulut soal Valerius..."
       }
     ],
@@ -46,22 +45,20 @@
   },
   {
     "id": "dialog_bara_01",
-    "on_enter": [],
-    "on_exit": [],
     "nodes": [
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Bara menepis tanganmu saat kamu mencoba mendekat."
       },
       {
         "type": 1,
-        "npc_name": "Bara",
+        "npc_name": "npc_bara",
         "value": "Pergi! Kami tidak butuh mata-mata Valerius di sini!"
       },
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Napasnya tersengal. Kamu melihat kondisi sekitarnya. Warga di sini kelaparan akibat blokade logistik yang diatur oleh serikat dagang Valerius."
       }
     ],
@@ -70,7 +67,7 @@
         "text": "Berikan Ransum Kering",
         "condition": {
           "type": "has_item",
-          "var_name": "ransum",
+          "key": "ransum",
           "value": 1
         },
         "next_scene": "dialog_bara_bantu"
@@ -96,22 +93,22 @@
     "nodes": [
       {
         "type": 3,
-        "npc_name": "Narrator",
-        "value": "Bara menerima ransum tersebut dengan tangan gemetar. Ia segera membagikannya kepada anak-anak di dekat tenda kumuhnya."
+        "npc_name": "Narator",
+        "value": "Bara menerima ransum tersebut dengan tangan gemetar. Ia segera membagikannya kepada anak-anak di dekat tenda kumuhnya. Tatapannya padamu berubah melunak."
       },
       {
         "type": 1,
-        "npc_name": "Bara",
+        "npc_name": "npc_bara",
         "value": "Kamu bukan anjing peliharaan Valerius... Sebagai gantinya, aku akan memberitahumu rahasianya."
       },
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Bara menyerahkan sebuah buku catatan kumal."
       },
       {
         "type": 1,
-        "npc_name": "Bara",
+        "npc_name": "npc_bara",
         "value": "Itu log manipulasi pajak Valerius untuk menyuap Gereja. Kemarin malam, aku juga melihat Pasukan Gagak Hitam membuang sesuatu ke Reruntuhan Menara Tua di utara. Cek tempat itu kalau kau berani."
       }
     ],
@@ -131,44 +128,327 @@
     "on_enter": [
       "move_to_alun_alun"
     ],
-    "on_exit": [],
     "nodes": [
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Kamu kembali ke Alun-alun Kota Nirva."
       }
-    ],
-    "choices": []
+    ]
   },
   {
     "id": "hub_pasar_gelap",
     "on_enter": [
       "move_to_pasar_gelap"
     ],
-    "on_exit": [],
     "nodes": [
       {
         "type": 3,
-        "npc_name": "Narrator",
+        "npc_name": "Narator",
         "value": "Kamu memasuki area tersembunyi Pasar Gelap Silas."
       }
-    ],
-    "choices": []
+    ]
   },
   {
     "id": "hub_menara_tua",
     "on_enter": [
-      "move_to_menara_tua"
+      "move_to_menara_tua",
+      "set_time_evening",
+      "heal_hp -5"
     ],
-    "on_exit": [],
     "nodes": [
       {
         "type": 3,
-        "npc_name": "Narrator",
-        "value": "Kamu melangkah dengan hati-hati menuju Reruntuhan Menara Tua di utara."
+        "npc_name": "Narator",
+        "value": "Kamu memaksakan diri mencapai sisa bangunan pos pengawas militer yang hancur terbengkalai ini."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Begitu menginjakkan kaki di area ini, gelang di tanganmu membara merah menyala secara agresif. Sihir pengikat mulai merebus darahmu. Rasa sakit yang luar biasa menjalar di lenganmu!"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Sial, ini batas Zona Merah radius sihir pilar kota. Aku tidak bisa lama-lama di sini!"
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di tengah puing-puing, kamu melihat tumpukan tong yang baru saja dibakar."
       }
     ],
-    "choices": []
+    "choices": [
+      {
+        "text": "Geledah tumpukan abu dengan cepat",
+        "next_scene": "investigasi_abu_menara"
+      },
+      {
+        "text": "Mundur sebelum terbunuh oleh gelang (Kembali ke Kumuh)",
+        "next_scene": "hub_permukiman_kumuh"
+      }
+    ]
+  },
+  {
+    "id": "hub_pasar_kota",
+    "on_enter": [
+      "move_to pasar_kota",
+      "set_time_siang"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu berada di area komersial padat Nirva. Kios-kios kecil berjejer, tapi sebagian besar barang didominasi oleh serikat dagang Valerius."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di sudut yang agak sepi, seorang pedagang bernama Tara baru saja selesai bertransaksi dengan pelanggan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tiba-tiba, terdengar suara sepatu besi berderap mendekat. Dua anggota Pasukan Gagak Hitam sedang melakukan patroli rutin untuk merazia pedagang tanpa izin resmi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Wajah Tara pucat pasi. Ia memiliki satu karung persediaan makanan yang belum disembunyikan."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kalau mereka melihat karung itu, Tara pasti ditangkap, pikirku."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bantu Tara menyembunyikan karung (Butuh Kecepatan)",
+        "next_scene": "side_bantu_tara"
+      },
+      {
+        "text": "Diam saja dan pura-pura membeli barang resmi",
+        "next_scene": "side_abaikan_tara"
+      },
+      {
+        "text": "Tinggalkan area pasar menuju Kumuh",
+        "next_scene": "hub_permukiman_kumuh"
+      }
+    ]
+  },
+  {
+    "id": "side_bantu_tara",
+    "on_enter": [
+      "add_var trust_warga 2",
+      "give_item ransum 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dengan sigap, kamu menendang tumpukan jerami dan kotak kayu kosong untuk menutupi karung milik Tara tepat sebelum kedua prajurit Gagak Hitam berbelok ke lorong kios."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Prajurit elit itu melirik tajam ke arahmu dan Tara. Setelah tidak menemukan barang ilegal yang mencurigakan, mereka mendengus dan melanjutkan patroli."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tara menghela napas lega dan menarikmu ke belakang kios."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_tara",
+        "value": "Hampir saja. Kalau bukan karenamu, daganganku sudah disita serikat Valerius yang serakah itu. Ini, ambillah sebagai bentuk terima kasih."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tara memberimu sekantong makanan."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Bagus, persediaan ini bisa kuberikan pada orang-orang di luar tembok yang kelaparan, pikirku."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Lanjutkan perjalanan ke Permukiman Kumuh (Outskirts)",
+        "next_scene": "hub_permukiman_kumuh"
+      },
+      {
+        "text": "Kembali ke Alun-Alun Kota",
+        "next_scene": "hub_alun_alun"
+      }
+    ]
+  },
+  {
+    "id": "side_abaikan_tara",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu memalingkan wajah dan berpura-pura memeriksa apel busuk di kios sebelah."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Prajurit Gagak Hitam langsung menyadari karung mencurigakan di bawah meja Tara. 'Barang selundupan tanpa cap serikat! Sita semuanya!' bentak salah satu prajurit."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tara hanya bisa menunduk pasrah saat barang dagangannya dirampas. Setelah prajurit pergi, Tara menatapmu dengan raut wajah kecewa."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_tara",
+        "value": "Kukira kau berbeda dari anjing-anjing Valerius itu. Aku masih punya sedikit sisa Ransum Kering yang kusembunyikan di saku, tapi kau harus membayarnya dengan harga normal."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Beli Ransum Kering (2 Gold)",
+        "condition": {
+          "type": "var_greater_equal",
+          "key": "gold",
+          "value": 2
+        },
+        "next_scene": "beli_ransum_tara"
+      },
+      {
+        "text": "Lanjutkan perjalanan ke Permukiman Kumuh (Outskirts)",
+        "next_scene": "hub_permukiman_kumuh"
+      },
+      {
+        "text": "Kembali ke Alun-Alun Kota",
+        "next_scene": "hub_alun_alun"
+      }
+    ]
+  },
+  {
+    "id": "beli_ransum_tara",
+    "on_enter": [
+      "add_gold -2",
+      "give_item ransum 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu menyerahkan koin kepada Tara. Ia menyelipkan bungkusan makanan dengan cepat."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ini bisa berguna kalau aku bertemu warga yang butuh bantuan di luar tembok kota, pikirku."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Pergi ke Permukiman Kumuh",
+        "next_scene": "hub_permukiman_kumuh"
+      }
+    ]
+  },
+  {
+    "id": "investigasi_abu_menara",
+    "on_enter": [
+      "heal_hp -2",
+      "give_item bukti_gagak 1",
+      "add_var clue_count 1",
+      "advance_time 1"
+    ],
+    "on_exit": [
+      "set_var quest_warga_miskin_complete 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sambil menahan rasa sakit dari gelang yang terus membakar kulitmu, kamu mengais sisa pembakaran."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu menemukan sebuah logam yang selamat dari api: Lencana elit milik Pasukan Gagak Hitam Valerius!"
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Digabungkan dengan buku log dari Bara, kamu kini punya bukti kuat bahwa Valerius memerintahkan pasukannya memusnahkan barang bukti tepat di luar yurisdiksi penjaga kota."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tidak kuat menahan efek sihir Zona Merah lebih lama, kamu segera berlari mundur kembali ke batas aman."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Kembali ke The Blind Boar untuk lapor ke Arthur",
+        "next_scene": "dialog_arthur_evaluasi"
+      }
+    ]
+  },
+  {
+    "id": "dialog_arthur_evaluasi",
+    "on_enter": [
+      "move_to_arthur_bar"
+    ],
+    "on_exit": [
+      "complete_quest warga_miskin"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu kembali ke kedai Arthur (The Blind Boar) untuk melaporkan temuanmu."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Kamu kembali dengan selamat. Bagaimana penyelidikanmu di permukiman kumuh?"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku membantu warga kumuh bernama Bara, dan dia memberiku catatan manipulasi pajak Valerius. Lalu, aku menemukan lencana elit Gagak Hitam yang terbakar di Menara Tua."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Buku catatan manipulasi pajak dan lencana Gagak Hitam... Luar biasa! Ini bukti tak terbantahkan bahwa Valerius menyuap pihak luar dan menyuruh pasukannya membuang bukti di luar kota."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Simpan bukti-bukti itu baik-baik. Kita akan membutuhkannya untuk membersihkan namamu saat Inquisitor tiba."
+      }
+    ]
+  },
+  {
+    "id": "scene_bara_idle",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_bara",
+        "value": "Terima kasih atas bantuanmu sebelumnya. Hati-hati di jalan, anjing-anjing Valerius masih berkeliaran."
+      }
+    ]
+  },
+  {
+    "id": "scene_tara_idle",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_tara",
+        "value": "Halo! Senang melihatmu lagi. Tokoku selalu terbuka untukmu."
+      }
+    ]
   }
 ]

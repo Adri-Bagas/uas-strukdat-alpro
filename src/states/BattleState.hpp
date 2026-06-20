@@ -40,6 +40,8 @@ private:
         SELECTING_MAGIC,
         SELECTING_ITEM,
         SELECTING_SWAP_SLOT,
+        SELECTING_TACTIC_MEMBER,
+        SELECTING_TACTIC_TYPE,
         PROCESSING_TURN,
         WAITING_FOR_INPUT, // Wait for user to read log
         BATTLE_END
@@ -55,6 +57,7 @@ private:
     int selected_item_idx = -1;
     std::string selected_item_id;
     std::vector<std::string> current_item_menu_ids;
+    int selected_tactic_member = -1;
 
     void populate_enemies(const std::string& monster_group_id);
     void build_turn_queue();
@@ -71,6 +74,8 @@ private:
     void build_swap_slot_menu();
     void build_magic_menu();
     void build_item_menu();
+    void build_tactic_member_menu();
+    void build_tactic_type_menu();
     void execute_action(Entity* target);
 
 public:

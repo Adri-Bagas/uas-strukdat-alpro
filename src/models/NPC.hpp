@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "../enums/Element.hpp"
+#include "../enums/Tactic.hpp"
 #include "CombatActions.hpp"
 
 enum class NPCType {
@@ -30,6 +31,8 @@ protected:
     std::vector<Magic> magics;
     SpecialMove special_move;
     bool has_special_move = false;
+    
+    Tactic current_tactic = Tactic::ACT_FREELY;
     std::vector<CombatModifier> active_modifiers;
 
 public:
@@ -106,6 +109,9 @@ public:
     void set_special_move(const SpecialMove& sm) { special_move = sm; has_special_move = true; }
 
     bool is_dead() const { return hp <= 0; }
+    
+    Tactic get_tactic() const { return current_tactic; }
+    void set_tactic(Tactic t) { current_tactic = t; }
     
     int exp_to_next_level() const {
         return level * level * 100;

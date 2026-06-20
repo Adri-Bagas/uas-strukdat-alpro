@@ -462,6 +462,12 @@ void DB::load_monsters(const std::string& directory_path) {
                 mon.set_affinity(string_to_element(j.value("affinity", "none")));
                 mon.set_weakness(string_to_element(j.value("weakness", "none")));
                 
+                std::string tactic_str = j.value("tactic", "ACT_FREELY");
+                if (tactic_str == "FULL_ASSAULT") mon.set_tactic(Tactic::FULL_ASSAULT);
+                else if (tactic_str == "HEAL_SUPPORT") mon.set_tactic(Tactic::HEAL_SUPPORT);
+                else if (tactic_str == "CONSERVE_SP") mon.set_tactic(Tactic::CONSERVE_SP);
+                else mon.set_tactic(Tactic::ACT_FREELY);
+                
                 mon.set_exp_drop(j.value("exp_drop", 10 * j.value("level", 1)));
                 mon.set_gold_drop(j.value("gold_drop", 5 * j.value("level", 1)));
                 

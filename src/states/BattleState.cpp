@@ -159,7 +159,7 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
     skip_animations = false;
     
     // Find target
-    Entity* target = nullptr;
+    Entity* direct_target = nullptr;
     int my_slot = -1;
     bool active_is_party = false;
     
@@ -172,10 +172,10 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
     auto& opp_team = active_is_party ? enemy_slots : party_slots;
 
     if (my_slot != -1 && opp_team[my_slot] && opp_team[my_slot]->get_hp() > 0) {
-        target = opp_team[my_slot];
+        direct_target = opp_team[my_slot];
     }
     
-    if (!target && my_slot != -1) {
+    if (!direct_target && my_slot != -1) {
         // Move to a slot that has an enemy in front, even if populated (swap)
         bool moved = false;
         int wait_chance = rand() % 100;
@@ -190,7 +190,7 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
                     }
                     add_log(active->get_name() + " moves to Slot " + std::to_string(i + 1) + "!");
                     my_slot = i;
-                    target = opp_team[i];
+                    direct_target = opp_team[i];
                     moved = true;
                     break;
                 }
@@ -206,56 +206,122 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
         }
     }
     
-    if (target) {
-        int action = rand() % 100;
-        if (action < 20 && active->has_special()) {
-            pending_action = "Special";
-            const SpecialMove& sm = active->get_special_move();
-            Entity* final_target = target;
-            if (sm.range == TargetRange::AOE) final_target = nullptr;
-            else if (sm.range == TargetRange::REACH) {
-                bool active_is_party = false;
-                for(int i=0; i<4; i++) if (party_slots[i] == active) active_is_party = true;
-                auto& opp_team = active_is_party ? enemy_slots : party_slots;
-                std::vector<Entity*> available;
-                for(int i=0; i<4; i++) if (opp_team[i] && opp_team[i]->get_hp()>0) available.push_back(opp_team[i]);
-                if (!available.empty()) final_target = available[rand() % available.size()];
+    if (direct_target) {
+        Tactic tactic = active->get_tactic();
+        bool did_action = false;
+        
+        if (tactic == Tactic::HEAL_SUPPORT) {
+            // Check for anyone below 50% HP
+            Entity* need_heal = nullptr;
+            for(int i=0; i<4; i++) {
+                if (my_team[i] && my_team[i]->get_hp() > 0 && my_team[i]->get_hp() < my_team[i]->get_max_hp() * 0.5) {
+                    need_heal = my_team[i]; break;
+                }
             }
-            execute_action(final_target);
-        } else if (action < 60 && !active->get_magics().empty()) {
-            selected_magic_idx = rand() % active->get_magics().size();
-            const Magic& m = active->get_magics()[selected_magic_idx];
-            if (active->get_mp() >= m.mana_cost) {
-                pending_action = "Magic";
-                Entity* final_target = target;
-                if (m.range == TargetRange::AOE) final_target = nullptr;
-                else if (m.type == MagicType::HEALING || m.type == MagicType::SUPPORT) {
-                    bool active_is_party = false;
-                    for(int i=0; i<4; i++) if (party_slots[i] == active) active_is_party = true;
-                    auto& my_team = active_is_party ? party_slots : enemy_slots;
-                    Entity* need_heal = nullptr;
-                    for(int i=0; i<4; i++) {
-                        if (my_team[i] && my_team[i]->get_hp() > 0 && my_team[i]->get_hp() < my_team[i]->get_max_hp()) {
-                            need_heal = my_team[i]; break;
-                        }
+            if (need_heal) {
+                // Find healing magic
+                for (size_t i = 0; i < active->get_magics().size(); ++i) {
+                    const auto& m = active->get_magics()[i];
+                    if ((m.type == MagicType::HEALING || m.type == MagicType::SUPPORT) && active->get_mp() >= m.mana_cost) {
+                        selected_magic_idx = i;
+                        pending_action = "Magic";
+                        Entity* t = need_heal;
+                        if (m.range == TargetRange::AOE) t = nullptr;
+                        execute_action(t);
+                        did_action = true;
+                        break;
                     }
-                    final_target = need_heal ? need_heal : active;
-                } else if (m.range == TargetRange::REACH) {
-                    bool active_is_party = false;
-                    for(int i=0; i<4; i++) if (party_slots[i] == active) active_is_party = true;
-                    auto& opp_team = active_is_party ? enemy_slots : party_slots;
+                }
+            }
+            if (!did_action) {
+                // If everyone is fine or no healing magic, maybe defend or weak attack
+                int roll = rand() % 100;
+                if (roll < 50) {
+                    pending_action = "Defend";
+                    execute_action(active);
+                    did_action = true;
+                }
+            }
+        } else if (tactic == Tactic::FULL_ASSAULT) {
+            // Find highest damage magic/special
+            int best_dmg = -1;
+            int best_magic_idx = -1;
+            for (size_t i = 0; i < active->get_magics().size(); ++i) {
+                const auto& m = active->get_magics()[i];
+                if (m.type == MagicType::ATTACKING && active->get_mp() >= m.mana_cost && m.power > best_dmg) {
+                    best_dmg = m.power;
+                    best_magic_idx = i;
+                }
+            }
+            // Also check special
+            if (active->has_special() && active->get_special_move().power > best_dmg) {
+                int roll = rand() % 100;
+                if (roll < 50) { // 50% chance to use special if it's strong
+                    pending_action = "Special";
+                    Entity* t = direct_target;
+                    if (active->get_special_move().range == TargetRange::AOE) t = nullptr;
+                    execute_action(t);
+                    did_action = true;
+                }
+            }
+            if (!did_action && best_magic_idx != -1) {
+                selected_magic_idx = best_magic_idx;
+                pending_action = "Magic";
+                Entity* t = direct_target;
+                if (active->get_magics()[best_magic_idx].range == TargetRange::AOE) t = nullptr;
+                execute_action(t);
+                did_action = true;
+            }
+        } else if (tactic == Tactic::CONSERVE_SP) {
+            // Only basic attacks
+            pending_action = "Attack";
+            execute_action(direct_target);
+            did_action = true;
+        } 
+        
+        // ACT_FREELY or fallback
+        if (!did_action) {
+            int action = rand() % 100;
+            if (action < 20 && active->has_special()) {
+                pending_action = "Special";
+                Entity* t = direct_target;
+                if (active->get_special_move().range == TargetRange::AOE) t = nullptr;
+                else if (active->get_special_move().range == TargetRange::REACH) {
                     std::vector<Entity*> available;
                     for(int i=0; i<4; i++) if (opp_team[i] && opp_team[i]->get_hp()>0) available.push_back(opp_team[i]);
-                    if (!available.empty()) final_target = available[rand() % available.size()];
+                    if (!available.empty()) t = available[rand() % available.size()];
                 }
-                execute_action(final_target);
+                execute_action(t);
+            } else if (action < 60 && !active->get_magics().empty()) {
+                selected_magic_idx = rand() % active->get_magics().size();
+                const Magic& m = active->get_magics()[selected_magic_idx];
+                if (active->get_mp() >= m.mana_cost) {
+                    pending_action = "Magic";
+                    Entity* t = direct_target;
+                    if (m.range == TargetRange::AOE) t = nullptr;
+                    else if (m.type == MagicType::HEALING) {
+                        Entity* need_heal = active;
+                        for(int i=0; i<4; i++) {
+                            if (my_team[i] && my_team[i]->get_hp() > 0 && my_team[i]->get_hp() < my_team[i]->get_max_hp()) {
+                                need_heal = my_team[i]; break;
+                            }
+                        }
+                        t = need_heal;
+                    }
+                    else if (m.range == TargetRange::REACH) {
+                        std::vector<Entity*> available;
+                        for(int i=0; i<4; i++) if (opp_team[i] && opp_team[i]->get_hp()>0) available.push_back(opp_team[i]);
+                        if (!available.empty()) t = available[rand() % available.size()];
+                    }
+                    execute_action(t);
+                } else {
+                    pending_action = "Attack";
+                    execute_action(direct_target);
+                }
             } else {
                 pending_action = "Attack";
-                execute_action(target);
+                execute_action(direct_target);
             }
-        } else {
-            pending_action = "Attack";
-            execute_action(target);
         }
     } else {
         add_log(active->get_name() + " waits.");
@@ -274,7 +340,34 @@ void BattleState::build_main_menu() {
         "4. Move (Swap Slot)",
         "5. Item",
         "6. Defend",
-        "7. Flee"
+        "7. Tactics",
+        "8. Flee"
+    };
+    current_menu_selection = 0;
+}
+
+void BattleState::build_tactic_member_menu() {
+    menu_options.clear();
+    for (int i = 0; i < 4; ++i) {
+        if (party_slots[i] && party_slots[i] != engine->get_player_manager().get_player()) {
+            menu_options.push_back("Slot " + std::to_string(i + 1) + ": " + party_slots[i]->get_name() + " [" + tactic_to_string(party_slots[i]->get_tactic()) + "]");
+        } else if (party_slots[i] && party_slots[i] == engine->get_player_manager().get_player()) {
+            menu_options.push_back("Slot " + std::to_string(i + 1) + ": " + party_slots[i]->get_name() + " (Player - N/A)");
+        } else {
+            menu_options.push_back("Slot " + std::to_string(i + 1) + ": Empty");
+        }
+    }
+    menu_options.push_back("Cancel");
+    current_menu_selection = 0;
+}
+
+void BattleState::build_tactic_type_menu() {
+    menu_options = {
+        tactic_to_string(Tactic::ACT_FREELY),
+        tactic_to_string(Tactic::FULL_ASSAULT),
+        tactic_to_string(Tactic::HEAL_SUPPORT),
+        tactic_to_string(Tactic::CONSERVE_SP),
+        "Cancel"
     };
     current_menu_selection = 0;
 }
@@ -569,9 +662,13 @@ void BattleState::handle_input(int ch) {
         } else if (sel == "6. Defend") {
             pending_action = "Defend";
             execute_action(active);
-        } else if (sel == "7. Flee") {
+        } else if (sel == "7. Tactics") {
+            current_phase = Phase::SELECTING_TACTIC_MEMBER;
+            build_tactic_member_menu();
+        } else if (sel == "8. Flee") {
             add_log(active->get_name() + " flees the battle!");
-            engine->pop_state(); // End battle
+            engine->pop_state();
+            return;
         }
     } else if (current_phase == Phase::SELECTING_TARGET_ENEMY) {
         if (current_menu_selection == (int)menu_options.size() - 1) { // Cancel
@@ -683,6 +780,37 @@ void BattleState::handle_input(int ch) {
             selected_item_idx = current_menu_selection;
             current_phase = Phase::SELECTING_TARGET_ALLY;
             build_ally_target_menu();
+        }
+    } else if (current_phase == Phase::SELECTING_TACTIC_MEMBER) {
+        if (current_menu_selection == (int)menu_options.size() - 1) { // Cancel
+            current_phase = Phase::WAITING_FOR_ACTION;
+            build_main_menu();
+        } else {
+            if (party_slots[current_menu_selection] && party_slots[current_menu_selection] != engine->get_player_manager().get_player()) {
+                selected_tactic_member = current_menu_selection;
+                current_phase = Phase::SELECTING_TACTIC_TYPE;
+                build_tactic_type_menu();
+            } else {
+                // Invalid selection (player or empty)
+                // Just stay here
+            }
+        }
+    } else if (current_phase == Phase::SELECTING_TACTIC_TYPE) {
+        if (current_menu_selection == (int)menu_options.size() - 1) { // Cancel
+            current_phase = Phase::SELECTING_TACTIC_MEMBER;
+            build_tactic_member_menu();
+        } else {
+            Tactic chosen = Tactic::ACT_FREELY;
+            if (current_menu_selection == 0) chosen = Tactic::ACT_FREELY;
+            else if (current_menu_selection == 1) chosen = Tactic::FULL_ASSAULT;
+            else if (current_menu_selection == 2) chosen = Tactic::HEAL_SUPPORT;
+            else if (current_menu_selection == 3) chosen = Tactic::CONSERVE_SP;
+            
+            party_slots[selected_tactic_member]->set_tactic(chosen);
+            
+            // Go back to main menu
+            current_phase = Phase::WAITING_FOR_ACTION;
+            build_main_menu();
         }
     }
 }

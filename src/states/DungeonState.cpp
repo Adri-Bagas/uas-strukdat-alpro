@@ -3,6 +3,7 @@
 #include "../utils/Logger.hpp"
 #include "../enums/Element.hpp"
 #include "StatAllocationState.hpp"
+#include "BattleState.hpp"
 #include <ncurses.h>
 #include <random>
 #include <algorithm>
@@ -203,9 +204,21 @@ void DungeonState::handle_input(int ch) {
     // Verify cell boundaries and ensure the destination is not a wall
     if (next_r >= 0 && next_r < current_floor.height && next_c >= 0 && next_c < current_floor.width) {
         if (current_floor.grid[next_r][next_c] == 0) {
+            bool moved = (current_floor.player_r != next_r || current_floor.player_c != next_c);
             current_floor.player_r = next_r;
             current_floor.player_c = next_c;
             update_visited(current_floor); // Update fog of war
+            
+            if (moved && !(next_r == current_floor.exit_r && next_c == current_floor.exit_c) && !(next_r == current_floor.start_r && next_c == current_floor.start_c)) {
+                int encounter_chance = rand() % 100;
+                if (encounter_chance < 10) { // 10% chance to encounter enemies
+                    // Note: Here we could randomize the monster group based on floor depth
+                    // For now, we'll hardcode or random select from a few basic groups
+                    std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
+                    engine->push_state(new BattleState(engine, group));
+                    return;
+                }
+            }
         }
     }
 

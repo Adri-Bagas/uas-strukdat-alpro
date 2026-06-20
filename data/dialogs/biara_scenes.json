@@ -1,0 +1,1021 @@
+[
+  {
+    "id": "alun2",
+    "on_enter": [
+      "move_to_alun_alun",
+      "set_time_morning"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Alun-alun kota mulai ramai oleh pedagang, buruh, dan warga yang memulai aktivitas mereka. Di tengah keramaian berdiri patung Walikota Alden yang kini dipenuhi bunga dan lilin sebagai bentuk penghormatan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Beberapa warga masih berbisik saat melihatmu lewat."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Gelang Penjara Suci di pergelangan tanganmu terasa hangat."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Dua belas hari lagi sebelum Inquisitor tiba. Aku harus mencari cara membersihkan namaku."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di sisi utara alun-alun berdiri Biara Cahaya. Beberapa warga tampak berjalan ke sana sejak pagi."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Pergi ke Biara Cahaya",
+        "condition": {
+          "type": "var_equal",
+          "key": "quest_gereja_1",
+          "value": 0
+        },
+        "next_scene": "biara_01"
+      },
+      {
+        "text": "Pergi ke Biara Cahaya",
+        "condition": {
+          "type": "var_equal",
+          "key": "quest_gereja_1",
+          "value": 1
+        },
+        "next_scene": "alun2_branch2"
+      }
+    ]
+  },
+  {
+    "id": "alun2_branch2",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di sisi utara alun-alun berdiri Biara Cahaya. Beberapa warga tampak berjalan ke sana sejak pagi."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Pergi ke Biara Cahaya",
+        "condition": {
+          "type": "var_equal",
+          "key": "quest_gereja_2",
+          "value": 0
+        },
+        "next_scene": "biara_02"
+      },
+      {
+        "text": "Pergi ke Biara Cahaya",
+        "condition": {
+          "type": "var_equal",
+          "key": "quest_gereja_2",
+          "value": 1
+        },
+        "next_scene": "biara_03"
+      }
+    ]
+  },
+  {
+    "id": "biara_01",
+    "on_enter": [
+      "move_to_biara",
+      "set_time_morning"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sinar matahari pagi menyinari dinding batu Biara Cahaya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Puluhan warga miskin telah mengantre di depan gerbang sejak fajar. Sebagian membawa mangkuk kosong, sebagian lagi duduk diam di tangga batu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Anehnya, tidak ada aroma makanan yang biasanya keluar dari dapur umum."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di dekat pintu masuk, seorang wanita berjubah abu-abu tampak mondar-mandir dengan gelisah."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Namanya Maria. Maria sesekali melihat ke arah jalan menuju Pasar Timur."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Sepertinya ada masalah."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bicara dengan Maria",
+        "next_scene": "maria"
+      },
+      {
+        "text": "Kembali ke Alun-Alun",
+        "next_scene": "alun2"
+      }
+    ]
+  },
+  {
+    "id": "maria",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Maria tampak lega saat melihatmu mendekat."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_maria",
+        "value": "Syukurlah. Aku sedang membutuhkan bantuan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Ia menjelaskan bahwa kiriman bahan makanan dari Pasar Timur belum tiba. Tanpa persediaan itu, dapur umum tidak bisa beroperasi hari ini."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di belakangnya, antrean warga terus bertambah."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kurasa aku harus mencari tahu apa yang terjadi."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Pergi ke Pasar Timur",
+        "next_scene": "pasar"
+      },
+      {
+        "text": "Tolak Membantu",
+        "next_scene": "biara_01"
+      }
+    ]
+  },
+  {
+    "id": "pasar",
+    "on_enter": [
+      "move_to pasar_kota",
+      "accept_quest quest_gereja_1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Keramaian pasar memenuhi jalan utama Nirva."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di dekat gerbang pasar, sebuah kereta pengangkut terlihat berhenti miring di pinggir jalan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Karung-karung gandum dan sayuran berserakan di tanah."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Seorang kusir tampak kebingungan sementara dua preman berdiri tidak jauh darinya."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kurasa aku menemukan kiriman yang dicari Maria."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Dekati Kusir",
+        "next_scene": "kusir"
+      },
+      {
+        "text": "Kembali ke Biara",
+        "next_scene": "biara_01"
+      }
+    ]
+  },
+  {
+    "id": "kusir",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Roda depan kereta patah akibat menghantam lubang di jalan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sang kusir menjelaskan bahwa ia tidak bisa melanjutkan perjalanan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sementara itu, dua preman tampak bersiap membawa beberapa karung gandum."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kalau kubiarkan, persediaan gereja akan berkurang."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Usir Preman",
+        "next_scene": "preman"
+      },
+      {
+        "text": "Biarkan Mereka",
+        "next_scene": "gagal_gereja_1"
+      }
+    ]
+  },
+  {
+    "id": "gagal_gereja_1",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu gagal menghentikan preman."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Ulangi quest",
+        "next_scene": "pasar"
+      },
+      {
+        "text": "Tinggalkan quest",
+        "next_scene": "biara_01"
+      }
+    ]
+  },
+  {
+    "id": "preman",
+    "on_enter": [
+      "set_time_afternoon"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Setelah para preman pergi, kusir mulai mengumpulkan kembali barang-barangnya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sayangnya kereta masih tidak bisa digunakan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tanpa pilihan lain, kau membantu mengangkut sebagian persediaan menuju biara."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Perjalanan ini akan memakan waktu, tapi setidaknya makanan itu akan sampai."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Kembali ke Biara",
+        "next_scene": "selesai_gereja_1"
+      }
+    ],
+    "on_exit": [
+      "set_var quest_gereja_1_complete 1"
+    ]
+  },
+  {
+    "id": "selesai_gereja_1",
+    "on_enter": [
+      "move_to_biara"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Para relawan segera membawa persediaan ke dapur."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tak lama kemudian asap mulai keluar dari cerobong."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Aroma sup hangat memenuhi halaman biara."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Warga yang tadinya gelisah kini kembali tersenyum."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Maria menghampirimu sambil membawa kantong kecil berisi koin."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_maria",
+        "value": "Terima kasih. Hari ini banyak orang bisa makan karena bantuanmu."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Untuk pertama kalinya sejak dituduh membunuh Walikota, seseorang memandangku dengan rasa hormat."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Lanjutkan Perjalanan",
+        "next_scene": "alun2"
+      }
+    ],
+    "on_exit": [
+      "complete_quest quest_gereja_1"
+    ]
+  },
+  {
+    "id": "biara_02",
+    "on_enter": [
+      "move_to_biara",
+      "set_time_evening"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Matahari mulai turun ke arah barat."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Beberapa relawan terlihat mondar-mandir dengan wajah cemas. Suasana yang biasanya tenang kini terasa tegang."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di dekat sumur halaman, seorang pria berjubah hitam berdiri sambil memperhatikan jalan kota."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Itu Pastor Andreas."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Sepertinya ada masalah baru."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bicara dengan Pastor Andreas",
+        "next_scene": "andreas"
+      },
+      {
+        "text": "Kembali ke Alun-Alun Nirva",
+        "next_scene": "alun2"
+      }
+    ]
+  },
+  {
+    "id": "andreas",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pastor Andreas tampak lega melihatmu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Seorang anak yatim bernama Lukas menghilang sejak pagi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Biasanya ia membantu para relawan membersihkan halaman biara, tetapi hari ini tidak ada seorang pun yang melihatnya kembali."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Andreas khawatir sesuatu telah terjadi."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Anak kecil tidak mungkin menghilang begitu saja."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Cari petunjuk di Asrama Anak",
+        "next_scene": "asrama"
+      },
+      {
+        "text": "Tolak Membantu",
+        "next_scene": "biara_02"
+      }
+    ]
+  },
+  {
+    "id": "asrama",
+    "on_enter": [
+      "accept_quest quest_gereja_2"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Deretan tempat tidur kayu memenuhi ruangan sederhana itu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Barang-barang Lukas masih berada di tempatnya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Namun sebuah buku gambar terbuka di atas ranjang."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di salah satu halamannya terdapat gambar sebuah menara tua di luar tembok kota."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di bawah gambar itu terdapat tulisan kecil."
+      },
+      {
+        "type": 1,
+        "npc_name": "Lukas",
+        "value": "Aku akan membuktikannya."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Menara tua? Kenapa dia pergi ke sana?"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Pergi ke Menara Tua",
+        "next_scene": "menara_tua"
+      },
+      {
+        "text": "Kembali ke Halaman Biara",
+        "next_scene": "biara_02"
+      }
+    ]
+  },
+  {
+    "id": "menara_tua",
+    "on_enter": [
+      "move_to_menara_tua",
+      "set_time_evening"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Menara tua itu berdiri sendirian di antara rerumputan liar."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sebagian bangunannya telah runtuh sejak bertahun-tahun lalu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Saat mendekat, kau mendengar suara langkah kaki."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Seseorang sedang bersembunyi di dalam."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kurasa aku menemukannya."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Masuk ke Menara",
+        "next_scene": "dalam_menara"
+      }
+    ]
+  },
+  {
+    "id": "dalam_menara",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di sudut ruangan, seorang anak laki-laki sedang memeluk lututnya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Itu Lukas."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di sampingnya terdapat beberapa lembar dokumen yang tampak tua."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Lukas terlihat terkejut saat melihatmu."
+      },
+      {
+        "type": 1,
+        "npc_name": "Lukas",
+        "value": "Aku tidak hilang."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Anak-anak selalu mengatakan itu setelah membuat semua orang panik."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Tanya Lukas",
+        "next_scene": "lukas"
+      }
+    ]
+  },
+  {
+    "id": "lukas",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Lukas menjelaskan bahwa ia diam-diam mengikuti dua pria berpakaian hitam beberapa hari lalu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Mereka datang ke menara dan menyembunyikan beberapa dokumen."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Karena penasaran, Lukas kembali hari ini untuk mengambilnya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di tangannya terdapat sebuah surat dengan lambang Serikat Dagang Nirva."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Nama Valerius tercantum beberapa kali di dalamnya."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ini mungkin lebih penting daripada yang disadari anak itu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Namun suara langkah kaki tiba-tiba terdengar dari luar."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Seseorang sedang mendekati menara."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Sembunyikan Lukas",
+        "next_scene": "lindungi_lukas"
+      }
+    ]
+  },
+  {
+    "id": "lindungi_lukas",
+    "on_enter": [
+      "set_time_evening"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dua pria bertopeng muncul dari balik reruntuhan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Mereka tampaknya sedang mencari dokumen yang dibawa Lukas."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Setelah menghadapi mereka, kau berhasil membawa Lukas keluar dari area tersebut."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dokumen itu tetap berada di tanganmu."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kalau surat ini asli, mungkin ada hubungannya dengan orang-orang yang menjebakku."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Kembali ke Biara",
+        "next_scene": "selesai_gereja_2"
+      }
+    ],
+    "on_exit": [
+      "set_var quest_gereja_2_complete 1"
+    ]
+  },
+  {
+    "id": "selesai_gereja_2",
+    "on_enter": [
+      "move_to_biara"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Saat Lukas kembali, beberapa relawan segera menghampirinya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pastor Andreas menghela napas lega."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Lukas menyerahkan dokumen yang ia temukan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Andreas tampak terkejut saat membaca isinya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Ia tidak menjelaskan lebih lanjut, tetapi wajahnya berubah serius."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_andreas",
+        "value": "Terima kasih. Banyak orang akan mengabaikan anak yatim yang hilang."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Setidaknya sekarang aku memiliki seseorang yang mulai mempercayaiku."
+      }
+    ],
+    "on_exit": [
+      "complete_quest quest_gereja_2"
+    ]
+  },
+  {
+    "id": "biara_03",
+    "on_enter": [
+      "move_to_biara",
+      "set_time_evening"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Hujan gerimis turun membasahi halaman Biara Cahaya."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Beberapa warga pengungsi terlihat berlindung di aula utama. Sejak banjir kecil melanda daerah pinggir sungai kemarin, gereja menjadi tempat perlindungan sementara bagi banyak orang."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Maria dan para relawan sibuk membagikan makanan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pastor Andreas berdiri di dekat gerbang dengan wajah serius."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Suasananya terasa tidak biasa."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bicara dengan Pastor Andreas",
+        "next_scene": "dialog_andreas_q3"
+      },
+      {
+        "text": "Kembali ke Alun-Alun Nirva",
+        "next_scene": "alun2"
+      }
+    ]
+  },
+  {
+    "id": "dialog_andreas_q3",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pastor Andreas tampak gelisah."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Beberapa menit yang lalu, seorang relawan melihat kelompok pria bersenjata bergerak menuju distrik gereja."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Mereka bukan penjaga kota."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Mereka bukan warga sekitar."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Andreas khawatir mereka mengincar persediaan makanan dan obat-obatan yang disimpan untuk para pengungsi."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Bandit berani menyerang gereja? Mereka pasti sedang putus asa... atau dibayar seseorang."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Membantu menjaga gerbang",
+        "next_scene": "gerbang_biara"
+      },
+      {
+        "text": "Menolak terlibat",
+        "next_scene": "gagal"
+      }
+    ]
+  },
+  {
+    "id": "gerbang_biara",
+    "on_enter": [
+      "accept_quest quest_gereja_3"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Hujan semakin deras."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Beberapa relawan menutup gerbang kayu utama sementara warga pengungsi dikumpulkan ke dalam aula."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dari kejauhan, beberapa obor terlihat bergerak mendekat."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tak lama kemudian, suara benturan keras terdengar dari luar gerbang."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "BRAK!"
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Seseorang mencoba mendobrak masuk."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kalau gerbang ini jebol, warga di dalam akan berada dalam bahaya."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bersiap Melawan",
+        "next_scene": "serangan_bandit"
+      }
+    ]
+  },
+  {
+    "id": "serangan_bandit",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sekelompok bandit akhirnya muncul dari balik hujan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pemimpinnya maju beberapa langkah."
+      },
+      {
+        "type": 1,
+        "npc_name": "Pemimpin Bandit",
+        "value": "Kami hanya ingin makanan. Buka gerbang dan tidak akan ada yang terluka."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di belakangmu, beberapa anak yatim terlihat ketakutan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Maria menggenggam liontin di lehernya erat-erat."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kalau mereka masuk, persediaan untuk para pengungsi akan habis."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Lawan Bandit",
+        "next_scene": "pertarungan"
+      },
+      {
+        "text": "Biarkan Mereka Masuk",
+        "next_scene": "gagal"
+      }
+    ]
+  },
+  {
+    "id": "pertarungan",
+    "on_enter": [
+      "set_time_evening"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pertarungan berlangsung singkat namun brutal."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Meskipun kalah jumlah, kau berhasil memukul mundur para bandit."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Melihat pemimpinnya terluka, kelompok itu akhirnya mundur ke dalam kegelapan malam."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Hujan perlahan mulai mereda."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Gerbang biara tetap berdiri."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Setidaknya malam ini tidak ada yang terluka."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Masuk ke Aula Biara",
+        "next_scene": "selesai_gereja_3"
+      }
+    ],
+    "on_exit": [
+      "set_var quest_gereja_3_complete 1"
+    ]
+  },
+  {
+    "id": "gagal",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu membiarkan para bandit menjarah biara atau menolak untuk bertindak. Makanan dan obat-obatan para pengungsi habis dijarah. Suara tangis warga terdengar di dalam aula biara."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku tidak bisa menyelamatkan mereka... Setidaknya aku selamat."
+      }
+    ]
+  },
+  {
+    "id": "selesai_gereja_3",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu melangkah masuk ke aula biara yang hangat. Pastor Andreas dan Maria menyambutmu dengan penuh rasa terima kasih. Warga pengungsi terlihat bernapas lega."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_andreas",
+        "value": "Terima kasih, anak muda. Keberanianmu malam ini telah menyelamatkan banyak nyawa dan persediaan kami."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sebagai tanda terima kasih, Pastor Andreas memberikan beberapa keping emas padamu."
+      }
+    ],
+    "on_exit": [
+      "complete_quest quest_gereja_3"
+    ]
+  },
+  {
+    "id": "scene_maria_idle",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_maria",
+        "value": "Semoga hari-harimu selalu diterangi oleh Cahaya Suci."
+      }
+    ]
+  },
+  {
+    "id": "scene_andreas_idle",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_andreas",
+        "value": "Tuhan memberkatimu, anak muda. Jaga dirimu di jalanan Nirva."
+      }
+    ]
+  }
+]

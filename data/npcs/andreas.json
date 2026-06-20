@@ -1,0 +1,69 @@
+{
+  "id": "npc_andreas",
+  "name": "Andreas",
+  "full_name": "Pastor Andreas",
+  "type": "named",
+  "role": "Pastor Biara",
+  "faction": "Gereja Cahaya",
+  "schedules": [
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "biara"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "biara"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "biara"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "biara"
+    }
+  ],
+  "default_dialog": "scene_andreas_idle",
+  "quests": [
+    "quest_gereja_2"
+  ],
+  "str": 30,
+  "cons": 40,
+  "agi": 20,
+  "intl": 35,
+  "wis": 45,
+  "max_hp": 300,
+  "max_mp": 250,
+  "level": 15,
+  "magics": [
+    {
+      "id": "mag_heal",
+      "name": "Heal",
+      "type": "healing",
+      "mana_cost": 8,
+      "power": 20,
+      "element": "light"
+    },
+    {
+      "id": "mag_great_heal",
+      "name": "Great Heal",
+      "type": "healing",
+      "mana_cost": 20,
+      "power": 60,
+      "element": "light"
+    }
+  ],
+  "special_move": {
+    "id": "sp_sacred_shield",
+    "name": "Sacred Shield",
+    "max_uses_per_day": 2,
+    "power": 40,
+    "element": "light"
+  },
+  "affinity": "light",
+  "weakness": "none"
+}

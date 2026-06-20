@@ -1,0 +1,22 @@
+{
+  "id": "quest_gereja_2",
+  "name": "ANAK YANG TAK PULANG",
+  "description": "Temukan Lukas, anak yatim dari Biara Cahaya yang menghilang sejak pagi.",
+  "target_npc_id": "npc_andreas",
+  "start_scene_id": "alun2",
+  "complete_scene_id": "selesai",
+  "unlock_condition": {
+    "type": "none"
+  },
+  "condition": {
+    "type": "var_equal",
+    "key": "quest_gereja_2_complete",
+    "value": 1
+  },
+  "on_complete": [
+    "add_gold 35",
+    "give_item potion_hp 2",
+    "add_var trust 5",
+    "set_var quest_gereja_2 1"
+  ]
+}

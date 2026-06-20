@@ -1,0 +1,23 @@
+{
+  "id": "quest_gereja_3",
+  "name": "PERTAHANAN BIARA",
+  "description": "Bantu Pastor Andreas mempertahankan gerbang Biara Cahaya dari serangan bandit.",
+  "target_npc_id": "npc_andreas",
+  "start_scene_id": "dialog_andreas_q3",
+  "complete_scene_id": "selesai_gereja_3",
+  "unlock_condition": {
+    "type": "var_equal",
+    "key": "quest_gereja_2",
+    "value": 1
+  },
+  "condition": {
+    "type": "var_equal",
+    "key": "quest_gereja_3_complete",
+    "value": 1
+  },
+  "on_complete": [
+    "add_gold 50",
+    "add_var str 1",
+    "set_var quest_gereja_3 1"
+  ]
+}

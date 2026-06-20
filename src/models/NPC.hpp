@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include "../enums/Element.hpp"
+#include "CombatActions.hpp"
 
 enum class NPCType {
     NAMED,
@@ -20,6 +21,13 @@ protected:
 
     // Vitality
     int hp, max_hp;
+    int mp = 0, max_mp = 0; // Move MP up to Entity so all combatants have it
+
+    // Combat Data
+    std::vector<Magic> magics;
+    SpecialMove special_move;
+    bool has_special_move = false;
+    std::vector<CombatModifier> active_modifiers;
 
 public:
     Entity(std::string id, std::string name, int s=10, int c=10, int a=10, int i=10, int w=10, Element elem=Element::NONE) 
@@ -63,6 +71,27 @@ public:
         hp += amount;
         if (hp > max_hp) hp = max_hp;
     }
+
+    int get_mp() const { return mp; }
+    int get_max_mp() const { return max_mp; }
+    void set_max_mp(int v) { max_mp = v; if (mp > max_mp) mp = max_mp; }
+    
+    virtual void consume_mp(int amount) {
+        mp -= amount;
+        if (mp < 0) mp = 0;
+    }
+    
+    virtual void restore_mp(int amount) {
+        mp += amount;
+        if (mp > max_mp) mp = max_mp;
+    }
+
+    const std::vector<Magic>& get_magics() const { return magics; }
+    void add_magic(const Magic& m) { magics.push_back(m); }
+
+    bool has_special() const { return has_special_move; }
+    SpecialMove& get_special_move() { return special_move; }
+    void set_special_move(const SpecialMove& sm) { special_move = sm; has_special_move = true; }
 
     bool is_dead() const { return hp <= 0; }
 };

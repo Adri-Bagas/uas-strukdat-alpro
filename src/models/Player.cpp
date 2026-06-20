@@ -5,21 +5,13 @@ Player::Player(std::string id, std::string name)
       gold(0) {
     
     // Initialize derived stats
-    max_hp = get_cons() * 10;
-    hp = max_hp;
+    set_max_hp(get_cons() * 10);
+    this->hp = get_max_hp();
     
-    max_mp = get_intl() * 5;
-    mp = max_mp;
-}
+    set_max_mp(get_intl() * 5);
+    this->mp = get_max_mp();
 
-void Player::consume_mp(int amount) {
-    mp -= amount;
-    if (mp < 0) mp = 0;
-}
-
-void Player::restore_mp(int amount) {
-    mp += amount;
-    if (mp > max_mp) mp = max_mp;
+    gold = 0;
 }
 
 bool Player::spend_gold(int amount) {

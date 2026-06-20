@@ -1,0 +1,26 @@
+{
+  "id": "boss_bfb_01",
+  "name": "Bjorn Rahang Besi",
+  "description": "Pemimpin Klan Taring Darah yang kejam dan tak kenal takut.",
+  "level": 25,
+  "max_hp": 50,
+  "max_mp": 50,
+  "damage": 10,
+  "agility": 2,
+  "str": 30,
+  "cons": 25,
+  "agi": 2,
+  "intl": 10,
+  "wis": 10,
+  "gold_drop": 25,
+  "exp_drop": 50,
+  "loot": [
+    {
+      "item_id": "item_bjorn_axe",
+      "chance": 100
+    }
+  ],
+  "magics": [],
+  "affinity": "earth",
+  "weakness": "fire"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "item_nirva_sword",
+  "name": "Pedang Penjaga Nirva",
+  "description": "Pedang praktis berkualitas tinggi, terbuat dari damascus.",
+  "type": "equipment",
+  "value": 25,
+  "equip_slot": "weapon",
+  "equip_stats": {
+    "str": 8,
+    "agi": 2
+  },
+  "on_use": [
+    "equip_item item_nirva_sword"
+  ]
+}

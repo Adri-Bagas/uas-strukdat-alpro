@@ -1,0 +1,362 @@
+[
+  {
+    "id": "scene_garrick_idle",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_garrick",
+        "value": "Ada keperluan apa kau menemuiku?"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bicarakan tentang tugas (Butuh Trust > 20)",
+        "condition": {
+          "type": "var_greater_equal",
+          "key": "trust",
+          "value": 21
+        },
+        "next_scene": "hub_garrison"
+      },
+      {
+        "text": "Tinggalkan dia",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "hub_garrison",
+    "on_enter": [],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "tempat: Markas Penjaga | Dinamis\n\nBerikut adalah misi yang diinformasikan oleh Garrick:"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Guard Quest 1: Pengintai Outskirts",
+        "condition": {
+          "type": "var_greater_equal",
+          "key": "trust",
+          "value": 21
+        },
+        "next_scene": "quest_guard1_start"
+      },
+      {
+        "text": "Selidiki reruntuhan menara tua",
+        "condition": {
+          "type": "var_equal",
+          "key": "item_mark_debuff",
+          "value": 1
+        },
+        "next_scene": "quest_guard2_start"
+      },
+      {
+        "text": "Quest 4: Kandang Emas",
+        "condition": {
+          "type": "var_equal",
+          "key": "item_dignity_badge",
+          "value": 1
+        },
+        "next_scene": "quest_guard4_start"
+      }
+    ]
+  },
+  {
+    "id": "quest_guard1_start",
+    "on_enter": [],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_garrick",
+        "value": "Garrick menceritakan tentang keberadaan perkemahan tidak teridentifikasi di sekitar Outskirts. Dia mengirimku untuk mencari informasi tentang perkemahan tersebut."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Cari informasi di perkemahan",
+        "next_scene": "quest_guard1_scout"
+      }
+    ]
+  },
+  {
+    "id": "quest_guard1_scout",
+    "on_enter": [
+      "move_to_outskirts"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu menyelidiki perkemahan tidak teridentifikasi di Outskirts. Kamu menemukan tanda-tanda pergerakan Klan Taring Darah."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku harus segera melaporkan temuan ini kepada Kapten Garrick."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Lapor ke Garrick",
+        "next_scene": "quest_guard1_complete"
+      }
+    ]
+  },
+  {
+    "id": "quest_guard1_complete",
+    "on_enter": [
+      "move_to_town_hall"
+    ],
+    "on_exit": [
+      "add_var trust 3",
+      "add_var trust_garrick 5",
+      "add_gold 10",
+      "give_item item_mark_debuff 1",
+      "complete_quest quest_guard1"
+    ],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_garrick",
+        "value": "Informasi yang sangat berharga. Taring Darah tampaknya merencanakan sesuatu. Ini emas untuk upahmu. Tetaplah waspada."
+      }
+    ]
+  },
+  {
+    "id": "quest_guard2_start",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_garrick",
+        "value": "Aku menerima laporan bahwa Klan Taring Darah bersembunyi di Reruntuhan Menara Tua. Pergilah ke sana dan bersihkan sisa-sisa mereka!"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Pergi ke Menara Tua",
+        "next_scene": "quest_guard2_complete"
+      }
+    ]
+  },
+  {
+    "id": "quest_guard2_complete",
+    "on_enter": [
+      "move_to_menara_tua"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu mengalahkan sisa-sisa bandit Taring Darah di Menara Tua. Namun, kamu merasakan bayangan hitam mengikutimu."
+      }
+    ]
+  },
+  {
+    "id": "event_assasin_attack",
+    "on_enter": [],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Sistem",
+        "value": "Sesosok pembunuh Taring Darah muncul menyerangmu dari bayang-bayang!"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Guard Quest 3: Kekurangan dan Bayangan",
+        "condition": {
+          "type": "var_equal",
+          "key": "item_mark_debuff",
+          "value": 1
+        },
+        "next_scene": "quest_guard3_start"
+      },
+      {
+        "text": "Abaikan",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "quest_guard3_start",
+    "on_exit": [
+      "remove_item item_mark_debuff 1",
+      "give_item item_dignity_badge 1",
+      "give_item item_dead_contract 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Pertarungan berlangsung cepat. Kamu berhasil memojokkan assassin tersebut."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dari mayatnya, kamu menemukan Kontrak Kematian yang ditandatangani antara Taring Darah dan Gagak Hitam."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ini bukti konspirasi! Aku harus menyerahkan lencana kehormatan ini dan kontraknya kepada Garrick."
+      }
+    ]
+  },
+  {
+    "id": "quest_guard4_start",
+    "on_enter": [],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dengan bukti yang sah dan lokasi markas Bandit Taring Darah terungkap, Garrick ingin meluncurkan serangan ke markas mereka. Namun, ia tahu bahwa jika Valerius mengetahui hal tersebut, sang guildmaster akan membunuh keluarga Garrick."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku diberikan tugas untuk menyelamatkan keluarganya."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Temukan dan selamatkan keluarga Garrick",
+        "next_scene": "hub_garrick_residence"
+      }
+    ]
+  },
+  {
+    "id": "hub_garrick_residence",
+    "on_enter": [],
+    "on_exit": [],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "tempat: Kediaman Garrick | Malam\n\nTempat tinggal keluarga Garrick."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Selamatkan keluarga Garrick",
+        "next_scene": "quest_guard4_rescue"
+      }
+    ]
+  },
+  {
+    "id": "quest_guard4_rescue",
+    "on_enter": [],
+    "on_exit": [
+      "add_var trust 2",
+      "add_var trust_garrick 10",
+      "add_gold 15",
+      "give_item item_bulwark_vow 1",
+      "remove_item item_dead_contract 1",
+      "complete_quest quest_guard4"
+    ],
+    "nodes": [
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku harus membawa keluarga Garrick keluar kediamannya dengan cara apa pun."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Infokan keamanan keluarga Garrick",
+        "next_scene": "hub_garrison"
+      }
+    ]
+  },
+  {
+    "id": "scene_hugo_idle",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_hugo",
+        "value": "Semoga dagangan kita selalu diberkati timbangan yang jujur."
+      }
+    ]
+  },
+  {
+    "id": "scene_bjorn_idle",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_bjorn",
+        "value": "Berani-beraninya kau menginjakkan kaki di wilayah Taring Darah!"
+      }
+    ]
+  },
+  {
+    "id": "scene_hugo_quest_start",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_hugo",
+        "value": "Tolong aku! Petugas pasar Valerius memeras kami menggunakan batu timbangan palsu. Jika kami tidak bayar lebih, mereka menyita barang kami."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku harus menemukan batu timbangan asli Hugo untuk membuktikan manipulasi ini."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bantu Hugo",
+        "next_scene": "hugo_quest_search"
+      },
+      {
+        "text": "Tolak",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "hugo_quest_search",
+    "on_exit": [
+      "give_item item_timbangan_asli 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu menggeledah pos pengawas pasar dan menemukan Batu Timbangan Hugo yang asli disembunyikan di bawah meja."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ini dia. Aku harus segera mengembalikannya kepada Hugo."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Kembalikan batu timbangan",
+        "next_scene": "hugo_quest_complete"
+      }
+    ]
+  },
+  {
+    "id": "hugo_quest_complete",
+    "on_exit": [
+      "remove_item item_timbangan_asli 1",
+      "add_var trust 3",
+      "add_gold 20",
+      "complete_quest quest_timbangan"
+    ],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_hugo",
+        "value": "Luar biasa! Dengan batu timbangan asli ini, petugas pasar tidak bisa memeras kami lagi. Terima kasih banyak!"
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "id": "item_roti_pasar",
+  "name": "Roti Pasar Segar",
+  "description": "Roti gandum empuk bernutrisi tinggi. Dibeli dari area komersial dalam tembok kota.",
+  "type": "consumable",
+  "value": 1,
+  "on_use": [
+    "heal_hp 15",
+    "remove_item item_roti_pasar 1"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "npc_bjorn",
+  "name": "Bjorn",
+  "full_name": "Bjorn Rahang Besi",
+  "type": "named",
+  "role": "Pemimpin Klan Taring Darah",
+  "faction": "Bandits",
+  "schedules": [
+    {
+      "days": [],
+      "phase": "Morning",
+      "location": "menara_tua"
+    },
+    {
+      "days": [],
+      "phase": "Afternoon",
+      "location": "menara_tua"
+    },
+    {
+      "days": [],
+      "phase": "Evening",
+      "location": "menara_tua"
+    },
+    {
+      "days": [],
+      "phase": "Night",
+      "location": "menara_tua"
+    }
+  ],
+  "default_dialog": "scene_bjorn_idle",
+  "quests": [],
+  "str": 70,
+  "cons": 50,
+  "agi": 30,
+  "intl": 20,
+  "wis": 22,
+  "max_hp": 500,
+  "max_mp": 100,
+  "level": 25,
+  "magics": [],
+  "special_move": {
+    "id": "none",
+    "name": "none",
+    "max_uses_per_day": 0,
+    "power": 0,
+    "element": "none"
+  },
+  "affinity": "earth",
+  "weakness": "fire"
+}

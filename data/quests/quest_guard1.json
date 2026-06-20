@@ -1,0 +1,22 @@
+{
+  "id": "quest_guard1",
+  "name": "Pengintai Outskirts",
+  "description": "Selidiki perkemahan asing tidak teridentifikasi di Outskirts atas perintah Kapten Garrick.",
+  "target_npc_id": "npc_garrick",
+  "start_scene_id": "quest_guard1_start",
+  "complete_scene_id": "quest_guard1_complete",
+  "unlock_condition": {
+    "type": "var_greater_equal",
+    "key": "trust",
+    "value": 21
+  },
+  "condition": {
+    "type": "none"
+  },
+  "on_complete": [
+    "add_var trust 3",
+    "add_var trust_garrick 5",
+    "add_gold 10",
+    "give_item item_mark_debuff 1"
+  ]
+}

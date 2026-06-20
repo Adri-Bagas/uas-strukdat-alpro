@@ -1,0 +1,18 @@
+{
+  "id": "quest_timbangan",
+  "name": "Manipulasi Timbangan Pasar",
+  "description": "Bantu Hugo menyelidiki dan merebut kembali batu timbangan aslinya yang disita petugas pasar.",
+  "target_npc_id": "npc_hugo",
+  "start_scene_id": "scene_hugo_quest_start",
+  "complete_scene_id": "hugo_quest_complete",
+  "unlock_condition": {
+    "type": "none"
+  },
+  "condition": {
+    "type": "none"
+  },
+  "on_complete": [
+    "add_var trust 3",
+    "add_gold 20"
+  ]
+}

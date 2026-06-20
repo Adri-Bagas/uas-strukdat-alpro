@@ -14,6 +14,9 @@ TownState::TownState(GameEngine* eng) : GameState(eng) {}
 void TownState::on_enter() {
     Logger::log("TownState: Entering state.");
     selection_index = 0;
+    
+    engine->get_layout().resize(); // Ensure UI is drawn properly when entering TownState
+
     Place* cur = engine->get_places().get_current_place();
     if (!cur) return;
 

@@ -3,6 +3,7 @@
 #include "./states/GameState.hpp"
 #include "./views/MainPage.hpp"
 #include "states/TownState.hpp"
+#include "states/StartState.hpp"
 #include "./utils/Logger.hpp"
 #include "./utils/components/ErrorPopup.hpp"
 #include <memory>
@@ -53,11 +54,9 @@ void GameEngine::init() {
     places.resolve_connections();
     places.set_current_place("kandang_kuda");
 
-    page.resize();
-
     player_manager.init_player("hero", "Nirva Hero");
 
-    push_state(new TownState(this));
+    push_state(new StartState(this));
 } // Setup ncurses, set initial state
 
 void GameEngine::push_state(GameState *new_state) {

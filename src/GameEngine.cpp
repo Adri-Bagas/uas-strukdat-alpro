@@ -123,6 +123,10 @@ MainPage &GameEngine::get_layout() {
     return page;
 }
 
+StartMenuPage& GameEngine::get_start_layout() {
+    return start_page;
+}
+
 TimeCalendarManagers &GameEngine::get_calendar() {
     return calendar;
 }

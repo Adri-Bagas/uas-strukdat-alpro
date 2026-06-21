@@ -71,6 +71,12 @@ void TownState::on_enter() {
 // --- CORE LOOPS ---
 
 void TownState::handle_input(int ch) {
+    if (ch == KEY_RESIZE) { 
+        engine->get_layout().resize(); 
+        if (current_choice_popup) current_choice_popup->resize();
+        return; 
+    }
+
     if (is_fast_traveling) return; // Block input during travel
     if (is_confirming_fast_travel) {
         if (ch == 'y' || ch == 'Y') {
@@ -90,11 +96,6 @@ void TownState::handle_input(int ch) {
     if (engine->get_dialogs().has_queued_dialog()) return;
 
     if (ch == 'q') { engine->quit(); return; } 
-    else if (ch == KEY_RESIZE) { 
-        engine->get_layout().resize(); 
-        if (current_choice_popup) current_choice_popup->resize();
-        return; 
-    }
     else if (ch == 'c' || ch == 'C') {
         engine->push_state(new StatAllocationState(engine));
         return;

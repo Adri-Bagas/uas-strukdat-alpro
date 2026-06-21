@@ -626,13 +626,13 @@ void BattleState::execute_action(Entity* target) {
 }
 
 void BattleState::handle_input(int ch) {
-    if (ch == -1) return; // Ignore no-input
-
     if (ch == KEY_RESIZE) {
         engine->get_layout().resize();
         if (end_popup) end_popup->resize();
         return;
     }
+
+    if (ch == -1) return; // Ignore no-input
 
     if (current_phase == Phase::BATTLE_END) {
         if (end_popup) {

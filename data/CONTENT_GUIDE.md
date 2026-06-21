@@ -326,3 +326,30 @@ Items can be consumables or equipment.
 *   `equip_slot`: The slot the item equips into (e.g., `"weapon"`, `"armor"`). Applicable only if type is `"equipment"`.
 *   `equip_stats`: A dictionary of stat bonuses granted while equipped (`str`, `cons`, `agi`, `intl`, `wis`).
 *   `on_use`: Action Dispatcher commands executed when the player uses the item from their inventory. Consumables typically use `"heal_hp <amount>"` or similar, while equipment use `"equip_item <item_id>"`.
+---
+
+## 9. Shops (`data/shops/`)
+
+Shops define the inventory of items available for purchase from merchants.
+
+```json
+{
+  "id": "shop_traveling_merchant",
+  "name": "Traveling Merchant's Wares",
+  "description": "Barang-barang eksotis dari negeri jauh.",
+  "owner_npc_id": "npc_traveling_merchant",
+  "inventory": [
+    {
+      "item_id": "potion_hp_large",
+      "stock": 5
+    },
+    {
+      "item_id": "iron_sword",
+      "stock": 1
+    }
+  ]
+}
+```
+*   `owner_npc_id`: The ID of the NPC who runs this shop. Used for context when interacting.
+*   `inventory`: An array of items available in the shop, specifying the `item_id` and the available `stock` quantity.
+

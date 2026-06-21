@@ -110,6 +110,9 @@ void GameEngine::pop_state() {
         state_stack.pop();
     }
 }
+void GameEngine::show_popup(std::unique_ptr<Utils::Popup> popup) {
+    active_popup = std::move(popup);
+}
 void GameEngine::run() {
     Utils::Logger::log("Engine: Starting run loop.");
     try {
@@ -195,6 +198,7 @@ Action &GameEngine::get_actions() {
 }
 
 ShopManager& GameEngine::get_shop_manager() { return shop_manager; }
+LogManager& GameEngine::get_log_manager() { return log_manager; }
 void GameEngine::quit() {
     is_running = false;
 }

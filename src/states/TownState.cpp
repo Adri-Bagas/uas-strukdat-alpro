@@ -1,8 +1,9 @@
 #include "TownState.hpp"
 #include "DungeonState.hpp"
 #include "../utils/components/Popup.hpp"
-#include "BattleState.hpp"
 #include "../utils/components/ChoicePopup.hpp"
+#include "../utils/components/LogPopup.hpp"
+#include "BattleState.hpp"
 #include "../GameEngine.hpp" 
 #include "../utils/Logger.hpp"
 #include <ncurses.h>
@@ -16,6 +17,9 @@ TownState::TownState(GameEngine* eng) : GameState(eng) {}
 void TownState::on_enter() {
     Utils::Logger::log("TownState: Entering state.");
     selection_index = 0;
+    
+    // Test log integration
+    engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Entered town state.");
     
     engine->get_layout().resize(); // Ensure UI is drawn properly when entering TownState
 
@@ -36,9 +40,12 @@ void TownState::on_enter() {
     // Day 2 Trigger: Special story for morning in attic
     int day = engine->get_calendar().getDay();
     std::string phase = engine->get_calendar().getTimeString();
-    if (day == 2 && phase == "Pagi" && cur->get_id() == "kamar_loteng" && !dialog_active) {
+    int has_seen_day2 = engine->get_player_manager().get_player()->get_var("seen_day2_cutscene");
+    if (day == 2 && phase == "Pagi" && cur->get_id() == "kamar_loteng" && !dialog_active && has_seen_day2 == 0) {
         const DialogScene* day2_start = engine->get_db().get_dialog_scene("start_day_2");
         if (day2_start) {
+            engine->get_player_manager().get_player()->set_var("seen_day2_cutscene", 1);
+            engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Story event: Day 2 Morning.");
             engine->get_dialogs().start_scene(*day2_start, engine);
             this->render();
             return; 
@@ -47,6 +54,7 @@ void TownState::on_enter() {
 
     std::string scene_id = cur->get_on_enter();
     if (!cur->get_has_entered()) {
+        engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Discovered new location: " + cur->get_name());
         if (!cur->get_on_first_enter().empty()) {
             scene_id = cur->get_on_first_enter();
         }
@@ -99,7 +107,11 @@ void TownState::handle_input(int ch) {
     else if (ch == 'c' || ch == 'C') {
         engine->push_state(new StatAllocationState(engine));
         return;
+    } else if (ch == 'l' || ch == 'L') {
+        engine->show_popup(std::make_unique<Utils::LogPopup>(engine->get_log_manager()));
+        return;
     }
+
     else if (ch == '\t') { 
         cycle_tab(); 
         return; 

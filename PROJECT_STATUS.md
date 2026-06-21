@@ -69,7 +69,7 @@ To finish the project, the following major features must be built:
 4.  **Interactive Inventory UI**:
     *   A new sub-menu (perhaps triggered by pressing 'i' in `TownState`) where players can view item descriptions, consume healing items, and equip gear.
 5.  **Data Structures Implementation (From Scratch)**:
-    *   **Double Linked List**: Implement a custom `DoubleLinkedList` to manage a Message Log / Activity History, allowing players to scroll through past activities chronologically.
+    *   **Double Linked List** (DONE): Implemented a custom `DoubleLinkedList` to manage a Message Log / Activity History. Players can press `L` to view notifications chronologically.
     *   **Binary Search Tree (BST) / AVL Tree**: 
         *   **Implementation Strategy**: Construct a custom, self-balancing tree (such as an AVL Tree) to serve as the backend for the **Encyclopedia/Bestiary** system. 
         *   **Mechanics**: Every time the player encounters a new monster, discovers a new item, or uncovers lore, an entry is inserted into the BST. The nodes should be keyed by alphabetical string comparison (e.g., entity name) or a numerical ID.

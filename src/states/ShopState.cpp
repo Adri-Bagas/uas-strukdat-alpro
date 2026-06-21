@@ -63,6 +63,7 @@ void ShopState::handle_input(int ch) {
                 p->add_gold(-price);
                 p->add_item(selected_item_id, 1);
                 engine->get_shop_manager().buy_item(shop_id, selected_item_id, 1);
+                engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Bought " + item->get_name());
                 engine->get_dialogs().queue_popup("You bought a " + item->get_name() + " for " + std::to_string(price) + "G.");
             } else {
                 engine->get_dialogs().queue_popup("Not enough gold to buy " + item->get_name() + ".");

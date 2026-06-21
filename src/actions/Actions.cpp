@@ -106,6 +106,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("advance_day", [this](const std::string&) {
         engine->get_calendar().advanceDate();
         if (engine->get_current_state()) engine->get_current_state()->on_enter();
+        engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "A new day has begun.");
         Utils::Logger::log("Action: Advanced to the next day");
     });
 
@@ -120,7 +121,14 @@ Action::Action(GameEngine* eng) : engine(eng) {
                 ss >> amount;
             }
             Player* p = engine->get_player_manager().get_player();
-            if (p) p->add_item(item_id, amount);
+            if (p) {
+                p->add_item(item_id, amount);
+                const Item* item = engine->get_db().get_item(item_id);
+                if (item) {
+                    std::string msg = "Obtained " + std::to_string(amount) + "x " + item->get_name() + ".";
+                    engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), msg);
+                }
+            }
         }
     });
 
@@ -198,6 +206,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             Quest* q = engine->get_quests().get_quest(arg);
             if (q && q->get_state() == QuestState::AVAILABLE) {
                 q->set_state(QuestState::IN_PROGRESS);
+                engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Started Quest: " + q->get_name());
                 Utils::Logger::log("Action: Quest accepted: " + arg);
             }
         }
@@ -211,6 +220,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
                 for (const auto& action : q->get_on_complete()) {
                     engine->get_actions().execute(action);
                 }
+                engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Completed Quest: " + q->get_name());
                 Utils::Logger::log("Action: Quest completed: " + arg);
             }
         }
@@ -221,6 +231,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             for (auto* npc_const : engine->get_db().get_all_npcs()) {
                 if (npc_const->get_id() == arg) {
                     const_cast<NPC*>(npc_const)->reveal();
+                    engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Met " + npc_const->get_name() + ".");
                     Utils::Logger::log("Action: Revealed NPC identity: " + arg);
                     break;
                 }

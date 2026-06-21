@@ -66,6 +66,9 @@ void ShopState::handle_input(int ch) {
     } else if (ch == 'q' || ch == 27 || ch == 'c' || ch == 'C') { // Escape/Quit
         engine->pop_state();
         return;
+    } else if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        return;
     }
 }
 

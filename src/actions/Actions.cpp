@@ -89,7 +89,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             Player* p = engine->get_player_manager().get_player();
             if (p) {
                 p->heal_hp(amount);
-                Logger::log("Action: Healed player for " + std::to_string(amount) + " HP");
+                Utils::Logger::log("Action: Healed player for " + std::to_string(amount) + " HP");
             }
         }
     });
@@ -99,14 +99,14 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (p) {
             p->heal_hp(p->get_max_hp());
             p->restore_mp(p->get_max_mp());
-            Logger::log("Action: Healed player to full HP and MP");
+            Utils::Logger::log("Action: Healed player to full HP and MP");
         }
     });
 
     register_action("advance_day", [this](const std::string&) {
         engine->get_calendar().advanceDate();
         if (engine->get_current_state()) engine->get_current_state()->on_enter();
-        Logger::log("Action: Advanced to the next day");
+        Utils::Logger::log("Action: Advanced to the next day");
     });
 
     // Inventory Actions
@@ -198,7 +198,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             Quest* q = engine->get_quests().get_quest(arg);
             if (q && q->get_state() == QuestState::AVAILABLE) {
                 q->set_state(QuestState::IN_PROGRESS);
-                Logger::log("Action: Quest accepted: " + arg);
+                Utils::Logger::log("Action: Quest accepted: " + arg);
             }
         }
     });
@@ -211,7 +211,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
                 for (const auto& action : q->get_on_complete()) {
                     engine->get_actions().execute(action);
                 }
-                Logger::log("Action: Quest completed: " + arg);
+                Utils::Logger::log("Action: Quest completed: " + arg);
             }
         }
     });
@@ -221,7 +221,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             for (auto* npc_const : engine->get_db().get_all_npcs()) {
                 if (npc_const->get_id() == arg) {
                     const_cast<NPC*>(npc_const)->reveal();
-                    Logger::log("Action: Revealed NPC identity: " + arg);
+                    Utils::Logger::log("Action: Revealed NPC identity: " + arg);
                     break;
                 }
             }
@@ -237,7 +237,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("open_shop", [this](const std::string& arg) {
         if (!arg.empty()) {
             engine->push_state(new ShopState(engine, arg));
-            Logger::log("Action: Opened shop " + arg);
+            Utils::Logger::log("Action: Opened shop " + arg);
         }
     });
 }
@@ -264,6 +264,6 @@ void Action::execute(const std::string& command_line) {
     if (it != actions.end()) {
         it->second(arg);
     } else {
-        Logger::log("Action ERROR: Unknown action command '" + cmd + "'");
+        Utils::Logger::log("Action ERROR: Unknown action command '" + cmd + "'");
     }
 }

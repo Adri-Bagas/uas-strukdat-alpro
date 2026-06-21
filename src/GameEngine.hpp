@@ -28,7 +28,7 @@ private:
     ShopManager shop_manager;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
-    std::unique_ptr<Popup> active_popup;
+    std::unique_ptr<Utils::Popup> active_popup;
     bool is_running = true;
 
 public:

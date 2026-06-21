@@ -1,6 +1,7 @@
 #include "TownState.hpp"
 #include "DungeonState.hpp"
 #include "../utils/components/Popup.hpp"
+#include "BattleState.hpp"
 #include "../utils/components/ChoicePopup.hpp"
 #include "../GameEngine.hpp" 
 #include "../utils/Logger.hpp"
@@ -13,7 +14,7 @@
 TownState::TownState(GameEngine* eng) : GameState(eng) {}
 
 void TownState::on_enter() {
-    Logger::log("TownState: Entering state.");
+    Utils::Logger::log("TownState: Entering state.");
     selection_index = 0;
     
     engine->get_layout().resize(); // Ensure UI is drawn properly when entering TownState
@@ -60,17 +61,38 @@ void TownState::on_enter() {
     }
     init_tabs();
     this->render();
+    fast_travel_queue.clear();
+    is_fast_traveling = false;
+    is_confirming_fast_travel = false;
+    fast_travel_target = nullptr;
+    fast_travel_path_preview.clear();
 }
 
 // --- CORE LOOPS ---
 
 void TownState::handle_input(int ch) {
+    if (is_fast_traveling) return; // Block input during travel
+    if (is_confirming_fast_travel) {
+        if (ch == 'y' || ch == 'Y') {
+            is_confirming_fast_travel = false;
+            is_fast_traveling = true;
+            fast_travel_queue.clear();
+            for (size_t i = 1; i < fast_travel_path_preview.size(); ++i) {
+                fast_travel_queue.enqueue(fast_travel_path_preview[i]);
+            }
+            cycle_tab();
+        } else if (ch == 'n' || ch == 'N' || ch == 27) { // 27 = ESC
+            is_confirming_fast_travel = false;
+        }
+        return;
+    }
+
     if (engine->get_dialogs().has_queued_dialog()) return;
 
     if (ch == 'q') { engine->quit(); return; } 
     else if (ch == KEY_RESIZE) { 
         engine->get_layout().resize(); 
-        if (current_choice_popup) current_choice_popup.reset();
+        if (current_choice_popup) current_choice_popup->resize();
         return; 
     }
     else if (ch == 'c' || ch == 'C') {
@@ -110,6 +132,10 @@ void TownState::update() {
         if (!engine->get_dialogs().has_queued_dialog()) {
             handle_post_dialogue();
         }
+    }
+    
+    if (is_fast_traveling) {
+        execute_fast_travel_step();
     }
 }
 
@@ -215,7 +241,7 @@ void TownState::render() {
                     break;
                 }
             }
-            current_choice_popup = std::make_unique<ChoicePopup>(latest_dialog, engine->get_dialogs().get_active_choices(), engine->get_dialogs().get_selected_choice_index());
+            current_choice_popup = std::make_unique<Utils::ChoicePopup>(latest_dialog, engine->get_dialogs().get_active_choices(), engine->get_dialogs().get_selected_choice_index());
         } else {
             current_choice_popup->set_selected_index(engine->get_dialogs().get_selected_choice_index());
         }
@@ -323,7 +349,13 @@ void TownState::handle_map_menu_input(int ch) {
             cycle_tab();
             execute_movement(target);
         } else {
-            engine->get_dialogs().queue_popup("Kamu tidak bisa langsung pergi ke sana dari sini.");
+            fast_travel_path_preview = find_shortest_path(cur->get_id(), target->get_id());
+            if (!fast_travel_path_preview.empty()) {
+                fast_travel_target = target;
+                is_confirming_fast_travel = true;
+            } else {
+                engine->get_dialogs().queue_popup("Jalur ke sana tidak ditemukan!");
+            }
         }
     }
 }
@@ -399,6 +431,89 @@ void TownState::execute_activity(const Activity& act) {
 
 void TownState::execute_movement(Place* target) {
     if (engine->get_places().travel(target->get_id())) on_enter();
+}
+
+std::vector<std::string> TownState::find_shortest_path(const std::string& start, const std::string& target) {
+    Utils::Queue<std::string> q;
+    std::map<std::string, std::string> parent;
+    std::map<std::string, bool> visited;
+
+    q.enqueue(start);
+    visited[start] = true;
+
+    bool found = false;
+    while (!q.is_empty()) {
+        std::string current = q.front();
+        q.dequeue();
+
+        if (current == target) {
+            found = true;
+            break;
+        }
+
+        Place* p = nullptr;
+        for (Place* mp : map_places) { if (mp->get_id() == current) p = mp; }
+        
+        if (p) {
+            for (const auto& [dir, exit] : p->get_walkable_places()) {
+                std::string neighbor = exit->get_id();
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    parent[neighbor] = current;
+                    q.enqueue(neighbor);
+                }
+            }
+        }
+    }
+
+    std::vector<std::string> path;
+    if (!found) return path;
+
+    std::string curr = target;
+    while (curr != start) {
+        path.push_back(curr);
+        curr = parent[curr];
+    }
+    path.push_back(start);
+    std::reverse(path.begin(), path.end());
+    return path;
+}
+
+void TownState::execute_fast_travel_step() {
+    if (engine->get_dialogs().has_queued_dialog() || engine->get_dialogs().has_queued_popup() || engine->get_dialogs().has_active_choices()) return;
+
+    if (fast_travel_queue.is_empty()) {
+        is_fast_traveling = false;
+        engine->get_dialogs().queue_popup("Kamu telah tiba di " + fast_travel_target->get_name() + ".");
+        return;
+    }
+
+    std::string next_loc = fast_travel_queue.front();
+    fast_travel_queue.dequeue();
+    
+    engine->get_places().set_current_place(next_loc);
+    on_enter(); // refresh NPCs etc.
+
+    // Random Encounter Chance
+    int roll = rand() % 100;
+    if (roll < 30) { // 30% chance for encounter
+        if (rand() % 2 == 0) {
+            engine->get_dialogs().queue_popup("Ada monster menyerangmu saat di perjalanan!");
+            std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
+            engine->push_state(new BattleState(engine, group));
+        } else {
+            engine->get_dialogs().queue_popup("Sebuah kejadian acak terjadi di perjalanan...");
+            std::vector<std::string> events = {
+                "fast_travel_event_1", 
+                "fast_travel_event_pickpocket", 
+                "fast_travel_event_gossip"
+            };
+            std::string selected_event = events[rand() % events.size()];
+            if (const DialogScene* scene = engine->get_db().get_dialog_scene(selected_event)) {
+                engine->get_dialogs().start_scene(*scene, engine);
+            }
+        }
+    }
 }
 
 // --- UPDATE HELPERS ---
@@ -646,5 +761,28 @@ void TownState::render_sidebars(Player* p) {
     info.push_back(" [TAB] Buka Peta");
 
     engine->get_layout().draw_tasks(engine->get_layout().win_task, info);
+    // Render Fast Travel Confirmation
+    if (is_confirming_fast_travel) {
+        int pw = 60;
+        int ph = 7;
+        int px = (COLS - pw) / 2;
+        int py = (LINES - ph) / 2;
+        WINDOW* win_confirm = newwin(ph, pw, py, px);
+        box(win_confirm, 0, 0);
+        wattron(win_confirm, COLOR_PAIR(4));
+        mvwprintw(win_confirm, 0, 2, " FAST TRAVEL ");
+        wattroff(win_confirm, COLOR_PAIR(4));
+
+        std::string msg = "Perjalanan ke " + fast_travel_target->get_name() + " melewati " + std::to_string(fast_travel_path_preview.size() - 1) + " area.";
+        mvwprintw(win_confirm, 2, 2, "%s", msg.c_str());
+        mvwprintw(win_confirm, 3, 2, "Ada kemungkinan random encounter di jalan.");
+        
+        wattron(win_confirm, A_BOLD);
+        mvwprintw(win_confirm, 5, 2, "[Y] Lanjutkan     [N] Batal");
+        wattroff(win_confirm, A_BOLD);
+
+        wrefresh(win_confirm);
+        delwin(win_confirm);
+    }
     engine->get_layout().render_history(engine->get_layout().win_dialog, engine->get_dialogs().get_combined_log());
 }

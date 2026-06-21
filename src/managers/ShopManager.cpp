@@ -10,7 +10,7 @@ void ShopManager::init_from_db(const DB& db) {
             live_stocks[shop_id][item.item_id] = item.base_stock;
         }
     }
-    Logger::log("ShopManager: Initialized live stocks from DB");
+    Utils::Logger::log("ShopManager: Initialized live stocks from DB");
 }
 
 int ShopManager::get_stock(const std::string& shop_id, const std::string& item_id) const {
@@ -61,7 +61,7 @@ void ShopManager::process_daily_restock(const DB& db, int current_day_of_week) {
                         int current = live_stocks[shop_id][item_id];
                         if (current < base) {
                             live_stocks[shop_id][item_id] = base;
-                            Logger::log("ShopManager: Restocked " + item_id + " in shop " + shop_id + " to " + std::to_string(base));
+                            Utils::Logger::log("ShopManager: Restocked " + item_id + " in shop " + shop_id + " to " + std::to_string(base));
                         }
                     }
                 }

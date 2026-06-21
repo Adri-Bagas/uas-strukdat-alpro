@@ -6,7 +6,8 @@
 #include <vector>
 #include <array>
 #include <string>
-#include "../utils/components/Popup.hpp"
+#include "../utils/components/ChoicePopup.hpp"
+#include "../utils/CircularLinkedList.hpp"
 
 class GameEngine;
 
@@ -24,7 +25,7 @@ private:
     // Owned active enemies currently in slots
     std::vector<std::unique_ptr<Monster>> active_enemies;
 
-    std::vector<Entity*> turn_queue;
+    Utils::CircularLinkedList<Entity*> turn_queue;
     
     // UI states
     int current_menu_selection;
@@ -66,7 +67,7 @@ private:
     void add_log(const std::string& msg);
     void animate_hit(Entity* target);
     
-    std::unique_ptr<Popup> end_popup;
+    std::unique_ptr<Utils::Popup> end_popup;
     
     void build_main_menu();
     void build_enemy_target_menu();

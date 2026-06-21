@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 
+namespace Utils {
+
 Popup::Popup(const std::string &text) {
     int max_width = 50;
     
@@ -71,7 +73,6 @@ void Popup::update() {
 
 bool Popup::handle_input(int ch) {
     if (ch == KEY_RESIZE) {
-        resizeterm(0, 0);
         resize();
         return true;
     }
@@ -151,7 +152,6 @@ void Popup::type_text_blocking() {
             int ch = getch();
             if (ch != ERR) {
                 if (ch == KEY_RESIZE) {
-                    resizeterm(0, 0);
                     resize();
                     refresh();
                 }
@@ -174,12 +174,12 @@ void Popup::type_text_blocking() {
         int ch = getch();
         if (ch == '\n' || ch == ' ') break;
         if (ch == KEY_RESIZE) {
-            resizeterm(0, 0);
             resize();
             refresh();
-            wrefresh(win);
         }
+        wrefresh(win);
         napms(10);
     }
     werase(win); wrefresh(win);
 }
+} // namespace Utils

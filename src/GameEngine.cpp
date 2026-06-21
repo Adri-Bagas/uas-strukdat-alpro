@@ -111,7 +111,7 @@ void GameEngine::pop_state() {
     }
 }
 void GameEngine::run() {
-    Logger::log("Engine: Starting run loop.");
+    Utils::Logger::log("Engine: Starting run loop.");
     try {
         while (is_running && !state_stack.empty()) {
             int ch = getch();
@@ -128,7 +128,7 @@ void GameEngine::run() {
                     active_popup.reset();
                 }
             } else if (dialogs.has_queued_popup()) {
-                active_popup = std::make_unique<Popup>(dialogs.pop_popup());
+                active_popup = std::make_unique<Utils::Popup>(dialogs.pop_popup());
             } else {
                 if (ch != KEY_RESIZE) state_stack.top()->handle_input(ch);
                 state_stack.top()->update();
@@ -144,12 +144,12 @@ void GameEngine::run() {
             napms(24);
         }
     } catch (const std::exception& e) {
-        Logger::log("ENGINE FATAL EXCEPTION: " + std::string(e.what()));
-        ErrorPopup err("Unexpected Engine Error: " + std::string(e.what()));
+        Utils::Logger::log("ENGINE FATAL EXCEPTION: " + std::string(e.what()));
+        Utils::ErrorPopup err("Unexpected Engine Error: " + std::string(e.what()));
         err.show_fatal();
     } catch (...) {
-        Logger::log("ENGINE FATAL EXCEPTION: Unknown error");
-        ErrorPopup err("Unexpected Engine Error: Unknown");
+        Utils::Logger::log("ENGINE FATAL EXCEPTION: Unknown error");
+        Utils::ErrorPopup err("Unexpected Engine Error: Unknown");
         err.show_fatal();
     }
 }

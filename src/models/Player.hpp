@@ -20,7 +20,7 @@ public:
 
     // Progression
     int get_gold() const { return gold; }
-    void add_gold(int amount) { gold += amount; }
+    void add_gold(int amount) { gold += amount; if (gold < 0) gold = 0; }
     bool spend_gold(int amount);
 
     int get_str() const override;

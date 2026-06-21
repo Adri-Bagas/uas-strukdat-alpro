@@ -64,7 +64,7 @@ void TimeCalendarManagers::advanceTime(bool is_double) {
         advanceDate();
         return;
     default:
-        Logger::log("Error: Kesalahan saat memajukan waktu!");
+        Utils::Logger::log("Error: Kesalahan saat memajukan waktu!");
         return;
     }
 

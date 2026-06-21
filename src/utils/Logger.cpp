@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 
+namespace Utils {
 namespace Logger {
     const char* LOG_FILE = "/tmp/game_debug.log";
 
@@ -15,4 +16,5 @@ namespace Logger {
     void clear() {
         std::ofstream file(LOG_FILE, std::ios::trunc);
     }
+}
 }

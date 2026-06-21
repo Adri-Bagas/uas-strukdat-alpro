@@ -36,9 +36,14 @@ void BattleState::build_turn_queue() {
     }
     
     // Sort by AGI descending
-    std::sort(turn_queue.begin(), turn_queue.end(), [](Entity* a, Entity* b) {
+    auto vec = turn_queue.to_vector();
+    std::sort(vec.begin(), vec.end(), [](Entity* a, Entity* b) {
         return a->get_agi() > b->get_agi();
     });
+    turn_queue.clear();
+    for (auto e : vec) {
+        turn_queue.push_back(e);
+    }
 }
 
 void BattleState::next_turn() {
@@ -82,7 +87,7 @@ void BattleState::next_turn() {
                 }
                 enemy_slots[i] = nullptr;
                 // Remove from turn queue if present
-                turn_queue.erase(std::remove(turn_queue.begin(), turn_queue.end(), dead_enemy), turn_queue.end());
+                turn_queue.remove(dead_enemy);
             }
         }
         
@@ -129,7 +134,7 @@ void BattleState::next_turn() {
         }
         popup_msg += "\nPress Space or Enter to continue...";
         
-        end_popup = std::make_unique<Popup>(popup_msg);
+        end_popup = std::make_unique<Utils::Popup>(popup_msg);
         current_phase = Phase::BATTLE_END;
         return;
     }
@@ -144,7 +149,7 @@ void BattleState::next_turn() {
 
     Entity* active = turn_queue.front();
     if (active->get_hp() <= 0) {
-        turn_queue.erase(turn_queue.front() == active ? turn_queue.begin() : std::find(turn_queue.begin(), turn_queue.end(), active));
+        turn_queue.advance();
         next_turn();
         return;
     }
@@ -210,7 +215,7 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
         }
         if (!moved) {
             add_log(active->get_name() + " waits.");
-            turn_queue.erase(turn_queue.begin());
+            turn_queue.advance();
             current_phase = Phase::WAITING_FOR_INPUT;
             menu_options = {"[Press any key to continue]"};
             current_menu_selection = 0;
@@ -337,7 +342,7 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
         }
     } else {
         add_log(active->get_name() + " waits.");
-        turn_queue.erase(turn_queue.begin());
+        turn_queue.advance();
         current_phase = Phase::WAITING_FOR_INPUT;
         menu_options = {"[Press any key to continue]"};
         current_menu_selection = 0;
@@ -614,7 +619,7 @@ void BattleState::execute_action(Entity* target) {
         add_log(active->get_name() + " is defending!");
     }
 
-    turn_queue.erase(turn_queue.begin());
+    turn_queue.advance();
     current_phase = Phase::WAITING_FOR_INPUT;
     menu_options = {"[Press any key to continue]"};
     current_menu_selection = 0;
@@ -622,6 +627,12 @@ void BattleState::execute_action(Entity* target) {
 
 void BattleState::handle_input(int ch) {
     if (ch == -1) return; // Ignore no-input
+
+    if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        if (end_popup) end_popup->resize();
+        return;
+    }
 
     if (current_phase == Phase::BATTLE_END) {
         if (end_popup) {
@@ -877,7 +888,7 @@ void BattleState::render() {
     view.draw(
         party_slots,
         enemy_slots,
-        turn_queue,
+        turn_queue.to_vector(),
         0, // active idx in party (we'll fix this)
         current_menu_selection,
         menu_options,
@@ -907,7 +918,7 @@ void BattleState::add_log(const std::string& msg) {
         battle_log.back() += c;
         if (!skip_animations) {
             view.draw(
-                party_slots, enemy_slots, turn_queue, 0,
+                party_slots, enemy_slots, turn_queue.to_vector(), 0,
                 current_menu_selection, menu_options,
                 battle_log, enemy_pool.size(), nullptr
             );
@@ -920,7 +931,7 @@ void BattleState::add_log(const std::string& msg) {
     
     if (skip_animations) {
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), nullptr
         );
@@ -933,7 +944,7 @@ void BattleState::animate_hit(Entity* target) {
         if (skip_animations) break;
         // Flash ON
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), target
         );
@@ -945,7 +956,7 @@ void BattleState::animate_hit(Entity* target) {
         if (skip_animations) break;
         // Flash OFF
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), nullptr
         );
@@ -956,7 +967,7 @@ void BattleState::animate_hit(Entity* target) {
     }
     if (skip_animations) {
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), nullptr
         );

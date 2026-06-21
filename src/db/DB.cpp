@@ -333,6 +333,7 @@ void DB::load_items(const std::string& directory_path) {
                 item.value = j.value("value", 0);
                 item.type = string_to_item_type(j.value("type", "misc"));
                 item.equip_slot = j.value("equip_slot", ""); // "weapon", "armor", dll.
+                item.weapon_type = j.value("weapon_type", "unarmed");
                 
                 // Bonus statistik saat item ini dipakai
                 item.equip_stats["str"] = j.value("str", 0);
@@ -387,6 +388,8 @@ void DB::load_npcs(const std::string& directory_path) {
                 npc.restore_mp(npc.get_max_mp());
                 npc.set_affinity(string_to_element(j.value("affinity", "none")));
                 npc.set_weakness(string_to_element(j.value("weakness", "none")));
+                npc.set_weapon_type(j.value("weapon_type", "unarmed"));
+                npc.set_weapon_name(j.value("weapon_name", "tangan kosong"));
                 parse_magics_and_special(j, npc);
                 
                 // Memuat jadwal pergerakan NPC berdasarkan hari dan fase waktu
@@ -461,6 +464,8 @@ void DB::load_monsters(const std::string& directory_path) {
                 mon.restore_mp(mon.get_max_mp());
                 mon.set_affinity(string_to_element(j.value("affinity", "none")));
                 mon.set_weakness(string_to_element(j.value("weakness", "none")));
+                mon.set_weapon_type(j.value("weapon_type", "unarmed"));
+                mon.set_weapon_name(j.value("weapon_name", "tangan kosong"));
                 
                 std::string tactic_str = j.value("tactic", "ACT_FREELY");
                 if (tactic_str == "FULL_ASSAULT") mon.set_tactic(Tactic::FULL_ASSAULT);

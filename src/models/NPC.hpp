@@ -22,6 +22,9 @@ protected:
     int str, cons, agi, intl, wis;
     Element affinity;
     Element weakness;
+    
+    std::string weapon_type = "unarmed";
+    std::string weapon_name = "tangan kosong";
 
     // Vitality
     int hp, max_hp;
@@ -61,11 +64,16 @@ public:
     const std::string& get_id() const { return id; }
     const std::string& get_name() const { return name; }
 
-    int get_str() const { return str; }
-    int get_cons() const { return cons; }
-    int get_agi() const { return agi; }
-    int get_intl() const { return intl; }
-    int get_wis() const { return wis; }
+    virtual int get_str() const { return str; }
+    virtual int get_cons() const { return cons; }
+    virtual int get_agi() const { return agi; }
+    virtual int get_intl() const { return intl; }
+    virtual int get_wis() const { return wis; }
+
+    virtual std::string get_weapon_type() const { return weapon_type; }
+    virtual std::string get_weapon_name() const { return weapon_name; }
+    void set_weapon_type(std::string t) { weapon_type = std::move(t); }
+    void set_weapon_name(std::string n) { weapon_name = std::move(n); }
 
     void set_str(int v) { str = v; }
     void set_cons(int v) { cons = v; }

@@ -1,46 +1,48 @@
 {
-  "id": "npc_guard_2",
-  "name": "Penjaga Gerbang",
-  "full_name": "Penjaga Gerbang Selatan",
-  "type": "unnamed",
-  "role": "Guard",
-  "faction": "Penjaga Kota",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "jalanan_utama_kota"
-    }
-  ],
-  "default_dialog": "scene_guard_gate_idle",
-  "str": 12,
-  "cons": 10,
-  "agi": 13,
-  "intl": 14,
-  "wis": 15,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 2,
-  "magics": [
-    {
-      "id": "mag_heal",
-      "name": "Heal",
-      "type": "healing",
-      "mana_cost": 8,
-      "power": 20,
-      "element": "light"
-    }
-  ],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_guard_2",
+    "name": "Penjaga Gerbang",
+    "full_name": "Penjaga Gerbang Selatan",
+    "type": "unnamed",
+    "role": "Guard",
+    "faction": "Penjaga Kota",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "jalanan_utama_kota"
+        }
+    ],
+    "default_dialog": "scene_guard_gate_idle",
+    "str": 12,
+    "cons": 10,
+    "agi": 13,
+    "intl": 14,
+    "wis": 15,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 2,
+    "magics": [
+        {
+            "id": "mag_heal",
+            "name": "Heal",
+            "type": "healing",
+            "mana_cost": 8,
+            "power": 20,
+            "element": "light"
+        }
+    ],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "sword",
+    "weapon_name": "tombak penjaga"
 }

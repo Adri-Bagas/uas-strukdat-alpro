@@ -1,69 +1,71 @@
 {
-  "id": "npc_elara",
-  "name": "Elara",
-  "full_name": "Elara 'The Truth-Seeker' Moonwhisper",
-  "type": "named",
-  "role": "Pendeta Muda / Pustakawan",
-  "faction": "Gereja Cahaya",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "balai_kota"
+    "id": "npc_elara",
+    "name": "Elara",
+    "full_name": "Elara 'The Truth-Seeker' Moonwhisper",
+    "type": "named",
+    "role": "Pendeta Muda / Pustakawan",
+    "faction": "Gereja Cahaya",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "jalanan_utama_kota"
+        }
+    ],
+    "default_dialog": "scene_elara_idle",
+    "str": 23,
+    "cons": 29,
+    "agi": 30,
+    "intl": 20,
+    "wis": 25,
+    "max_hp": 290,
+    "max_mp": 200,
+    "level": 11,
+    "magics": [
+        {
+            "id": "mag_heal",
+            "name": "Heal",
+            "type": "healing",
+            "mana_cost": 8,
+            "power": 20,
+            "element": "light"
+        },
+        {
+            "id": "mag_fireball",
+            "name": "Fireball",
+            "type": "attacking",
+            "mana_cost": 10,
+            "power": 15,
+            "element": "fire"
+        },
+        {
+            "id": "mag_inferno",
+            "name": "Inferno",
+            "type": "attacking",
+            "mana_cost": 30,
+            "power": 50,
+            "element": "fire"
+        }
+    ],
+    "special_move": {
+        "id": "sp_heroic_blow",
+        "name": "Heroic Blow",
+        "max_uses_per_day": 1,
+        "power": 50,
+        "element": "none"
     },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "jalanan_utama_kota"
-    }
-  ],
-  "default_dialog": "scene_elara_idle",
-  "str": 23,
-  "cons": 29,
-  "agi": 30,
-  "intl": 20,
-  "wis": 25,
-  "max_hp": 290,
-  "max_mp": 200,
-  "level": 11,
-  "magics": [
-    {
-      "id": "mag_heal",
-      "name": "Heal",
-      "type": "healing",
-      "mana_cost": 8,
-      "power": 20,
-      "element": "light"
-    },
-    {
-      "id": "mag_fireball",
-      "name": "Fireball",
-      "type": "attacking",
-      "mana_cost": 10,
-      "power": 15,
-      "element": "fire"
-    },
-    {
-      "id": "mag_inferno",
-      "name": "Inferno",
-      "type": "attacking",
-      "mana_cost": 30,
-      "power": 50,
-      "element": "fire"
-    }
-  ],
-  "special_move": {
-    "id": "sp_heroic_blow",
-    "name": "Heroic Blow",
-    "max_uses_per_day": 1,
-    "power": 50,
-    "element": "none"
-  },
-  "affinity": "light",
-  "weakness": "none"
+    "affinity": "light",
+    "weakness": "none",
+    "weapon_type": "staff",
+    "weapon_name": "tongkat penyihir"
 }

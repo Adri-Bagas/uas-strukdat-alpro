@@ -1,37 +1,39 @@
 {
-  "id": "npc_citizen_3",
-  "name": "Anak Jalanan",
-  "full_name": "Yatim Piatu Nirva",
-  "type": "unnamed",
-  "role": "Citizen",
-  "faction": "Commoners",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "permukiman_kumuh"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "jalanan_utama_kota"
-    }
-  ],
-  "default_dialog": "scene_child_idle",
-  "str": 10,
-  "cons": 13,
-  "agi": 14,
-  "intl": 10,
-  "wis": 12,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 2,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_citizen_3",
+    "name": "Anak Jalanan",
+    "full_name": "Yatim Piatu Nirva",
+    "type": "unnamed",
+    "role": "Citizen",
+    "faction": "Commoners",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "alun_alun"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "permukiman_kumuh"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "jalanan_utama_kota"
+        }
+    ],
+    "default_dialog": "scene_child_idle",
+    "str": 10,
+    "cons": 13,
+    "agi": 14,
+    "intl": 10,
+    "wis": 12,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 2,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "unarmed",
+    "weapon_name": "tangan kosong"
 }

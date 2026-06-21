@@ -26,6 +26,16 @@ The core foundation and engine of the game are solid and fully operational:
     *   Repurposed the `win_thought` window to display a node-based ASCII map of Nirva.
     *   Players can press `TAB` to shift focus to the map, preview locations, and instantly travel to adjacent districts.
     *   Wrap-around list navigation implemented for all Town menus.
+*   **Tabbed Area Interaction**:
+    *   Players can use `TAB` to cycle between distinct interaction categories: `Orang`, `Aktivitas`, `Jalan Keluar`, and `Peta`.
+    *   Empty tabs are smartly skipped to prevent navigating to blank menus.
+*   **Shop System**:
+    *   Created `ShopManager` and `ShopState`.
+    *   Implemented full buy/sell interface, displaying item prices dynamically based on item types.
+    *   Supports gold checking and inventory limit validation.
+*   **Dynamic Item Stats & Loot Tables**:
+    *   Replaced base stat getters with virtual implementations that factor in `equipped_items` bonuses on the fly.
+    *   Integrated random rolls for loot tables upon enemy death in the battle state, correctly registering item drops and showing them in the end-of-battle pop-up.
 *   **Resilient Ncurses UI**: 
     *   Localized to Indonesian.
     *   Robust `KEY_RESIZE` handling prevents terminal crashes when resizing or zooming (Ctrl +/-).
@@ -62,12 +72,12 @@ To finish the project, the following major features must be built:
     *   **Complex Completion Triggers**: Upgrade the `Condition` evaluator to support diverse quest objectives beyond just variable tracking. This includes specific item fetching, targeted monster kills, talking to a specific NPC in a sequence, or triggering completion simply by entering a specific area.
 3.  **Bulletin Board System (Papan Pengumuman)**:
     *   Create a centralized hub (likely in the `alun_alun` or `balai_kota`) for procedural or generic "Unnamed NPC" quests. This prevents the player from having to hunt down random citizens for basic fetch/kill tasks.
-4.  **Area Interaction Overhaul**:
-    *   Redesign how players interact with their current location. The current unified list of Activities, People, and Exits works, but needs to be more immersive or context-sensitive as the number of interactions grows.
-5.  **Interactive Inventory UI**:
+4.  **Interactive Inventory UI**:
     *   A new sub-menu (perhaps triggered by pressing 'i' in `TownState`) where players can view item descriptions, consume healing items, and equip gear.
-6.  **Stat Calculation Fix**:
-    *   Update the `Player` model so that `get_str()`, `get_cons()`, etc., return the *Base Stat + Equipped Item Stat Bonuses*.
+5.  **Data Structures Implementation (From Scratch)**:
+    *   **Circular Linked List**: Implement a custom `CircularLinkedList` to manage the turn queue in `BattleState` (rotating turns between player and enemies).
+    *   **Double Linked List**: Implement a custom `DoubleLinkedList` to manage a Message Log / Activity History, allowing players to scroll through past activities chronologically.
+    *   **Binary Search Tree (BST) / AVL Tree**: Implement a custom tree structure to manage an Encyclopedia/Bestiary that automatically sorts encountered monsters/items by name or ID.
 7.  **Save/Load System (Optional but Recommended)**:
     *   Implement a way to serialize the `Player` state (variables, inventory, quest states, time) back into a save-game JSON file.
 

@@ -52,19 +52,6 @@ int Player::get_item_count(const std::string& item_id) const {
 
 // ---- EQUIPMENT SYSTEM ----
 
-// Helper untuk menambah/mengurangi stat dari equip_stats
-void modify_stats(Player* p, const Item* item, int multiplier) {
-    for (const auto& [stat, val] : item->equip_stats) {
-        int mod = val * multiplier;
-        if (stat == "str") p->set_str(p->get_str() + mod);
-        else if (stat == "cons") p->set_cons(p->get_cons() + mod);
-        else if (stat == "agi") p->set_agi(p->get_agi() + mod);
-        else if (stat == "intl") p->set_intl(p->get_intl() + mod);
-        else if (stat == "wis") p->set_wis(p->get_wis() + mod);
-        // Bisa tambah HP / Max HP logic jika perlu
-    }
-}
-
 bool Player::equip(const Item* item) {
     if (!item || item->type != ItemType::EQUIPMENT) return false;
     
@@ -78,9 +65,8 @@ bool Player::equip(const Item* item) {
     // Lepas item lama jika slot sudah terisi
     unequip(slot);
 
-    // Hapus dari inventory & tambah stat
+    // Hapus dari inventory
     remove_item(item->id, 1);
-    modify_stats(this, item, 1);
     
     // Ubah affinity jika ada
     if (item->has_affinity_change) {
@@ -96,8 +82,7 @@ void Player::unequip(const std::string& slot) {
     if (it != equipped_items.end() && it->second != nullptr) {
         const Item* item = it->second;
         
-        // Kurangi stat & masukkan kembali ke inventory
-        modify_stats(this, item, -1);
+        // Masukkan kembali ke inventory
         add_item(item->id, 1);
 
         // Reset affinity jika item ini yang merubahnya
@@ -115,4 +100,57 @@ const Item* Player::get_equipped(const std::string& slot) const {
         return it->second;
     }
     return nullptr;
+}
+
+// Dynamically calculate stats based on base stat + equipment bonuses
+int Player::get_str() const {
+    int total = str;
+    for (const auto& [slot, item] : equipped_items) {
+        if (item && item->equip_stats.count("str")) total += item->equip_stats.at("str");
+    }
+    return total;
+}
+
+int Player::get_cons() const {
+    int total = cons;
+    for (const auto& [slot, item] : equipped_items) {
+        if (item && item->equip_stats.count("cons")) total += item->equip_stats.at("cons");
+    }
+    return total;
+}
+
+int Player::get_agi() const {
+    int total = agi;
+    for (const auto& [slot, item] : equipped_items) {
+        if (item && item->equip_stats.count("agi")) total += item->equip_stats.at("agi");
+    }
+    return total;
+}
+
+int Player::get_intl() const {
+    int total = intl;
+    for (const auto& [slot, item] : equipped_items) {
+        if (item && item->equip_stats.count("intl")) total += item->equip_stats.at("intl");
+    }
+    return total;
+}
+
+int Player::get_wis() const {
+    int total = wis;
+    for (const auto& [slot, item] : equipped_items) {
+        if (item && item->equip_stats.count("wis")) total += item->equip_stats.at("wis");
+    }
+    return total;
+}
+
+std::string Player::get_weapon_type() const {
+    const Item* wpn = get_equipped("weapon");
+    if (wpn) return wpn->weapon_type;
+    return "unarmed";
+}
+
+std::string Player::get_weapon_name() const {
+    const Item* wpn = get_equipped("weapon");
+    if (wpn) return wpn->name;
+    return "tangan kosong";
 }

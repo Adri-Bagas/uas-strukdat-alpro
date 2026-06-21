@@ -67,6 +67,18 @@ void BattleState::next_turn() {
                 if (Monster* m = dynamic_cast<Monster*>(dead_enemy)) {
                     accumulated_exp += m->get_exp_drop();
                     accumulated_gold += m->get_gold_drop();
+                    
+                    // Process loot table
+                    for (const auto& loot : m->get_loot_table()) {
+                        int roll = rand() % 100;
+                        if (roll < loot.drop_chance) {
+                            engine->get_player_manager().get_player()->add_item(loot.item_id, 1);
+                            // Get item name for better logging if possible, but ID works too
+                            const Item* item_data = engine->get_db().get_item(loot.item_id);
+                            std::string item_name = item_data ? item_data->name : loot.item_id;
+                            end_battle_logs.push_back("Found loot: " + item_name + "!");
+                        }
+                    }
                 }
                 enemy_slots[i] = nullptr;
                 // Remove from turn queue if present
@@ -96,7 +108,7 @@ void BattleState::next_turn() {
             if (party_slots[i] && party_slots[i]->get_hp() > 0) alive_members++;
         }
         
-        end_battle_logs.clear();
+        // Push general rewards
         end_battle_logs.push_back("Found " + std::to_string(accumulated_gold) + " Gold!");
         engine->get_player_manager().get_player()->add_gold(accumulated_gold);
         
@@ -454,10 +466,37 @@ void BattleState::execute_action(Entity* target) {
 
     if (pending_action == "Attack") {
         if (target) {
-            int dmg = std::max(1, active->get_str() - target->get_cons());
+            std::string w_type = active->get_weapon_type();
+            std::string w_name = active->get_weapon_name();
+            
+            int dmg = 1;
+            std::string log_msg = "";
+            
+            if (w_type == "sword") {
+                dmg = std::max(1, static_cast<int>(active->get_str() * 1.1) - target->get_cons());
+                log_msg = active->get_name() + " menebas " + target->get_name() + " dengan " + w_name + " for " + std::to_string(dmg) + " damage!";
+            } else if (w_type == "dagger") {
+                dmg = std::max(1, active->get_agi() - target->get_cons());
+                log_msg = active->get_name() + " menusuk " + target->get_name() + " dengan " + w_name + " for " + std::to_string(dmg) + " damage!";
+                // Dagger has a 20% chance to attack twice
+                if (rand() % 100 < 20) {
+                    log_msg += " (Double Hit!)";
+                    dmg *= 2;
+                }
+            } else if (w_type == "bow") {
+                dmg = std::max(1, (active->get_str() + active->get_agi()) / 2 - target->get_cons());
+                log_msg = active->get_name() + " memanah " + target->get_name() + " dengan " + w_name + " for " + std::to_string(dmg) + " damage! (REACH Effect)";
+            } else if (w_type == "staff") {
+                dmg = std::max(1, static_cast<int>(active->get_intl() * 1.2) - target->get_wis());
+                log_msg = active->get_name() + " menembakkan energi sihir dari " + w_name + " ke " + target->get_name() + " for " + std::to_string(dmg) + " damage!";
+            } else { // unarmed or others
+                dmg = std::max(1, active->get_str() - target->get_cons());
+                log_msg = active->get_name() + " memukul " + target->get_name() + " dengan tangan kosong for " + std::to_string(dmg) + " damage!";
+            }
+            
             target->take_damage(dmg);
             animate_hit(target);
-            add_log(active->get_name() + " attacks " + target->get_name() + " for " + std::to_string(dmg) + " damage!");
+            add_log(log_msg);
         }
     } else if (pending_action == "Magic") {
         if (selected_magic_idx >= 0 && selected_magic_idx < (int)active->get_magics().size()) {

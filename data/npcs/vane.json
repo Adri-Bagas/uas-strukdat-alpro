@@ -1,51 +1,53 @@
 {
-  "id": "npc_vane",
-  "name": "Vane",
-  "full_name": "Lord Inquisitor Vane 'The Unbending'",
-  "type": "named",
-  "role": "Hakim Agung Ibukota",
-  "faction": "Imperial Throne",
-  "schedules": [
-    {
-      "days": [
-        14
-      ],
-      "phase": "Pagi",
-      "location": "alun_alun"
+    "id": "npc_vane",
+    "name": "Vane",
+    "full_name": "Lord Inquisitor Vane 'The Unbending'",
+    "type": "named",
+    "role": "Hakim Agung Ibukota",
+    "faction": "Imperial Throne",
+    "schedules": [
+        {
+            "days": [
+                14
+            ],
+            "phase": "Pagi",
+            "location": "alun_alun"
+        },
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "balai_kota"
+        }
+    ],
+    "default_dialog": "scene_vane_idle",
+    "str": 31,
+    "cons": 40,
+    "agi": 26,
+    "intl": 22,
+    "wis": 30,
+    "max_hp": 400,
+    "max_mp": 220,
+    "level": 18,
+    "magics": [],
+    "special_move": {
+        "id": "sp_heroic_blow",
+        "name": "Heroic Blow",
+        "max_uses_per_day": 1,
+        "power": 50,
+        "element": "none"
     },
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "balai_kota"
-    }
-  ],
-  "default_dialog": "scene_vane_idle",
-  "str": 31,
-  "cons": 40,
-  "agi": 26,
-  "intl": 22,
-  "wis": 30,
-  "max_hp": 400,
-  "max_mp": 220,
-  "level": 18,
-  "magics": [],
-  "special_move": {
-    "id": "sp_heroic_blow",
-    "name": "Heroic Blow",
-    "max_uses_per_day": 1,
-    "power": 50,
-    "element": "none"
-  },
-  "affinity": "none",
-  "weakness": "none"
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "sword",
+    "weapon_name": "pedang ksatria"
 }

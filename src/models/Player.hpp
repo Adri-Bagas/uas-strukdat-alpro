@@ -23,6 +23,15 @@ public:
     void add_gold(int amount) { gold += amount; }
     bool spend_gold(int amount);
 
+    int get_str() const override;
+    int get_cons() const override;
+    int get_agi() const override;
+    int get_intl() const override;
+    int get_wis() const override;
+
+    std::string get_weapon_type() const override;
+    std::string get_weapon_name() const override;
+
     // Inventory
     void add_item(const std::string& item_id, int amount = 1);
     void remove_item(const std::string& item_id, int amount = 1);

@@ -19,6 +19,9 @@ struct Item {
     // Slot equipment: "weapon", "armor", "boots", "ring"
     std::string equip_slot = ""; 
     
+    // Tipe senjata: "sword", "bow", "dagger", "staff", "unarmed"
+    std::string weapon_type = "unarmed";
+    
     // Bonus stat: "str" -> 5, "agi" -> -1, dll.
     std::unordered_map<std::string, int> equip_stats;
 

@@ -1,37 +1,39 @@
 {
-  "id": "npc_acolyte_2",
-  "name": "Suster Gereja",
-  "full_name": "Suster Pelayan Kuil",
-  "type": "unnamed",
-  "role": "Cleric",
-  "faction": "Gereja Cahaya",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "balai_kota"
-    }
-  ],
-  "default_dialog": "scene_nun_idle",
-  "str": 12,
-  "cons": 10,
-  "agi": 10,
-  "intl": 11,
-  "wis": 14,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 2,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_acolyte_2",
+    "name": "Suster Gereja",
+    "full_name": "Suster Pelayan Kuil",
+    "type": "unnamed",
+    "role": "Cleric",
+    "faction": "Gereja Cahaya",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "balai_kota"
+        }
+    ],
+    "default_dialog": "scene_nun_idle",
+    "str": 12,
+    "cons": 10,
+    "agi": 10,
+    "intl": 11,
+    "wis": 14,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 2,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "staff",
+    "weapon_name": "tongkat kayu"
 }

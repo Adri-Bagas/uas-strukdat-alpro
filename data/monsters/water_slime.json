@@ -1,33 +1,35 @@
 {
-  "id": "mon_water_slime",
-  "name": "Water Slime",
-  "description": "Slime berair yang sulit dihancurkan.",
-  "level": 2,
-  "max_hp": 45,
-  "max_mp": 10,
-  "damage": 5,
-  "agility": 7,
-  "str": 7,
-  "cons": 9,
-  "agi": 7,
-  "intl": 5,
-  "wis": 5,
-  "loot": [
-    {
-      "item_id": "item_water_drop",
-      "chance": 20
-    }
-  ],
-  "magics": [
-    {
-      "id": "mag_water_gun",
-      "name": "Water Gun",
-      "type": "attacking",
-      "mana_cost": 8,
-      "power": 12,
-      "element": "water"
-    }
-  ],
-  "affinity": "water",
-  "weakness": "earth"
+    "id": "mon_water_slime",
+    "name": "Water Slime",
+    "description": "Slime berair yang sulit dihancurkan.",
+    "level": 2,
+    "max_hp": 45,
+    "max_mp": 10,
+    "damage": 5,
+    "agility": 7,
+    "str": 7,
+    "cons": 9,
+    "agi": 7,
+    "intl": 5,
+    "wis": 5,
+    "loot": [
+        {
+            "item_id": "item_water_drop",
+            "chance": 20
+        }
+    ],
+    "magics": [
+        {
+            "id": "mag_water_gun",
+            "name": "Water Gun",
+            "type": "attacking",
+            "mana_cost": 8,
+            "power": 12,
+            "element": "water"
+        }
+    ],
+    "affinity": "water",
+    "weakness": "earth",
+    "weapon_type": "unarmed",
+    "weapon_name": "lendir air"
 }

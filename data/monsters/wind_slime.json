@@ -1,33 +1,35 @@
 {
-  "id": "mon_wind_slime",
-  "name": "Wind Slime",
-  "description": "Slime yang sangat lincah dan melayang di udara.",
-  "level": 2,
-  "max_hp": 30,
-  "max_mp": 15,
-  "damage": 4,
-  "agility": 15,
-  "str": 5,
-  "cons": 6,
-  "agi": 15,
-  "intl": 5,
-  "wis": 6,
-  "loot": [
-    {
-      "item_id": "item_wind_feather",
-      "chance": 10
-    }
-  ],
-  "magics": [
-    {
-      "id": "mag_wind_slash",
-      "name": "Wind Slash",
-      "type": "attacking",
-      "mana_cost": 12,
-      "power": 18,
-      "element": "wind"
-    }
-  ],
-  "affinity": "wind",
-  "weakness": "fire"
+    "id": "mon_wind_slime",
+    "name": "Wind Slime",
+    "description": "Slime yang sangat lincah dan melayang di udara.",
+    "level": 2,
+    "max_hp": 30,
+    "max_mp": 15,
+    "damage": 4,
+    "agility": 15,
+    "str": 5,
+    "cons": 6,
+    "agi": 15,
+    "intl": 5,
+    "wis": 6,
+    "loot": [
+        {
+            "item_id": "item_wind_feather",
+            "chance": 10
+        }
+    ],
+    "magics": [
+        {
+            "id": "mag_wind_slash",
+            "name": "Wind Slash",
+            "type": "attacking",
+            "mana_cost": 12,
+            "power": 18,
+            "element": "wind"
+        }
+    ],
+    "affinity": "wind",
+    "weakness": "fire",
+    "weapon_type": "unarmed",
+    "weapon_name": "angin puyuh"
 }

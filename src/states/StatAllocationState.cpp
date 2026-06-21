@@ -17,6 +17,11 @@ void StatAllocationState::update() {
 }
 
 void StatAllocationState::handle_input(int ch) {
+    if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        return;
+    }
+
     if (ch == -1) return;
     
     Player* p = engine->get_player_manager().get_player();
@@ -44,9 +49,6 @@ void StatAllocationState::handle_input(int ch) {
         }
     } else if (ch == 'q' || ch == 27 || ch == 'c' || ch == 'C') { // Escape/Quit
         engine->pop_state();
-        return;
-    } else if (ch == KEY_RESIZE) {
-        engine->get_layout().resize();
         return;
     }
 }

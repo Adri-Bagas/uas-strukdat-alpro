@@ -153,6 +153,11 @@ void DungeonState::update_visited(DungeonFloor& floor) {
 }
 
 void DungeonState::handle_input(int ch) {
+    if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        return;
+    }
+
     if (has_won) {
         engine->pop_state();
         return;
@@ -197,8 +202,6 @@ void DungeonState::handle_input(int ch) {
         next_c--;
     } else if (ch == KEY_RIGHT || ch == 'd' || ch == 'D') {
         next_c++;
-    } else if (ch == KEY_RESIZE) {
-        engine->get_layout().resize();
     }
 
     // Verify cell boundaries and ensure the destination is not a wall

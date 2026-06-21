@@ -117,6 +117,10 @@ void GameEngine::run() {
             int ch = getch();
 
             if (ch == KEY_RESIZE) {
+                endwin();
+                refresh();
+                clear();
+                
                 state_stack.top()->handle_input(ch);
                 if (active_popup) active_popup->handle_input(ch);
             }

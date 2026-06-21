@@ -12,7 +12,7 @@
         7,
         10
       ],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "menara_tua"
     },
     {
@@ -21,27 +21,22 @@
         7,
         10
       ],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "gua_tambang"
     },
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "permukiman_kumuh"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "jalanan_utama_kota"
     },
     {
       "days": [],
-      "phase": "Evening",
-      "location": "permukiman_kumuh"
-    },
-    {
-      "days": [],
-      "phase": "Night",
+      "phase": "Malam",
       "location": "permukiman_kumuh"
     }
   ],

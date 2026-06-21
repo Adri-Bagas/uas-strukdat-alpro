@@ -10,27 +10,22 @@
       "days": [
         14
       ],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "alun_alun"
     },
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "balai_kota"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "balai_kota"
     },
     {
       "days": [],
-      "phase": "Evening",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
+      "phase": "Malam",
       "location": "balai_kota"
     }
   ],

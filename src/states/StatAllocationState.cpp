@@ -87,7 +87,7 @@ void StatAllocationState::render() {
             else if (i == 4) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_wis());
         }
         
-        wrefresh(pop_win);
+        wnoutrefresh(pop_win);
         delwin(pop_win);
     }
 }

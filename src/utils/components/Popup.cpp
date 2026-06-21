@@ -100,7 +100,7 @@ void Popup::render() {
         mvwin(win, y + (target_h - h) / 2, x + (target_w - w) / 2);
         werase(win);
         box(win, 0, 0);
-        wrefresh(win);
+        wnoutrefresh(win);
     } else {
         wresize(win, target_h, target_w);
         mvwin(win, y, x);
@@ -123,7 +123,7 @@ void Popup::render() {
                 mvwprintw(win, start_y + i, start_x, "%s", l.c_str());
             }
         }
-        wrefresh(win);
+        wnoutrefresh(win);
     }
 }
 

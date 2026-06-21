@@ -13,6 +13,7 @@ class TimeCalendarManagers {
 
   public:
     std::function<void(std::string)> on_popup;
+    std::function<void(int)> on_day_advanced;
 
     DayTime getDayTime();
 

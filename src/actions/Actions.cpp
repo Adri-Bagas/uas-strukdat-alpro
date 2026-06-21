@@ -1,49 +1,60 @@
 #include "../GameEngine.hpp"
 #include "../utils/Logger.hpp"
 #include "./Actions.hpp"
+#include "../states/ShopState.hpp"
 #include <sstream>
 
 Action::Action(GameEngine* eng) : engine(eng) {
     // Movement Actions
     register_action("move_to_stable", [this](const std::string&) {
         engine->get_places().set_current_place("kandang_kuda");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_attic", [this](const std::string&) {
         engine->get_places().set_current_place("kamar_loteng");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_town_hall", [this](const std::string&) {
         engine->get_places().set_current_place("balai_kota");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_town_center", [this](const std::string&) {
         engine->get_places().set_current_place("alun_alun");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_main_street", [this](const std::string&) {
         engine->get_places().set_current_place("jalanan_utama_kota");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_arthur_bar", [this](const std::string&) {
         engine->get_places().set_current_place("kedai_usang");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_outskirts", [this](const std::string&) {
         engine->get_places().set_current_place("permukiman_kumuh");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_pasar_gelap", [this](const std::string&) {
         engine->get_places().set_current_place("permukiman_kumuh"); // Placeholder
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_menara_tua", [this](const std::string&) {
         engine->get_places().set_current_place("menara_tua");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_alun_alun", [this](const std::string&) {
         engine->get_places().set_current_place("alun_alun");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
 
     // Time Actions
-    register_action("set_time_morning", [this](const std::string&) {
+    register_action("set_time_pagi", [this](const std::string&) {
         engine->get_calendar().setDayTime(MORNING);
     });
-    register_action("set_time_afternoon", [this](const std::string&) {
+    register_action("set_time_siang", [this](const std::string&) {
         engine->get_calendar().setDayTime(AFTERNOON);
     });
-    register_action("set_time_evening", [this](const std::string&) {
+    register_action("set_time_malam", [this](const std::string&) {
         engine->get_calendar().setDayTime(EVENING);
     });
     register_action("set_time_siang", [this](const std::string&) {
@@ -94,6 +105,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
 
     register_action("advance_day", [this](const std::string&) {
         engine->get_calendar().advanceDate();
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
         Logger::log("Action: Advanced to the next day");
     });
 
@@ -219,6 +231,13 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("set_next_dialog", [this](const std::string& arg) {
         if(!arg.empty()) {
             engine->get_dialogs().set_next_scene(arg);
+        }
+    });
+
+    register_action("open_shop", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            engine->push_state(new ShopState(engine, arg));
+            Logger::log("Action: Opened shop " + arg);
         }
     });
 }

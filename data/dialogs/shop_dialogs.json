@@ -24,5 +24,93 @@
         "value": "Oke Kalau Begitu... Terima Kasih!"
       }
     ]
+  },
+    {
+    "id": "sh_gs_ant_shop_dialog_FIRST",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "???",
+        "value": "Selamat Datang di toko kami..."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dia yang awal nya semangat tiba-tiba menjadi lemas"
+      },
+      {
+        "type": 1,
+        "npc_name": "???",
+        "value": "Kau...Gelang itu...Kau yang membunuh walikota..."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Wajahnya memucat seperti orang mati, dia meresa akan dibunuh seperti walikotanya dengan kehadiran mu"
+      },
+      {
+        "type": 2,
+        "npc_name": "Pikiran",
+        "value": "Sialan orang ini tau aku siapa, lebih baik aku jelaskan semuanya"
+      },
+      {
+        "type": 1,
+        "npc_name": "Player",
+        "value": "Tenang dulu mas, jangan panik dulu biar kejelaskan semuanya..."
+      },
+      {
+        "type": 1,
+        "npc_name": "???",
+        "value": "Hikh!?"
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Akhirnya kau jelaskan semua kepadanya..."
+      },
+      {
+        "type": 1,
+        "npc_name": "???",
+        "value": "Jadi kau tidak tahu apa apa?"
+      },
+       {
+        "type": 1,
+        "npc_name": "Player",
+        "value": "Ya"
+      },
+      {
+        "type": 1,
+        "npc_name": "???",
+        "value": "Kamu Yakin?"
+      },
+      {
+        "type": 1,
+        "npc_name": "Player",
+        "value": "Ya"
+      },
+      {
+        "type": 1,
+        "npc_name": "???",
+        "value": "YAKIN?"
+      },
+      {
+        "type": 1,
+        "npc_name": "Player",
+        "value": "IYA!"
+      },
+      {
+        "type": 1,
+        "npc_name": "Anton",
+        "value": "Baiklah kalau begitu, namaku Anton aku yang punya toko ini, kau bisa membeli barang disini jika kau mau ya, tapi jangan macam macam nanti ku laporkan kau ke penjaga!"
+      },
+      {
+        "type": 2,
+        "npc_name": "Pikiran",
+        "value": "~Orang ini sedikit aneh ya~"
+      }
+    ]
   }
 ]

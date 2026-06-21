@@ -8,23 +8,18 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "jalanan_utama_kota"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "jalanan_utama_kota"
     },
     {
       "days": [],
-      "phase": "Evening",
+      "phase": "Malam",
       "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "permukiman_kumuh"
     }
   ],
   "default_dialog": "scene_beggar_idle",

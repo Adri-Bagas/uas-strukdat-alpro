@@ -8,22 +8,17 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "alun_alun"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "jalanan_utama_kota"
     },
     {
       "days": [],
-      "phase": "Evening",
-      "location": "permukiman_kumuh"
-    },
-    {
-      "days": [],
-      "phase": "Night",
+      "phase": "Malam",
       "location": "permukiman_kumuh"
     }
   ],

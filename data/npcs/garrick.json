@@ -8,23 +8,18 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "jalanan_utama_kota"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "balai_kota"
     },
     {
       "days": [],
-      "phase": "Evening",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "balai_kota"
+      "phase": "Malam",
+      "location": "alun_alun"
     }
   ],
   "default_dialog": "scene_garrick_idle",

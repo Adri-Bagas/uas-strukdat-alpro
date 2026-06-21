@@ -8,23 +8,18 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "alun_alun"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "kandang_kuda"
     },
     {
       "days": [],
-      "phase": "Evening",
+      "phase": "Malam",
       "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "alun_alun"
     }
   ],
   "default_dialog": "scene_guard_idle",

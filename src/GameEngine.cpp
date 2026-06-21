@@ -21,7 +21,13 @@ void GameEngine::init() {
     nodelay(stdscr, TRUE);
     refresh();
 
-    calendar.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
+    calendar.on_popup = [this](const std::string& msg) {
+        dialogs.queue_popup(msg);
+    };
+
+    calendar.on_day_advanced = [this](int day_of_week) {
+        shop_manager.process_daily_restock(db, day_of_week);
+    };
     places.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
 
     start_color();
@@ -38,6 +44,8 @@ void GameEngine::init() {
     db.load_npcs("data/npcs");
     db.load_monsters("data/monsters");
     db.load_quests("data/quests");
+    db.load_shops("data/shops");
+    shop_manager.init_from_db(db);
 
     for (auto* p_const : db.get_all_places()) {
         places.add_place(const_cast<Place*>(p_const));
@@ -182,6 +190,7 @@ Action &GameEngine::get_actions() {
     return actions;
 }
 
+ShopManager& GameEngine::get_shop_manager() { return shop_manager; }
 void GameEngine::quit() {
     is_running = false;
 }

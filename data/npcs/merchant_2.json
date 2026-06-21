@@ -8,23 +8,18 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "pasar_kota"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "pasar_kota"
     },
     {
       "days": [],
-      "phase": "Evening",
+      "phase": "Malam",
       "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "kedai_usang"
     }
   ],
   "default_dialog": "scene_merchant_foreign_idle",

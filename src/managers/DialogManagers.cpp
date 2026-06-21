@@ -65,11 +65,15 @@ void DialogManager::start_scene(const DialogScene& scene, GameEngine* engine) {
     next_scene_id = scene.next_scene_id;
     on_exit_actions = scene.on_exit;
 
-    execute_actions(scene.on_start, engine);
-
-    for (const auto& node : scene.nodes) {
+    for (auto node : scene.nodes) {
+        if (!node.npc_name.empty()) {
+            const NPC* npc = engine->get_db().get_npc(node.npc_name);
+            if (npc && !npc->known()) node.npc_name = "???";
+        }
         queue_dialog(node);
     }
+
+    execute_actions(scene.on_start, engine);
 
     for (const auto& choice : scene.choices) {
         pending_choices.push_back(choice);

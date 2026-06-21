@@ -27,8 +27,8 @@
   ],
   "walkable": {
     "north": "jalanan_utara_kota",
-    "east": "jalanan_timur_kota",
     "south": "jalanan_selatan_kota",
+    "east": "jalanan_timur_kota",
     "west": "jalanan_barat_kota"
   }
 }

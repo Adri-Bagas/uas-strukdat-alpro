@@ -1,0 +1,12 @@
+{
+  "id": "jalanan_selatan_kota",
+  "name": "Jalanan Selatan Kota Nirva",
+  "on_first_enter": "",
+  "on_enter": "",
+  "activities": [],
+  "walkable": {
+    "north": "jalanan_utama_kota",
+    "south": "kedai_usang",
+    "west": "general_store_anton"
+  }
+}

@@ -9,6 +9,13 @@
 
 class ChoicePopup;
 
+enum class MenuTab {
+    NPC,
+    ACTIVITY,
+    EXIT,
+    MAP
+};
+
 class TownState : public GameState {
     int selection_index = 0;
     std::vector<Activity> current_activities;
@@ -21,8 +28,8 @@ class TownState : public GameState {
     bool is_in_quest_menu = false;
     int quest_selection_index = 0;
 
-    // Map Mode
-    bool is_in_map_mode = false;
+    // Tab Mode
+    MenuTab current_tab = MenuTab::MAP;
     int map_selection_index = 0;
     std::vector<Place*> map_places;
 
@@ -31,6 +38,8 @@ class TownState : public GameState {
 
 private:
     // --- Input Helpers ---
+    void cycle_tab();
+    void init_tabs();
     void handle_quest_menu_input(int ch);
     void handle_world_menu_input(int ch);
     void handle_map_menu_input(int ch);

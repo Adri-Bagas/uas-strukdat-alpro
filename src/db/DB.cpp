@@ -563,3 +563,61 @@ std::vector<const Quest*> DB::get_all_quests() const {
     for (auto& pair : quests_db) all.push_back(&(pair.second));
     return all;
 }
+
+void DB::load_shops(const std::string& directory_path) {
+    Logger::log("DB: Mulai memuat shop dari " + directory_path);
+    if (!fs::exists(directory_path)) return;
+
+    for (const auto& entry : fs::directory_iterator(directory_path)) {
+        if (entry.path().extension() == ".json") {
+            std::ifstream file(entry.path());
+            if (!file.is_open()) continue;
+            try {
+                json j;
+                file >> j;
+                Shop shop(j["id"].get<std::string>(), j["name"].get<std::string>());
+                
+                if (j.contains("items") && j["items"].is_array()) {
+                    for (const auto& item_j : j["items"]) {
+                        shop.add_item(item_j["item"].get<std::string>(), item_j["base_stock"].get<int>());
+                    }
+                }
+
+                if (j.contains("restock_schedule") && j["restock_schedule"].is_array()) {
+                    for (const auto& rs_j : j["restock_schedule"]) {
+                        std::vector<std::string> items;
+                        for (const auto& it_j : rs_j["items"]) {
+                            items.push_back(it_j.get<std::string>());
+                        }
+                        shop.add_restock_schedule(rs_j["day"].get<int>(), items);
+                    }
+                }
+
+                if (j.contains("on_enter") && j["on_enter"].is_array()) {
+                    for (const auto& action : j["on_enter"]) shop.add_on_enter(action.get<std::string>());
+                }
+
+                if (j.contains("on_exit") && j["on_exit"].is_array()) {
+                    for (const auto& action : j["on_exit"]) shop.add_on_exit(action.get<std::string>());
+                }
+
+                shops_db.emplace(shop.get_id(), std::move(shop));
+                Logger::log("DB: Terdaftar shop '" + j["id"].get<std::string>() + "'");
+            } catch (const std::exception& e) {
+                Logger::log("DB ERROR: Gagal parse JSON di shop " + entry.path().string() + ": " + e.what());
+            }
+        }
+    }
+}
+
+const Shop* DB::get_shop(const std::string& id) const {
+    auto it = shops_db.find(id);
+    if (it != shops_db.end()) return &(it->second);
+    return nullptr;
+}
+
+std::vector<const Shop*> DB::get_all_shops() const {
+    std::vector<const Shop*> all;
+    for (auto& pair : shops_db) all.push_back(&(pair.second));
+    return all;
+}

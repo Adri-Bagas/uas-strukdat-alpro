@@ -14,9 +14,9 @@
       "schedule": {
         "days": [],
         "phases": [
-          "Morning",
-          "Afternoon",
-          "Evening"
+          "Pagi",
+          "Siang",
+          "Malam"
         ]
       },
       "dialogs": {

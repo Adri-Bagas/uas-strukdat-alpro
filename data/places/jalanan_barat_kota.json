@@ -1,0 +1,11 @@
+{
+  "id": "jalanan_barat_kota",
+  "name": "Jalanan Barat Kota Nirva",
+  "on_first_enter": "",
+  "on_enter": "",
+  "activities": [],
+  "walkable": {
+    "east": "jalanan_utama_kota",
+    "west": "permukiman_kumuh"
+  }
+}

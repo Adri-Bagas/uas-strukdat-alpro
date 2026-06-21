@@ -185,3 +185,7 @@ Action &GameEngine::get_actions() {
 void GameEngine::quit() {
     is_running = false;
 }
+
+MusicManager& GameEngine::get_music_manager() { 
+    return music_manager; 
+}

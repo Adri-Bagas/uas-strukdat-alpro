@@ -1,3 +1,4 @@
+#include <fstream>
 #include "../GameEngine.hpp"
 #include "../utils/Logger.hpp"
 #include "./Actions.hpp"
@@ -220,6 +221,19 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if(!arg.empty()) {
             engine->get_dialogs().set_next_scene(arg);
         }
+    });
+
+    // ===============
+    // AUDIO ACTIONS 
+    // ===============
+    register_action("play_music", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            engine->get_music_manager().playMusic(arg);
+        }
+    });
+
+    register_action("stop_music", [this](const std::string&) {
+        engine->get_music_manager().stopMusic();
     });
 }
 

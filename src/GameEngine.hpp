@@ -12,6 +12,7 @@
 #include "./db/DB.hpp"
 #include "actions/Actions.hpp"
 #include "utils/components/Popup.hpp"
+#include "managers/MusicManager.hpp"
 
 class GameEngine {
 private:
@@ -24,6 +25,7 @@ private:
     PlayerManager player_manager;
     DB db;
     Action actions;
+    MusicManager music_manager;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
     std::unique_ptr<Popup> active_popup;
@@ -49,5 +51,6 @@ public:
     PlayerManager& get_player_manager();
     DB& get_db();
     Action& get_actions();
+    MusicManager& get_music_manager();
     void quit();
 };

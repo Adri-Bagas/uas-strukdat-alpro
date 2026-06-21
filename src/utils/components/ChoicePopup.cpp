@@ -1,6 +1,8 @@
 #include "ChoicePopup.hpp"
 #include <sstream>
 
+namespace Utils {
+
 ChoicePopup::ChoicePopup(const std::string& header, const std::vector<DialogChoice>& choices, int selected_idx)
     : Popup(header), choices(choices), selected_index(selected_idx) {
     
@@ -51,3 +53,4 @@ void ChoicePopup::render() {
 
     wrefresh(win);
 }
+} // namespace Utils

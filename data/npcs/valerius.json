@@ -1,49 +1,46 @@
 {
-  "id": "npc_valerius",
-  "name": "Valerius",
-  "full_name": "Valerius 'The Black Crow' von Draken",
-  "type": "named",
-  "role": "Guildmaster / Penguasa Sementara",
-  "faction": "Gagak Hitam",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "balai_kota"
+    "id": "npc_valerius",
+    "name": "Valerius",
+    "full_name": "Valerius 'The Black Crow' von Draken",
+    "type": "named",
+    "role": "Guildmaster / Penguasa Sementara",
+    "faction": "Gagak Hitam",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "pasar_kota"
+        }
+    ],
+    "default_dialog": "scene_valerius_idle",
+    "str": 35,
+    "cons": 32,
+    "agi": 37,
+    "intl": 22,
+    "wis": 37,
+    "max_hp": 320,
+    "max_mp": 220,
+    "level": 16,
+    "magics": [],
+    "special_move": {
+        "id": "sp_black_crow_execution",
+        "name": "Black Crow Execution",
+        "max_uses_per_day": 3,
+        "power": 150,
+        "element": "wind"
     },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "pasar_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "balai_kota"
-    }
-  ],
-  "default_dialog": "scene_valerius_idle",
-  "str": 35,
-  "cons": 32,
-  "agi": 37,
-  "intl": 22,
-  "wis": 37,
-  "max_hp": 320,
-  "max_mp": 220,
-  "level": 16,
-  "magics": [],
-  "special_move": {
-    "id": "sp_black_crow_execution",
-    "name": "Black Crow Execution",
-    "max_uses_per_day": 3,
-    "power": 150,
-    "element": "wind"
-  },
-  "affinity": "wind",
-  "weakness": "light"
+    "affinity": "wind",
+    "weakness": "light",
+    "weapon_type": "sword",
+    "weapon_name": "pedang komandan"
 }

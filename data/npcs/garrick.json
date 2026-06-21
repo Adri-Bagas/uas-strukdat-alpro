@@ -1,49 +1,46 @@
 {
-  "id": "npc_garrick",
-  "name": "Garrick",
-  "full_name": "Captain Garrick of the Iron Guard",
-  "type": "named",
-  "role": "Kapten Penjaga",
-  "faction": "Penjaga Kota",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "jalanan_utama_kota"
+    "id": "npc_garrick",
+    "name": "Garrick",
+    "full_name": "Captain Garrick of the Iron Guard",
+    "type": "named",
+    "role": "Kapten Penjaga",
+    "faction": "Penjaga Kota",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "alun_alun"
+        }
+    ],
+    "default_dialog": "scene_garrick_idle",
+    "str": 42,
+    "cons": 34,
+    "agi": 30,
+    "intl": 32,
+    "wis": 38,
+    "max_hp": 230,
+    "max_mp": 320,
+    "level": 14,
+    "magics": [],
+    "special_move": {
+        "id": "sp_heroic_blow",
+        "name": "Heroic Blow",
+        "max_uses_per_day": 1,
+        "power": 50,
+        "element": "none"
     },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "balai_kota"
-    }
-  ],
-  "default_dialog": "scene_garrick_idle",
-  "str": 42,
-  "cons": 34,
-  "agi": 30,
-  "intl": 32,
-  "wis": 38,
-  "max_hp": 230,
-  "max_mp": 320,
-  "level": 14,
-  "magics": [],
-  "special_move": {
-    "id": "sp_heroic_blow",
-    "name": "Heroic Blow",
-    "max_uses_per_day": 1,
-    "power": 50,
-    "element": "none"
-  },
-  "affinity": "none",
-  "weakness": "none"
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "sword",
+    "weapon_name": "pedang prajurit"
 }

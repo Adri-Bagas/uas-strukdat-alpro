@@ -1,6 +1,6 @@
 {
   "id": "day1_cs7",
-  "on_enter": ["move_to_main_street", "set_time_evening"],
+  "on_enter": ["move_to_main_street", "set_time_malam"],
   "on_exit": [],
   "next_scene": "day1_cs8",
   "nodes": [

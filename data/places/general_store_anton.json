@@ -1,0 +1,27 @@
+{
+  "id": "general_store_anton",
+  "name": "Warung Madura Anton",
+  "on_first_enter": "sh_gs_ant_shop_dialog_FIRST",
+  "on_enter": "",
+  "walkable": {
+    "east": "jalanan_selatan_kota"
+  },
+  "activities": [
+    {
+      "id": "shop_at_anton",
+      "name": "Belanja disini",
+      "time_cost": 0,
+      "schedule": {
+        "days": [],
+        "phases": [
+          "Pagi",
+          "Siang"
+        ]
+      },
+      "dialogs": {},
+      "on_execute": [
+        "open_shop sh_gen"
+      ]
+    }
+  ]
+}

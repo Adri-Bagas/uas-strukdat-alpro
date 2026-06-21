@@ -1,0 +1,23 @@
+{
+    "id": "traveling_merchant_shop",
+    "name": "Toko Pedagang Keliling",
+    "description": "Pedagang misterius yang membawa barang-barang aneh dari berbagai penjuru dunia.",
+    "items": [
+        {
+            "item": "potion_hp",
+            "base_stock": 1
+        },
+        {
+            "item": "potion_mp",
+            "base_stock": 1
+        },
+        {
+            "item": "iron_sword",
+            "base_stock": 1
+        },
+        {
+            "item": "silver_ring",
+            "base_stock": 1
+        }
+    ]
+}

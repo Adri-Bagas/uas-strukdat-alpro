@@ -1,0 +1,11 @@
+{
+  "id": "jalanan_timur_kota",
+  "name": "Jalanan Timur Kota Nirva",
+  "on_first_enter": "",
+  "on_enter": "",
+  "activities": [],
+  "walkable": {
+    "west": "jalanan_utama_kota",
+    "east": "kandang_kuda"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "jalanan_utara_kota",
+  "name": "Jalanan Utara Kota Nirva",
+  "on_first_enter": "",
+  "on_enter": "",
+  "activities": [],
+  "walkable": {
+    "south": "jalanan_utama_kota",
+    "north": "alun_alun"
+  }
+}

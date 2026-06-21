@@ -12,9 +12,9 @@
       "schedule": {
         "days": [],
         "phases": [
-          "Morning",
-          "Afternoon",
-          "Evening"
+          "Pagi",
+          "Siang",
+          "Malam"
         ]
       },
       "req": {
@@ -50,8 +50,8 @@
     }
   ],
   "walkable": {
+    "south": "jalanan_utara_kota",
     "west": "balai_kota",
-    "east": "pasar_kota",
-    "south": "kandang_kuda"
+    "east": "pasar_kota"
   }
 }

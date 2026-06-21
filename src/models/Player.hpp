@@ -20,8 +20,17 @@ public:
 
     // Progression
     int get_gold() const { return gold; }
-    void add_gold(int amount) { gold += amount; }
+    void add_gold(int amount) { gold += amount; if (gold < 0) gold = 0; }
     bool spend_gold(int amount);
+
+    int get_str() const override;
+    int get_cons() const override;
+    int get_agi() const override;
+    int get_intl() const override;
+    int get_wis() const override;
+
+    std::string get_weapon_type() const override;
+    std::string get_weapon_name() const override;
 
     // Inventory
     void add_item(const std::string& item_id, int amount = 1);

@@ -6,8 +6,16 @@
 #include "../models/Place.hpp"
 #include <vector>
 #include <memory>
+#include "../utils/Queue.hpp"
 
-class ChoicePopup;
+namespace Utils { class ChoicePopup; }
+
+enum class MenuTab {
+    NPC,
+    ACTIVITY,
+    EXIT,
+    MAP
+};
 
 class TownState : public GameState {
     int selection_index = 0;
@@ -21,22 +29,33 @@ class TownState : public GameState {
     bool is_in_quest_menu = false;
     int quest_selection_index = 0;
 
-    // Map Mode
-    bool is_in_map_mode = false;
+    // Tab Mode
+    MenuTab current_tab = MenuTab::MAP;
     int map_selection_index = 0;
     std::vector<Place*> map_places;
 
     // Choice Component
-    std::unique_ptr<ChoicePopup> current_choice_popup;
+    std::unique_ptr<Utils::ChoicePopup> current_choice_popup;
+
+    // Fast Travel
+    Utils::Queue<std::string> fast_travel_queue;
+    bool is_fast_traveling = false;
+    bool is_confirming_fast_travel = false;
+    Place* fast_travel_target = nullptr;
+    std::vector<std::string> fast_travel_path_preview;
 
 private:
     // --- Input Helpers ---
+    void cycle_tab();
+    void init_tabs();
     void handle_quest_menu_input(int ch);
     void handle_world_menu_input(int ch);
     void handle_map_menu_input(int ch);
     void execute_npc_interaction(NPC* npc);
     void execute_activity(const Activity& act);
     void execute_movement(Place* target);
+    void execute_fast_travel_step();
+    std::vector<std::string> find_shortest_path(const std::string& start, const std::string& target);
 
     // --- Update Helpers ---
     void process_dialogue_queue();

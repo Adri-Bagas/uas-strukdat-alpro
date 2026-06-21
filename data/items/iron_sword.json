@@ -5,6 +5,7 @@
   "type": "equipment",
   "value": 100,
   "equip_slot": "weapon",
+  "weapon_type": "sword",
   "equip_stats": {
     "str": 5,
     "agi": -1

@@ -1,49 +1,60 @@
 #include "../GameEngine.hpp"
 #include "../utils/Logger.hpp"
 #include "./Actions.hpp"
+#include "../states/ShopState.hpp"
 #include <sstream>
 
 Action::Action(GameEngine* eng) : engine(eng) {
     // Movement Actions
     register_action("move_to_stable", [this](const std::string&) {
         engine->get_places().set_current_place("kandang_kuda");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_attic", [this](const std::string&) {
         engine->get_places().set_current_place("kamar_loteng");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_town_hall", [this](const std::string&) {
         engine->get_places().set_current_place("balai_kota");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_town_center", [this](const std::string&) {
         engine->get_places().set_current_place("alun_alun");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_main_street", [this](const std::string&) {
         engine->get_places().set_current_place("jalanan_utama_kota");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_arthur_bar", [this](const std::string&) {
         engine->get_places().set_current_place("kedai_usang");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_outskirts", [this](const std::string&) {
         engine->get_places().set_current_place("permukiman_kumuh");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_pasar_gelap", [this](const std::string&) {
         engine->get_places().set_current_place("permukiman_kumuh"); // Placeholder
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_menara_tua", [this](const std::string&) {
         engine->get_places().set_current_place("menara_tua");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
     register_action("move_to_alun_alun", [this](const std::string&) {
         engine->get_places().set_current_place("alun_alun");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
 
     // Time Actions
-    register_action("set_time_morning", [this](const std::string&) {
+    register_action("set_time_pagi", [this](const std::string&) {
         engine->get_calendar().setDayTime(MORNING);
     });
-    register_action("set_time_afternoon", [this](const std::string&) {
+    register_action("set_time_siang", [this](const std::string&) {
         engine->get_calendar().setDayTime(AFTERNOON);
     });
-    register_action("set_time_evening", [this](const std::string&) {
+    register_action("set_time_malam", [this](const std::string&) {
         engine->get_calendar().setDayTime(EVENING);
     });
     register_action("set_time_siang", [this](const std::string&) {
@@ -78,7 +89,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             Player* p = engine->get_player_manager().get_player();
             if (p) {
                 p->heal_hp(amount);
-                Logger::log("Action: Healed player for " + std::to_string(amount) + " HP");
+                Utils::Logger::log("Action: Healed player for " + std::to_string(amount) + " HP");
             }
         }
     });
@@ -88,13 +99,14 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (p) {
             p->heal_hp(p->get_max_hp());
             p->restore_mp(p->get_max_mp());
-            Logger::log("Action: Healed player to full HP and MP");
+            Utils::Logger::log("Action: Healed player to full HP and MP");
         }
     });
 
     register_action("advance_day", [this](const std::string&) {
         engine->get_calendar().advanceDate();
-        Logger::log("Action: Advanced to the next day");
+        if (engine->get_current_state()) engine->get_current_state()->on_enter();
+        Utils::Logger::log("Action: Advanced to the next day");
     });
 
     // Inventory Actions
@@ -186,7 +198,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             Quest* q = engine->get_quests().get_quest(arg);
             if (q && q->get_state() == QuestState::AVAILABLE) {
                 q->set_state(QuestState::IN_PROGRESS);
-                Logger::log("Action: Quest accepted: " + arg);
+                Utils::Logger::log("Action: Quest accepted: " + arg);
             }
         }
     });
@@ -199,7 +211,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
                 for (const auto& action : q->get_on_complete()) {
                     engine->get_actions().execute(action);
                 }
-                Logger::log("Action: Quest completed: " + arg);
+                Utils::Logger::log("Action: Quest completed: " + arg);
             }
         }
     });
@@ -209,7 +221,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             for (auto* npc_const : engine->get_db().get_all_npcs()) {
                 if (npc_const->get_id() == arg) {
                     const_cast<NPC*>(npc_const)->reveal();
-                    Logger::log("Action: Revealed NPC identity: " + arg);
+                    Utils::Logger::log("Action: Revealed NPC identity: " + arg);
                     break;
                 }
             }
@@ -219,6 +231,13 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("set_next_dialog", [this](const std::string& arg) {
         if(!arg.empty()) {
             engine->get_dialogs().set_next_scene(arg);
+        }
+    });
+
+    register_action("open_shop", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            engine->push_state(new ShopState(engine, arg));
+            Utils::Logger::log("Action: Opened shop " + arg);
         }
     });
 }
@@ -245,6 +264,6 @@ void Action::execute(const std::string& command_line) {
     if (it != actions.end()) {
         it->second(arg);
     } else {
-        Logger::log("Action ERROR: Unknown action command '" + cmd + "'");
+        Utils::Logger::log("Action ERROR: Unknown action command '" + cmd + "'");
     }
 }

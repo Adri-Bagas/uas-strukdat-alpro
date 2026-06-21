@@ -4,8 +4,7 @@
   "on_first_enter": "",
   "on_enter": "",
   "walkable": {
-    "east": "alun_alun",
-    "south": "jalanan_utama_kota"
+    "east": "alun_alun"
   },
   "activities": []
 }

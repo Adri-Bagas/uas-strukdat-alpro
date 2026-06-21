@@ -64,7 +64,7 @@ void TimeCalendarManagers::advanceTime(bool is_double) {
         advanceDate();
         return;
     default:
-        Logger::log("Error: Kesalahan saat memajukan waktu!");
+        Utils::Logger::log("Error: Kesalahan saat memajukan waktu!");
         return;
     }
 
@@ -78,4 +78,10 @@ void TimeCalendarManagers::advanceDate() {
     this->day += 1;
     this->dayTime = MORNING;
     if (on_popup) on_popup("Hari telah berakhir. Kamu terbangun pada Hari ke-" + std::to_string(this->day));
+    
+    if (on_day_advanced) {
+        // Simple day of week calculation (1 to 7)
+        int day_of_week = ((this->day - 1) % 7) + 1;
+        on_day_advanced(day_of_week);
+    }
 }

@@ -1,31 +1,33 @@
 {
-  "id": "mon_shadow_knight",
-  "name": "Lord Valerius' Phantom",
-  "description": "Ksatria bayangan yang dibangkitkan oleh ilmu hitam.",
-  "level": 12,
-  "max_hp": 500,
-  "max_mp": 200,
-  "damage": 30,
-  "agility": 25,
-  "str": 35,
-  "cons": 30,
-  "agi": 25,
-  "intl": 20,
-  "wis": 20,
-  "loot": [
-    {
-      "item_id": "item_shadow_blade",
-      "chance": 100
-    }
-  ],
-  "magics": [],
-  "special_move": {
-    "id": "sp_shadow_cleave",
-    "name": "Shadow Cleave",
-    "max_uses_per_day": 3,
-    "power": 90,
-    "element": "none"
-  },
-  "affinity": "none",
-  "weakness": "light"
+    "id": "mon_shadow_knight",
+    "name": "Lord Valerius' Phantom",
+    "description": "Ksatria bayangan yang dibangkitkan oleh ilmu hitam.",
+    "level": 12,
+    "max_hp": 500,
+    "max_mp": 200,
+    "damage": 30,
+    "agility": 25,
+    "str": 35,
+    "cons": 30,
+    "agi": 25,
+    "intl": 20,
+    "wis": 20,
+    "loot": [
+        {
+            "item_id": "item_shadow_blade",
+            "chance": 100
+        }
+    ],
+    "magics": [],
+    "special_move": {
+        "id": "sp_shadow_cleave",
+        "name": "Shadow Cleave",
+        "max_uses_per_day": 3,
+        "power": 90,
+        "element": "none"
+    },
+    "affinity": "none",
+    "weakness": "light",
+    "weapon_type": "sword",
+    "weapon_name": "pedang kegelapan"
 }

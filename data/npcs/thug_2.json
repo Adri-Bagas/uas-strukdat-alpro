@@ -1,42 +1,39 @@
 {
-  "id": "npc_thug_2",
-  "name": "Pencopet",
-  "full_name": "Tikus Jalanan",
-  "type": "unnamed",
-  "role": "Thug",
-  "faction": "Independent",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "permukiman_kumuh"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "permukiman_kumuh"
-    }
-  ],
-  "default_dialog": "scene_pickpocket_idle",
-  "str": 12,
-  "cons": 13,
-  "agi": 15,
-  "intl": 11,
-  "wis": 14,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 1,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_thug_2",
+    "name": "Pencopet",
+    "full_name": "Tikus Jalanan",
+    "type": "unnamed",
+    "role": "Thug",
+    "faction": "Independent",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "alun_alun"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "permukiman_kumuh"
+        }
+    ],
+    "default_dialog": "scene_pickpocket_idle",
+    "str": 12,
+    "cons": 13,
+    "agi": 15,
+    "intl": 11,
+    "wis": 14,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 1,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "dagger",
+    "weapon_name": "pisau lipat"
 }

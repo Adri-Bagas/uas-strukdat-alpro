@@ -21,7 +21,13 @@ void GameEngine::init() {
     nodelay(stdscr, TRUE);
     refresh();
 
-    calendar.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
+    calendar.on_popup = [this](const std::string& msg) {
+        dialogs.queue_popup(msg);
+    };
+
+    calendar.on_day_advanced = [this](int day_of_week) {
+        shop_manager.process_daily_restock(db, day_of_week);
+    };
     places.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
 
     start_color();
@@ -38,6 +44,8 @@ void GameEngine::init() {
     db.load_npcs("data/npcs");
     db.load_monsters("data/monsters");
     db.load_quests("data/quests");
+    db.load_shops("data/shops");
+    shop_manager.init_from_db(db);
 
     for (auto* p_const : db.get_all_places()) {
         places.add_place(const_cast<Place*>(p_const));
@@ -103,7 +111,7 @@ void GameEngine::pop_state() {
     }
 }
 void GameEngine::run() {
-    Logger::log("Engine: Starting run loop.");
+    Utils::Logger::log("Engine: Starting run loop.");
     try {
         while (is_running && !state_stack.empty()) {
             int ch = getch();
@@ -120,7 +128,7 @@ void GameEngine::run() {
                     active_popup.reset();
                 }
             } else if (dialogs.has_queued_popup()) {
-                active_popup = std::make_unique<Popup>(dialogs.pop_popup());
+                active_popup = std::make_unique<Utils::Popup>(dialogs.pop_popup());
             } else {
                 if (ch != KEY_RESIZE) state_stack.top()->handle_input(ch);
                 state_stack.top()->update();
@@ -136,12 +144,12 @@ void GameEngine::run() {
             napms(24);
         }
     } catch (const std::exception& e) {
-        Logger::log("ENGINE FATAL EXCEPTION: " + std::string(e.what()));
-        ErrorPopup err("Unexpected Engine Error: " + std::string(e.what()));
+        Utils::Logger::log("ENGINE FATAL EXCEPTION: " + std::string(e.what()));
+        Utils::ErrorPopup err("Unexpected Engine Error: " + std::string(e.what()));
         err.show_fatal();
     } catch (...) {
-        Logger::log("ENGINE FATAL EXCEPTION: Unknown error");
-        ErrorPopup err("Unexpected Engine Error: Unknown");
+        Utils::Logger::log("ENGINE FATAL EXCEPTION: Unknown error");
+        Utils::ErrorPopup err("Unexpected Engine Error: Unknown");
         err.show_fatal();
     }
 }
@@ -182,6 +190,7 @@ Action &GameEngine::get_actions() {
     return actions;
 }
 
+ShopManager& GameEngine::get_shop_manager() { return shop_manager; }
 void GameEngine::quit() {
     is_running = false;
 }

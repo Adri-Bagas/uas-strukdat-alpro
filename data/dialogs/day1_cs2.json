@@ -1,7 +1,7 @@
 {
   "id": "day1_cs2",
   "on_enter": [],
-  "on_exit": [],
+  "on_exit": ["move_to_main_street"],
   "next_scene": "day1_cs3",
   "nodes": [
     {

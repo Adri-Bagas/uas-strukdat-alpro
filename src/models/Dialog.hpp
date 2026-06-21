@@ -6,7 +6,7 @@
 struct DialogNode {
     std::string value;
     std::string npc_name;
-    int type; // 1: Dialog, 2: Thought, 3: Popup
+    int type; // 1: Dialog, 2: Thought, 3: Utils::Popup
 };
 
 struct DialogChoice {

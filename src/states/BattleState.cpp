@@ -36,9 +36,14 @@ void BattleState::build_turn_queue() {
     }
     
     // Sort by AGI descending
-    std::sort(turn_queue.begin(), turn_queue.end(), [](Entity* a, Entity* b) {
+    auto vec = turn_queue.to_vector();
+    std::sort(vec.begin(), vec.end(), [](Entity* a, Entity* b) {
         return a->get_agi() > b->get_agi();
     });
+    turn_queue.clear();
+    for (auto e : vec) {
+        turn_queue.push_back(e);
+    }
 }
 
 void BattleState::next_turn() {
@@ -67,10 +72,22 @@ void BattleState::next_turn() {
                 if (Monster* m = dynamic_cast<Monster*>(dead_enemy)) {
                     accumulated_exp += m->get_exp_drop();
                     accumulated_gold += m->get_gold_drop();
+                    
+                    // Process loot table
+                    for (const auto& loot : m->get_loot_table()) {
+                        int roll = rand() % 100;
+                        if (roll < loot.drop_chance) {
+                            engine->get_player_manager().get_player()->add_item(loot.item_id, 1);
+                            // Get item name for better logging if possible, but ID works too
+                            const Item* item_data = engine->get_db().get_item(loot.item_id);
+                            std::string item_name = item_data ? item_data->name : loot.item_id;
+                            end_battle_logs.push_back("Found loot: " + item_name + "!");
+                        }
+                    }
                 }
                 enemy_slots[i] = nullptr;
                 // Remove from turn queue if present
-                turn_queue.erase(std::remove(turn_queue.begin(), turn_queue.end(), dead_enemy), turn_queue.end());
+                turn_queue.remove(dead_enemy);
             }
         }
         
@@ -96,7 +113,7 @@ void BattleState::next_turn() {
             if (party_slots[i] && party_slots[i]->get_hp() > 0) alive_members++;
         }
         
-        end_battle_logs.clear();
+        // Push general rewards
         end_battle_logs.push_back("Found " + std::to_string(accumulated_gold) + " Gold!");
         engine->get_player_manager().get_player()->add_gold(accumulated_gold);
         
@@ -117,7 +134,7 @@ void BattleState::next_turn() {
         }
         popup_msg += "\nPress Space or Enter to continue...";
         
-        end_popup = std::make_unique<Popup>(popup_msg);
+        end_popup = std::make_unique<Utils::Popup>(popup_msg);
         current_phase = Phase::BATTLE_END;
         return;
     }
@@ -132,7 +149,7 @@ void BattleState::next_turn() {
 
     Entity* active = turn_queue.front();
     if (active->get_hp() <= 0) {
-        turn_queue.erase(turn_queue.front() == active ? turn_queue.begin() : std::find(turn_queue.begin(), turn_queue.end(), active));
+        turn_queue.advance();
         next_turn();
         return;
     }
@@ -198,7 +215,7 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
         }
         if (!moved) {
             add_log(active->get_name() + " waits.");
-            turn_queue.erase(turn_queue.begin());
+            turn_queue.advance();
             current_phase = Phase::WAITING_FOR_INPUT;
             menu_options = {"[Press any key to continue]"};
             current_menu_selection = 0;
@@ -325,7 +342,7 @@ void BattleState::execute_ai_turn(Entity* active, bool is_ally) {
         }
     } else {
         add_log(active->get_name() + " waits.");
-        turn_queue.erase(turn_queue.begin());
+        turn_queue.advance();
         current_phase = Phase::WAITING_FOR_INPUT;
         menu_options = {"[Press any key to continue]"};
         current_menu_selection = 0;
@@ -454,10 +471,37 @@ void BattleState::execute_action(Entity* target) {
 
     if (pending_action == "Attack") {
         if (target) {
-            int dmg = std::max(1, active->get_str() - target->get_cons());
+            std::string w_type = active->get_weapon_type();
+            std::string w_name = active->get_weapon_name();
+            
+            int dmg = 1;
+            std::string log_msg = "";
+            
+            if (w_type == "sword") {
+                dmg = std::max(1, static_cast<int>(active->get_str() * 1.1) - target->get_cons());
+                log_msg = active->get_name() + " menebas " + target->get_name() + " dengan " + w_name + " for " + std::to_string(dmg) + " damage!";
+            } else if (w_type == "dagger") {
+                dmg = std::max(1, active->get_agi() - target->get_cons());
+                log_msg = active->get_name() + " menusuk " + target->get_name() + " dengan " + w_name + " for " + std::to_string(dmg) + " damage!";
+                // Dagger has a 20% chance to attack twice
+                if (rand() % 100 < 20) {
+                    log_msg += " (Double Hit!)";
+                    dmg *= 2;
+                }
+            } else if (w_type == "bow") {
+                dmg = std::max(1, (active->get_str() + active->get_agi()) / 2 - target->get_cons());
+                log_msg = active->get_name() + " memanah " + target->get_name() + " dengan " + w_name + " for " + std::to_string(dmg) + " damage! (REACH Effect)";
+            } else if (w_type == "staff") {
+                dmg = std::max(1, static_cast<int>(active->get_intl() * 1.2) - target->get_wis());
+                log_msg = active->get_name() + " menembakkan energi sihir dari " + w_name + " ke " + target->get_name() + " for " + std::to_string(dmg) + " damage!";
+            } else { // unarmed or others
+                dmg = std::max(1, active->get_str() - target->get_cons());
+                log_msg = active->get_name() + " memukul " + target->get_name() + " dengan tangan kosong for " + std::to_string(dmg) + " damage!";
+            }
+            
             target->take_damage(dmg);
             animate_hit(target);
-            add_log(active->get_name() + " attacks " + target->get_name() + " for " + std::to_string(dmg) + " damage!");
+            add_log(log_msg);
         }
     } else if (pending_action == "Magic") {
         if (selected_magic_idx >= 0 && selected_magic_idx < (int)active->get_magics().size()) {
@@ -575,7 +619,7 @@ void BattleState::execute_action(Entity* target) {
         add_log(active->get_name() + " is defending!");
     }
 
-    turn_queue.erase(turn_queue.begin());
+    turn_queue.advance();
     current_phase = Phase::WAITING_FOR_INPUT;
     menu_options = {"[Press any key to continue]"};
     current_menu_selection = 0;
@@ -583,6 +627,12 @@ void BattleState::execute_action(Entity* target) {
 
 void BattleState::handle_input(int ch) {
     if (ch == -1) return; // Ignore no-input
+
+    if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        if (end_popup) end_popup->resize();
+        return;
+    }
 
     if (current_phase == Phase::BATTLE_END) {
         if (end_popup) {
@@ -838,7 +888,7 @@ void BattleState::render() {
     view.draw(
         party_slots,
         enemy_slots,
-        turn_queue,
+        turn_queue.to_vector(),
         0, // active idx in party (we'll fix this)
         current_menu_selection,
         menu_options,
@@ -868,7 +918,7 @@ void BattleState::add_log(const std::string& msg) {
         battle_log.back() += c;
         if (!skip_animations) {
             view.draw(
-                party_slots, enemy_slots, turn_queue, 0,
+                party_slots, enemy_slots, turn_queue.to_vector(), 0,
                 current_menu_selection, menu_options,
                 battle_log, enemy_pool.size(), nullptr
             );
@@ -881,7 +931,7 @@ void BattleState::add_log(const std::string& msg) {
     
     if (skip_animations) {
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), nullptr
         );
@@ -894,7 +944,7 @@ void BattleState::animate_hit(Entity* target) {
         if (skip_animations) break;
         // Flash ON
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), target
         );
@@ -906,7 +956,7 @@ void BattleState::animate_hit(Entity* target) {
         if (skip_animations) break;
         // Flash OFF
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), nullptr
         );
@@ -917,7 +967,7 @@ void BattleState::animate_hit(Entity* target) {
     }
     if (skip_animations) {
         view.draw(
-            party_slots, enemy_slots, turn_queue, 0,
+            party_slots, enemy_slots, turn_queue.to_vector(), 0,
             current_menu_selection, menu_options,
             battle_log, enemy_pool.size(), nullptr
         );

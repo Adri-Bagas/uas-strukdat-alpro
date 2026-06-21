@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+namespace Utils {
+
 
 enum class PopupState { ANIMATING, TYPING, WAITING, DISMISSED };
 
@@ -33,3 +35,4 @@ public:
     void animate_blocking();
     void type_text_blocking();
 };
+} // namespace Utils

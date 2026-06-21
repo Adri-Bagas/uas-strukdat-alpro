@@ -17,7 +17,7 @@ Many JSON files (such as *Activities*, *Quests*, and *Dialogs*) contain arrays l
 *   `set_var <key> <value>`: Creates or updates a Game Variable used for tracking progress. (e.g., `set_var has_met_arthur 1`). **Important**: This can also be used to permanently set core player stats (e.g., `set_var str 15`).
 *   `add_var <key> <amount>`: Increases a Game Variable by the specified amount. **Important**: If the key matches a core stat (`str`, `agi`, `cons`, `intl`, `wis`), it will permanently increase that stat instead. (e.g., `add_var str 1` increases Strength).
 *   `advance_day`: Instantly skips time to the Morning of the next day. Often used for resting activities like sleeping.
-*   `advance_time <amount>`: Advances the time phase (Morning -> Afternoon -> Evening -> Night). (e.g., `advance_time 1`).
+*   `advance_time <amount>`: Advances the time phase (Pagi -> Siang -> Malam -> Night). (e.g., `advance_time 1`).
 *   `heal_hp <amount>`: Restores the specified amount of Health Points (HP).
 *   `heal_full`: Completely restores both HP and MP to their maximum values.
 *   `accept_quest <quest_id>`: Unlocks a quest, changing its internal state from `LOCKED` to `IN_PROGRESS`. This should typically be placed in the `on_exit` of the dialogue scene where the quest is given.
@@ -85,7 +85,7 @@ Activities live inside the `"activities": []` array of a Place.
   },
   "schedule": {
     "days": [], 
-    "phases": ["Morning", "Afternoon"]
+    "phases": ["Pagi", "Siang"]
   },
   "req": {
     "stats": { "intl": 5 },
@@ -102,7 +102,7 @@ Activities live inside the `"activities": []` array of a Place.
 *   `visible_condition` *(Optional)*: If the condition fails, the activity is completely hidden from the Interaction Menu. In the example above, the activity vanishes once `clue_found` is set to `1`, creating a "do once" interaction.
 *   `schedule`: Controls temporal availability.
     *   `days`: An array of specific days (e.g., `[3, 7]`). If left empty `[]`, it is available every day.
-    *   `phases`: An array of time phases (e.g., `["Morning", "Night"]`).
+    *   `phases`: An array of time phases (e.g., `["Pagi", "Night"]`).
 *   `req`: Defines requirements to perform the activity. If the player lacks the stats, they can still see the activity but will get the `fail` dialogue.
 *   `on_execute`: A list of Action Dispatcher commands triggered upon successful execution.
 
@@ -121,10 +121,10 @@ NPCs inhabit Places. They have dynamic schedules and serve as hubs for Quests an
   "role": "Pemilik Kedai",
   "faction": "Neutral",
   "schedules": [
-    { "days": [14], "phase": "Morning", "location": "alun_alun" },
-    { "days": [], "phase": "Morning", "location": "kedai_usang" },
-    { "days": [], "phase": "Afternoon", "location": "kedai_usang" },
-    { "days": [], "phase": "Evening", "location": "kedai_usang" },
+    { "days": [14], "phase": "Pagi", "location": "alun_alun" },
+    { "days": [], "phase": "Pagi", "location": "kedai_usang" },
+    { "days": [], "phase": "Siang", "location": "kedai_usang" },
+    { "days": [], "phase": "Malam", "location": "kedai_usang" },
     { "days": [], "phase": "Night", "location": "kamar_loteng" }
   ],
   "default_dialog": "scene_arthur_idle",
@@ -326,3 +326,30 @@ Items can be consumables or equipment.
 *   `equip_slot`: The slot the item equips into (e.g., `"weapon"`, `"armor"`). Applicable only if type is `"equipment"`.
 *   `equip_stats`: A dictionary of stat bonuses granted while equipped (`str`, `cons`, `agi`, `intl`, `wis`).
 *   `on_use`: Action Dispatcher commands executed when the player uses the item from their inventory. Consumables typically use `"heal_hp <amount>"` or similar, while equipment use `"equip_item <item_id>"`.
+---
+
+## 9. Shops (`data/shops/`)
+
+Shops define the inventory of items available for purchase from merchants.
+
+```json
+{
+  "id": "shop_traveling_merchant",
+  "name": "Traveling Merchant's Wares",
+  "description": "Barang-barang eksotis dari negeri jauh.",
+  "owner_npc_id": "npc_traveling_merchant",
+  "inventory": [
+    {
+      "item_id": "potion_hp_large",
+      "stock": 5
+    },
+    {
+      "item_id": "iron_sword",
+      "stock": 1
+    }
+  ]
+}
+```
+*   `owner_npc_id`: The ID of the NPC who runs this shop. Used for context when interacting.
+*   `inventory`: An array of items available in the shop, specifying the `item_id` and the available `stock` quantity.
+

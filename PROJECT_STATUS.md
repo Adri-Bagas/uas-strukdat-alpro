@@ -26,6 +26,16 @@ The core foundation and engine of the game are solid and fully operational:
     *   Repurposed the `win_thought` window to display a node-based ASCII map of Nirva.
     *   Players can press `TAB` to shift focus to the map, preview locations, and instantly travel to adjacent districts.
     *   Wrap-around list navigation implemented for all Town menus.
+*   **Tabbed Area Interaction**:
+    *   Players can use `TAB` to cycle between distinct interaction categories: `Orang`, `Aktivitas`, `Jalan Keluar`, and `Peta`.
+    *   Empty tabs are smartly skipped to prevent navigating to blank menus.
+*   **Shop System**:
+    *   Created `ShopManager` and `ShopState`.
+    *   Implemented full buy/sell interface, displaying item prices dynamically based on item types.
+    *   Supports gold checking and inventory limit validation.
+*   **Dynamic Item Stats & Loot Tables**:
+    *   Replaced base stat getters with virtual implementations that factor in `equipped_items` bonuses on the fly.
+    *   Integrated random rolls for loot tables upon enemy death in the battle state, correctly registering item drops and showing them in the end-of-battle pop-up.
 *   **Resilient Ncurses UI**: 
     *   Localized to Indonesian.
     *   Robust `KEY_RESIZE` handling prevents terminal crashes when resizing or zooming (Ctrl +/-).
@@ -36,9 +46,7 @@ The core foundation and engine of the game are solid and fully operational:
 
 These systems have their data models built and JSON loaded, but lack the gameplay loops to fully utilize them:
 
-*   **Dungeon Maze (`DungeonState.cpp`)**: 
-    *   *Done*: Procedural maze generation using Randomized Prim's Algorithm. Player can walk around and reach the exit for a gold reward.
-    *   *Missing*: Enemy encounters. The maze currently has no threats or traps.
+
 *   **Equipment & Inventory System**: 
     *   *Done*: Items are loaded (`load_items`), players can receive them (`give_item`), and `Player` model has `equip()` logic. The UI reserves space to show equipped items.
     *   *Missing*: There is no interactive Inventory Menu for the player to manually consume potions (`on_use`) or equip weapons/armor.
@@ -52,22 +60,25 @@ These systems have their data models built and JSON loaded, but lack the gamepla
 
 To finish the project, the following major features must be built:
 
-1.  **Battle System (`BattlePage` / `BattleState`)**:
-    *   Need a turn-based combat loop supporting multi-entity encounters (Player + AI Party vs. up to 4 Monsters).
-    *   **Autonomous Party Members**: Important NPCs (like Arthur or Garrick) can join the player's party. They will *not* be manually controlled by the player. Instead, they require an AI logic system (similar to the Monster AI) to automatically choose their targets and actions (attack, heal, defend) on their turn.
-    *   **Elemental Magic System**: Implement magic attacks that utilize `INT` (Intelligence) and `WIS` (Wisdom) stats instead of STR/AGI. Combat calculations must factor in the `Elemental Affinity` (Fire, Water, etc.) of both the attacker and the defender for weakness/resistance multipliers.
-    *   Need to implement HP/MP damage calculations, usage of equipped weapons, and processing Monster `loot_tables` upon victory.
+
 2.  **Advanced Quest Mechanics**:
     *   **Quest Rejection & Retention**: Allow players to decline a quest during dialogue and still have the option to pick it up later from the NPC on a different day.
     *   **Complex Completion Triggers**: Upgrade the `Condition` evaluator to support diverse quest objectives beyond just variable tracking. This includes specific item fetching, targeted monster kills, talking to a specific NPC in a sequence, or triggering completion simply by entering a specific area.
 3.  **Bulletin Board System (Papan Pengumuman)**:
     *   Create a centralized hub (likely in the `alun_alun` or `balai_kota`) for procedural or generic "Unnamed NPC" quests. This prevents the player from having to hunt down random citizens for basic fetch/kill tasks.
-4.  **Area Interaction Overhaul**:
-    *   Redesign how players interact with their current location. The current unified list of Activities, People, and Exits works, but needs to be more immersive or context-sensitive as the number of interactions grows.
-5.  **Interactive Inventory UI**:
+4.  **Interactive Inventory UI**:
     *   A new sub-menu (perhaps triggered by pressing 'i' in `TownState`) where players can view item descriptions, consume healing items, and equip gear.
-6.  **Stat Calculation Fix**:
-    *   Update the `Player` model so that `get_str()`, `get_cons()`, etc., return the *Base Stat + Equipped Item Stat Bonuses*.
+5.  **Data Structures Implementation (From Scratch)**:
+    *   **Double Linked List**: Implement a custom `DoubleLinkedList` to manage a Message Log / Activity History, allowing players to scroll through past activities chronologically.
+    *   **Binary Search Tree (BST) / AVL Tree**: 
+        *   **Implementation Strategy**: Construct a custom, self-balancing tree (such as an AVL Tree) to serve as the backend for the **Encyclopedia/Bestiary** system. 
+        *   **Mechanics**: Every time the player encounters a new monster, discovers a new item, or uncovers lore, an entry is inserted into the BST. The nodes should be keyed by alphabetical string comparison (e.g., entity name) or a numerical ID.
+        *   **Advantages**: This guarantees `O(log N)` search and insertion times. When the player opens the Encyclopedia UI, an **in-order traversal** of the tree will automatically yield a perfectly alphabetized list of all discovered entities, making UI rendering incredibly efficient without needing an external sorting algorithm like `std::sort`.
+    *   **Stack (LIFO)**: 
+        *   **Implementation Strategy**: Develop a custom, from-scratch `Stack` class utilizing templates.
+        *   **Mechanics**: Integrate this stack into the `GameEngine` or specific UI states to manage **Menu/Screen Navigation History**. Whenever a player drills down into a sub-menu (e.g., Main Menu -> Inventory -> Select Item -> Use Item Confirmation), the previous menu's pointer or context state is pushed onto the stack. 
+        *   **Advantages**: Pressing `ESC` or a "Back" button will simply pop the top element off the stack, instantly restoring the exact previous state and cursor position. This completely eliminates hardcoded "back" routing and enables infinitely nested menus safely.
+    *   **Graph with BFS/DFS**: Implemented (Breadth-First Search utilized for Fast Travel pathfinding across the Town's map nodes).
 7.  **Save/Load System (Optional but Recommended)**:
     *   Implement a way to serialize the `Player` state (variables, inventory, quest states, time) back into a save-game JSON file.
 
@@ -78,11 +89,11 @@ To finish the project, the following major features must be built:
 These are technical debts and bugs currently existing in the code that should be addressed:
 
 ### Bugs
-*   **Stat Bonus Ignored**: The `Item` model has `equip_stats` (e.g., +5 STR for Iron Sword), and the UI displays equipped items. However, the `Player` model currently does not add these item bonuses to the base stats. Activities that check for `str >= 10` only check base stats.
+
 *   **Dungeon Terminal Size Crash**: `DungeonState::render()` requires a minimum terminal size of 110x24. If the terminal is resized smaller than this *while* inside the dungeon, it shows an error overlay, but rapid resizing might still cause `std::vector` out-of-bounds exceptions if the player moves while the terminal is too small.
 
 ### Known Bugs / Code Smells
-- None currently.
+- **Terminal Resize Responsiveness Issue**: Components in certain states (like Popups or inner contents in `TownState` / `ShopState`) are sometimes not correctly re-calculating their proportional width/height after a `KEY_RESIZE` event, meaning they maintain their original dimensions instead of becoming responsive like web layouts. This appears related to ncurses window destruction/re-creation loops.
 
 ### Completed Refactors
 - **Blocking UI Loops**: Refactored `Popup` to use a non-blocking state machine via `GameEngine::run()`.

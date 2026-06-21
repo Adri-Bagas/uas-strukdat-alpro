@@ -1,42 +1,47 @@
 {
-  "id": "npc_thug_1",
-  "name": "Preman Pasar",
-  "full_name": "Pemalak Serikat Dagang",
-  "type": "unnamed",
-  "role": "Thug",
-  "faction": "Gagak Hitam",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "pasar_kota"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "pasar_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "kedai_usang"
-    }
-  ],
-  "default_dialog": "scene_thug_idle",
-  "str": 10,
-  "cons": 12,
-  "agi": 12,
-  "intl": 15,
-  "wis": 14,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 1,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_thug_1",
+    "name": "Preman Pasar",
+    "full_name": "Pemalak Serikat Dagang",
+    "type": "unnamed",
+    "role": "Thug",
+    "faction": "Gagak Hitam",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "pasar_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "pasar_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [
+                6,
+                7
+            ],
+            "phase": "Malam",
+            "location": "kedai_usang"
+        }
+    ],
+    "default_dialog": "scene_thug_idle",
+    "str": 10,
+    "cons": 12,
+    "agi": 12,
+    "intl": 15,
+    "wis": 14,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 1,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "dagger",
+    "weapon_name": "pisau lipat"
 }

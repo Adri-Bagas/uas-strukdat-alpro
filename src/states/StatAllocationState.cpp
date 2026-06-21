@@ -45,6 +45,9 @@ void StatAllocationState::handle_input(int ch) {
     } else if (ch == 'q' || ch == 27 || ch == 'c' || ch == 'C') { // Escape/Quit
         engine->pop_state();
         return;
+    } else if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        return;
     }
 }
 
@@ -87,7 +90,7 @@ void StatAllocationState::render() {
             else if (i == 4) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_wis());
         }
         
-        wrefresh(pop_win);
+        wnoutrefresh(pop_win);
         delwin(pop_win);
     }
 }

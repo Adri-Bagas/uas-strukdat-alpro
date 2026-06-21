@@ -24,6 +24,6 @@
             ]
         }
     ], 
-    "on_enter": ["set_next_dialog general_store_shop_dialog_anton"],
-    "on_exit": ["set_next_dialog general_store_shop_dialog_anton_EXIT"]
+    "on_enter": ["set_next_dialog sh_gs_ant_shop_dialog"],
+    "on_exit": ["set_next_dialog sh_gs_ant_shop_dialog_EXIT"]
 }

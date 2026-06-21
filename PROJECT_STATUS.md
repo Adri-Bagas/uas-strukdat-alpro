@@ -70,10 +70,15 @@ To finish the project, the following major features must be built:
     *   A new sub-menu (perhaps triggered by pressing 'i' in `TownState`) where players can view item descriptions, consume healing items, and equip gear.
 5.  **Data Structures Implementation (From Scratch)**:
     *   **Double Linked List**: Implement a custom `DoubleLinkedList` to manage a Message Log / Activity History, allowing players to scroll through past activities chronologically.
-    *   **Binary Search Tree (BST) / AVL Tree**: Implement a custom tree structure to manage an Encyclopedia/Bestiary that automatically sorts encountered monsters/items by name or ID.
-    *   **Stack (LIFO)**: Implement a custom `Stack` for UI Menu Navigation history or undo mechanics.
-    *   **Queue (FIFO)**: Implement a custom `Queue` (or Priority Queue) for a Quest objective tracker, action queue, or rendering queue.
-    *   **Graph with BFS/DFS**: Implement Graph algorithms (BFS/DFS) to handle pathfinding or visualizing the world map connections.
+    *   **Binary Search Tree (BST) / AVL Tree**: 
+        *   **Implementation Strategy**: Construct a custom, self-balancing tree (such as an AVL Tree) to serve as the backend for the **Encyclopedia/Bestiary** system. 
+        *   **Mechanics**: Every time the player encounters a new monster, discovers a new item, or uncovers lore, an entry is inserted into the BST. The nodes should be keyed by alphabetical string comparison (e.g., entity name) or a numerical ID.
+        *   **Advantages**: This guarantees `O(log N)` search and insertion times. When the player opens the Encyclopedia UI, an **in-order traversal** of the tree will automatically yield a perfectly alphabetized list of all discovered entities, making UI rendering incredibly efficient without needing an external sorting algorithm like `std::sort`.
+    *   **Stack (LIFO)**: 
+        *   **Implementation Strategy**: Develop a custom, from-scratch `Stack` class utilizing templates.
+        *   **Mechanics**: Integrate this stack into the `GameEngine` or specific UI states to manage **Menu/Screen Navigation History**. Whenever a player drills down into a sub-menu (e.g., Main Menu -> Inventory -> Select Item -> Use Item Confirmation), the previous menu's pointer or context state is pushed onto the stack. 
+        *   **Advantages**: Pressing `ESC` or a "Back" button will simply pop the top element off the stack, instantly restoring the exact previous state and cursor position. This completely eliminates hardcoded "back" routing and enables infinitely nested menus safely.
+    *   **Graph with BFS/DFS**: Implemented (Breadth-First Search utilized for Fast Travel pathfinding across the Town's map nodes).
 7.  **Save/Load System (Optional but Recommended)**:
     *   Implement a way to serialize the `Player` state (variables, inventory, quest states, time) back into a save-game JSON file.
 

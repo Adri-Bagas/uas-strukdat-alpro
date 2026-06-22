@@ -3,6 +3,7 @@
 #include "../utils/components/Popup.hpp"
 #include "../utils/components/ChoicePopup.hpp"
 #include "../utils/components/LogPopup.hpp"
+#include "../utils/components/EncyclopediaPopup.hpp"
 #include "BattleState.hpp"
 #include "../GameEngine.hpp" 
 #include "../utils/Logger.hpp"
@@ -111,6 +112,9 @@ void TownState::handle_input(int ch) {
         return;
     } else if (ch == 'l' || ch == 'L') {
         engine->show_popup(std::make_unique<Utils::LogPopup>(engine->get_log_manager()));
+        return;
+    } else if (ch == 'e' || ch == 'E') {
+        engine->show_popup(std::make_unique<Utils::EncyclopediaPopup>(engine->get_encyclopedia()));
         return;
     }
 

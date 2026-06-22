@@ -231,6 +231,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             for (auto* npc_const : engine->get_db().get_all_npcs()) {
                 if (npc_const->get_id() == arg) {
                     const_cast<NPC*>(npc_const)->reveal();
+                    engine->get_encyclopedia().discover_entry(arg);
                     engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Met " + npc_const->get_name() + ".");
                     Utils::Logger::log("Action: Revealed NPC identity: " + arg);
                     break;

@@ -62,6 +62,29 @@ void GameEngine::init() {
     places.resolve_connections();
     // places.set_current_place("kandang_kuda");
 
+    // Populasi Ensiklopedia awal
+    for (auto* npc_const : db.get_all_npcs()) {
+        NPC* npc = const_cast<NPC*>(npc_const);
+        encyclopedia.insert_entry(
+            npc->get_id(),
+            npc->get_name(),
+            "npc",
+            "Pekerjaan: " + npc->get_role() + "\nFaction: " + npc->get_faction(),
+            npc->known()
+        );
+    }
+    for (auto* mon_const : db.get_all_monsters()) {
+        const Monster* mon = mon_const;
+        encyclopedia.insert_entry(
+            mon->get_id(),
+            mon->get_name(),
+            "monster",
+            mon->get_description() + "\nLevel: " + std::to_string(mon->get_level()) + 
+            "\nHP: " + std::to_string(mon->get_max_hp()) + ", Damage: " + std::to_string(mon->get_damage()),
+            false // Default: belum diketahui oleh pemain
+        );
+    }
+
     player_manager.init_player("hero", "Nirva Hero");
     // For testing: add party members
     if (auto arthur = db.get_npc("npc_arthur")) player_manager.add_ally(*arthur);
@@ -199,6 +222,7 @@ Action &GameEngine::get_actions() {
 
 ShopManager& GameEngine::get_shop_manager() { return shop_manager; }
 LogManager& GameEngine::get_log_manager() { return log_manager; }
+Utils::EncyclopediaBST& GameEngine::get_encyclopedia() { return encyclopedia; }
 void GameEngine::quit() {
     is_running = false;
 }

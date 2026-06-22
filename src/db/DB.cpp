@@ -68,6 +68,8 @@ Condition parse_condition(const json& j) {
     else if (type_str == "var_less_equal") cond.type = ConditionType::VAR_LESS_EQUAL;
     else if (type_str == "has_item") cond.type = ConditionType::HAS_ITEM;
     else if (type_str == "quest_state") cond.type = ConditionType::QUEST_STATE;
+    else if (type_str == "killed_monster") cond.type = ConditionType::KILLED_MONSTER;
+    else if (type_str == "explored_area") cond.type = ConditionType::EXPLORED_AREA;
 
     // Mengambil data tambahan seperti nama variabel (key) atau nilai target (value)
     cond.key = j.value("key", "");
@@ -83,21 +85,21 @@ DB::DB() {}
  * Mendukung format satu file berisi satu scene ({}) atau satu file berisi banyak scene ([]).
  */
 void DB::load_dialogs(const std::string& directory_path) {
-    Logger::log("DB: Mulai memuat dialog dari " + directory_path);
+    Utils::Logger::log("DB: Mulai memuat dialog dari " + directory_path);
 
     if (!fs::exists(directory_path)) {
-        Logger::log("DB FATAL: Direktori " + directory_path + " tidak ditemukan!");
-        ErrorPopup err("Folder data hilang: " + directory_path);
+        Utils::Logger::log("DB FATAL: Direktori " + directory_path + " tidak ditemukan!");
+        Utils::ErrorPopup err("Folder data hilang: " + directory_path);
         err.show_fatal();
         return;
     }
 
     for (const auto& entry : fs::directory_iterator(directory_path)) {
         if (entry.path().extension() == ".json") {
-            Logger::log("DB: Membaca file " + entry.path().string());
+            Utils::Logger::log("DB: Membaca file " + entry.path().string());
             std::ifstream file(entry.path());
             if (!file.is_open()) {
-                Logger::log("DB ERROR: Tidak bisa membuka " + entry.path().string());
+                Utils::Logger::log("DB ERROR: Tidak bisa membuka " + entry.path().string());
                 continue;
             }
 
@@ -151,7 +153,7 @@ void DB::load_dialogs(const std::string& directory_path) {
                     if (scene_j.contains("nodes")) {
                         for (const auto& node_j : scene_j["nodes"]) {
                             DialogNode node;
-                            node.type = node_j["type"].get<int>(); // 1: Dialog, 2: Pikiran, 3: Popup
+                            node.type = node_j["type"].get<int>(); // 1: Dialog, 2: Pikiran, 3: Utils::Popup
                             node.npc_name = node_j.value("npc_name", "");
                             node.value = node_j["value"].get<std::string>();
                             scene.nodes.push_back(node);
@@ -179,20 +181,20 @@ void DB::load_dialogs(const std::string& directory_path) {
                     for (const auto& scene_j : root) {
                         DialogScene scene = parse_scene(scene_j);
                         dialog_scenes[scene.id] = scene;
-                        Logger::log("DB: Terdaftar scene '" + scene.id + "' dari array");
+                        Utils::Logger::log("DB: Terdaftar scene '" + scene.id + "' dari array");
                     }
                 } else {
                     // Jika hanya satu objek {}, proses langsung
                     DialogScene scene = parse_scene(root);
                     dialog_scenes[scene.id] = scene;
-                    Logger::log("DB: Terdaftar scene '" + scene.id + "'");
+                    Utils::Logger::log("DB: Terdaftar scene '" + scene.id + "'");
                 }
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: Gagal parse JSON di " + entry.path().string() + ": " + e.what());
+                Utils::Logger::log("DB ERROR: Gagal parse JSON di " + entry.path().string() + ": " + e.what());
             }
         }
     }
-    Logger::log("DB: Memuat dialog selesai.");
+    Utils::Logger::log("DB: Memuat dialog selesai.");
 }
 
 /**
@@ -209,11 +211,11 @@ const DialogScene* DB::get_dialog_scene(const std::string& id) const {
  * Lokasi berisi koneksi antar wilayah (walkable) dan kegiatan (activities).
  */
 void DB::load_places(const std::string& directory_path) {
-    Logger::log("DB: Mulai memuat lokasi dari " + directory_path);
+    Utils::Logger::log("DB: Mulai memuat lokasi dari " + directory_path);
 
     if (!fs::exists(directory_path)) {
-        Logger::log("DB FATAL: Direktori " + directory_path + " tidak ditemukan!");
-        ErrorPopup err("Folder data hilang: " + directory_path);
+        Utils::Logger::log("DB FATAL: Direktori " + directory_path + " tidak ditemukan!");
+        Utils::ErrorPopup err("Folder data hilang: " + directory_path);
         err.show_fatal();
         return;
     }
@@ -288,9 +290,9 @@ void DB::load_places(const std::string& directory_path) {
                 }
 
                 places_db.emplace(p.get_id(), std::move(p));
-                Logger::log("DB: Terdaftar lokasi '" + j["id"].get<std::string>() + "'");
+                Utils::Logger::log("DB: Terdaftar lokasi '" + j["id"].get<std::string>() + "'");
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: Gagal parse JSON di lokasi " + entry.path().string() + ": " + e.what());
+                Utils::Logger::log("DB ERROR: Gagal parse JSON di lokasi " + entry.path().string() + ": " + e.what());
             }
         }
     }
@@ -319,7 +321,7 @@ std::vector<const Place*> DB::get_all_places() const {
  * Item bisa berupa peralatan (equipment) atau barang konsumsi.
  */
 void DB::load_items(const std::string& directory_path) {
-    Logger::log("DB: Mulai memuat item dari " + directory_path);
+    Utils::Logger::log("DB: Mulai memuat item dari " + directory_path);
     if (!fs::exists(directory_path)) return;
 
     for (const auto& entry : fs::directory_iterator(directory_path)) {
@@ -333,6 +335,7 @@ void DB::load_items(const std::string& directory_path) {
                 item.value = j.value("value", 0);
                 item.type = string_to_item_type(j.value("type", "misc"));
                 item.equip_slot = j.value("equip_slot", ""); // "weapon", "armor", dll.
+                item.weapon_type = j.value("weapon_type", "unarmed");
                 
                 // Bonus statistik saat item ini dipakai
                 item.equip_stats["str"] = j.value("str", 0);
@@ -347,9 +350,9 @@ void DB::load_items(const std::string& directory_path) {
                 }
 
                 items_db.emplace(item.get_id(), std::move(item));
-                Logger::log("DB: Terdaftar item '" + j["id"].get<std::string>() + "'");
+                Utils::Logger::log("DB: Terdaftar item '" + j["id"].get<std::string>() + "'");
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: Gagal parse JSON di item " + entry.path().string() + ": " + e.what());
+                Utils::Logger::log("DB ERROR: Gagal parse JSON di item " + entry.path().string() + ": " + e.what());
             }
         }
     }
@@ -369,7 +372,7 @@ const Item* DB::get_item(const std::string& id) const {
  * Mendukung jadwal dinamis (schedules) dan daftar misi (quests) yang dimiliki NPC.
  */
 void DB::load_npcs(const std::string& directory_path) {
-    Logger::log("DB: Mulai memuat NPC dari " + directory_path);
+    Utils::Logger::log("DB: Mulai memuat NPC dari " + directory_path);
     if (!fs::exists(directory_path)) return;
 
     for (const auto& entry : fs::directory_iterator(directory_path)) {
@@ -387,6 +390,8 @@ void DB::load_npcs(const std::string& directory_path) {
                 npc.restore_mp(npc.get_max_mp());
                 npc.set_affinity(string_to_element(j.value("affinity", "none")));
                 npc.set_weakness(string_to_element(j.value("weakness", "none")));
+                npc.set_weapon_type(j.value("weapon_type", "unarmed"));
+                npc.set_weapon_name(j.value("weapon_name", "tangan kosong"));
                 parse_magics_and_special(j, npc);
                 
                 // Memuat jadwal pergerakan NPC berdasarkan hari dan fase waktu
@@ -419,9 +424,9 @@ void DB::load_npcs(const std::string& directory_path) {
                 }
 
                 npcs_db.emplace(npc.get_id(), std::move(npc));
-                Logger::log("DB: Terdaftar NPC '" + j["id"].get<std::string>() + "'");
+                Utils::Logger::log("DB: Terdaftar NPC '" + j["id"].get<std::string>() + "'");
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: Gagal parse JSON di NPC " + entry.path().string() + ": " + e.what());
+                Utils::Logger::log("DB ERROR: Gagal parse JSON di NPC " + entry.path().string() + ": " + e.what());
             }
         }
     }
@@ -443,7 +448,7 @@ std::vector<const NPC*> DB::get_all_npcs() const {
  * Memuat template monster untuk sistem pertarungan.
  */
 void DB::load_monsters(const std::string& directory_path) {
-    Logger::log("DB: Mulai memuat monster dari " + directory_path);
+    Utils::Logger::log("DB: Mulai memuat monster dari " + directory_path);
     if (!fs::exists(directory_path)) return;
 
     for (const auto& entry : fs::directory_iterator(directory_path)) {
@@ -461,6 +466,8 @@ void DB::load_monsters(const std::string& directory_path) {
                 mon.restore_mp(mon.get_max_mp());
                 mon.set_affinity(string_to_element(j.value("affinity", "none")));
                 mon.set_weakness(string_to_element(j.value("weakness", "none")));
+                mon.set_weapon_type(j.value("weapon_type", "unarmed"));
+                mon.set_weapon_name(j.value("weapon_name", "tangan kosong"));
                 
                 std::string tactic_str = j.value("tactic", "ACT_FREELY");
                 if (tactic_str == "FULL_ASSAULT") mon.set_tactic(Tactic::FULL_ASSAULT);
@@ -480,9 +487,9 @@ void DB::load_monsters(const std::string& directory_path) {
                 }
 
                 monsters_db.emplace(mon.get_id(), std::move(mon));
-                Logger::log("DB: Terdaftar monster '" + j["id"].get<std::string>() + "'");
+                Utils::Logger::log("DB: Terdaftar monster '" + j["id"].get<std::string>() + "'");
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: Gagal parse JSON di monster " + entry.path().string() + ": " + e.what());
+                Utils::Logger::log("DB ERROR: Gagal parse JSON di monster " + entry.path().string() + ": " + e.what());
             }
         }
     }
@@ -505,7 +512,7 @@ std::vector<const Monster*> DB::get_all_monsters() const {
  * Misi memiliki syarat buka (unlock), syarat selesai (condition), dan rantaian dialog.
  */
 void DB::load_quests(const std::string& directory_path) {
-    Logger::log("DB: Mulai memuat misi dari " + directory_path);
+    Utils::Logger::log("DB: Mulai memuat misi dari " + directory_path);
     if (!fs::exists(directory_path)) return;
 
     for (const auto& entry : fs::directory_iterator(directory_path)) {
@@ -544,9 +551,9 @@ void DB::load_quests(const std::string& directory_path) {
                 }
 
                 quests_db.emplace(q.get_id(), std::move(q));
-                Logger::log("DB: Terdaftar misi '" + j["id"].get<std::string>() + "'");
+                Utils::Logger::log("DB: Terdaftar misi '" + j["id"].get<std::string>() + "'");
             } catch (const std::exception& e) {
-                Logger::log("DB ERROR: Gagal parse JSON di misi " + entry.path().string() + ": " + e.what());
+                Utils::Logger::log("DB ERROR: Gagal parse JSON di misi " + entry.path().string() + ": " + e.what());
             }
         }
     }
@@ -561,5 +568,63 @@ const Quest* DB::get_quest(const std::string& id) const {
 std::vector<const Quest*> DB::get_all_quests() const {
     std::vector<const Quest*> all;
     for (auto& pair : quests_db) all.push_back(&(pair.second));
+    return all;
+}
+
+void DB::load_shops(const std::string& directory_path) {
+    Utils::Logger::log("DB: Mulai memuat shop dari " + directory_path);
+    if (!fs::exists(directory_path)) return;
+
+    for (const auto& entry : fs::directory_iterator(directory_path)) {
+        if (entry.path().extension() == ".json") {
+            std::ifstream file(entry.path());
+            if (!file.is_open()) continue;
+            try {
+                json j;
+                file >> j;
+                Shop shop(j["id"].get<std::string>(), j["name"].get<std::string>());
+                
+                if (j.contains("items") && j["items"].is_array()) {
+                    for (const auto& item_j : j["items"]) {
+                        shop.add_item(item_j["item"].get<std::string>(), item_j["base_stock"].get<int>());
+                    }
+                }
+
+                if (j.contains("restock_schedule") && j["restock_schedule"].is_array()) {
+                    for (const auto& rs_j : j["restock_schedule"]) {
+                        std::vector<std::string> items;
+                        for (const auto& it_j : rs_j["items"]) {
+                            items.push_back(it_j.get<std::string>());
+                        }
+                        shop.add_restock_schedule(rs_j["day"].get<int>(), items);
+                    }
+                }
+
+                if (j.contains("on_enter") && j["on_enter"].is_array()) {
+                    for (const auto& action : j["on_enter"]) shop.add_on_enter(action.get<std::string>());
+                }
+
+                if (j.contains("on_exit") && j["on_exit"].is_array()) {
+                    for (const auto& action : j["on_exit"]) shop.add_on_exit(action.get<std::string>());
+                }
+
+                shops_db.emplace(shop.get_id(), std::move(shop));
+                Utils::Logger::log("DB: Terdaftar shop '" + j["id"].get<std::string>() + "'");
+            } catch (const std::exception& e) {
+                Utils::Logger::log("DB ERROR: Gagal parse JSON di shop " + entry.path().string() + ": " + e.what());
+            }
+        }
+    }
+}
+
+const Shop* DB::get_shop(const std::string& id) const {
+    auto it = shops_db.find(id);
+    if (it != shops_db.end()) return &(it->second);
+    return nullptr;
+}
+
+std::vector<const Shop*> DB::get_all_shops() const {
+    std::vector<const Shop*> all;
+    for (auto& pair : shops_db) all.push_back(&(pair.second));
     return all;
 }

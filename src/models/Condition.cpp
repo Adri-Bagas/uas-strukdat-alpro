@@ -26,6 +26,10 @@ bool Condition::evaluate(const Player* player, const QuestManager* quest_manager
                 if (q) return (int)q->get_state() == value;
             }
             return false;
+        case ConditionType::KILLED_MONSTER:
+            return player->get_kill_count(key) >= value;
+        case ConditionType::EXPLORED_AREA:
+            return player->has_explored(string_value);
         default:
             return true;
     }

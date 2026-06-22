@@ -4,8 +4,7 @@
   "on_first_enter": "",
   "on_enter": "",
   "walkable": {
-    "north": "jalanan_utama_kota",
-    "east": "permukiman_kumuh",
+    "north": "jalanan_selatan_kota",
     "south": "kamar_loteng"
   },
   "activities": []

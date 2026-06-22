@@ -4,8 +4,8 @@
   "on_first_enter": "hub_permukiman_kumuh",
   "on_enter": "",
   "walkable": {
-    "west": "kedai_usang",
-    "east": "menara_tua",
+    "east": "jalanan_barat_kota",
+    "west": "menara_tua",
     "south": "gua_tambang"
   },
   "activities": []

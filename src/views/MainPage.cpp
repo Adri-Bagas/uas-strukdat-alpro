@@ -104,10 +104,8 @@ void MainPage::draw() {
 
 void MainPage::resize() {
     destroy_windows();
-    resizeterm(0, 0); 
-    endwin();
-    refresh(); 
     clear();
+    refresh();
     create_windows(); 
     draw();
 }

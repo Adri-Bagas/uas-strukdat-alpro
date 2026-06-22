@@ -15,9 +15,9 @@ This is a terminal-based Role-Playing Game (RPG) written in C++17. The game is r
 ## Directory Structure
 - `src/` - The main C++ source code.
   - `models/` - C++ entity classes (`Player`, `Item`, `Quest`, `NPC`, `Place`, `Condition`, `Activity`, `Dialog`).
-  - `managers/` - System controllers governing logic (`PlayerManager`, `PlaceManagers`, `QuestManagers`, `DialogManagers`, `TimeCalendarManagers`).
-  - `states/` - Logic for game states (`TownState`, `DungeonState`) pushed/popped onto the engine's stack.
-  - `views/` - `ncurses` UI layouts and static drawing logic (`MainPage`).
+  - `managers/` - System controllers governing logic (`PlayerManager`, `PlaceManagers`, `QuestManagers`, `DialogManagers`, `TimeCalendarManagers`, `ShopManager`).
+  - `states/` - Logic for game states (`TownState`, `DungeonState`, `BattleState`, `ShopState`, `StatAllocationState`) pushed/popped onto the engine's stack.
+  - `views/` - `ncurses` UI layouts and static drawing logic (`MainPage`, `BattlePage`).
   - `db/` - JSON loading and data storage (`DB` class).
   - `actions/` - The string-based Action Dispatcher.
   - `utils/components/` - Floating, interactive UI components like `Popup`, `ChoicePopup`, and `ErrorPopup`.
@@ -80,8 +80,11 @@ Activities, quests, and dialogue branches often require prerequisites. The `Cond
 
 ### UI Resilience & Resizing
 Terminal emulators can be resized dynamically (e.g., via font size changes like `Ctrl`+`+`). The game is built to survive this:
-- **Blocking Loops**: Popups and typing animations use `while(true)` loops that block the main engine loop. To prevent crashes, these loops listen for `KEY_RESIZE`.
-- **Redraw Logic**: When a resize occurs, the UI performs a robust reset sequence (`resizeterm(0, 0) -> endwin() -> refresh() -> clear()`) and completely re-creates all ncurses windows to match the new dimensions. If the terminal is too small (under 80x22), the game halts rendering and displays a warning until resized properly.
+- **Non-Blocking Logic**: Components like `Popup` and `ChoicePopup` avoid blocking loops by integrating into the `GameEngine::run()` state machine, checking inputs every tick.
+- **Redraw Logic**: When a `KEY_RESIZE` occurs, states delegate to `engine->get_layout().resize()`. The layout completely destroys and re-creates all ncurses windows (e.g., `w_left`, `w_right`) proportionally to match the new dimensions. If the terminal is too small (under 80x22), the game halts rendering and displays a warning until resized properly.
+
+### Fast Travel & Pathfinding
+The game calculates shortest paths across the world map using **Breadth-First Search (BFS)** based on the bidirectionally linked `walkable` array in the Places data. Random encounters (both dialogue events and battles) can dynamically trigger while traveling along this path.
 
 ### Dungeon Maze Generation
 `DungeonState` uses a **Randomized Prim's Algorithm** to generate a perfect maze (no isolated sections, guaranteed path to exit) dynamically every time the state is entered. 

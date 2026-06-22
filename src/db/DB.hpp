@@ -6,6 +6,7 @@
 #include "../models/Item.hpp"
 #include "../models/NPC.hpp"
 #include "../models/Quest.hpp"
+#include "../models/Shop.hpp"
 
 class DB {
     std::unordered_map<std::string, DialogScene> dialog_scenes;
@@ -14,6 +15,7 @@ class DB {
     std::unordered_map<std::string, NPC> npcs_db;
     std::unordered_map<std::string, Monster> monsters_db;
     std::unordered_map<std::string, Quest> quests_db;
+    std::unordered_map<std::string, Shop> shops_db;
 
 public:
     DB();
@@ -39,4 +41,8 @@ public:
     void load_quests(const std::string& directory_path);
     const Quest* get_quest(const std::string& id) const;
     std::vector<const Quest*> get_all_quests() const;
+
+    void load_shops(const std::string& directory_path);
+    const Shop* get_shop(const std::string& id) const;
+    std::vector<const Shop*> get_all_shops() const;
 };

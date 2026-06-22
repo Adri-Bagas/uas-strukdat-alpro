@@ -11,6 +11,8 @@
 #include "managers/PlayerManager.hpp"
 #include "./db/DB.hpp"
 #include "actions/Actions.hpp"
+#include "managers/ShopManager.hpp"
+#include "managers/LogManager.hpp"
 #include "utils/components/Popup.hpp"
 
 class GameEngine {
@@ -24,9 +26,11 @@ private:
     PlayerManager player_manager;
     DB db;
     Action actions;
+    ShopManager shop_manager;
+    LogManager log_manager;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
-    std::unique_ptr<Popup> active_popup;
+    std::unique_ptr<Utils::Popup> active_popup;
     bool is_running = true;
 
 public:
@@ -38,6 +42,8 @@ public:
     // Removes top state, returning to the one below it (e.g., Battle ends -> back to Dungeon)
     void pop_state();
     void run();
+    void show_popup(std::unique_ptr<Utils::Popup> popup);
+    GameState* get_current_state() { return state_stack.empty() ? nullptr : state_stack.top().get(); }
 
     // Getters for states to access models
     DialogManager& get_dialogs();
@@ -49,5 +55,7 @@ public:
     PlayerManager& get_player_manager();
     DB& get_db();
     Action& get_actions();
+    ShopManager& get_shop_manager();
+    LogManager& get_log_manager();
     void quit();
 };

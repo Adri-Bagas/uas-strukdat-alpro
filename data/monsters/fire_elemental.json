@@ -1,41 +1,43 @@
 {
-  "id": "mon_fire_elemental",
-  "name": "Fire Elemental",
-  "description": "Roh api yang membakar apapun yang didekatinya.",
-  "level": 5,
-  "max_hp": 150,
-  "max_mp": 100,
-  "damage": 18,
-  "agility": 14,
-  "str": 5,
-  "cons": 10,
-  "agi": 14,
-  "intl": 20,
-  "wis": 15,
-  "loot": [
-    {
-      "item_id": "item_fire_core",
-      "chance": 30
-    }
-  ],
-  "magics": [
-    {
-      "id": "mag_fireball",
-      "name": "Fireball",
-      "type": "attacking",
-      "mana_cost": 10,
-      "power": 15,
-      "element": "fire"
-    },
-    {
-      "id": "mag_inferno",
-      "name": "Inferno",
-      "type": "attacking",
-      "mana_cost": 30,
-      "power": 50,
-      "element": "fire"
-    }
-  ],
-  "affinity": "fire",
-  "weakness": "water"
+    "id": "mon_fire_elemental",
+    "name": "Fire Elemental",
+    "description": "Roh api yang membakar apapun yang didekatinya.",
+    "level": 5,
+    "max_hp": 150,
+    "max_mp": 100,
+    "damage": 18,
+    "agility": 14,
+    "str": 5,
+    "cons": 10,
+    "agi": 14,
+    "intl": 20,
+    "wis": 15,
+    "loot": [
+        {
+            "item_id": "item_fire_core",
+            "chance": 30
+        }
+    ],
+    "magics": [
+        {
+            "id": "mag_fireball",
+            "name": "Fireball",
+            "type": "attacking",
+            "mana_cost": 10,
+            "power": 15,
+            "element": "fire"
+        },
+        {
+            "id": "mag_inferno",
+            "name": "Inferno",
+            "type": "attacking",
+            "mana_cost": 30,
+            "power": 50,
+            "element": "fire"
+        }
+    ],
+    "affinity": "fire",
+    "weakness": "water",
+    "weapon_type": "staff",
+    "weapon_name": "energi api"
 }

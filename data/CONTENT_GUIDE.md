@@ -11,24 +11,28 @@ This guide provides a comprehensive breakdown of the JSON schemas used by the ga
 Many JSON files (such as *Activities*, *Quests*, and *Dialogs*) contain arrays like `on_execute`, `on_start`, or `on_exit`. These arrays hold string-based commands that the engine's Action Dispatcher interprets and executes. This is how you trigger game events without touching C++ code.
 
 **Available Action Commands:**
-*   `add_gold <amount>`: Modifies the player's gold. Use negative numbers to deduct. (e.g., `add_gold 50`, `add_gold -10`)
+*   `add_gold <amount>`: Modifies the player's gold. Use negative numbers to deduct. (e.g., `add_gold 50`)
 *   `give_item <item_id> <amount>`: Adds an item to the player's inventory. (e.g., `give_item potion_hp 2`)
-*   `remove_item_<item_id>_<amount>`: Removes an item from the player's inventory. (Legacy format, but fully supported).
-*   `set_var <key> <value>`: Creates or updates a Game Variable used for tracking progress. (e.g., `set_var has_met_arthur 1`). **Important**: This can also be used to permanently set core player stats (e.g., `set_var str 15`).
-*   `add_var <key> <amount>`: Increases a Game Variable by the specified amount. **Important**: If the key matches a core stat (`str`, `agi`, `cons`, `intl`, `wis`), it will permanently increase that stat instead. (e.g., `add_var str 1` increases Strength).
-*   `advance_day`: Instantly skips time to the Morning of the next day. Often used for resting activities like sleeping.
-*   `advance_time <amount>`: Advances the time phase (Morning -> Afternoon -> Evening -> Night). (e.g., `advance_time 1`).
+*   `equip_item <item_id>`: Automatically equips the specified item onto the player.
+*   `unequip_item <slot>`: Unequips the item from a specific slot (e.g., `unequip_item weapon`).
+*   `set_var <key> <value>`: Creates or updates a Game Variable used for tracking progress. Also works for core stats (`set_var str 15`).
+*   `add_var <key> <amount>`: Increases a Game Variable by the specified amount. (e.g., `add_var str 1` increases Strength).
+*   `advance_day`: Instantly skips time to the Morning of the next day.
+*   `advance_time <amount>`: Advances the time phase (Pagi -> Siang -> Malam -> Night).
 *   `heal_hp <amount>`: Restores the specified amount of Health Points (HP).
 *   `heal_full`: Completely restores both HP and MP to their maximum values.
-*   `accept_quest <quest_id>`: Unlocks a quest, changing its internal state from `LOCKED` to `IN_PROGRESS`. This should typically be placed in the `on_exit` of the dialogue scene where the quest is given.
-*   `complete_quest <quest_id>`: Marks a quest as `COMPLETED`. The engine will automatically execute any rewards defined in the quest's `on_complete` array.
-*   `reveal_name <npc_id>`: Triggers the Identity Discovery mechanic. The NPC's name will change from `??? (Role)` to their actual `full_name` in all UI menus and dialogues.
+*   `accept_quest <quest_id>`: Unlocks a quest, changing its internal state from `LOCKED` to `IN_PROGRESS`.
+*   `complete_quest <quest_id>`: Marks a quest as `COMPLETED` and executes its `on_complete` rewards.
+*   `reveal_name <npc_id>`: Triggers the Identity Discovery mechanic.
+*   `open_quest_menu`: Opens the quest interaction menu for the currently interacting NPC.
+*   `open_shop <shop_id>`: Opens the specified shop's UI menu.
+*   `set_next_dialog <scene_id>`: Sets the next dialog scene to be played.
 
 ---
 
 ## 2. The Condition System
 
-Conditions are evaluated by the engine to determine if an Activity should be visible, if a Quest can be completed, or if a specific Dialogue Choice should appear. 
+Conditions are evaluated by the engine to determine if an Activity should be visible, if a Quest can be completed, or if a specific Dialogue Choice should appear.
 
 **JSON Condition Structure:**
 ```json
@@ -40,19 +44,19 @@ Conditions are evaluated by the engine to determine if an Activity should be vis
 ```
 
 **Available Condition Types (`type`):**
-*   `var_equal`: Returns true if the Game Variable specified in `key` is exactly equal to `value`.
-*   `var_greater_equal`: Returns true if the variable >= `value`.
-*   `var_less_equal`: Returns true if the variable <= `value`.
-*   `has_item`: Returns true if the player has at least `value` amount of the item specified in `key`.
-*   `quest_state`: Returns true if the quest specified in `key` is currently at the state defined in `value`. (States: `0 = LOCKED`, `1 = AVAILABLE`, `2 = IN_PROGRESS`, `3 = COMPLETED`).
-
-*(Note: If a Game Variable has never been set, the engine treats its value as `0` by default).*
+*   `var_equal`: True if the variable `key` == `value`.
+*   `var_greater_equal`: True if variable `key` >= `value`.
+*   `var_less_equal`: True if variable `key` <= `value`.
+*   `has_item`: True if the player has at least `value` amount of item `key`.
+*   `quest_state`: True if quest `key` is at state `value` (0 = LOCKED, 1 = AVAILABLE, 2 = IN_PROGRESS, 3 = COMPLETED).
+*   `killed_monster`: True if the player has killed at least `value` amount of monster ID `key`.
+*   `explored_area`: True if the player has explored the area ID `key`.
 
 ---
 
 ## 3. Places & Activities (`data/places/`)
 
-Places define the physical map of the world. They handle navigation (`walkable` paths) and contain `activities` that the player can perform.
+Places define the physical map of the world. They handle navigation (`walkable` paths) and contain `activities`.
 
 ### A. Place Format
 ```json
@@ -61,18 +65,15 @@ Places define the physical map of the world. They handle navigation (`walkable` 
   "name": "Kandang Kuda",
   "on_first_enter": "scene_stable_intro",
   "on_enter": "",
-  "walkable": [
-    "jalanan_utama_kota"
-  ],
+  "walkable": {
+    "Selatan": "jalanan_utama_kota"
+  },
   "activities": [ ... ]
 }
 ```
-*   `on_first_enter`: A Dialogue Scene ID that automatically plays the *very first time* the player visits this location.
-*   `on_enter`: A Dialogue Scene ID that plays *every time* the player visits this location.
-*   `walkable`: An array of Place IDs that the player can travel to from here. **Crucial Rule**: Ensure navigation is bidirectional. If Place A connects to Place B, Place B must connect back to Place A unless it is intentionally a one-way drop.
+*   `walkable`: An object mapping directions/labels to Place IDs. Note: The engine expects an object `{ "Direction": "place_id" }`.
 
 ### B. Activity Format
-Activities live inside the `"activities": []` array of a Place.
 ```json
 {
   "id": "investigasi_tkp",
@@ -85,7 +86,7 @@ Activities live inside the `"activities": []` array of a Place.
   },
   "schedule": {
     "days": [], 
-    "phases": ["Morning", "Afternoon"]
+    "phases": ["Pagi", "Siang"]
   },
   "req": {
     "stats": { "intl": 5 },
@@ -99,18 +100,12 @@ Activities live inside the `"activities": []` array of a Place.
   "on_execute": ["set_var clue_found 1", "advance_time 1"]
 }
 ```
-*   `visible_condition` *(Optional)*: If the condition fails, the activity is completely hidden from the Interaction Menu. In the example above, the activity vanishes once `clue_found` is set to `1`, creating a "do once" interaction.
-*   `schedule`: Controls temporal availability.
-    *   `days`: An array of specific days (e.g., `[3, 7]`). If left empty `[]`, it is available every day.
-    *   `phases`: An array of time phases (e.g., `["Morning", "Night"]`).
-*   `req`: Defines requirements to perform the activity. If the player lacks the stats, they can still see the activity but will get the `fail` dialogue.
-*   `on_execute`: A list of Action Dispatcher commands triggered upon successful execution.
 
 ---
 
 ## 4. Characters (NPCs) (`data/npcs/`)
 
-NPCs inhabit Places. They have dynamic schedules and serve as hubs for Quests and Dialogue. They can also have combat stats and magic.
+NPCs inhabit Places.
 
 ```json
 {
@@ -121,11 +116,7 @@ NPCs inhabit Places. They have dynamic schedules and serve as hubs for Quests an
   "role": "Pemilik Kedai",
   "faction": "Neutral",
   "schedules": [
-    { "days": [14], "phase": "Morning", "location": "alun_alun" },
-    { "days": [], "phase": "Morning", "location": "kedai_usang" },
-    { "days": [], "phase": "Afternoon", "location": "kedai_usang" },
-    { "days": [], "phase": "Evening", "location": "kedai_usang" },
-    { "days": [], "phase": "Night", "location": "kamar_loteng" }
+    { "days": [14], "phase": "Pagi", "location": "alun_alun" }
   ],
   "default_dialog": "scene_arthur_idle",
   "quests": ["quest_stable_investigation"],
@@ -134,47 +125,22 @@ NPCs inhabit Places. They have dynamic schedules and serve as hubs for Quests an
   "agi": 49,
   "intl": 21,
   "wis": 30,
-  "max_hp": 370,
   "max_mp": 290,
   "level": 21,
   "affinity": "none",
   "weakness": "none",
-  "magics": [
-    {
-      "id": "mag_blade_aura",
-      "name": "Blade Aura",
-      "type": "attacking",
-      "mana_cost": 15,
-      "power": 25,
-      "element": "wind",
-      "range": "reach"
-    }
-  ],
-  "special_move": {
-    "id": "sp_silent_strike",
-    "name": "Silent Strike",
-    "max_uses_per_day": 3,
-    "power": 80,
-    "element": "none"
-  }
+  "weapon_type": "sword",
+  "weapon_name": "Excalibur",
+  "magics": [ ... ],
+  "special_move": { ... }
 }
 ```
-*   `type`: Use `"named"` for story characters (who can utilize the Identity Discovery system). Use `"unnamed"` for generic background characters (like guards or merchants).
-*   `full_name`: The complete title revealed only after the `"reveal_name"` action is executed.
-*   `schedules`: Defines where the NPC is at any given time. The engine evaluates from top to bottom. It prioritizes specific days (e.g., Day 14). If `days` is empty `[]`, that entry serves as the default daily routine.
-*   `quests`: A list of Quest IDs attached to this NPC. The engine will automatically generate the "New Quest", "In Progress", and "Complete Quest" menus based on the status of the quests listed here.
-*   `str`, `cons`, `agi`, `intl`, `wis`: Combat stats for the NPC.
-*   `max_hp`, `max_mp`: The max health and mana for the NPC.
-*   `level`: The current level of the NPC.
-*   `affinity` & `weakness`: The elemental affinity or weakness of the character (`none`, `fire`, `water`, `earth`, `wind`, `holy`, `dark`).
-*   `magics`: An array of magical spells the NPC can cast. Spells use `type` (`attacking`, `healing`, `support`) and `element`.
-*   `special_move`: A powerful special attack that the NPC can use a limited number of times per day.
+*   `weapon_type` & `weapon_name`: Character's equipped weapon metadata.
+*   `max_mp`: The max mana for the NPC. (Max HP is automatically derived or can be set, though currently DB.cpp defaults to level-based calculation for NPCs if not specified).
 
 ---
 
 ## 5. Quests (`data/quests/`)
-
-Quests link conditions to rewards and NPC interactions.
 
 ```json
 {
@@ -188,9 +154,9 @@ Quests link conditions to rewards and NPC interactions.
     "type": "none"
   },
   "condition": {
-    "type": "var_equal",
-    "key": "stable_clue_found",
-    "value": 1
+    "type": "killed_monster",
+    "key": "mon_slime",
+    "value": 5
   },
   "on_complete": [
     "add_gold 100",
@@ -198,17 +164,12 @@ Quests link conditions to rewards and NPC interactions.
   ]
 }
 ```
-*   `target_npc_id`: The ID of the NPC who hands out and receives this quest.
-*   `start_scene_id`: The dialogue that plays when the player accepts the quest. **Crucial:** This dialogue scene MUST execute `"accept_quest <quest_id>"` in its `on_exit` array to actually change the quest state.
-*   `complete_scene_id`: The dialogue that plays when the player turns in the quest. The engine automatically handles rewarding the player (`on_complete`) after this scene concludes.
-*   `unlock_condition`: Evaluated to see if the NPC should offer the quest as "New". Usually `"none"` for starter quests, or checking `quest_state` of previous quests for chains.
-*   `condition`: Evaluated to see if the quest objective has been met. If true, the NPC menu updates to show "Complete: [Quest Name]".
 
 ---
 
 ## 6. Dialogues & Branching Narrative (`data/dialogs/`)
 
-Dialogues drive the story. It is highly recommended to group related scenes together as a JSON Array `[]` inside a single file (e.g., `arthur_scenes.json`).
+Dialogues drive the story.
 
 ```json
 [
@@ -217,50 +178,30 @@ Dialogues drive the story. It is highly recommended to group related scenes toge
     "on_start": ["reveal_name npc_arthur"],
     "nodes": [
       {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Sebuah kilatan pedang terlihat."
-      },
-      {
         "type": 1,
         "npc_name": "npc_arthur",
-        "value": "Pergilah ke kandang kuda. Temukan apa yang mereka lewatkan."
-      },
-      {
-        "type": 2,
-        "npc_name": "Hero",
-        "value": "Orang ini berbahaya... tapi aku butuh bantuannya."
+        "value": "Pergilah ke kandang kuda."
       }
     ],
     "choices": [
       {
         "text": "Terima Misinya",
-        "next_scene": "scene_arthur_deal_accepted"
-      },
-      {
-        "text": "Tolak",
-        "condition": "item_ransum >= 1",
-        "next_scene": "scene_arthur_deal_rejected"
+        "next_scene": "scene_arthur_deal_accepted",
+        "condition": {
+           "type": "var_equal",
+           "key": "can_accept",
+           "value": 1
+        }
       }
     ],
     "on_exit": ["accept_quest quest_stable_investigation"]
   }
 ]
 ```
-*   `on_start`: Action Dispatcher commands executed *before* the first dialogue node appears. Perfect for camera setups or identity reveals.
-*   `nodes`: The sequential lines of text.
-    *   `type`: `1` (Spoken Dialogue), `2` (Internal Thought), `3` (System/Narrator Popup).
-    *   `npc_name`: **Important:** If this matches an NPC's ID (e.g., `npc_arthur`), the engine automatically checks if the player knows their identity. If not, it displays `[???]`. For the player character, use `"Hero"`. For unassociated narration, use arbitrary text like `"Narator"`.
-*   `choices` *(Optional)*: Triggers the Choice Popup system at the end of the dialogue.
-    *   `condition` *(Optional)*: A string parser evaluated to show/hide specific choices. Currently supports simple item checks (`"item_id >= amount"`) or boolean variable checks.
-    *   `next_scene`: The ID of the dialogue scene to jump to if this choice is selected.
-*   `on_exit`: Action Dispatcher commands executed after the dialogue (and choices) have completely finished. Do not use this if you are jumping to a `next_scene`, as it may cause logic conflicts.
 
 ---
 
 ## 7. Monsters (`data/monsters/`)
-
-Monsters are adversaries encountered in dungeons or random battles.
 
 ```json
 {
@@ -274,7 +215,6 @@ Monsters are adversaries encountered in dungeons or random battles.
   "agility": 8,
   "str": 10,
   "cons": 10,
-  "agi": 8,
   "intl": 5,
   "wis": 5,
   "tactic": "ACT_FREELY",
@@ -282,6 +222,8 @@ Monsters are adversaries encountered in dungeons or random battles.
   "gold_drop": 5,
   "affinity": "none",
   "weakness": "fire",
+  "weapon_type": "unarmed",
+  "weapon_name": "tangan kosong",
   "loot": [
     {
       "item_id": "item_slime_gel",
@@ -291,18 +233,10 @@ Monsters are adversaries encountered in dungeons or random battles.
   "magics": []
 }
 ```
-*   `level`, `str`, `cons`, `agi`, `intl`, `wis`: Combat stats for the monster. Note: `damage` and `agility` are fallback fields, prefer standard stats.
-*   `tactic`: The AI behavior for the monster during combat (`ACT_FREELY`, `FULL_ASSAULT`, `HEAL_SUPPORT`, `CONSERVE_SP`).
-*   `exp_drop`, `gold_drop`: Experience points and gold awarded to the player upon defeating the monster.
-*   `affinity` & `weakness`: The elemental affinity or weakness (`none`, `fire`, `water`, `earth`, `wind`, `holy`, `dark`).
-*   `loot`: An array of items dropped by the monster upon death, along with the percentage chance (`0` to `100`).
-*   `magics`: An array of magical spells the monster can cast (follows the same structure as NPC magics).
 
 ---
 
 ## 8. Items (`data/items/`)
-
-Items can be consumables or equipment.
 
 ```json
 {
@@ -312,17 +246,49 @@ Items can be consumables or equipment.
   "type": "equipment",
   "value": 100,
   "equip_slot": "weapon",
-  "equip_stats": {
-    "str": 5,
-    "agi": -1
-  },
+  "weapon_type": "sword",
+  "str": 5,
+  "agi": -1,
   "on_use": [
     "equip_item iron_sword"
   ]
 }
 ```
-*   `type`: `"equipment"` for equippable gear, `"consumable"` for items that are used and depleted, or `"misc"` for quest items/loot.
-*   `value`: The base price of the item in gold.
-*   `equip_slot`: The slot the item equips into (e.g., `"weapon"`, `"armor"`). Applicable only if type is `"equipment"`.
-*   `equip_stats`: A dictionary of stat bonuses granted while equipped (`str`, `cons`, `agi`, `intl`, `wis`).
-*   `on_use`: Action Dispatcher commands executed when the player uses the item from their inventory. Consumables typically use `"heal_hp <amount>"` or similar, while equipment use `"equip_item <item_id>"`.
+*   `weapon_type`: Used for calculating specific damage patterns.
+*   `str`, `cons`, `agi`, `intl`, `wis`: Stat bonuses are placed directly on the root object, not inside an `equip_stats` dictionary (per DB.cpp).
+
+---
+
+## 9. Shops (`data/shops/`)
+
+Shops define the inventory of items available for purchase from merchants.
+
+```json
+{
+  "id": "shop_traveling_merchant",
+  "name": "Traveling Merchant's Wares",
+  "items": [
+    {
+      "item": "potion_hp_large",
+      "base_stock": 5
+    },
+    {
+      "item": "iron_sword",
+      "base_stock": 1
+    }
+  ],
+  "restock_schedule": [
+    {
+      "day": 7,
+      "items": ["potion_hp_large"]
+    }
+  ],
+  "on_enter": [
+    "set_var visited_shop 1"
+  ],
+  "on_exit": []
+}
+```
+*   `items`: Array of objects defining the `item` ID and `base_stock`.
+*   `restock_schedule`: Array defining days and what `items` restock on that day.
+*   `on_enter` & `on_exit`: Actions triggered when opening or closing the shop.

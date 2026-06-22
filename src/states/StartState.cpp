@@ -13,7 +13,7 @@ void StartState::on_enter() {
 
 void StartState::handle_input(int ch) {
     if (ch == KEY_RESIZE) {
-        erase();
+        clear();
         return;
     }
 

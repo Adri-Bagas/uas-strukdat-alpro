@@ -25,7 +25,7 @@ int get_random_odd(int min_val, int max_val) {
 }
 
 void DungeonState::on_enter() {
-    Logger::log("DungeonState: Generating multi-floor dungeon with random odd dimensions between 20-100...");
+    Utils::Logger::log("DungeonState: Generating multi-floor dungeon with random odd dimensions between 20-100...");
     dungeon.clear();
     has_won = false;
     active_tab = 0; // Default to Party tab
@@ -153,13 +153,18 @@ void DungeonState::update_visited(DungeonFloor& floor) {
 }
 
 void DungeonState::handle_input(int ch) {
+    if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        return;
+    }
+
     if (has_won) {
         engine->pop_state();
         return;
     }
 
     if (ch == 'q' || ch == 'Q') {
-        Logger::log("DungeonState: Player chose to forfeit and return to town.");
+        Utils::Logger::log("DungeonState: Player chose to forfeit and return to town.");
         engine->pop_state();
         return;
     }
@@ -197,8 +202,6 @@ void DungeonState::handle_input(int ch) {
         next_c--;
     } else if (ch == KEY_RIGHT || ch == 'd' || ch == 'D') {
         next_c++;
-    } else if (ch == KEY_RESIZE) {
-        engine->get_layout().resize();
     }
 
     // Verify cell boundaries and ensure the destination is not a wall
@@ -230,14 +233,14 @@ void DungeonState::handle_input(int ch) {
             next_floor.player_r = next_floor.start_r;
             next_floor.player_c = next_floor.start_c;
             update_visited(next_floor);
-            Logger::log("DungeonState: Player descended to Floor " + std::to_string(next_floor.floor_number));
+            Utils::Logger::log("DungeonState: Player descended to Floor " + std::to_string(next_floor.floor_number));
         } else {
             has_won = true;
             Player* p = engine->get_player_manager().get_player();
             if (p) {
                 p->add_gold(50);
             }
-            Logger::log("DungeonState: Player cleared the final floor and won the dungeon!");
+            Utils::Logger::log("DungeonState: Player cleared the final floor and won the dungeon!");
         }
     }
     // Check if player reached the start/entrance (to go back up)
@@ -248,7 +251,7 @@ void DungeonState::handle_input(int ch) {
             prev_floor.player_r = prev_floor.exit_r;
             prev_floor.player_c = prev_floor.exit_c;
             update_visited(prev_floor);
-            Logger::log("DungeonState: Player ascended back to Floor " + std::to_string(prev_floor.floor_number));
+            Utils::Logger::log("DungeonState: Player ascended back to Floor " + std::to_string(prev_floor.floor_number));
         }
     }
 }

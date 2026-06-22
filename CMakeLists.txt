@@ -15,37 +15,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# --- 2. VLC & LIBVLCPP SETUP (Added) ---
-find_package(PkgConfig QUIET)
-if(PKG_CONFIG_FOUND)
-    pkg_check_modules(VLC QUIET IMPORTED_TARGET libvlc)
-endif()
-
-if(NOT VLC_FOUND)
-    find_path(VLC_INCLUDE_DIR NAMES vlc/vlc.h HINTS "C:/libvlc/include")
-    find_library(VLC_LIBRARY NAMES vlc libvlc HINTS "C:/libvlc")
-    
-    if(VLC_INCLUDE_DIR AND VLC_LIBRARY)
-        add_library(PkgConfig::VLC UNKNOWN IMPORTED)
-        set_target_properties(PkgConfig::VLC PROPERTIES
-            IMPORTED_LOCATION "${VLC_LIBRARY}"
-            INTERFACE_INCLUDE_DIRECTORIES "${VLC_INCLUDE_DIR}"
-        )
-        set(VLC_FOUND TRUE)
-        message(STATUS "Found libvlc manually at ${VLC_LIBRARY}")
-    else()
-        message(FATAL_ERROR "Could not find libvlc. Please ensure it is in C:/libvlc")
-    endif()
-endif()
-
-include(FetchContent) # Safe to call even if Slint already called it
-FetchContent_Declare(
-    libvlcpp
-    GIT_REPOSITORY https://code.videolan.org/videolan/libvlcpp.git
-    GIT_TAG        master
-)
-FetchContent_MakeAvailable(libvlcpp)
-
 set(CURSES_NEED_WIDE TRUE)
 find_package(Curses QUIET)
 
@@ -81,5 +50,7 @@ list(REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp")
 
 add_executable(ftdd src/main.cpp src/GameEngine.cpp src/managers/MusicManager.cpp ${SOURCES})
 
-target_include_directories(ftdd PRIVATE ${CURSES_INCLUDE_DIRS} ${CURSES_INCLUDE_DIRS}/ncursesw ${CURSES_INCLUDE_DIRS}/ncurses ${libvlcpp_SOURCE_DIR})
-target_link_libraries(ftdd PRIVATE nlohmann_json::nlohmann_json PkgConfig::VLC ${CURSES_LIBRARIES} ${MENU_LIBRARY} ${PANEL_LIBRARY})
+target_include_directories(ftdd PRIVATE ${CURSES_INCLUDE_DIRS} ${CURSES_INCLUDE_DIRS}/ncursesw ${CURSES_INCLUDE_DIRS}/ncurses)
+
+# Tambahan pthread, dl, dan m untuk dependensi sistem Miniaudio di Linux/WSL
+target_link_libraries(ftdd PRIVATE nlohmann_json::nlohmann_json ${CURSES_LIBRARIES} ${MENU_LIBRARY} ${PANEL_LIBRARY} asound pulse pthread dl m)

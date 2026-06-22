@@ -1,8 +1,8 @@
 {
   "id": "day1_cs3",
-  "on_enter": ["move_to_town_hall", "set_time_afternoon",
-  "play_music mystery.mp3"],
-  "on_exit": [],
+  "on_enter": ["move_to_town_hall", "set_time_afternoon"],
+  "on_exit": [
+  ],
   "next_scene": "day1_cs4",
   "nodes": [
     {

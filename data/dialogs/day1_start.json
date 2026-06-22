@@ -2,7 +2,8 @@
   "id": "day1_start",
   "on_enter": [
     "move_to_stable",
-    "set_time_morning"
+    "set_time_morning",
+    "play_music mystery.mp3"
   ],
   "on_exit": [],
   "next_scene": "day1_cs2",

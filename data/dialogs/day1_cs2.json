@@ -1,7 +1,7 @@
 {
   "id": "day1_cs2",
   "on_enter": [],
-  "on_exit": ["play_music mystery.mp3"],
+  "on_exit": ["play_sfx doorOpen_2.wav"],
   "next_scene": "day1_cs3",
   "nodes": [
     {

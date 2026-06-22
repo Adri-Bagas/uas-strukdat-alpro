@@ -37,6 +37,7 @@ void TownState::on_enter() {
         if (day2_start) {
             engine->get_dialogs().set_on_exit(day2_start->on_exit);
             engine->get_dialogs().set_next_scene(day2_start->next_scene_id);
+            for (const auto& action : day2_start->on_start) engine->get_actions().execute(action);
             for (auto node : day2_start->nodes) {
                 if (!node.npc_name.empty()) {
                     const NPC* npc = engine->get_db().get_npc(node.npc_name);
@@ -62,6 +63,7 @@ void TownState::on_enter() {
         if (scene) {
             engine->get_dialogs().set_on_exit(scene->on_exit);
             engine->get_dialogs().set_next_scene(scene->next_scene_id);
+            for (const auto& action : scene->on_start) engine->get_actions().execute(action);
             for (auto node : scene->nodes) {
                 if (!node.npc_name.empty()) {
                     const NPC* npc = engine->get_db().get_npc(node.npc_name);
@@ -261,6 +263,7 @@ void TownState::handle_quest_menu_input(int ch) {
                 if (scene) {
                     is_in_quest_menu = false; 
                     if (q->can_complete(p)) engine->get_actions().execute("complete_quest " + q->get_id());
+                    for (const auto& action : scene->on_start) engine->get_actions().execute(action);
                     for (auto node : scene->nodes) {
                         if (!node.npc_name.empty()) {
                             const NPC* n_ptr = engine->get_db().get_npc(node.npc_name);
@@ -345,6 +348,7 @@ void TownState::execute_npc_interaction(NPC* npc) {
         if (scene) {
             engine->get_dialogs().set_on_exit(scene->on_exit);
             engine->get_dialogs().set_next_scene(scene->next_scene_id);
+            for (const auto& action : scene->on_start) engine->get_actions().execute(action);
             for (auto node : scene->nodes) {
                 if (!node.npc_name.empty()) {
                     const NPC* n_ptr = engine->get_db().get_npc(node.npc_name);
@@ -392,11 +396,18 @@ void TownState::execute_movement(Place* target) {
 void TownState::process_dialogue_queue() {
     DialogNode node = engine->get_dialogs().pop_dialog();
     if (node.type == 1 || node.type == 2) {
-        engine->get_layout().type_new_text(engine->get_layout().win_dialog, "Dialog", engine->get_layout().w_left, engine->get_dialogs().get_combined_log(), node);
+        std::function<void()> start_cb = [this]() {
+            this->engine->get_music_manager().startTypingSfx("typingText.mp3");
+        };
+        std::function<void()> stop_cb = [this]() {
+            this->engine->get_music_manager().stopTypingSfx();
+        };
+        engine->get_layout().type_new_text(engine->get_layout().win_dialog, "Dialog", engine->get_layout().w_left, engine->get_dialogs().get_combined_log(), node, start_cb, stop_cb);
         if (node.type == 1) engine->get_dialogs().add_dialog(node);
         else engine->get_dialogs().add_thought(node);
     } else if (node.type == 3) {
-        engine->get_dialogs().queue_popup(node.value); engine->get_dialogs().add_popup(node);
+        engine->get_dialogs().queue_popup(node.value, node.npc_name == "Narrator"); 
+        engine->get_dialogs().add_popup(node);
     }
     this->render();
 }
@@ -416,6 +427,7 @@ void TownState::handle_post_dialogue() {
             if (next_scene) {
                 engine->get_dialogs().set_on_exit(next_scene->on_exit);
                 engine->get_dialogs().set_next_scene(next_scene->next_scene_id);
+                for (const auto& action : next_scene->on_start) engine->get_actions().execute(action);
                 for (auto next_node : next_scene->nodes) {
                     if (!next_node.npc_name.empty()) {
                         const NPC* n_ptr = engine->get_db().get_npc(next_node.npc_name);

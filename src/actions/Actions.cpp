@@ -235,6 +235,12 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("stop_music", [this](const std::string&) {
         engine->get_music_manager().stopMusic();
     });
+
+    register_action("play_sfx", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            engine->get_music_manager().playSfx(arg);
+        }
+    });
 }
 
 

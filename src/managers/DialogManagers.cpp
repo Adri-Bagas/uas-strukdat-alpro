@@ -46,18 +46,18 @@ DialogNode DialogManager::pop_dialog() {
     return node;
 }
 
-void DialogManager::queue_popup(const std::string &msg) {
-    popup_queue.push(msg);
+void DialogManager::queue_popup(const std::string &msg, bool is_narrator) {
+    popup_queue.push({msg, is_narrator});
 }
 
 bool DialogManager::has_queued_popup() const {
     return !popup_queue.empty();
 }
 
-std::string DialogManager::pop_popup() {
-    std::string msg = popup_queue.front();
+std::pair<std::string, bool> DialogManager::pop_popup() {
+    auto data = popup_queue.front();
     popup_queue.pop();
-    return msg;
+    return data;
 }
 
 void DialogManager::start_scene(const DialogScene& scene, GameEngine* engine) {

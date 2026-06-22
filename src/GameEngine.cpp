@@ -120,7 +120,15 @@ void GameEngine::run() {
                     active_popup.reset();
                 }
             } else if (dialogs.has_queued_popup()) {
-                active_popup = std::make_unique<Popup>(dialogs.pop_popup());
+                auto popup_data = dialogs.pop_popup();
+                active_popup = std::make_unique<Popup>(popup_data.first);
+                // Assign to all popups 
+                active_popup->on_type_start = [this]() {
+                    this->get_music_manager().startTypingSfx("typingText.mp3");
+                };
+                active_popup->on_type_stop = [this]() {
+                    this->get_music_manager().stopTypingSfx();
+                };
             } else {
                 if (ch != KEY_RESIZE) state_stack.top()->handle_input(ch);
                 state_stack.top()->update();

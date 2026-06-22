@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include <string>
 #include <vector>
+#include <functional>
 #include "../models/Dialog.hpp"
 #include <string_view>
 
@@ -32,7 +33,9 @@ class MainPage {
     void resize();
     void type_new_text(WINDOW* win, const char* title, int width, 
                        const std::vector<DialogNode>& history, 
-                       const DialogNode& new_text);
+                       const DialogNode& new_text,
+                       std::function<void()> on_type_start = nullptr,
+                       std::function<void()> on_type_stop = nullptr);
     
     void render_history(WINDOW* win, const std::vector<DialogNode>& history);
     

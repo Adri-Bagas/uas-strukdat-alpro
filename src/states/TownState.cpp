@@ -71,11 +71,6 @@ void TownState::on_enter() {
     }
     init_tabs();
     this->render();
-    fast_travel_queue.clear();
-    is_fast_traveling = false;
-    is_confirming_fast_travel = false;
-    fast_travel_target = nullptr;
-    fast_travel_path_preview.clear();
 }
 
 // --- CORE LOOPS ---

@@ -8,22 +8,17 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "pasar_kota"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "pasar_kota"
     },
     {
       "days": [],
-      "phase": "Evening",
-      "location": "kamar_loteng"
-    },
-    {
-      "days": [],
-      "phase": "Night",
+      "phase": "Malam",
       "location": "kamar_loteng"
     }
   ],
@@ -47,6 +42,8 @@
     "power": 0,
     "element": "none"
   },
+  "weapon_type": "unarmed",
+  "weapon_name": "tangan kosong",
   "affinity": "none",
   "weakness": "none"
 }

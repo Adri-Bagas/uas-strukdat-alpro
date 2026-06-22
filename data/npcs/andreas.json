@@ -8,22 +8,17 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "biara"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "biara"
     },
     {
       "days": [],
-      "phase": "Evening",
-      "location": "biara"
-    },
-    {
-      "days": [],
-      "phase": "Night",
+      "phase": "Malam",
       "location": "biara"
     }
   ],
@@ -39,6 +34,8 @@
   "max_hp": 300,
   "max_mp": 250,
   "level": 15,
+  "weapon_type": "staff",
+  "weapon_name": "Sacred Staff",
   "magics": [
     {
       "id": "mag_heal",

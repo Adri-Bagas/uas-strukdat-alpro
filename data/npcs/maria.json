@@ -8,22 +8,17 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "biara"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "biara"
     },
     {
       "days": [],
-      "phase": "Evening",
-      "location": "biara"
-    },
-    {
-      "days": [],
-      "phase": "Night",
+      "phase": "Malam",
       "location": "biara"
     }
   ],
@@ -39,6 +34,8 @@
   "max_hp": 120,
   "max_mp": 80,
   "level": 5,
+  "weapon_type": "unarmed",
+  "weapon_name": "tangan kosong",
   "magics": [],
   "special_move": {
     "id": "none",

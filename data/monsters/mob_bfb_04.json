@@ -21,6 +21,8 @@
     }
   ],
   "magics": [],
+  "weapon_type": "dagger",
+  "weapon_name": "pisau belati",
   "affinity": "none",
   "weakness": "none"
 }

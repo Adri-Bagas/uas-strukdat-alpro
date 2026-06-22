@@ -5,11 +5,10 @@
   "type": "equipment",
   "value": 100,
   "equip_slot": "weapon",
-  "equip_stats": {
-    "str": 15,
-    "cons": 5,
-    "agi": -3
-  },
+  "weapon_type": "axe",
+  "str": 15,
+  "cons": 5,
+  "agi": -3,
   "on_use": [
     "equip_item item_bjorn_axe"
   ]

@@ -21,6 +21,8 @@
     }
   ],
   "magics": [],
+  "weapon_type": "axe",
+  "weapon_name": "Kapak Raksasa",
   "affinity": "earth",
   "weakness": "fire"
 }

@@ -25,10 +25,12 @@
       }
     ]
   },
-    {
+  {
     "id": "sh_gs_ant_shop_dialog_FIRST",
     "on_start": [],
-    "on_exit": [],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
     "next_scene": "",
     "nodes": [
       {

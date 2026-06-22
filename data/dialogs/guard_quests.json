@@ -358,5 +358,42 @@
         "value": "Luar biasa! Dengan batu timbangan asli ini, petugas pasar tidak bisa memeras kami lagi. Terima kasih banyak!"
       }
     ]
+  },
+  {
+    "id": "first_enter_balai_kota",
+    "on_enter": [
+      "move_to_town_hall"
+    ],
+    "on_exit": [
+      "reveal_name npc_garrick",
+      "add_var visited_places_count 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu mendekati Balai Kota Nirva yang megah. Sayangnya, tempat ini tidak lagi melambangkan keadilan pemerintah resmi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di gerbang depan, dua tentara bayaran elit dari Pasukan Gagak Hitam menyilangkan tombak mereka, menghalangimu masuk."
+      },
+      {
+        "type": 1,
+        "npc_name": "Gagak Hitam",
+        "value": "Mau apa kau ke sini, tikus pembunuh? Pergi sebelum kami menebas lehermu lebih cepat dari jadwal gantungan!"
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Dari dalam aula, sesosok pria tegap dengan baju zirah resmi—??? (Kapten Penjaga)—berjalan keluar dengan wajah lelah. Ia menyuruh para penjaga mundur pelan: 'Biar kucakar... Lord Inquisitor Vane yang akan memutuskan nasibnya, bukan kalian. Tapi kau, sebaiknya menjauhlah dari area ini agar tidak memicu keributan.'"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kapten Garrick terlihat tertekan oleh tentara bayaran Valerius. Aku harus mencari cara berbicara dengannya secara pribadi nanti untuk mencari tahu konspirasi ini."
+      }
+    ]
   }
 ]

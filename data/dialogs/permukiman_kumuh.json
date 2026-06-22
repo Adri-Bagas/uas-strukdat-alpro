@@ -4,7 +4,11 @@
     "on_enter": [
       "move_to_outskirts",
       "set_time_siang",
-      "check_zona_kuning"
+      "check_zona_kuning",
+      "add_var visited_places_count 1"
+    ],
+    "on_exit": [
+      "reveal_name npc_bara"
     ],
     "nodes": [
       {
@@ -20,12 +24,12 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di sudut jalan, seorang pria kurus bernama Bara terbatuk hebat sambil memegangi perutnya. Ia adalah salah satu warga yang dibuang oleh Valerius."
+        "value": "Di sudut jalan, seorang pria kurus—??? (Wakil Warga Kumuh)—terbatuk hebat sambil memegangi perutnya. Ia adalah salah satu warga yang dibuang oleh Valerius."
       },
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Jika aku bisa membantunya, mungkin warga di sini mau membuka mulut soal Valerius..."
+        "value": "Jika aku bisa membantunya—Bara namanya jika aku tak salah dengar—mungkin warga di sini mau membuka mulut soal Valerius..."
       }
     ],
     "choices": [
@@ -141,11 +145,19 @@
     "on_enter": [
       "move_to_pasar_gelap"
     ],
+    "on_exit": [
+      "reveal_name npc_silas"
+    ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Kamu memasuki area tersembunyi Pasar Gelap Silas."
+        "value": "Kamu memasuki area tersembunyi Pasar Gelap. Seorang pria paruh baya licik—??? (Penyelundup)—menyeringai menyambutmu."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_silas",
+        "value": "Ah, kambing hitam kesayangan kota! Silas menyukai orang terkenal sepertimu. Mau beli sesuatu, atau punya informasi berharga untuk dijual?"
       }
     ]
   },
@@ -154,7 +166,8 @@
     "on_enter": [
       "move_to_menara_tua",
       "set_time_evening",
-      "heal_hp -5"
+      "heal_hp -5",
+      "add_var visited_places_count 1"
     ],
     "nodes": [
       {
@@ -193,7 +206,12 @@
     "id": "hub_pasar_kota",
     "on_enter": [
       "move_to pasar_kota",
-      "set_time_siang"
+      "set_time_siang",
+      "add_var visited_places_count 1"
+    ],
+    "on_exit": [
+      "reveal_name npc_hugo",
+      "reveal_name npc_tara"
     ],
     "nodes": [
       {
@@ -204,7 +222,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di sudut yang agak sepi, seorang pedagang bernama Tara baru saja selesai bertransaksi dengan pelanggan."
+        "value": "Di sudut yang agak sepi, seorang pedagang—??? (Pedagang Kaki Lima)—baru saja selesai bertransaksi dengan pelanggan."
       },
       {
         "type": 3,
@@ -219,7 +237,7 @@
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Kalau mereka melihat karung itu, Tara pasti ditangkap, pikirku."
+        "value": "Kalau mereka melihat karung itu, pedagang itu—Tara namanya jika tak salah—pasti ditangkap, pikirku."
       }
     ],
     "choices": [
@@ -448,6 +466,38 @@
         "type": 1,
         "npc_name": "npc_tara",
         "value": "Halo! Senang melihatmu lagi. Tokoku selalu terbuka untukmu."
+      }
+    ]
+  },
+  {
+    "id": "first_enter_gua_tambang",
+    "on_enter": [
+      "move_to gua_tambang",
+      "check_zona_kuning"
+    ],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu berdiri di depan mulut Gua Tambang Terabaikan di lereng barat outskirts Nirva. Hawa dingin berembus keluar membawa bau karat besi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Rangka kayu penyangga tambang mulai membusuk, dan gelang di pergelangan tanganmu mulai berdenyut merah redup—peringatan bahwa kau berada di batas outskirts Zona Kuning."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Arthur menyebutkan tambang ini ditutup paksa oleh Valerius. Banyak monster bersarang di dalamnya, tetapi ada rumor operasi penambangan emas ilegal di dalam gua."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Gua ini berbahaya. Semakin dalam aku masuk, sihir gelang ini akan menyiksaku. Tapi ini juga tempat terbaik untuk mencari emas dan melatih kekuatanku."
       }
     ]
   }

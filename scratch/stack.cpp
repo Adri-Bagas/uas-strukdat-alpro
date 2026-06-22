@@ -53,8 +53,6 @@ void TownState::on_enter() {
     }
 
     std::string scene_id = cur->get_on_enter();
-    engine->get_player_manager().get_player()->discover_area(cur->get_id());
-    
     if (!cur->get_has_entered()) {
         engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Discovered new location: " + cur->get_name());
         if (!cur->get_on_first_enter().empty()) {
@@ -71,6 +69,11 @@ void TownState::on_enter() {
     }
     init_tabs();
     this->render();
+    fast_travel_queue.clear();
+    is_fast_traveling = false;
+    is_confirming_fast_travel = false;
+    fast_travel_target = nullptr;
+    fast_travel_path_preview.clear();
 }
 
 // --- CORE LOOPS ---
@@ -584,14 +587,8 @@ void TownState::handle_post_dialogue() {
         }
     }
     if (interacting_npc) {
-        Player* p = engine->get_player_manager().get_player();
-        if (p && p->get_var("open_quest_menu") == 1) {
-            p->set_var("open_quest_menu", 0);
-            if (!available_quests.empty()) is_in_quest_menu = true;
-            else interacting_npc = nullptr;
-        } else {
-            interacting_npc = nullptr;
-        }
+        if (!available_quests.empty()) is_in_quest_menu = true;
+        else interacting_npc = nullptr;
     }
 }
 
@@ -623,16 +620,6 @@ void TownState::render_quest_menu(Player* p, std::vector<std::string>& menu_disp
     }
     std::string ex_p = (quest_selection_index == (int)available_quests.size() ? "> " : "  ");
     menu_display.push_back(ex_p + "[Keluar]");
-    
-    // Add Quest Details
-    if (quest_selection_index >= 0 && quest_selection_index < (int)available_quests.size()) {
-        menu_display.push_back("");
-        menu_display.push_back("--- Detail Quest ---");
-        Quest* selected_q = available_quests[quest_selection_index];
-        menu_display.push_back(selected_q->get_name());
-        menu_display.push_back("Deskripsi: " + selected_q->get_description());
-    }
-
     engine->get_layout().draw_title(engine->get_layout().win_menu, ("Interaksi dengan " + interacting_npc->get_name()).c_str(), engine->get_layout().w_col2, 4);
 }
 
@@ -834,4 +821,3 @@ void TownState::render_sidebars(Player* p) {
         delwin(win_confirm);
     }
     engine->get_layout().render_history(engine->get_layout().win_dialog, engine->get_dialogs().get_combined_log());
-}

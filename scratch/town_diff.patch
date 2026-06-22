@@ -1,0 +1,103 @@
+--- scratch/main.cpp	2026-06-22 14:20:22.707313928 +0700
++++ scratch/stack.cpp	2026-06-22 14:20:22.699304442 +0700
+@@ -53,8 +53,6 @@
+     }
+ 
+     std::string scene_id = cur->get_on_enter();
+-    engine->get_player_manager().get_player()->discover_area(cur->get_id());
+-    
+     if (!cur->get_has_entered()) {
+         engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Discovered new location: " + cur->get_name());
+         if (!cur->get_on_first_enter().empty()) {
+@@ -71,6 +69,11 @@
+     }
+     init_tabs();
+     this->render();
++    fast_travel_queue.clear();
++    is_fast_traveling = false;
++    is_confirming_fast_travel = false;
++    fast_travel_target = nullptr;
++    fast_travel_path_preview.clear();
+ }
+ 
+ // --- CORE LOOPS ---
+@@ -107,6 +110,17 @@
+     } else if (ch == 'l' || ch == 'L') {
+         engine->show_popup(std::make_unique<Utils::LogPopup>(engine->get_log_manager()));
+         return;
++    } else if (ch == 'u' || ch == 'U') {
++        if (!movement_history.is_empty()) {
++            std::string prev_loc = movement_history.top();
++            movement_history.pop();
++            engine->get_places().set_current_place(prev_loc);
++            on_enter();
++            engine->get_dialogs().queue_popup("Melakukan Undo Movement ke: " + engine->get_places().get_current_place()->get_name());
++        } else {
++            engine->get_dialogs().queue_popup("Tidak ada riwayat pergerakan untuk di-undo!");
++        }
++        return;
+     }
+ 
+     else if (ch == '\t') { 
+@@ -440,7 +454,14 @@
+ }
+ 
+ void TownState::execute_movement(Place* target) {
+-    if (engine->get_places().travel(target->get_id())) on_enter();
++    Place* cur = engine->get_places().get_current_place();
++    if (cur) {
++        std::string current_id = cur->get_id();
++        if (engine->get_places().travel(target->get_id())) {
++            movement_history.push(current_id);
++            on_enter();
++        }
++    }
+ }
+ 
+ std::vector<std::string> TownState::find_shortest_path(const std::string& start, const std::string& target) {
+@@ -501,6 +522,11 @@
+     std::string next_loc = fast_travel_queue.front();
+     fast_travel_queue.dequeue();
+     
++    Place* cur = engine->get_places().get_current_place();
++    if (cur) {
++        movement_history.push(cur->get_id());
++    }
++    
+     engine->get_places().set_current_place(next_loc);
+     on_enter(); // refresh NPCs etc.
+ 
+@@ -561,14 +587,8 @@
+         }
+     }
+     if (interacting_npc) {
+-        Player* p = engine->get_player_manager().get_player();
+-        if (p && p->get_var("open_quest_menu") == 1) {
+-            p->set_var("open_quest_menu", 0);
+-            if (!available_quests.empty()) is_in_quest_menu = true;
+-            else interacting_npc = nullptr;
+-        } else {
+-            interacting_npc = nullptr;
+-        }
++        if (!available_quests.empty()) is_in_quest_menu = true;
++        else interacting_npc = nullptr;
+     }
+ }
+ 
+@@ -600,16 +620,6 @@
+     }
+     std::string ex_p = (quest_selection_index == (int)available_quests.size() ? "> " : "  ");
+     menu_display.push_back(ex_p + "[Keluar]");
+-    
+-    // Add Quest Details
+-    if (quest_selection_index >= 0 && quest_selection_index < (int)available_quests.size()) {
+-        menu_display.push_back("");
+-        menu_display.push_back("--- Detail Quest ---");
+-        Quest* selected_q = available_quests[quest_selection_index];
+-        menu_display.push_back(selected_q->get_name());
+-        menu_display.push_back("Deskripsi: " + selected_q->get_description());
+-    }
+-
+     engine->get_layout().draw_title(engine->get_layout().win_menu, ("Interaksi dengan " + interacting_npc->get_name()).c_str(), engine->get_layout().w_col2, 4);
+ }
+ 

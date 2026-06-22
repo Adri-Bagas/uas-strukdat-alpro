@@ -107,17 +107,6 @@ void TownState::handle_input(int ch) {
     } else if (ch == 'l' || ch == 'L') {
         engine->show_popup(std::make_unique<Utils::LogPopup>(engine->get_log_manager()));
         return;
-    } else if (ch == 'u' || ch == 'U') {
-        if (!movement_history.is_empty()) {
-            std::string prev_loc = movement_history.top();
-            movement_history.pop();
-            engine->get_places().set_current_place(prev_loc);
-            on_enter();
-            engine->get_dialogs().queue_popup("Melakukan Undo Movement ke: " + engine->get_places().get_current_place()->get_name());
-        } else {
-            engine->get_dialogs().queue_popup("Tidak ada riwayat pergerakan untuk di-undo!");
-        }
-        return;
     }
 
     else if (ch == '\t') { 
@@ -451,14 +440,7 @@ void TownState::execute_activity(const Activity& act) {
 }
 
 void TownState::execute_movement(Place* target) {
-    Place* cur = engine->get_places().get_current_place();
-    if (cur) {
-        std::string current_id = cur->get_id();
-        if (engine->get_places().travel(target->get_id())) {
-            movement_history.push(current_id);
-            on_enter();
-        }
-    }
+    if (engine->get_places().travel(target->get_id())) on_enter();
 }
 
 std::vector<std::string> TownState::find_shortest_path(const std::string& start, const std::string& target) {
@@ -518,11 +500,6 @@ void TownState::execute_fast_travel_step() {
 
     std::string next_loc = fast_travel_queue.front();
     fast_travel_queue.dequeue();
-    
-    Place* cur = engine->get_places().get_current_place();
-    if (cur) {
-        movement_history.push(cur->get_id());
-    }
     
     engine->get_places().set_current_place(next_loc);
     on_enter(); // refresh NPCs etc.
@@ -834,4 +811,3 @@ void TownState::render_sidebars(Player* p) {
         delwin(win_confirm);
     }
     engine->get_layout().render_history(engine->get_layout().win_dialog, engine->get_dialogs().get_combined_log());
-}

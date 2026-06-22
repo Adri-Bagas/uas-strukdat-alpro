@@ -7,6 +7,7 @@
 #include <vector>
 #include <memory>
 #include "../utils/Queue.hpp"
+#include "../utils/Stack.hpp"
 
 namespace Utils { class ChoicePopup; }
 
@@ -43,6 +44,9 @@ class TownState : public GameState {
     bool is_confirming_fast_travel = false;
     Place* fast_travel_target = nullptr;
     std::vector<std::string> fast_travel_path_preview;
+
+    // Undo Movement History
+    Utils::Stack<std::string> movement_history;
 
 private:
     // --- Input Helpers ---

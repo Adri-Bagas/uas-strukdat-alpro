@@ -245,6 +245,11 @@ Action::Action(GameEngine* eng) : engine(eng) {
         }
     });
 
+    register_action("open_quest_menu", [this](const std::string&) {
+        Player* p = engine->get_player_manager().get_player();
+        if (p) p->set_var("open_quest_menu", 1);
+    });
+
     register_action("open_shop", [this](const std::string& arg) {
         if (!arg.empty()) {
             engine->push_state(new ShopState(engine, arg));

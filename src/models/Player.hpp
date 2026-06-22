@@ -3,6 +3,7 @@
 #include "Item.hpp"
 #include <unordered_map>
 #include <string>
+#include <unordered_set>
 
 class Player : public Entity {
 private:
@@ -55,4 +56,18 @@ public:
 
 private:
     std::unordered_map<std::string, int> game_vars;
+    std::unordered_map<std::string, int> kill_counts;
+    std::unordered_set<std::string> explored_areas;
+
+public:
+    void add_kill(const std::string& monster_id) { kill_counts[monster_id]++; }
+    int get_kill_count(const std::string& monster_id) const {
+        auto it = kill_counts.find(monster_id);
+        return (it != kill_counts.end()) ? it->second : 0;
+    }
+
+    void discover_area(const std::string& area_id) { explored_areas.insert(area_id); }
+    bool has_explored(const std::string& area_id) const {
+        return explored_areas.find(area_id) != explored_areas.end();
+    }
 };

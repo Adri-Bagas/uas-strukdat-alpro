@@ -69,6 +69,7 @@ void BattleState::next_turn() {
             if (enemy_slots[i]->get_hp() <= 0) {
                 // Enemy is dead. Clear slot.
                 Entity* dead_enemy = enemy_slots[i];
+                engine->get_player_manager().get_player()->add_kill(dead_enemy->get_id());
                 if (Monster* m = dynamic_cast<Monster*>(dead_enemy)) {
                     accumulated_exp += m->get_exp_drop();
                     accumulated_gold += m->get_gold_drop();

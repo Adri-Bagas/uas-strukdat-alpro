@@ -68,12 +68,14 @@
   {
     "id": "quest_guard1_start",
     "on_enter": [],
-    "on_exit": [],
+    "on_exit": [
+      "reveal_name npc_garrick"
+    ],
     "nodes": [
       {
         "type": 1,
         "npc_name": "npc_garrick",
-        "value": "Garrick menceritakan tentang keberadaan perkemahan tidak teridentifikasi di sekitar Outskirts. Dia mengirimku untuk mencari informasi tentang perkemahan tersebut."
+        "value": "Namaku Garrick, Kapten Penjaga kota ini. Ada laporan tentang perkemahan tidak teridentifikasi di sekitar Outskirts. Aku ingin kau mencari informasi tentang perkemahan tersebut."
       }
     ],
     "choices": [
@@ -296,11 +298,14 @@
   },
   {
     "id": "scene_hugo_quest_start",
+    "on_exit": [
+      "reveal_name npc_hugo"
+    ],
     "nodes": [
       {
         "type": 1,
         "npc_name": "npc_hugo",
-        "value": "Tolong aku! Petugas pasar Valerius memeras kami menggunakan batu timbangan palsu. Jika kami tidak bayar lebih, mereka menyita barang kami."
+        "value": "Tolong aku! Namaku Hugo, salah satu pedagang di sini. Petugas pasar Valerius memeras kami menggunakan batu timbangan palsu. Jika kami tidak bayar lebih, mereka menyita barang kami."
       },
       {
         "type": 2,
@@ -365,7 +370,6 @@
       "move_to_town_hall"
     ],
     "on_exit": [
-      "reveal_name npc_garrick",
       "add_var visited_places_count 1"
     ],
     "nodes": [
@@ -392,7 +396,7 @@
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Kapten Garrick terlihat tertekan oleh tentara bayaran Valerius. Aku harus mencari cara berbicara dengannya secara pribadi nanti untuk mencari tahu konspirasi ini."
+        "value": "Kapten Penjaga itu terlihat tertekan oleh tentara bayaran Valerius. Aku harus mencari cara berbicara dengannya secara pribadi nanti untuk mencari tahu konspirasi ini."
       }
     ]
   }

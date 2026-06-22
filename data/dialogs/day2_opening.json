@@ -157,6 +157,16 @@
       },
       {
         "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Kau pikir aku akan memanggil pasukan untuk menangkapmu sekarang? Hahaha... Buat apa repot-repot? Gelang Penjara Suci di pergelangan tanganmu itu memastikan kau tidak bisa melarikan diri dari Nirva."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Lagipula, melihat seekor tikus kecil berkeliaran putus asa mencari bukti yang tidak ada sebelum hari gantungannya adalah hiburan yang luar biasa bagi rakyat Nirva. Itu adalah propaganda bagus untuk pengambilalihan kekuasaanku."
+      },
+      {
+        "type": 1,
         "npc_name": "npc_arthur",
         "value": "Dia tidak ada hubungannya dengan urusan kita. Keluar dari sini."
       },

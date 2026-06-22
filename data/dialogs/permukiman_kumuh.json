@@ -7,9 +7,6 @@
       "check_zona_kuning",
       "add_var visited_places_count 1"
     ],
-    "on_exit": [
-      "reveal_name npc_bara"
-    ],
     "nodes": [
       {
         "type": 3,
@@ -29,12 +26,12 @@
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Jika aku bisa membantunya—Bara namanya jika aku tak salah dengar—mungkin warga di sini mau membuka mulut soal Valerius..."
+        "value": "Jika aku bisa membantunya, mungkin warga di sini mau membuka mulut soal Valerius..."
       }
     ],
     "choices": [
       {
-        "text": "Ajak Bara bicara",
+        "text": "Ajak Wakil Warga Kumuh bicara",
         "next_scene": "dialog_bara_01"
       },
       {
@@ -90,6 +87,7 @@
       "accept_quest warga_miskin"
     ],
     "on_exit": [
+      "reveal_name npc_bara",
       "give_item dokumen_gudang 1",
       "add_var clue_count 1",
       "advance_time 1"
@@ -103,7 +101,7 @@
       {
         "type": 1,
         "npc_name": "npc_bara",
-        "value": "Kamu bukan anjing peliharaan Valerius... Sebagai gantinya, aku akan memberitahumu rahasianya."
+        "value": "Kamu bukan anjing peliharaan Valerius... Namaku Bara. Sebagai gantinya, aku akan memberitahumu rahasianya."
       },
       {
         "type": 3,
@@ -209,10 +207,6 @@
       "set_time_siang",
       "add_var visited_places_count 1"
     ],
-    "on_exit": [
-      "reveal_name npc_hugo",
-      "reveal_name npc_tara"
-    ],
     "nodes": [
       {
         "type": 3,
@@ -232,17 +226,17 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Wajah Tara pucat pasi. Ia memiliki satu karung persediaan makanan yang belum disembunyikan."
+        "value": "Wajah pedagang kaki lima itu pucat pasi. Ia memiliki satu karung persediaan makanan yang belum disembunyikan."
       },
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Kalau mereka melihat karung itu, pedagang itu—Tara namanya jika tak salah—pasti ditangkap, pikirku."
+        "value": "Kalau mereka melihat karung itu, pedagang itu pasti ditangkap, pikirku."
       }
     ],
     "choices": [
       {
-        "text": "Bantu Tara menyembunyikan karung (Butuh Kecepatan)",
+        "text": "Bantu pedagang menyembunyikan karung (Butuh Kecepatan)",
         "next_scene": "side_bantu_tara"
       },
       {
@@ -261,26 +255,29 @@
       "add_var trust_warga 2",
       "give_item ransum 1"
     ],
+    "on_exit": [
+      "reveal_name npc_tara"
+    ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Dengan sigap, kamu menendang tumpukan jerami dan kotak kayu kosong untuk menutupi karung milik Tara tepat sebelum kedua prajurit Gagak Hitam berbelok ke lorong kios."
+        "value": "Dengan sigap, kamu menendang tumpukan jerami dan kotak kayu kosong untuk menutupi karung milik pedagang wanita itu tepat sebelum kedua prajurit Gagak Hitam berbelok ke lorong kios."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Prajurit elit itu melirik tajam ke arahmu dan Tara. Setelah tidak menemukan barang ilegal yang mencurigakan, mereka mendengus dan melanjutkan patroli."
+        "value": "Prajurit elit itu melirik tajam ke arahmu dan pedagang wanita itu. Setelah tidak menemukan barang ilegal yang mencurigakan, mereka mendengus dan melanjutkan patroli."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Tara menghela napas lega dan menarikmu ke belakang kios."
+        "value": "Pedagang wanita itu menghela napas lega dan menarikmu ke belakang kios."
       },
       {
         "type": 1,
         "npc_name": "npc_tara",
-        "value": "Hampir saja. Kalau bukan karenamu, daganganku sudah disita serikat Valerius yang serakah itu. Ini, ambillah sebagai bentuk terima kasih."
+        "value": "Hampir saja. Namaku Tara. Kalau bukan karenamu, daganganku sudah disita serikat Valerius yang serakah itu. Ini, ambillah sebagai bentuk terima kasih."
       },
       {
         "type": 3,
@@ -306,6 +303,9 @@
   },
   {
     "id": "side_abaikan_tara",
+    "on_exit": [
+      "reveal_name npc_tara"
+    ],
     "nodes": [
       {
         "type": 3,
@@ -315,17 +315,17 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Prajurit Gagak Hitam langsung menyadari karung mencurigakan di bawah meja Tara. 'Barang selundupan tanpa cap serikat! Sita semuanya!' bentak salah satu prajurit."
+        "value": "Prajurit Gagak Hitam langsung menyadari karung mencurigakan di bawah meja pedagang wanita itu. 'Barang selundupan tanpa cap serikat! Sita semuanya!' bentak salah satu prajurit."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Tara hanya bisa menunduk pasrah saat barang dagangannya dirampas. Setelah prajurit pergi, Tara menatapmu dengan raut wajah kecewa."
+        "value": "Pedagang wanita itu hanya bisa menunduk pasrah saat barang dagangannya dirampas. Setelah prajurit pergi, ia menatapmu dengan raut wajah kecewa."
       },
       {
         "type": 1,
         "npc_name": "npc_tara",
-        "value": "Kukira kau berbeda dari anjing-anjing Valerius itu. Aku masih punya sedikit sisa Ransum Kering yang kusembunyikan di saku, tapi kau harus membayarnya dengan harga normal."
+        "value": "Kukira kau berbeda dari anjing-anjing Valerius itu. Namaku Tara. Aku masih punya sedikit sisa Ransum Kering yang kusembunyikan di saku, tapi kau harus membayarnya dengan harga normal."
       }
     ],
     "choices": [

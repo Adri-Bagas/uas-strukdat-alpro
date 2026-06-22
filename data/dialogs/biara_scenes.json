@@ -115,7 +115,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Namanya Maria. Maria sesekali melihat ke arah jalan menuju Pasar Timur."
+        "value": "Wanita itu sesekali melihat ke arah jalan menuju Pasar Timur dengan cemas."
       },
       {
         "type": 2,
@@ -125,7 +125,7 @@
     ],
     "choices": [
       {
-        "text": "Bicara dengan Maria",
+        "text": "Bicara dengan Relawan Dapur",
         "next_scene": "maria"
       },
       {
@@ -137,16 +137,19 @@
   {
     "id": "maria",
     "on_enter": [],
+    "on_exit": [
+      "reveal_name npc_maria"
+    ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Maria tampak lega saat melihatmu mendekat."
+        "value": "Wanita berjubah abu-abu itu tampak lega saat melihatmu mendekat."
       },
       {
         "type": 1,
         "npc_name": "npc_maria",
-        "value": "Syukurlah. Aku sedang membutuhkan bantuan."
+        "value": "Syukurlah. Namaku Maria, salah satu relawan di dapur umum biara. Aku sedang membutuhkan bantuan."
       },
       {
         "type": 3,
@@ -385,12 +388,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di dekat sumur halaman, seorang pria berjubah hitam berdiri sambil memperhatikan jalan kota."
-      },
-      {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Itu Pastor Andreas."
+        "value": "Di dekat sumur halaman, seorang pria paruh baya berjubah hitam berdiri sambil memperhatikan jalan kota."
       },
       {
         "type": 2,
@@ -400,7 +398,7 @@
     ],
     "choices": [
       {
-        "text": "Bicara dengan Pastor Andreas",
+        "text": "Bicara dengan Pendeta Paruh Baya",
         "next_scene": "andreas"
       },
       {
@@ -412,11 +410,19 @@
   {
     "id": "andreas",
     "on_enter": [],
+    "on_exit": [
+      "reveal_name npc_andreas"
+    ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Pastor Andreas tampak lega melihatmu."
+        "value": "Pendeta berjubah hitam itu menatapmu saat kamu mendekat."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_andreas",
+        "value": "Syukurlah kamu ada di sini, Nak. Aku Pastor Andreas."
       },
       {
         "type": 3,
@@ -507,33 +513,34 @@
     "id": "menara_tua",
     "on_enter": [
       "move_to_menara_tua",
-      "set_time_evening"
+      "set_time_evening",
+      "heal_hp -5"
     ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Menara tua itu berdiri sendirian di antara rerumputan liar."
+        "value": "Menara tua itu berdiri sendirian di antara rerumputan liar. Sebagian bangunannya telah runtuh sejak bertahun-tahun lalu."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Sebagian bangunannya telah runtuh sejak bertahun-tahun lalu."
-      },
-      {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Saat mendekat, kau mendengar suara langkah kaki."
-      },
-      {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Seseorang sedang bersembunyi di dalam."
+        "value": "Begitu menginjakkan kaki di area ini, gelang di tanganmu membara merah menyala secara agresif. Sihir pengikat mulai merebus darahmu, menyiksa fisikmu dengan rasa sakit yang luar biasa!"
       },
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Kurasa aku menemukannya."
+        "value": "Ugh... Gelang ini memotong darahku lagi. Tempat ini berada di luar batas aman pilar suci kota Nirva. Aku tidak bisa bertahan lama di sini."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Sambil menahan rasa sakit, kau mendengar suara langkah kaki lirih dari dalam menara. Seseorang sedang bersembunyi di sana."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kurasa aku menemukan Lukas. Aku harus segera masuk."
       }
     ],
     "choices": [
@@ -545,22 +552,19 @@
   },
   {
     "id": "dalam_menara",
-    "on_enter": [],
+    "on_enter": [
+      "heal_hp -2"
+    ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di sudut ruangan, seorang anak laki-laki sedang memeluk lututnya."
+        "value": "Di sudut ruangan, seorang anak laki-laki sedang memeluk lututnya. Itu Lukas. Di sampingnya terdapat beberapa lembar dokumen yang tampak tua."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Itu Lukas."
-      },
-      {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Di sampingnya terdapat beberapa lembar dokumen yang tampak tua."
+        "value": "Gelang di pergelangan tanganmu terus membara merah, membakar kekuatan hidupmu secara perlahan di area luar batas ini."
       },
       {
         "type": 3,
@@ -1027,8 +1031,6 @@
     "on_exit": [
       "reveal_name npc_kael",
       "reveal_name npc_elara",
-      "reveal_name npc_maria",
-      "reveal_name npc_andreas",
       "add_var visited_places_count 1"
     ],
     "nodes": [

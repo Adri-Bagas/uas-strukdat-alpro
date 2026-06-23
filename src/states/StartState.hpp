@@ -22,4 +22,5 @@ public:
     void handle_input(int ch) override;
     void update() override;
     void render() override;
+    void on_resume() override;
 };

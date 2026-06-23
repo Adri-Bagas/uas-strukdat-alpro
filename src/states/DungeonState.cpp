@@ -25,11 +25,13 @@ int get_random_odd(int min_val, int max_val) {
 }
 
 void DungeonState::on_enter() {
+    // Putar musik dungeon
+    engine->get_music_manager().playMusic("dungeon.mp3");
+
     Logger::log("DungeonState: Generating multi-floor dungeon with random odd dimensions between 20-100...");
     dungeon.clear();
     has_won = false;
     active_tab = 0; // Default to Party tab
-
     // Generate 3 floors for our dungeon
     for (int f = 1; f <= 3; ++f) {
         DungeonFloor floor;
@@ -56,6 +58,11 @@ void DungeonState::on_enter() {
     if (current_node) {
         update_visited(current_node->floor);
     }
+}
+
+void DungeonState::on_resume() {
+    // Putar kembali musik dungeon jika kembali dari BattleState
+    engine->get_music_manager().playMusic("dungeon.mp3");
 }
 
 std::vector<std::vector<int>> DungeonState::generate_maze_grid(int h, int w, int exit_r, int exit_c) {

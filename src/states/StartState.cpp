@@ -13,6 +13,11 @@ void StartState::on_enter() {
     engine->get_music_manager().playMusic("exploration.mp3");
 }
 
+void StartState::on_resume() {
+    // Putar kembali musik menu jika kembali dari test battle/dungeon
+    engine->get_music_manager().playMusic("exploration.mp3");
+}
+
 void StartState::handle_input(int ch) {
     if (ch == KEY_RESIZE) {
         erase();

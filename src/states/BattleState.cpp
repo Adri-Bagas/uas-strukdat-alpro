@@ -24,6 +24,9 @@ void BattleState::populate_enemies(const std::string& monster_group_id) {
 }
 
 void BattleState::on_enter() {
+    // Putar musik pertarungan
+    engine->get_music_manager().playMusic("combat.mp3");
+    
     build_turn_queue();
     next_turn();
 }
@@ -898,6 +901,19 @@ void BattleState::add_log(const std::string& msg) {
 }
 
 void BattleState::animate_hit(Entity* target) {
+    // Mainkan SFX "hit.mp3" HANYA jika target adalah anggota pemain/party
+    bool target_is_party = false;
+    for (int i = 0; i < 4; i++) {
+        if (party_slots[i] == target) {
+            target_is_party = true;
+            break;
+        }
+    }
+    
+    if (target_is_party) {
+        engine->get_music_manager().playSfx("hit.mp3");
+    }
+
     for (int i = 0; i < 3; ++i) {
         if (skip_animations) break;
         // Flash ON

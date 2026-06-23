@@ -100,6 +100,10 @@ void GameEngine::pop_state() {
     if (!state_stack.empty()) {
         state_stack.top()->on_exit();
         state_stack.pop();
+        
+        if (!state_stack.empty()) {
+            state_stack.top()->on_resume();
+        }
     }
 }
 void GameEngine::run() {

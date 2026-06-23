@@ -19,4 +19,5 @@ public:
     // Optional lifecycle hooks
     virtual void on_enter() {} 
     virtual void on_exit() {}
+    virtual void on_resume() {}
 };

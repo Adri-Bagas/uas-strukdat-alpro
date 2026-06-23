@@ -1,4 +1,5 @@
 #include "../states/StartState.hpp"
+#include "../states/GameOverState.hpp"
 #include "../GameEngine.hpp"
 #include "../utils/Logger.hpp"
 #include "./Actions.hpp"
@@ -190,6 +191,14 @@ Action::Action(GameEngine* eng) : engine(eng) {
 
     register_action("return_to_main_menu", [this](const std::string&) {
         engine->change_state(new StartState(engine));
+    });
+
+    register_action("go_to_game_over", [this](const std::string& arg) {
+        if (arg == "good") {
+            engine->change_state(new GameOverState(engine, "THE END", "Kamu berhasil membuktikan bahwa kamu tidak bersalah!"));
+        } else {
+            engine->change_state(new GameOverState(engine, "GAME OVER", "Kamu gagal membersihkan namamu dalam 14 hari."));
+        }
     });
 
     // Party Actions

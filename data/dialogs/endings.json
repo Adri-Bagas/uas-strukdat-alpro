@@ -3,7 +3,7 @@
     "id": "ending_good_exonerated",
     "on_enter": [],
     "on_exit": [
-      "return_to_main_menu"
+      "go_to_game_over good"
     ],
     "next_scene": "",
     "nodes": [
@@ -58,7 +58,7 @@
     "id": "ending_bad_inquisitor",
     "on_enter": [],
     "on_exit": [
-      "return_to_main_menu"
+      "go_to_game_over bad"
     ],
     "next_scene": "",
     "nodes": [

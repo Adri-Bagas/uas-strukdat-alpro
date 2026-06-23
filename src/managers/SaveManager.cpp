@@ -316,7 +316,6 @@ bool SaveManager::load_game(GameEngine* engine, const std::string& filename) {
 
 std::vector<SaveFileInfo> SaveManager::get_save_files() {
     std::vector<SaveFileInfo> files;
-    fs::create_directories("saves");
     
     // Add old savegame.json if it exists
     if (fs::exists("savegame.json")) {
@@ -327,38 +326,69 @@ std::vector<SaveFileInfo> SaveManager::get_save_files() {
                 file >> data;
                 SaveFileInfo info;
                 info.filename = "savegame.json";
-                info.player_name = data.value("player", json::object()).value("name", "Unknown");
-                info.level = data.value("player", json::object()).value("level", 1);
-                info.day = data.value("calendar", json::object()).value("day", 1);
-                int phase = data.value("calendar", json::object()).value("phase", 0);
-                info.phase_name = (phase == 0) ? "Pagi" : (phase == 1) ? "Siang" : "Malam";
+                
+                if (data.contains("player") && data["player"].is_object()) {
+                    info.player_name = data["player"].value("name", "Unknown");
+                    info.level = data["player"].value("level", 1);
+                } else {
+                    info.player_name = "Unknown";
+                    info.level = 1;
+                }
+                
+                if (data.contains("calendar") && data["calendar"].is_object()) {
+                    info.day = data["calendar"].value("day", 1);
+                    int phase = data["calendar"].value("phase", 0);
+                    info.phase_name = (phase == 0) ? "Pagi" : (phase == 1) ? "Siang" : "Malam";
+                } else {
+                    info.day = 1;
+                    info.phase_name = "Pagi";
+                }
                 files.push_back(info);
             }
         } catch (...) {}
     }
 
-    for (const auto& entry : fs::directory_iterator("saves")) {
-        if (entry.is_regular_file() && entry.path().extension() == ".json") {
-            try {
-                std::ifstream file(entry.path());
-                if (!file.is_open()) continue;
-                
-                json data;
-                file >> data;
-                
-                SaveFileInfo info;
-                info.filename = entry.path().filename().string();
-                info.player_name = data.value("player", json::object()).value("name", "Unknown");
-                info.level = data.value("player", json::object()).value("level", 1);
-                info.day = data.value("calendar", json::object()).value("day", 1);
-                int phase = data.value("calendar", json::object()).value("phase", 0);
-                info.phase_name = (phase == 0) ? "Pagi" : (phase == 1) ? "Siang" : "Malam";
-                
-                files.push_back(info);
-            } catch (...) {
-                // Ignore corrupt/invalid saves in listing
+    try {
+        if (fs::exists("saves") && fs::is_directory("saves")) {
+            for (const auto& entry : fs::directory_iterator("saves")) {
+                if (entry.is_regular_file() && entry.path().extension() == ".json") {
+                    try {
+                        std::ifstream file(entry.path());
+                        if (!file.is_open()) continue;
+                        
+                        json data;
+                        file >> data;
+                        
+                        SaveFileInfo info;
+                        info.filename = entry.path().filename().string();
+                        
+                        if (data.contains("player") && data["player"].is_object()) {
+                            info.player_name = data["player"].value("name", "Unknown");
+                            info.level = data["player"].value("level", 1);
+                        } else {
+                            info.player_name = "Unknown";
+                            info.level = 1;
+                        }
+                        
+                        if (data.contains("calendar") && data["calendar"].is_object()) {
+                            info.day = data["calendar"].value("day", 1);
+                            int phase = data["calendar"].value("phase", 0);
+                            info.phase_name = (phase == 0) ? "Pagi" : (phase == 1) ? "Siang" : "Malam";
+                        } else {
+                            info.day = 1;
+                            info.phase_name = "Pagi";
+                        }
+                        
+                        files.push_back(info);
+                    } catch (...) {
+                        // Ignore corrupt/invalid saves in listing
+                    }
+                }
             }
         }
+    } catch (...) {
+        // Ignore directory reading errors
     }
+
     return files;
 }

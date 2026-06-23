@@ -1,0 +1,191 @@
+{
+  "calendar": {
+    "day": 14,
+    "phase": 2
+  },
+  "npcs": {
+    "npc_acolyte_1": {
+      "has_met": false
+    },
+    "npc_acolyte_2": {
+      "has_met": false
+    },
+    "npc_andreas": {
+      "has_met": true
+    },
+    "npc_arthur": {
+      "has_met": true
+    },
+    "npc_bara": {
+      "has_met": false
+    },
+    "npc_bjorn": {
+      "has_met": false
+    },
+    "npc_citizen_1": {
+      "has_met": false
+    },
+    "npc_citizen_2": {
+      "has_met": false
+    },
+    "npc_citizen_3": {
+      "has_met": false
+    },
+    "npc_citizen_4": {
+      "has_met": false
+    },
+    "npc_elara": {
+      "has_met": true
+    },
+    "npc_garrick": {
+      "has_met": true
+    },
+    "npc_guard_1": {
+      "has_met": false
+    },
+    "npc_guard_2": {
+      "has_met": false
+    },
+    "npc_guard_3": {
+      "has_met": false
+    },
+    "npc_hugo": {
+      "has_met": false
+    },
+    "npc_kael": {
+      "has_met": true
+    },
+    "npc_lukas": {
+      "has_met": false
+    },
+    "npc_maria": {
+      "has_met": false
+    },
+    "npc_merchant_1": {
+      "has_met": false
+    },
+    "npc_merchant_2": {
+      "has_met": false
+    },
+    "npc_silas": {
+      "has_met": true
+    },
+    "npc_suspicious_person": {
+      "has_met": false
+    },
+    "npc_tara": {
+      "has_met": false
+    },
+    "npc_thug_1": {
+      "has_met": false
+    },
+    "npc_thug_2": {
+      "has_met": false
+    },
+    "npc_valerius": {
+      "has_met": true
+    },
+    "npc_vane": {
+      "has_met": false
+    }
+  },
+  "places": {
+    "alun_alun": {
+      "has_entered": true
+    },
+    "balai_kota": {
+      "has_entered": true
+    },
+    "biara": {
+      "has_entered": true
+    },
+    "blacksmith_budi": {
+      "has_entered": true
+    },
+    "general_store_anton": {
+      "has_entered": true
+    },
+    "gua_tambang": {
+      "has_entered": true
+    },
+    "jalanan_barat_kota": {
+      "has_entered": true
+    },
+    "jalanan_selatan_kota": {
+      "has_entered": true
+    },
+    "jalanan_timur_kota": {
+      "has_entered": true
+    },
+    "jalanan_utama_kota": {
+      "has_entered": true
+    },
+    "jalanan_utara_kota": {
+      "has_entered": true
+    },
+    "kamar_loteng": {
+      "has_entered": true
+    },
+    "kandang_kuda": {
+      "has_entered": true
+    },
+    "kedai_usang": {
+      "has_entered": true
+    },
+    "magic_book_store": {
+      "has_entered": true
+    },
+    "menara_tua": {
+      "has_entered": true
+    },
+    "pasar_kota": {
+      "has_entered": true
+    },
+    "permukiman_kumuh": {
+      "has_entered": true
+    },
+    "restoran_warteg": {
+      "has_entered": true
+    }
+  },
+  "player": {
+    "affinity": 5,
+    "agi": 15,
+    "cons": 15,
+    "exp": 0,
+    "gold": 100,
+    "hp": 150,
+    "id": "hero",
+    "intl": 15,
+    "inventory": {
+      "potion_hp": 1
+    },
+    "level": 1,
+    "magics": null,
+    "max_hp": 150,
+    "max_mp": 75,
+    "mp": 75,
+    "name": "Nirva Hero",
+    "stat_points": 0,
+    "str": 15,
+    "vars": {
+      "day": 14,
+      "silas_intel_secured": 0,
+      "quest_gereja_4_complete": 0,
+      "quest_gereja_4_completed": 0
+    },
+    "weakness": 5,
+    "wis": 15
+  },
+  "quests": {
+    "quest_gereja_1": 0,
+    "quest_gereja_2": 0,
+    "quest_gereja_3": 0,
+    "quest_gereja_4": 0,
+    "quest_gereja_elara_1": 0,
+    "quest_gereja_kael_1": 0,
+    "quest_gereja_kael_1_garrick": 0,
+    "quest_gereja_silas_1": 0,
+    "quest_survei_kota": 0
+  }
+}

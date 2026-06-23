@@ -68,7 +68,13 @@ void DialogManager::start_scene(const DialogScene& scene, GameEngine* engine) {
     for (auto node : scene.nodes) {
         if (!node.npc_name.empty()) {
             const NPC* npc = engine->get_db().get_npc(node.npc_name);
-            if (npc && !npc->known()) node.npc_name = "???";
+            if (npc) {
+                if (!npc->known()) {
+                    node.npc_name = "???";
+                } else {
+                    node.npc_name = npc->get_name();
+                }
+            }
         }
         queue_dialog(node);
     }

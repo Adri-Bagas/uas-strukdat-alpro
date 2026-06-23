@@ -1,0 +1,7 @@
+{
+  "id": "item_mark_debuff",
+  "name": "Debuff Tersembunyi",
+  "description": "Tanda bahwa player telah menyelesaikan guard quest 2. Player terkadang diserang assasin Taring Darah. Hilang ketika quest_guard3 selesai.",
+  "type": "misc",
+  "value": 0
+}

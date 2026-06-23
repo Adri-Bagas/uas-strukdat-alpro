@@ -6,13 +6,18 @@ bool Condition::evaluate(const Player* player, const QuestManager* quest_manager
     if (type == ConditionType::NONE) return true;
     if (!player) return false;
 
+    auto get_val = [&](const std::string& k) {
+        if (k == "gold" || k == "Gold") return player->get_gold();
+        return player->get_var(k);
+    };
+
     switch (type) {
         case ConditionType::VAR_EQUAL:
-            return player->get_var(key) == value;
+            return get_val(key) == value;
         case ConditionType::VAR_GREATER_EQUAL:
-            return player->get_var(key) >= value;
+            return get_val(key) >= value;
         case ConditionType::VAR_LESS_EQUAL:
-            return player->get_var(key) <= value;
+            return get_val(key) <= value;
         case ConditionType::HAS_ITEM:
             return player->get_item_count(key) >= value;
         case ConditionType::QUEST_STATE:

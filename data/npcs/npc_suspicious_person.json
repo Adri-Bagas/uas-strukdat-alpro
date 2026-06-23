@@ -1,0 +1,47 @@
+{
+  "id": "npc_suspicious_person",
+  "name": "Sosok Mencurigakan",
+  "full_name": "Sosok Mencurigakan",
+  "type": "unnamed",
+  "role": "Suspicious",
+  "faction": "Taring Darah",
+  "schedules": [
+    {
+      "days": [],
+      "phase": "Pagi",
+      "location": "jalanan_kota"
+    },
+    {
+      "days": [],
+      "phase": "Siang",
+      "location": "jalanan_kota"
+    },
+    {
+      "days": [],
+      "phase": "Malam",
+      "location": "jalanan_kota"
+    }
+  ],
+  "default_dialog": "event_assasin_attack",
+  "quests": [],
+  "str": 25,
+  "cons": 20,
+  "agi": 30,
+  "intl": 15,
+  "wis": 15,
+  "max_hp": 180,
+  "max_mp": 80,
+  "level": 10,
+  "magics": [],
+  "special_move": {
+    "id": "none",
+    "name": "none",
+    "max_uses_per_day": 0,
+    "power": 0,
+    "element": "none"
+  },
+  "weapon_type": "dagger",
+  "weapon_name": "Pisau Beracun",
+  "affinity": "none",
+  "weakness": "none"
+}

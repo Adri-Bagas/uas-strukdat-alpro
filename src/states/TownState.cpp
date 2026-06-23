@@ -633,7 +633,8 @@ void TownState::render_quest_menu(Player* p, std::vector<std::string>& menu_disp
         menu_display.push_back("Deskripsi: " + selected_q->get_description());
     }
 
-    engine->get_layout().draw_title(engine->get_layout().win_menu, ("Interaksi dengan " + interacting_npc->get_name()).c_str(), engine->get_layout().w_col2, 4);
+    std::string npc_disp_name = interacting_npc->known() ? interacting_npc->get_name() : "??? (" + interacting_npc->get_role() + ")";
+    engine->get_layout().draw_title(engine->get_layout().win_menu, ("Interaksi dengan " + npc_disp_name).c_str(), engine->get_layout().w_col2, 4);
 }
 
 void TownState::render_world_menu(Player* p, std::vector<std::string>& menu_display) {

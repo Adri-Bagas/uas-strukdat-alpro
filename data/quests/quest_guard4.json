@@ -1,0 +1,23 @@
+{
+  "id": "quest_guard4",
+  "name": "Sangkar Emas",
+  "description": "Selamatkan keluarga Garrick dari cengkeraman Valerius sebelum Garrick menyerang bandit Taring Darah.",
+  "target_npc_id": "npc_garrick",
+  "start_scene_id": "quest_guard4_start",
+  "complete_scene_id": "quest_guard4_rescue",
+  "unlock_condition": {
+    "type": "has_item",
+    "key": "item_dignity_badge",
+    "value": 1
+  },
+  "condition": {
+    "type": "none"
+  },
+  "on_complete": [
+    "add_var trust 2",
+    "add_var trust_garrick 10",
+    "add_gold 15",
+    "give_item item_bulwark_vow 1",
+    "remove_item item_dead_contract 1"
+  ]
+}

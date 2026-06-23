@@ -1,0 +1,49 @@
+{
+  "id": "npc_bara",
+  "name": "Bara",
+  "full_name": "Bara",
+  "type": "named",
+  "role": "Wakil Warga Kumuh",
+  "faction": "Outcasts",
+  "schedules": [
+    {
+      "days": [],
+      "phase": "Pagi",
+      "location": "permukiman_kumuh"
+    },
+    {
+      "days": [],
+      "phase": "Siang",
+      "location": "permukiman_kumuh"
+    },
+    {
+      "days": [],
+      "phase": "Malam",
+      "location": "menara_tua"
+    }
+  ],
+  "default_dialog": "scene_bara_idle",
+  "quests": [
+    "quest_warga_miskin"
+  ],
+  "str": 35,
+  "cons": 25,
+  "agi": 20,
+  "intl": 15,
+  "wis": 18,
+  "max_hp": 220,
+  "max_mp": 100,
+  "level": 8,
+  "weapon_type": "unarmed",
+  "weapon_name": "tangan kosong",
+  "magics": [],
+  "special_move": {
+    "id": "none",
+    "name": "none",
+    "max_uses_per_day": 0,
+    "power": 0,
+    "element": "none"
+  },
+  "affinity": "none",
+  "weakness": "none"
+}

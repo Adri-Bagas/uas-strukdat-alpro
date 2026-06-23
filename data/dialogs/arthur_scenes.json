@@ -44,5 +44,61 @@
         "value": "Gagak Hitam... Aku sudah menduganya. Kerja bagus. Simpan emas ini, kau akan membutuhkannya."
       }
     ]
+  },
+  {
+    "id": "scene_survei_complete",
+    "on_exit": [
+      "add_gold 50",
+      "add_var trust 5",
+      "complete_quest quest_survei_kota"
+    ],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Bagaimana hasil penyelidikanmu? Apakah kamu sudah memetakan wilayah-wilayah penting di Nirva?"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ya. Aku sudah berkeliling ke berbagai tempat—dari Biara hingga wilayah Outskirts. Beberapa orang tampak memusuhi Valerius, dan yang lain hanya ingin bertahan hidup."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Bagus. Mengetahui wilayah dan faksi adalah langkah pertamamu. Simpan kepingan emas ini untuk persediaan perjalananmu. Kita baru saja memulai."
+      }
+    ]
+  },
+  {
+    "id": "first_enter_kedai_usang",
+    "on_enter": [
+      "move_to_arthur_bar"
+    ],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu menuruni tangga kayu kedai 'The Blind Boar'. Bau pinus tua dan aroma ale yang khas langsung menyambutmu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Arthur berdiri di balik meja konter kayu, sedang mengelap gelas. Di balik penampilannya yang santai, gerak-geriknya menunjukkan kesiagaan penuh."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Ini wilayah yang aman dari jangkauan langsung patroli Valerius. Di sini kau bisa memulihkan diri atau berdiskusi denganku mengenai petunjuk yang kaudapatkan."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ini akan menjadi safehouse dan pusat operasiku selama menyelidiki kejahatan Valerius."
+      }
+    ]
   }
 ]

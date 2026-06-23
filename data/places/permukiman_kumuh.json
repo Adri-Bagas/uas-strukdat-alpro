@@ -1,7 +1,7 @@
 {
   "id": "permukiman_kumuh",
   "name": "Permukiman Kumuh (Outskirts)",
-  "on_first_enter": "",
+  "on_first_enter": "hub_permukiman_kumuh",
   "on_enter": "",
   "walkable": {
     "east": "jalanan_barat_kota",

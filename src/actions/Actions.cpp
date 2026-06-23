@@ -46,6 +46,14 @@ Action::Action(GameEngine* eng) : engine(eng) {
         engine->get_places().set_current_place("alun_alun");
         if (engine->get_current_state()) engine->get_current_state()->on_enter();
     });
+    register_action("move_to_biara", [this](const std::string&) {
+        engine->get_places().set_current_place("biara");
+    });
+    register_action("move_to", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            engine->get_places().set_current_place(arg);
+        }
+    });
 
     // Time Actions
     register_action("set_time_pagi", [this](const std::string&) {

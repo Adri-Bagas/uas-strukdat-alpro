@@ -1,0 +1,22 @@
+{
+  "id": "quest_gereja_1",
+  "name": "Bahan Makanan Biara",
+  "description": "Bantu Maria mencari persediaan bahan makanan untuk dapur umum Biara Cahaya.",
+  "target_npc_id": "npc_maria",
+  "start_scene_id": "maria",
+  "complete_scene_id": "selesai_gereja_1",
+  "unlock_condition": {
+    "type": "none"
+  },
+  "condition": {
+    "type": "var_equal",
+    "key": "quest_gereja_1_complete",
+    "value": 1
+  },
+  "on_complete": [
+    "add_gold 20",
+    "give_item bread 3",
+    "add_var trust 3",
+    "set_var quest_gereja_1 1"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "biara",
+  "name": "Biara Cahaya",
+  "on_first_enter": "first_enter_biara",
+  "on_enter": "",
+  "walkable": {
+    "south": "alun_alun"
+  },
+  "activities": []
+}

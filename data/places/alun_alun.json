@@ -1,7 +1,7 @@
 {
   "id": "alun_alun",
   "name": "Alun-alun Kota Nirva",
-  "on_first_enter": "",
+  "on_first_enter": "alun2",
   "on_enter": "",
   "activities": [
     {
@@ -50,6 +50,7 @@
     }
   ],
   "walkable": {
+    "north": "biara",
     "south": "jalanan_utara_kota",
     "west": "balai_kota",
     "east": "pasar_kota"

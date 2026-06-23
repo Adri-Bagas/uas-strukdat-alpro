@@ -26,6 +26,7 @@ class TimeCalendarManagers {
     void incrementMonth();
 
     int getDay();
+    void setDay(int d) { day = d; }
 
     int getMonth();
 

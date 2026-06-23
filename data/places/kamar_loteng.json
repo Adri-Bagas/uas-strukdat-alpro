@@ -20,11 +20,10 @@
         ]
       },
       "dialogs": {
-        "success": "Kamu tidur dengan nyenyak. Seluruh tenagamu telah pulih."
+        "success": ""
       },
       "on_execute": [
-        "heal_full",
-        "advance_day"
+        "sleep_prompt"
       ]
     }
   ]

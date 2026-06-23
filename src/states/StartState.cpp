@@ -3,6 +3,7 @@
 #include "BattleState.hpp"
 #include "DungeonState.hpp"
 #include "../GameEngine.hpp"
+#include "../managers/SaveManager.hpp"
 #include <ncurses.h>
 
 StartState::StartState(GameEngine* eng) : GameState(eng) {}
@@ -30,7 +31,13 @@ void StartState::handle_input(int ch) {
             engine->get_places().set_current_place("kandang_kuda");
             engine->push_state(new TownState(engine));
         } else if (selection_index == 1) { // Load
-            engine->get_dialogs().queue_popup("Fitur Load belum diimplementasikan.");
+            if (SaveManager::load_game(engine, "savegame.json")) {
+                engine->get_dialogs().queue_popup("Game berhasil dimuat!");
+                engine->get_places().set_current_place("kamar_loteng"); // Safe fallback
+                engine->push_state(new TownState(engine));
+            } else {
+                engine->get_dialogs().queue_popup("Gagal memuat save game!");
+            }
         } else if (selection_index == 2) { // Test Battle
             if (auto arthur = engine->get_db().get_npc("npc_arthur")) engine->get_player_manager().add_ally(*arthur);
             if (auto silas = engine->get_db().get_npc("npc_silas")) engine->get_player_manager().add_ally(*silas);

@@ -3,6 +3,7 @@
 #include "./Actions.hpp"
 #include "../states/ShopState.hpp"
 #include "../states/BattleState.hpp"
+#include "../managers/SaveManager.hpp"
 #include <sstream>
 
 Action::Action(GameEngine* eng) : engine(eng) {
@@ -129,6 +130,19 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (engine->get_current_state()) engine->get_current_state()->on_enter();
         engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "A new day has begun.");
         Utils::Logger::log("Action: Advanced to the next day");
+    });
+
+    // Save & Sleep Prompts
+    register_action("sleep_prompt", [this](const std::string&) {
+        const DialogScene* scene = engine->get_db().get_dialog_scene("scene_sleep_prompt");
+        if (scene) engine->get_dialogs().start_scene(*scene, engine);
+    });
+    register_action("save_game", [this](const std::string&) {
+        if (SaveManager::save_game(engine, "savegame.json")) {
+            engine->get_dialogs().queue_popup("Game berhasil disimpan.");
+        } else {
+            engine->get_dialogs().queue_popup("Gagal menyimpan game!");
+        }
     });
 
     // Party Actions

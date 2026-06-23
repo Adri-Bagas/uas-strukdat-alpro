@@ -4,6 +4,7 @@
 #include "DungeonState.hpp"
 #include "../GameEngine.hpp"
 #include "../managers/SaveManager.hpp"
+#include "../utils/components/MenuPopup.hpp"
 #include <ncurses.h>
 
 StartState::StartState(GameEngine* eng) : GameState(eng) {}
@@ -31,13 +32,28 @@ void StartState::handle_input(int ch) {
             engine->get_places().set_current_place("kandang_kuda");
             engine->push_state(new TownState(engine));
         } else if (selection_index == 1) { // Load
-            if (SaveManager::load_game(engine, "savegame.json")) {
-                engine->get_dialogs().queue_popup("Game berhasil dimuat!");
-                engine->get_places().set_current_place("kamar_loteng"); // Safe fallback
-                engine->push_state(new TownState(engine));
-            } else {
-                engine->get_dialogs().queue_popup("Gagal memuat save game!");
+            auto saves = SaveManager::get_save_files();
+            std::vector<std::string> options;
+            for (const auto& s : saves) {
+                options.push_back(s.filename + " (" + s.player_name + " Lv." + std::to_string(s.level) + " " + s.phase_name + ")");
             }
+            options.push_back("Batal");
+
+            auto popup = std::make_unique<Utils::MenuPopup>(
+                "Pilih Save Game untuk dimuat:",
+                options,
+                [this, saves](int choice) {
+                    if (choice < 0 || choice >= (int)saves.size()) return; // Batal
+                    if (SaveManager::load_game(engine, saves[choice].filename)) {
+                        engine->get_dialogs().queue_popup("Game berhasil dimuat dari " + saves[choice].filename + "!");
+                        engine->get_places().set_current_place("kamar_loteng"); // Safe fallback
+                        engine->push_state(new TownState(engine));
+                    } else {
+                        engine->get_dialogs().queue_popup("Gagal memuat save game!");
+                    }
+                }
+            );
+            engine->show_popup(std::move(popup));
         } else if (selection_index == 2) { // Test Battle
             if (auto arthur = engine->get_db().get_npc("npc_arthur")) engine->get_player_manager().add_ally(*arthur);
             if (auto silas = engine->get_db().get_npc("npc_silas")) engine->get_player_manager().add_ally(*silas);

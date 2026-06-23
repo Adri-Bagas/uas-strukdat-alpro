@@ -3,10 +3,18 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 
 using json = nlohmann::json;
+namespace fs = std::filesystem;
 
-bool SaveManager::save_game(GameEngine* engine, const std::string& filepath) {
+bool SaveManager::save_game(GameEngine* engine, const std::string& filename) {
+    fs::create_directories("saves");
+    std::string filepath = "saves/" + filename;
+    if (filepath.find(".json") == std::string::npos) {
+        filepath += ".json";
+    }
+
     json data;
     
     // 1. Calendar
@@ -126,9 +134,23 @@ bool SaveManager::save_game(GameEngine* engine, const std::string& filepath) {
     return false;
 }
 
-bool SaveManager::load_game(GameEngine* engine, const std::string& filepath) {
+bool SaveManager::load_game(GameEngine* engine, const std::string& filename) {
+    std::string filepath = "saves/" + filename;
+    if (filepath.find(".json") == std::string::npos) {
+        filepath += ".json";
+    }
+
     std::ifstream file(filepath);
-    if (!file.is_open()) return false;
+    if (!file.is_open()) {
+        // Fallback to root for backward compatibility with older savegame.json
+        if (filename == "savegame.json" && fs::exists("savegame.json")) {
+            filepath = "savegame.json";
+            file.open(filepath);
+            if (!file.is_open()) return false;
+        } else {
+            return false;
+        }
+    }
 
     json data;
     try {
@@ -290,4 +312,53 @@ bool SaveManager::load_game(GameEngine* engine, const std::string& filepath) {
     }
 
     return true;
+}
+
+std::vector<SaveFileInfo> SaveManager::get_save_files() {
+    std::vector<SaveFileInfo> files;
+    fs::create_directories("saves");
+    
+    // Add old savegame.json if it exists
+    if (fs::exists("savegame.json")) {
+        try {
+            std::ifstream file("savegame.json");
+            if (file.is_open()) {
+                json data;
+                file >> data;
+                SaveFileInfo info;
+                info.filename = "savegame.json";
+                info.player_name = data.value("player", json::object()).value("name", "Unknown");
+                info.level = data.value("player", json::object()).value("level", 1);
+                info.day = data.value("calendar", json::object()).value("day", 1);
+                int phase = data.value("calendar", json::object()).value("phase", 0);
+                info.phase_name = (phase == 0) ? "Pagi" : (phase == 1) ? "Siang" : "Malam";
+                files.push_back(info);
+            }
+        } catch (...) {}
+    }
+
+    for (const auto& entry : fs::directory_iterator("saves")) {
+        if (entry.is_regular_file() && entry.path().extension() == ".json") {
+            try {
+                std::ifstream file(entry.path());
+                if (!file.is_open()) continue;
+                
+                json data;
+                file >> data;
+                
+                SaveFileInfo info;
+                info.filename = entry.path().filename().string();
+                info.player_name = data.value("player", json::object()).value("name", "Unknown");
+                info.level = data.value("player", json::object()).value("level", 1);
+                info.day = data.value("calendar", json::object()).value("day", 1);
+                int phase = data.value("calendar", json::object()).value("phase", 0);
+                info.phase_name = (phase == 0) ? "Pagi" : (phase == 1) ? "Siang" : "Malam";
+                
+                files.push_back(info);
+            } catch (...) {
+                // Ignore corrupt/invalid saves in listing
+            }
+        }
+    }
+    return files;
 }

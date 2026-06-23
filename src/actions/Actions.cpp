@@ -4,6 +4,8 @@
 #include "../states/ShopState.hpp"
 #include "../states/BattleState.hpp"
 #include "../managers/SaveManager.hpp"
+#include "../utils/components/InputPopup.hpp"
+#include "../utils/components/MenuPopup.hpp"
 #include <sstream>
 
 Action::Action(GameEngine* eng) : engine(eng) {
@@ -138,11 +140,43 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (scene) engine->get_dialogs().start_scene(*scene, engine);
     });
     register_action("save_game", [this](const std::string&) {
-        if (SaveManager::save_game(engine, "savegame.json")) {
-            engine->get_dialogs().queue_popup("Game berhasil disimpan!");
-        } else {
-            engine->get_dialogs().queue_popup("Gagal menyimpan game!");
+        auto saves = SaveManager::get_save_files();
+        std::vector<std::string> options;
+        for (const auto& s : saves) {
+            options.push_back(s.filename + " (" + s.player_name + " Lv." + std::to_string(s.level) + " " + s.phase_name + ")");
         }
+        options.push_back("<Buat Save Baru>");
+        options.push_back("Batal");
+
+        auto popup = std::make_unique<Utils::MenuPopup>(
+            "Pilih Slot Save:",
+            options,
+            [this, saves](int choice) {
+                if (choice < 0 || choice == (int)saves.size() + 1) return; // Batal
+                if (choice == (int)saves.size()) {
+                    // Buat Save Baru
+                    auto input_popup = std::make_unique<Utils::InputPopup>(
+                        "Masukkan nama save file (tanpa spasi/simbol):",
+                        [this](const std::string& name) {
+                            if (SaveManager::save_game(engine, name)) {
+                                engine->get_dialogs().queue_popup("Game berhasil disimpan ke " + name + "!");
+                            } else {
+                                engine->get_dialogs().queue_popup("Gagal menyimpan game!");
+                            }
+                        }
+                    );
+                    engine->show_popup(std::move(input_popup));
+                } else {
+                    // Overwrite existing save
+                    if (SaveManager::save_game(engine, saves[choice].filename)) {
+                        engine->get_dialogs().queue_popup("Game berhasil ditimpa ke " + saves[choice].filename + "!");
+                    } else {
+                        engine->get_dialogs().queue_popup("Gagal menyimpan game!");
+                    }
+                }
+            }
+        );
+        engine->show_popup(std::move(popup));
     });
 
     register_action("mark_current_place_entered", [this](const std::string&) {

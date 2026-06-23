@@ -3,21 +3,33 @@
   "name": "PERTAHANAN BIARA",
   "description": "Bantu Pastor Andreas mempertahankan gerbang Biara Cahaya dari serangan bandit.",
   "target_npc_id": "npc_andreas",
-  "start_scene_id": "dialog_andreas_q3",
+  "start_scene_id": "dialog_andreas_q3_start",
   "complete_scene_id": "selesai_gereja_3",
-  "unlock_condition": {
-    "type": "var_equal",
-    "key": "quest_gereja_2",
-    "value": 1
-  },
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_2",
+      "value": 1
+    },
+    {
+      "type": "var_greater_equal",
+      "key": "day",
+      "value": 7
+    }
+  ],
   "condition": {
-    "type": "var_equal",
-    "key": "quest_gereja_3_complete",
-    "value": 1
+    "type": "reach_location",
+    "key": "quest_gereja_3"
   },
   "on_complete": [
     "add_gold 50",
     "add_var str 1",
     "set_var quest_gereja_3 1"
+  ],
+  "objective_text": "Pergi ke Jalanan Barat Kota untuk menahan bandit.",
+  "target_location_id": "jalanan_barat_kota",
+  "location_trigger_scene": "scene_serangan_bandit",
+  "location_trigger_action": [
+    "start_battle mg_goblin"
   ]
 }

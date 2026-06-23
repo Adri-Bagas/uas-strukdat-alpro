@@ -9,10 +9,14 @@
     "type": "none"
   },
   "condition": {
-    "type": "none"
+    "type": "reach_location",
+    "key": "quest_timbangan"
   },
   "on_complete": [
     "add_var trust 3",
     "add_gold 20"
-  ]
+  ],
+  "objective_text": "Cari batu timbangan di Pasar Kota.",
+  "target_location_id": "pasar_kota",
+  "location_trigger_action": []
 }

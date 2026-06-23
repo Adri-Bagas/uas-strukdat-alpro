@@ -43,5 +43,6 @@
   "weapon_type": "axe",
   "weapon_name": "Kapak Raksasa",
   "affinity": "earth",
-  "weakness": "fire"
+  "weakness": "fire",
+  "first_dialog": "scene_bjorn_first_meet"
 }

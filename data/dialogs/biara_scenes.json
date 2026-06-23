@@ -135,7 +135,7 @@
     ]
   },
   {
-    "id": "maria",
+    "id": "dialog_maria_q1_start",
     "on_enter": [],
     "on_exit": [
       "reveal_name npc_maria"
@@ -169,57 +169,40 @@
     ],
     "choices": [
       {
-        "text": "Pergi ke Pasar Timur",
-        "next_scene": "pasar"
+        "text": "Terima Misi",
+        "next_scene": "dialog_maria_q1_accepted",
+        "on_exit": [
+          "accept_quest quest_gereja_1"
+        ]
       },
       {
-        "text": "Tolak Membantu",
+        "text": "Tolak Misi",
         "next_scene": "biara_01"
       }
     ]
   },
   {
-    "id": "pasar",
-    "on_enter": [
-      "move_to pasar_kota",
-      "accept_quest quest_gereja_1"
-    ],
+    "id": "scene_pasar_gandum",
+    "on_enter": [],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Keramaian pasar memenuhi jalan utama Nirva."
+        "value": "Kamu tiba di Pasar Kota. Terlihat seorang pedagang gandum yang sedang dipalak oleh preman pasar."
       },
       {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Di dekat gerbang pasar, sebuah kereta pengangkut terlihat berhenti miring di pinggir jalan."
-      },
-      {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Karung-karung gandum dan sayuran berserakan di tanah."
-      },
-      {
-        "type": 3,
-        "npc_name": "Narator",
-        "value": "Seorang kusir tampak kebingungan sementara dua preman berdiri tidak jauh darinya."
+        "type": 1,
+        "npc_name": "Preman Pasar",
+        "value": "Serahkan semua gandum ini atau kau akan menyesal!"
       },
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Kurasa aku menemukan kiriman yang dicari Maria."
+        "value": "Hei, hentikan itu! Makanan itu untuk anak-anak panti!"
       }
     ],
-    "choices": [
-      {
-        "text": "Dekati Kusir",
-        "next_scene": "kusir"
-      },
-      {
-        "text": "Kembali ke Biara",
-        "next_scene": "biara_01"
-      }
+    "on_exit": [
+      "start_battle mon_bandit_scum,mon_bandit_scum \"give_item bread 1\""
     ]
   },
   {
@@ -408,7 +391,7 @@
     ]
   },
   {
-    "id": "andreas",
+    "id": "dialog_andreas_q2_start",
     "on_enter": [],
     "on_exit": [
       "reveal_name npc_andreas"
@@ -447,11 +430,14 @@
     ],
     "choices": [
       {
-        "text": "Cari petunjuk di Asrama Anak",
-        "next_scene": "asrama"
+        "text": "Terima Misi",
+        "next_scene": "asrama",
+        "on_exit": [
+          "accept_quest quest_gereja_2"
+        ]
       },
       {
-        "text": "Tolak Membantu",
+        "text": "Tolak Misi",
         "next_scene": "biara_02"
       }
     ]
@@ -551,10 +537,8 @@
     ]
   },
   {
-    "id": "dalam_menara",
-    "on_enter": [
-      "heal_hp -2"
-    ],
+    "id": "scene_lukas_found",
+    "on_enter": [],
     "nodes": [
       {
         "type": 3,
@@ -774,7 +758,7 @@
     ]
   },
   {
-    "id": "dialog_andreas_q3",
+    "id": "dialog_andreas_q3_start",
     "on_enter": [],
     "nodes": [
       {
@@ -810,12 +794,15 @@
     ],
     "choices": [
       {
-        "text": "Membantu menjaga gerbang",
-        "next_scene": "gerbang_biara"
+        "text": "Terima Misi",
+        "next_scene": "gerbang_biara",
+        "on_exit": [
+          "accept_quest quest_gereja_3"
+        ]
       },
       {
-        "text": "Menolak terlibat",
-        "next_scene": "gagal"
+        "text": "Tolak Misi",
+        "next_scene": "biara_03"
       }
     ]
   },
@@ -869,7 +856,7 @@
     ]
   },
   {
-    "id": "serangan_bandit",
+    "id": "scene_serangan_bandit",
     "on_enter": [],
     "nodes": [
       {
@@ -912,6 +899,9 @@
         "text": "Biarkan Mereka Masuk",
         "next_scene": "gagal"
       }
+    ],
+    "on_exit": [
+      "start_battle mon_bandit_scum,mon_bandit_scum,mon_bandit_scum"
     ]
   },
   {
@@ -1042,7 +1032,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Cahaya matahari siang menembus kaca patri megah. Di altar utama, seorang pria berpakaian sutra mewah—??? (Pendeta Tinggi)—sedang berkhotbah lantang tentang kepatuhan."
+        "value": "Cahaya matahari siang menembus kaca patri megah. Di altar utama, seorang pria berpakaian sutra mewah\u2014??? (Pendeta Tinggi)\u2014sedang berkhotbah lantang tentang kepatuhan."
       },
       {
         "type": 3,
@@ -1057,12 +1047,23 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Seorang pendeta muda—??? (Pendeta Muda)—menatapmu dari kejauhan dengan tatapan bersalah. Ketika Kael tidak melihat, ia berbisik padamu: 'Berhati-hatilah, Cahaya tidak selalu memaafkan mereka yang terjebak di bayang-bayang...'"
+        "value": "Seorang pendeta muda\u2014??? (Pendeta Muda)\u2014menatapmu dari kejauhan dengan tatapan bersalah. Ketika Kael tidak melihat, ia berbisik padamu: 'Berhati-hatilah, Cahaya tidak selalu memaafkan mereka yang terjebak di bayang-bayang...'"
       },
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Pendeta muda itu—Elara—sepertinya tahu sesuatu tentang gelang ini atau penyelewengan di biara. Aku harus menemuinya nanti. Untuk saat ini, aku harus menawarkan bantuan kepada Maria di dapur umum."
+        "value": "Pendeta muda itu\u2014Elara\u2014sepertinya tahu sesuatu tentang gelang ini atau penyelewengan di biara. Aku harus menemuinya nanti. Untuk saat ini, aku harus menawarkan bantuan kepada Maria di dapur umum."
+      }
+    ]
+  },
+  {
+    "id": "dialog_maria_q1_accepted",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_maria",
+        "value": "Terima kasih, pengembara! Tolong segera kembali jika kamu sudah mendapatkan gandumnya."
       }
     ]
   }

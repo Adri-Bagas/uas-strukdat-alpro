@@ -5,9 +5,11 @@
   "target_npc_id": "npc_arthur",
   "start_scene_id": "",
   "complete_scene_id": "scene_survei_complete",
-  "unlock_condition": {
-    "type": "none"
-  },
+  "unlock_conditions": [
+    {
+      "type": "none"
+    }
+  ],
   "condition": {
     "type": "var_greater_equal",
     "key": "visited_places_count",

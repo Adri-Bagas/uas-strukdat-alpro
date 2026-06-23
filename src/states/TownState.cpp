@@ -11,6 +11,7 @@
 #include <map>
 #include <algorithm>
 #include "StatAllocationState.hpp"
+#include "InventoryState.hpp"
 
 TownState::TownState(GameEngine* eng) : GameState(eng) {}
 
@@ -52,19 +53,43 @@ void TownState::on_enter() {
         }
     }
 
-    std::string scene_id = cur->get_on_enter();
+    // Clear queue before pushing new
+    while(!queued_scenes.empty()) queued_scenes.pop();
+
     engine->get_player_manager().get_player()->discover_area(cur->get_id());
-    
+
     if (!cur->get_has_entered()) {
         engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Discovered new location: " + cur->get_name());
         if (!cur->get_on_first_enter().empty()) {
-            scene_id = cur->get_on_first_enter();
+            queued_scenes.push(cur->get_on_first_enter());
         }
         cur->set_has_entered(true);
+    } else {
+        if (!cur->get_on_enter().empty()) {
+            queued_scenes.push(cur->get_on_enter());
+        }
     }
 
-    if (!scene_id.empty() && !dialog_active) {
-        const DialogScene* scene = engine->get_db().get_dialog_scene(scene_id);
+    // QUEST LOCATION TRIGGER CHECK
+    if (!dialog_active) {
+        for (auto& pair : engine->get_quests().get_all_quests()) {
+            Quest* q = pair.second;
+            if (q->get_state() == QuestState::IN_PROGRESS && q->get_target_location_id() == cur->get_id()) {
+                // Immediately set state to READY_TO_TURN_IN so we don't infinitely trigger this
+                q->set_state(QuestState::READY_TO_TURN_IN);
+                
+                if (!q->get_location_trigger_scene().empty()) {
+                    queued_scenes.push(q->get_location_trigger_scene());
+                }
+                // Actions should be placed in the on_exit of the trigger scene JSON, NOT executed here to avoid collision!
+            }
+        }
+    }
+    
+    if (!queued_scenes.empty() && !dialog_active) {
+        std::string first_scene = queued_scenes.front();
+        queued_scenes.pop();
+        const DialogScene* scene = engine->get_db().get_dialog_scene(first_scene);
         if (scene) {
             engine->get_dialogs().start_scene(*scene, engine);
         }
@@ -103,6 +128,9 @@ void TownState::handle_input(int ch) {
     if (ch == 'q') { engine->quit(); return; } 
     else if (ch == 'c' || ch == 'C') {
         engine->push_state(new StatAllocationState(engine));
+        return;
+    } else if (ch == 'i' || ch == 'I') {
+        engine->push_state(new InventoryState(engine));
         return;
     } else if (ch == 'l' || ch == 'L') {
         engine->show_popup(std::make_unique<Utils::LogPopup>(engine->get_log_manager()));
@@ -336,15 +364,13 @@ void TownState::handle_quest_menu_input(int ch) {
                 const DialogScene* scene = engine->get_db().get_dialog_scene(scene_id);
                 if (scene) {
                     is_in_quest_menu = false; 
-                    if (q->get_state() == QuestState::AVAILABLE) {
-                        engine->get_actions().execute("accept_quest " + q->get_id());
-                    }
                     engine->get_dialogs().start_scene(*scene, engine);
+                    
+                    auto current_on_exit = engine->get_dialogs().get_on_exit();
                     if (q->can_complete(p, &engine->get_quests())) {
-                        auto current_on_exit = engine->get_dialogs().get_on_exit();
                         current_on_exit.push_back("complete_quest " + q->get_id());
-                        engine->get_dialogs().set_on_exit(current_on_exit);
                     }
+                    engine->get_dialogs().set_on_exit(current_on_exit);
                 }
             } else {
                 engine->get_dialogs().queue_popup(q->get_state() == QuestState::IN_PROGRESS ? "Kamu masih mengerjakan ini: " + q->get_description() : "Tahap misi ini belum memiliki cerita.");
@@ -427,12 +453,28 @@ void TownState::execute_npc_interaction(NPC* npc) {
     is_in_quest_menu = false; quest_selection_index = 0;
 
     std::string dialog_id = interacting_npc->get_default_dialog();
+    bool is_first_meet = false;
+    
+    if (!interacting_npc->has_met() && !interacting_npc->get_first_dialog().empty()) {
+        dialog_id = interacting_npc->get_first_dialog();
+        is_first_meet = true;
+    }
+
     if (!dialog_id.empty()) {
         const DialogScene* scene = engine->get_db().get_dialog_scene(dialog_id);
         if (scene) {
             engine->get_dialogs().start_scene(*scene, engine);
+            if (!interacting_npc->has_met()) {
+                auto current_on_exit = engine->get_dialogs().get_on_exit();
+                current_on_exit.push_back("reveal_name " + interacting_npc->get_id());
+                engine->get_dialogs().set_on_exit(current_on_exit);
+            }
         }
     } else {
+        if (!interacting_npc->has_met()) {
+            interacting_npc->reveal();
+            engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Met " + interacting_npc->get_name() + ".");
+        }
         if (available_quests.empty()) {
             engine->get_dialogs().queue_popup("Karakter ini tidak memiliki apa pun untuk dikatakan."); interacting_npc = nullptr;
         } else is_in_quest_menu = true;
@@ -592,15 +634,27 @@ void TownState::handle_post_dialogue() {
             }
         } else {
             engine->get_dialogs().set_on_exit({}); engine->get_dialogs().set_next_scene("");
-            this->on_enter();
+            
+            // Check if there are more queued scenes
+            if (!queued_scenes.empty()) {
+                std::string next_queued = queued_scenes.front();
+                queued_scenes.pop();
+                const DialogScene* scene = engine->get_db().get_dialog_scene(next_queued);
+                if (scene) {
+                    engine->get_dialogs().start_scene(*scene, engine);
+                }
+            } else {
+                this->on_enter();
+            }
         }
     }
     if (interacting_npc) {
         Player* p = engine->get_player_manager().get_player();
         if (p && p->get_var("open_quest_menu") == 1) {
             p->set_var("open_quest_menu", 0);
-            if (!available_quests.empty()) is_in_quest_menu = true;
-            else interacting_npc = nullptr;
+        }
+        if (!available_quests.empty()) {
+            is_in_quest_menu = true;
         } else {
             interacting_npc = nullptr;
         }
@@ -645,7 +699,7 @@ void TownState::render_quest_menu(Player* p, std::vector<std::string>& menu_disp
         menu_display.push_back("Deskripsi: " + selected_q->get_description());
     }
 
-    std::string npc_disp_name = interacting_npc->known() ? interacting_npc->get_name() : "??? (" + interacting_npc->get_role() + ")";
+    std::string npc_disp_name = interacting_npc->name_known() ? interacting_npc->get_name() : "??? (" + interacting_npc->get_role() + ")";
     engine->get_layout().draw_title(engine->get_layout().win_menu, ("Interaksi dengan " + npc_disp_name).c_str(), engine->get_layout().w_col2, 4);
 }
 
@@ -686,7 +740,7 @@ void TownState::render_world_menu(Player* p, std::vector<std::string>& menu_disp
         menu_display.push_back("--- Bicara dengan Orang ---");
         for (auto* npc : cur->get_npcs()) {
             current_npcs.push_back(npc);
-            std::string name = npc->known() ? npc->get_name() : "??? (" + npc->get_role() + ")";
+            std::string name = npc->name_known() ? npc->get_name() : "??? (" + npc->get_role() + ")";
             std::string pref = (selection_index == item_idx ? "> " : "  ");
             menu_display.push_back(pref + "[Bicara] " + name);
             item_idx++;
@@ -784,7 +838,7 @@ void TownState::render_map_preview(Player* p, std::vector<std::string>& menu_dis
     if (!target->get_npcs().empty()) {
         menu_display.push_back("- Orang di sana -");
         for (auto* npc : target->get_npcs()) {
-            std::string name = npc->known() ? npc->get_name() : "??? (" + npc->get_role() + ")";
+            std::string name = npc->name_known() ? npc->get_name() : "??? (" + npc->get_role() + ")";
             menu_display.push_back("  " + name);
         }
     }
@@ -811,7 +865,21 @@ void TownState::render_map_preview(Player* p, std::vector<std::string>& menu_dis
 void TownState::render_sidebars(Player* p) {
     std::vector<std::string> info; info.push_back("--- Misi ---");
     for (auto& pair : engine->get_quests().get_all_quests()) {
-        if (pair.second && (pair.second->get_state() == QuestState::AVAILABLE || pair.second->get_state() == QuestState::IN_PROGRESS)) info.push_back(" Q: " + pair.second->get_name());
+        if (pair.second) {
+            if (pair.second->get_state() == QuestState::IN_PROGRESS) {
+                info.push_back(" Q: " + pair.second->get_name());
+                info.push_back("   Obj: " + pair.second->get_objective_text());
+                std::string loc_id = pair.second->get_target_location_id();
+                if (!loc_id.empty()) {
+                    const Place* target_place = engine->get_db().get_place(loc_id);
+                    std::string loc_name = target_place ? target_place->get_name() : loc_id;
+                    info.push_back("   Lok: " + loc_name);
+                }
+            } else if (pair.second->get_state() == QuestState::READY_TO_TURN_IN) {
+                info.push_back(" Q: " + pair.second->get_name());
+                info.push_back("   [SELESAI] Lapor ke pemberi misi!");
+            }
+        }
     }
     info.push_back(""); info.push_back("--- Inventaris ---");
     for (const auto& pair : p->get_inventory()) {

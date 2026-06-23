@@ -2,6 +2,7 @@
 #include "../utils/Logger.hpp"
 #include "./Actions.hpp"
 #include "../states/ShopState.hpp"
+#include "../states/BattleState.hpp"
 #include <sstream>
 
 Action::Action(GameEngine* eng) : engine(eng) {
@@ -102,6 +103,17 @@ Action::Action(GameEngine* eng) : engine(eng) {
         }
     });
 
+    register_action("restore_mp", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            int amount = std::stoi(arg);
+            Player* p = engine->get_player_manager().get_player();
+            if (p) {
+                p->restore_mp(amount);
+                Utils::Logger::log("Action: Restored player for " + std::to_string(amount) + " MP");
+            }
+        }
+    });
+
     register_action("heal_full", [this](const std::string&) {
         Player* p = engine->get_player_manager().get_player();
         if (p) {
@@ -113,6 +125,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
 
     register_action("advance_day", [this](const std::string&) {
         engine->get_calendar().advanceDate();
+        engine->get_player_manager().get_player()->set_var("day", engine->get_calendar().getDay());
         if (engine->get_current_state()) engine->get_current_state()->on_enter();
         engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "A new day has begun.");
         Utils::Logger::log("Action: Advanced to the next day");
@@ -224,7 +237,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("complete_quest", [this](const std::string& arg) {
         if (!arg.empty()) {
             Quest* q = engine->get_quests().get_quest(arg);
-            if (q && q->get_state() == QuestState::IN_PROGRESS) {
+            if (q && (q->get_state() == QuestState::IN_PROGRESS || q->get_state() == QuestState::READY_TO_TURN_IN)) {
                 q->set_state(QuestState::COMPLETED);
                 for (const auto& action : q->get_on_complete()) {
                     engine->get_actions().execute(action);
@@ -263,6 +276,25 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (!arg.empty()) {
             engine->push_state(new ShopState(engine, arg));
             Utils::Logger::log("Action: Opened shop " + arg);
+        }
+    });
+
+    register_action("start_battle", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            std::string enemies_list;
+            std::string victory_action;
+            std::stringstream ss(arg);
+            ss >> enemies_list;
+            
+            size_t quote_start = arg.find('"');
+            if (quote_start != std::string::npos) {
+                size_t quote_end = arg.find('"', quote_start + 1);
+                if (quote_end != std::string::npos) {
+                    victory_action = arg.substr(quote_start + 1, quote_end - quote_start - 1);
+                }
+            }
+            engine->push_state(new BattleState(engine, enemies_list, victory_action));
+            Utils::Logger::log("Action: Started battle with enemies: " + enemies_list);
         }
     });
 }

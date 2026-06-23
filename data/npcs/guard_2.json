@@ -44,5 +44,6 @@
     "affinity": "none",
     "weakness": "none",
     "weapon_type": "sword",
-    "weapon_name": "tombak penjaga"
+    "weapon_name": "tombak penjaga",
+    "first_dialog": "scene_unnamed_first_meet"
 }

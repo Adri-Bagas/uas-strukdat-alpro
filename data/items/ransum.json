@@ -5,7 +5,6 @@
   "type": "consumable",
   "value": 2,
   "on_use": [
-    "heal_hp 15",
-    "remove_item ransum 1"
+    "heal_hp 15"
   ]
 }

@@ -19,13 +19,11 @@
     {
       "days": [],
       "phase": "Malam",
-      "location": "kamar_loteng"
+      "location": "alun_alun"
     }
   ],
   "default_dialog": "scene_tara_idle",
-  "quests": [
-    "quest_warga_miskin"
-  ],
+  "quests": [],
   "str": 15,
   "cons": 15,
   "agi": 25,
@@ -45,5 +43,6 @@
   "weapon_type": "unarmed",
   "weapon_name": "tangan kosong",
   "affinity": "none",
-  "weakness": "none"
+  "weakness": "none",
+  "first_dialog": "scene_tara_first_meet"
 }

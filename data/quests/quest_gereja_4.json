@@ -1,0 +1,32 @@
+{
+  "id": "quest_gereja_4",
+  "name": "Dosa yang Terukir di Kertas",
+  "description": "Elara memintamu menyusup ke perpustakaan pribadi Kael untuk mencari bukti penggelapan dan sekte sesat. Temui Arthur di The Blind Boar untuk konsultasi rute.",
+  "target_npc_id": "npc_elara",
+  "start_scene_id": "elara_start_4",
+  "complete_scene_id": "elara_complete_4",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_kael_1",
+      "value": 1
+    },
+    {
+      "type": "var_greater_equal",
+      "key": "day",
+      "value": 12
+    }
+  ],
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_4"
+  },
+  "on_complete": [
+    "add_gold 200",
+    "add_var trust 20",
+    "set_var quest_gereja_4 1"
+  ],
+  "objective_text": "Temui Arthur di Kedai Usang.",
+  "target_location_id": "kedai_usang",
+  "location_trigger_action": []
+}

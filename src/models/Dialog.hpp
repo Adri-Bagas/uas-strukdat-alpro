@@ -13,6 +13,7 @@ struct DialogChoice {
     std::string text;
     Condition condition;
     std::string next_scene;
+    std::vector<std::string> on_select;
 };
 
 struct DialogScene {

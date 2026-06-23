@@ -1,0 +1,26 @@
+{
+  "id": "quest_gereja_kael_1_garrick",
+  "name": "Bantuan Penjaga untuk Kael",
+  "description": "Kael menyarankanmu menemui Kapten Garrick untuk mendapatkan persediaan sebelum menghadapi Spider Queen.",
+  "target_npc_id": "npc_garrick",
+  "start_scene_id": "garrick_start_kael",
+  "complete_scene_id": "garrick_complete_kael",
+  "unlock_conditions": [
+    {
+      "type": "quest_state",
+      "key": "quest_gereja_kael_1",
+      "value": 2
+    }
+  ],
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_kael_1_garrick"
+  },
+  "on_complete": [
+    "give_item hp_potion 2",
+    "add_var trust 2"
+  ],
+  "objective_text": "Pergi ke Balai Kota untuk menemui Kapten Garrick.",
+  "target_location_id": "balai_kota",
+  "location_trigger_action": []
+}

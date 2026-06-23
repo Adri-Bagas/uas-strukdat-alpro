@@ -1,0 +1,32 @@
+{
+  "id": "quest_gereja_kael_1",
+  "name": "Penebusan Dosa di Kedalaman",
+  "description": "Pendeta Tinggi Kael memerintahkanmu untuk membasmi sarang Spider Queen di Gua Tambang Lantai 3.",
+  "target_npc_id": "npc_kael",
+  "start_scene_id": "kael_start_1",
+  "complete_scene_id": "kael_complete_1",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_3",
+      "value": 1
+    },
+    {
+      "type": "var_greater_equal",
+      "key": "day",
+      "value": 9
+    }
+  ],
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_kael_1"
+  },
+  "on_complete": [
+    "add_gold 150",
+    "give_item potion_hp_large 3",
+    "add_var trust 10",
+    "set_var quest_gereja_kael_1 1"
+  ],
+  "objective_text": "Kalahkan Spider Queen di Gua Tambang.",
+  "target_location_id": "gua_tambang"
+}

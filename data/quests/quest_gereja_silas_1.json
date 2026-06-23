@@ -1,0 +1,23 @@
+{
+  "id": "quest_gereja_silas_1",
+  "name": "Buku Suci: Temui Silas",
+  "description": "Elara memintamu menemui Silas untuk mendapatkan informasi tentang buku suci.",
+  "target_npc_id": "npc_silas",
+  "start_scene_id": "silas_start_buku",
+  "complete_scene_id": "silas_complete_buku",
+  "unlock_conditions": [
+    {
+      "type": "quest_state",
+      "key": "quest_gereja_elara_1",
+      "value": 2
+    }
+  ],
+  "condition": {
+    "type": "has_item",
+    "key": "benda_penting",
+    "value": 1
+  },
+  "on_complete": [
+    "set_var quest_gereja_elara_1_complete 1"
+  ]
+}

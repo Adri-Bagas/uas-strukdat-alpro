@@ -30,6 +30,12 @@ bool Condition::evaluate(const Player* player, const QuestManager* quest_manager
             return player->get_kill_count(key) >= value;
         case ConditionType::EXPLORED_AREA:
             return player->has_explored(string_value);
+        case ConditionType::REACH_LOCATION:
+            if (quest_manager) {
+                const Quest* q = const_cast<QuestManager*>(quest_manager)->get_quest(key);
+                if (q) return (int)q->get_state() == 3; // 3 == READY_TO_TURN_IN
+            }
+            return false;
         default:
             return true;
     }

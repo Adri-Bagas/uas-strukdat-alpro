@@ -62,6 +62,10 @@
           "value": 1
         },
         "next_scene": "quest_guard4_start"
+      },
+      {
+        "text": "Tinggalkan Markas",
+        "next_scene": ""
       }
     ]
   },
@@ -87,9 +91,7 @@
   },
   {
     "id": "quest_guard1_scout",
-    "on_enter": [
-      "move_to_outskirts"
-    ],
+    "on_enter": [],
     "nodes": [
       {
         "type": 3,
@@ -111,15 +113,12 @@
   },
   {
     "id": "quest_guard1_complete",
-    "on_enter": [
-      "move_to_town_hall"
-    ],
+    "on_enter": [],
     "on_exit": [
       "add_var trust 3",
       "add_var trust_garrick 5",
       "add_gold 10",
-      "give_item item_mark_debuff 1",
-      "complete_quest quest_guard1"
+      "give_item item_mark_debuff 1"
     ],
     "nodes": [
       {
@@ -147,9 +146,7 @@
   },
   {
     "id": "quest_guard2_complete",
-    "on_enter": [
-      "move_to_menara_tua"
-    ],
+    "on_enter": [],
     "nodes": [
       {
         "type": 3,
@@ -259,8 +256,7 @@
       "add_var trust_garrick 10",
       "add_gold 15",
       "give_item item_bulwark_vow 1",
-      "remove_item item_dead_contract 1",
-      "complete_quest quest_guard4"
+      "remove_item item_dead_contract 1"
     ],
     "nodes": [
       {
@@ -353,8 +349,7 @@
     "on_exit": [
       "remove_item item_timbangan_asli 1",
       "add_var trust 3",
-      "add_gold 20",
-      "complete_quest quest_timbangan"
+      "add_gold 20"
     ],
     "nodes": [
       {
@@ -366,9 +361,7 @@
   },
   {
     "id": "first_enter_balai_kota",
-    "on_enter": [
-      "move_to_town_hall"
-    ],
+    "on_enter": [],
     "on_exit": [
       "add_var visited_places_count 1"
     ],
@@ -391,7 +384,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Dari dalam aula, sesosok pria tegap dengan baju zirah resmi—??? (Kapten Penjaga)—berjalan keluar dengan wajah lelah. Ia menyuruh para penjaga mundur pelan: 'Biar kucakar... Lord Inquisitor Vane yang akan memutuskan nasibnya, bukan kalian. Tapi kau, sebaiknya menjauhlah dari area ini agar tidak memicu keributan.'"
+        "value": "Dari dalam aula, sesosok pria tegap dengan baju zirah resmi\u2014??? (Kapten Penjaga)\u2014berjalan keluar dengan wajah lelah. Ia menyuruh para penjaga mundur pelan: 'Biar kucakar... Lord Inquisitor Vane yang akan memutuskan nasibnya, bukan kalian. Tapi kau, sebaiknya menjauhlah dari area ini agar tidak memicu keributan.'"
       },
       {
         "type": 2,

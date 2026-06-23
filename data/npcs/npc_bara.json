@@ -24,7 +24,7 @@
   ],
   "default_dialog": "scene_bara_idle",
   "quests": [
-    "quest_warga_miskin"
+    "warga_miskin"
   ],
   "str": 35,
   "cons": 25,
@@ -45,5 +45,6 @@
     "element": "none"
   },
   "affinity": "none",
-  "weakness": "none"
+  "weakness": "none",
+  "first_dialog": "scene_bara_first_meet"
 }

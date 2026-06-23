@@ -5,6 +5,6 @@
   "type": "consumable",
   "value": 40,
   "on_use": [
-    "add_mp 35"
+    "restore_mp 35"
   ]
 }

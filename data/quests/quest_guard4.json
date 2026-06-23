@@ -11,7 +11,8 @@
     "value": 1
   },
   "condition": {
-    "type": "none"
+    "type": "reach_location",
+    "key": "quest_guard4"
   },
   "on_complete": [
     "add_var trust 2",
@@ -19,5 +20,8 @@
     "add_gold 15",
     "give_item item_bulwark_vow 1",
     "remove_item item_dead_contract 1"
-  ]
+  ],
+  "objective_text": "Selamatkan keluarga Garrick di Menara Tua.",
+  "target_location_id": "menara_tua",
+  "location_trigger_action": []
 }

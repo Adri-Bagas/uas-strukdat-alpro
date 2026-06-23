@@ -8,6 +8,7 @@
 #include <memory>
 #include "../utils/Queue.hpp"
 #include "../utils/Stack.hpp"
+#include <queue>
 
 namespace Utils { class ChoicePopup; }
 
@@ -47,6 +48,9 @@ class TownState : public GameState {
 
     // Undo Movement History
     Utils::Stack<std::string> movement_history;
+
+    // Queued Scenes
+    std::queue<std::string> queued_scenes;
 
 private:
     // --- Input Helpers ---

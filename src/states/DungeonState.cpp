@@ -4,6 +4,7 @@
 #include "../enums/Element.hpp"
 #include "StatAllocationState.hpp"
 #include "BattleState.hpp"
+#include "InventoryState.hpp"
 #include <ncurses.h>
 #include <random>
 #include <algorithm>
@@ -171,6 +172,11 @@ void DungeonState::handle_input(int ch) {
     
     if (ch == 'c' || ch == 'C') {
         engine->push_state(new StatAllocationState(engine));
+        return;
+    }
+    
+    if (ch == 'i' || ch == 'I') {
+        engine->push_state(new InventoryState(engine));
         return;
     }
 

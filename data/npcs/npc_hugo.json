@@ -19,7 +19,7 @@
     {
       "days": [],
       "phase": "Malam",
-      "location": "kamar_loteng"
+      "location": "alun_alun"
     }
   ],
   "default_dialog": "scene_hugo_idle",
@@ -45,5 +45,6 @@
   "weapon_type": "unarmed",
   "weapon_name": "tangan kosong",
   "affinity": "none",
-  "weakness": "none"
+  "weakness": "none",
+  "first_dialog": "scene_hugo_first_meet"
 }

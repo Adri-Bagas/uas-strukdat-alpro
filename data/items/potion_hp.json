@@ -5,6 +5,6 @@
   "type": "consumable",
   "value": 20,
   "on_use": [
-    "add_hp 50"
+    "heal_hp 50"
   ]
 }

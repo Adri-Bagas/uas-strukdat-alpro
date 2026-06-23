@@ -69,7 +69,7 @@ void DialogManager::start_scene(const DialogScene& scene, GameEngine* engine) {
         if (!node.npc_name.empty()) {
             const NPC* npc = engine->get_db().get_npc(node.npc_name);
             if (npc) {
-                if (!npc->known()) {
+                if (!npc->name_known()) {
                     node.npc_name = "???";
                 } else {
                     node.npc_name = npc->get_name();
@@ -101,7 +101,11 @@ void DialogManager::select_choice(int idx, GameEngine* engine) {
     if (idx < 0 || idx >= (int)active_choices.size()) return;
     
     std::string next = active_choices[idx].next_scene;
+    std::vector<std::string> on_select = active_choices[idx].on_select;
+    
     clear_choices();
+    
+    execute_actions(on_select, engine);
     
     if (!next.empty()) {
         const DialogScene* scene = engine->get_db().get_dialog_scene(next);

@@ -161,6 +161,7 @@ private:
     
     std::vector<ScheduleEntry> schedules; 
     std::string default_dialog_id;
+    std::string first_dialog_id;
     bool is_known = false;
 
     // For Quest Triggers
@@ -177,7 +178,8 @@ public:
     const std::string& get_full_name() const { return full_name; }
     void set_full_name(std::string name) { full_name = std::move(name); }
 
-    bool known() const { return type == NPCType::UNNAMED || is_known; }
+    bool has_met() const { return is_known; }
+    bool name_known() const { return type == NPCType::UNNAMED || is_known; }
     void reveal() { is_known = true; }
 
     void add_schedule_entry(ScheduleEntry entry) {
@@ -203,6 +205,9 @@ public:
 
     void set_default_dialog(std::string dialog_id) { default_dialog_id = std::move(dialog_id); }
     const std::string& get_default_dialog() const { return default_dialog_id; }
+
+    void set_first_dialog(std::string dialog_id) { first_dialog_id = std::move(dialog_id); }
+    const std::string& get_first_dialog() const { return first_dialog_id; }
 
     void modify_trust(int amount) { trust_level += amount; }
     int get_trust() const { return trust_level; }

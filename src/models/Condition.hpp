@@ -12,7 +12,8 @@ enum class ConditionType {
     HAS_ITEM,
     QUEST_STATE,
     KILLED_MONSTER,
-    EXPLORED_AREA
+    EXPLORED_AREA,
+    REACH_LOCATION
 };
 
 struct Condition {

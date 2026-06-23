@@ -1,5 +1,5 @@
 [
-    {
+  {
     "id": "sh_gs_ant_shop_dialog",
     "on_start": [],
     "on_exit": [],
@@ -78,7 +78,7 @@
         "npc_name": "???",
         "value": "Jadi kau tidak tahu apa apa?"
       },
-       {
+      {
         "type": 1,
         "npc_name": "Player",
         "value": "Ya"

@@ -9,12 +9,14 @@
     "type": "none"
   },
   "condition": {
-    "type": "var_equal",
-    "key": "stable_clue_found",
-    "value": 1
+    "type": "reach_location",
+    "key": "quest_stable_investigation"
   },
   "on_complete": [
     "add_gold 100",
     "add_var clues_found 1"
-  ]
+  ],
+  "objective_text": "Cari bukti di Kandang Kuda.",
+  "target_location_id": "kandang_kuda",
+  "location_trigger_action": []
 }

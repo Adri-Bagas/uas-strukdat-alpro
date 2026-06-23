@@ -2,7 +2,6 @@
   {
     "id": "hub_permukiman_kumuh",
     "on_enter": [
-      "move_to_outskirts",
       "set_time_siang",
       "check_zona_kuning",
       "add_var visited_places_count 1"
@@ -16,12 +15,12 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Jalanannya berlumpur pekat. Gelang di pergelangan tanganmu mulai memancarkan pendaran rune merah redup dan terasa hangat—peringatan bahwa kamu sedang berada di Zona Kuning."
+        "value": "Jalanannya berlumpur pekat. Gelang di pergelangan tanganmu mulai memancarkan pendaran rune merah redup dan terasa hangat\u2014peringatan bahwa kamu sedang berada di Zona Kuning."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di sudut jalan, seorang pria kurus—??? (Wakil Warga Kumuh)—terbatuk hebat sambil memegangi perutnya. Ia adalah salah satu warga yang dibuang oleh Valerius."
+        "value": "Di sudut jalan, seorang pria kurus\u2014??? (Wakil Warga Kumuh)\u2014terbatuk hebat sambil memegangi perutnya. Ia adalah salah satu warga yang dibuang oleh Valerius."
       },
       {
         "type": 2,
@@ -127,9 +126,7 @@
   },
   {
     "id": "hub_alun_alun",
-    "on_enter": [
-      "move_to_alun_alun"
-    ],
+    "on_enter": [],
     "nodes": [
       {
         "type": 3,
@@ -140,9 +137,7 @@
   },
   {
     "id": "hub_pasar_gelap",
-    "on_enter": [
-      "move_to_pasar_gelap"
-    ],
+    "on_enter": [],
     "on_exit": [
       "reveal_name npc_silas"
     ],
@@ -150,7 +145,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Kamu memasuki area tersembunyi Pasar Gelap. Seorang pria paruh baya licik—??? (Penyelundup)—menyeringai menyambutmu."
+        "value": "Kamu memasuki area tersembunyi Pasar Gelap. Seorang pria paruh baya licik\u2014??? (Penyelundup)\u2014menyeringai menyambutmu."
       },
       {
         "type": 1,
@@ -162,7 +157,6 @@
   {
     "id": "hub_menara_tua",
     "on_enter": [
-      "move_to_menara_tua",
       "set_time_evening",
       "heal_hp -5",
       "add_var visited_places_count 1"
@@ -203,8 +197,6 @@
   {
     "id": "hub_pasar_kota",
     "on_enter": [
-      "move_to pasar_kota",
-      "set_time_siang",
       "add_var visited_places_count 1"
     ],
     "nodes": [
@@ -216,7 +208,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di sudut yang agak sepi, seorang pedagang—??? (Pedagang Kaki Lima)—baru saja selesai bertransaksi dengan pelanggan."
+        "value": "Di sudut yang agak sepi, seorang pedagang\u2014??? (Pedagang Kaki Lima)\u2014baru saja selesai bertransaksi dengan pelanggan."
       },
       {
         "type": 3,
@@ -288,16 +280,6 @@
         "type": 2,
         "npc_name": "Hero",
         "value": "Bagus, persediaan ini bisa kuberikan pada orang-orang di luar tembok yang kelaparan, pikirku."
-      }
-    ],
-    "choices": [
-      {
-        "text": "Lanjutkan perjalanan ke Permukiman Kumuh (Outskirts)",
-        "next_scene": "hub_permukiman_kumuh"
-      },
-      {
-        "text": "Kembali ke Alun-Alun Kota",
-        "next_scene": "hub_alun_alun"
       }
     ]
   },
@@ -408,19 +390,15 @@
     ],
     "choices": [
       {
-        "text": "Kembali ke The Blind Boar untuk lapor ke Arthur",
-        "next_scene": "dialog_arthur_evaluasi"
+        "text": "Lanjutkan",
+        "next_scene": ""
       }
     ]
   },
   {
     "id": "dialog_arthur_evaluasi",
-    "on_enter": [
-      "move_to_arthur_bar"
-    ],
-    "on_exit": [
-      "complete_quest warga_miskin"
-    ],
+    "on_enter": [],
+    "on_exit": [],
     "nodes": [
       {
         "type": 3,
@@ -487,7 +465,7 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Rangka kayu penyangga tambang mulai membusuk, dan gelang di pergelangan tanganmu mulai berdenyut merah redup—peringatan bahwa kau berada di batas outskirts Zona Kuning."
+        "value": "Rangka kayu penyangga tambang mulai membusuk, dan gelang di pergelangan tanganmu mulai berdenyut merah redup\u2014peringatan bahwa kau berada di batas outskirts Zona Kuning."
       },
       {
         "type": 3,

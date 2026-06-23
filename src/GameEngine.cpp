@@ -63,37 +63,7 @@ void GameEngine::init() {
     // places.set_current_place("kandang_kuda");
 
     player_manager.init_player("hero", "Nirva Hero");
-    // For testing: add party members
-    if (auto arthur = db.get_npc("npc_arthur")) player_manager.add_ally(*arthur);
-    if (auto silas = db.get_npc("npc_silas")) player_manager.add_ally(*silas);
 
-    // Add dummy skills for testing
-    Player* p = player_manager.get_player();
-    p->set_max_mp(100);
-    p->restore_mp(100);
-    
-    Magic fire;
-    fire.id = "fire_1";
-    fire.name = "Fireball";
-    fire.type = MagicType::ATTACKING;
-    fire.mana_cost = 15;
-    fire.power = 40;
-    p->add_magic(fire);
-
-    Magic heal;
-    heal.id = "heal_1";
-    heal.name = "Minor Heal";
-    heal.type = MagicType::HEALING;
-    heal.mana_cost = 10;
-    heal.power = 30;
-    p->add_magic(heal);
-
-    SpecialMove slash;
-    slash.id = "slash_1";
-    slash.name = "Cross Slash";
-    slash.max_uses_per_day = 3;
-    slash.power = 80;
-    p->set_special_move(slash);
 
     push_state(new StartState(this));
 } // Setup ncurses, set initial state

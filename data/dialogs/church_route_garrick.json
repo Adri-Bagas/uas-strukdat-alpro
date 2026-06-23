@@ -1,0 +1,60 @@
+[
+  {
+    "id": "garrick_start_kael",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Garrick",
+        "value": "Kael mengirimmu padaku? Pasti soal Spider Queen di gua tambang. Pasukanku sudah terlalu lelah untuk turun ke bawah sana."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ya, aku yang akan membereskannya. Kael bilang kau mungkin bisa membantu."
+      },
+      {
+        "type": 1,
+        "npc_name": "Garrick",
+        "value": "Tentu. Aku tak bisa memberi pasukan, tapi aku punya persediaan medis sisa. Bawa ini, kau akan membutuhkannya."
+      }
+    ],
+    "on_exit": [
+      "accept_quest quest_gereja_kael_1_garrick"
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "garrick_start_kael_accept"
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "garrick_complete_kael",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Garrick",
+        "value": "Semoga ramuan itu membantumu. Hati-hati dengan racun Spider Queen, efeknya mematikan."
+      }
+    ],
+    "on_exit": []
+  },
+  {
+    "id": "garrick_start_kael_accept",
+    "on_enter": [],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Garrick",
+        "value": "Terima kasih! Aku mengandalkanmu."
+      }
+    ],
+    "on_exit": [
+      "accept_quest quest_gereja_kael_1_garrick"
+    ]
+  }
+]

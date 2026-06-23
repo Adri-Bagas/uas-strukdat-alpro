@@ -68,6 +68,7 @@ private:
     void animate_hit(Entity* target);
     
     std::unique_ptr<Utils::Popup> end_popup;
+    std::string victory_action;
     
     void build_main_menu();
     void build_enemy_target_menu();
@@ -80,7 +81,7 @@ private:
     void execute_action(Entity* target);
 
 public:
-    BattleState(GameEngine* engine, const std::string& monster_group_id);
+    BattleState(GameEngine* engine, const std::string& enemies_list, const std::string& victory_action = "");
     ~BattleState() override = default;
 
     void on_enter() override;

@@ -70,6 +70,7 @@ Condition parse_condition(const json& j) {
     else if (type_str == "quest_state") cond.type = ConditionType::QUEST_STATE;
     else if (type_str == "killed_monster") cond.type = ConditionType::KILLED_MONSTER;
     else if (type_str == "explored_area") cond.type = ConditionType::EXPLORED_AREA;
+    else if (type_str == "reach_location") cond.type = ConditionType::REACH_LOCATION;
 
     // Mengambil data tambahan seperti nama variabel (key) atau nilai target (value)
     cond.key = j.value("key", "");
@@ -153,12 +154,22 @@ void DB::load_dialogs(const std::string& directory_path) {
                     if (scene_j.contains("nodes")) {
                         for (const auto& node_j : scene_j["nodes"]) {
                             DialogNode node;
-                            node.type = node_j["type"].get<int>(); // 1: Dialog, 2: Pikiran, 3: Utils::Popup
+                            node.type = node_j.value("type", 1); // Default to dialog
                             node.npc_name = node_j.value("npc_name", "");
-                            node.value = node_j["value"].get<std::string>();
+                            node.value = node_j.value("value", "");
+                            if (node.value.empty() && node_j.contains("text")) {
+                                node.value = node_j["text"].get<std::string>();
+                            }
                             scene.nodes.push_back(node);
                         }
+                    } else if (scene_j.contains("text")) {
+                        DialogNode node;
+                        node.type = 1; // Dialog
+                        node.npc_name = scene_j.value("speaker", "");
+                        node.value = scene_j["text"].get<std::string>();
+                        scene.nodes.push_back(node);
                     }
+
 
                     // Parsing pilihan jawaban di akhir dialog (branching)
                     if (scene_j.contains("choices")) {
@@ -169,6 +180,19 @@ void DB::load_dialogs(const std::string& directory_path) {
                                 choice.condition = parse_condition(choice_j["condition"]);
                             }
                             choice.next_scene = choice_j.value("next_scene", ""); // Scene tujuan jika dipilih
+                            
+                            if (choice_j.contains("on_select")) {
+                                for (const auto& act : choice_j["on_select"]) {
+                                    choice.on_select.push_back(act.get<std::string>());
+                                }
+                            }
+                            // Backwards compatibility if user used on_exit in choices:
+                            if (choice_j.contains("on_exit")) {
+                                for (const auto& act : choice_j["on_exit"]) {
+                                    choice.on_select.push_back(act.get<std::string>());
+                                }
+                            }
+
                             scene.choices.push_back(choice);
                         }
                     }
@@ -415,6 +439,7 @@ void DB::load_npcs(const std::string& directory_path) {
                     }
                 }
                 npc.set_default_dialog(j.value("default_dialog", ""));
+                npc.set_first_dialog(j.value("first_dialog", ""));
 
                 // Daftar misi yang bisa dipicu lewat NPC ini
                 if (j.contains("quests") && j["quests"].is_array()) {
@@ -524,14 +549,29 @@ void DB::load_quests(const std::string& directory_path) {
                 file >> j;
 
                 Quest q(j["id"].get<std::string>(), j["name"].get<std::string>(), j.value("description", ""));
+                q.set_objective_text(j.value("objective_text", "Ikuti petunjuk quest."));
+                q.set_source_npc(j.value("source_npc_id", ""));
                 q.set_target_npc(j.value("target_npc_id", ""));
-                q.set_target_location(j.value("target_location", ""));
+                q.set_target_location_id(j.value("target_location_id", j.value("target_location", "")));
                 q.set_start_scene(j.value("start_scene_id", ""));
                 q.set_complete_scene(j.value("complete_scene_id", ""));
+                
+                q.set_location_trigger_scene(j.value("location_trigger_scene", ""));
+                if (j.contains("location_trigger_action") && j["location_trigger_action"].is_array()) {
+                    std::vector<std::string> actions;
+                    for (const auto& act : j["location_trigger_action"]) {
+                        actions.push_back(act.get<std::string>());
+                    }
+                    q.set_location_trigger_action(std::move(actions));
+                }
 
                 // Syarat agar misi ini bisa diambil oleh pemain
-                if (j.contains("unlock_condition")) {
-                    q.set_unlock_condition(parse_condition(j["unlock_condition"]));
+                if (j.contains("unlock_conditions") && j["unlock_conditions"].is_array()) {
+                    for (const auto& cond_j : j["unlock_conditions"]) {
+                        q.add_unlock_condition(parse_condition(cond_j));
+                    }
+                } else if (j.contains("unlock_condition")) {
+                    q.add_unlock_condition(parse_condition(j["unlock_condition"]));
                 }
 
                 // Syarat agar misi ini dianggap selesai (Progress tracking)

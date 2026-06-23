@@ -3,20 +3,32 @@
   "name": "ANAK YANG TAK PULANG",
   "description": "Temukan Lukas, anak yatim dari Biara Cahaya yang menghilang sejak pagi.",
   "target_npc_id": "npc_andreas",
-  "start_scene_id": "alun2",
-  "complete_scene_id": "selesai",
-  "unlock_condition": {
-    "type": "none"
-  },
+  "start_scene_id": "dialog_andreas_q2_start",
+  "complete_scene_id": "selesai_gereja_2",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_1",
+      "value": 1
+    },
+    {
+      "type": "var_greater_equal",
+      "key": "day",
+      "value": 3
+    }
+  ],
   "condition": {
-    "type": "var_equal",
-    "key": "quest_gereja_2_complete",
-    "value": 1
+    "type": "reach_location",
+    "key": "quest_gereja_2"
   },
   "on_complete": [
     "add_gold 35",
     "give_item potion_hp 2",
     "add_var trust 5",
     "set_var quest_gereja_2 1"
-  ]
+  ],
+  "objective_text": "Periksa Kandang Kuda untuk mencari Lukas.",
+  "target_location_id": "kandang_kuda",
+  "location_trigger_scene": "scene_lukas_found",
+  "location_trigger_action": []
 }

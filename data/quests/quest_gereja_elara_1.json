@@ -1,0 +1,32 @@
+{
+  "id": "quest_gereja_elara_1",
+  "name": "Buku Suci yang Hilang",
+  "description": "Bantu Inquisitor Elara menemukan buku suci kuno yang dikabarkan jatuh ke pasar gelap. Temui Silas si Tikus.",
+  "target_npc_id": "npc_elara",
+  "start_scene_id": "elara_start_1",
+  "complete_scene_id": "elara_complete_1",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_2",
+      "value": 1
+    },
+    {
+      "type": "var_greater_equal",
+      "key": "day",
+      "value": 5
+    }
+  ],
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_elara_1"
+  },
+  "on_complete": [
+    "add_gold 50",
+    "add_var trust 5",
+    "set_var quest_gereja_elara_1 1"
+  ],
+  "objective_text": "Temui Silas di Permukiman Kumuh.",
+  "target_location_id": "permukiman_kumuh",
+  "location_trigger_action": []
+}

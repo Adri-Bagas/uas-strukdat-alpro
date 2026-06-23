@@ -25,11 +25,43 @@ void StartState::handle_input(int ch) {
         if (selection_index >= (int)menu_options.size()) selection_index = 0;
     } else if (ch == '\n' || ch == ' ') {
         if (selection_index == 0) { // Start New
+            engine->get_player_manager().init_player("hero", "Nirva Hero");
+            // NOTE: We should also clear quests/inventory/places here, but this at least clears the party
             engine->get_places().set_current_place("kandang_kuda");
             engine->push_state(new TownState(engine));
         } else if (selection_index == 1) { // Load
             engine->get_dialogs().queue_popup("Fitur Load belum diimplementasikan.");
         } else if (selection_index == 2) { // Test Battle
+            if (auto arthur = engine->get_db().get_npc("npc_arthur")) engine->get_player_manager().add_ally(*arthur);
+            if (auto silas = engine->get_db().get_npc("npc_silas")) engine->get_player_manager().add_ally(*silas);
+        
+            Player* p = engine->get_player_manager().get_player();
+            p->set_max_mp(100);
+            p->restore_mp(100);
+            
+            Magic fire;
+            fire.id = "fire_1";
+            fire.name = "Fireball";
+            fire.type = MagicType::ATTACKING;
+            fire.mana_cost = 15;
+            fire.power = 40;
+            p->add_magic(fire);
+        
+            Magic heal;
+            heal.id = "heal_1";
+            heal.name = "Minor Heal";
+            heal.type = MagicType::HEALING;
+            heal.mana_cost = 10;
+            heal.power = 30;
+            p->add_magic(heal);
+        
+            SpecialMove slash;
+            slash.id = "slash_1";
+            slash.name = "Cross Slash";
+            slash.max_uses_per_day = 3;
+            slash.power = 80;
+            p->set_special_move(slash);
+
             engine->push_state(new BattleState(engine, "test_group"));
         } else if (selection_index == 3) { // Test Dungeon
             engine->push_state(new DungeonState(engine));

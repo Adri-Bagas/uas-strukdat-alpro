@@ -2,23 +2,30 @@
 #include "../GameEngine.hpp"
 #include <algorithm>
 
-BattleState::BattleState(GameEngine* engine, const std::string& monster_group_id)
-    : GameState(engine), current_menu_selection(0), current_phase(Phase::PROCESSING_TURN) {
+#include <sstream>
+
+BattleState::BattleState(GameEngine* engine, const std::string& enemies_list, const std::string& victory_action)
+    : GameState(engine), current_menu_selection(0), current_phase(Phase::PROCESSING_TURN), victory_action(victory_action) {
     enemy_slots.fill(nullptr);
     // Deep copy party slots
     party_slots = engine->get_player_manager().get_party_slots();
-    populate_enemies(monster_group_id);
+    populate_enemies(enemies_list);
 }
 
-void BattleState::populate_enemies(const std::string& monster_group_id) {
-    const Monster* base_monster = engine->get_db().get_monster("mon_forest_troll");
-    if (!base_monster) base_monster = engine->get_db().get_monster("mon_slime");
-    
-    if (base_monster) {
-        // Add 2 enemies to slots (Trolls are tough, 2 is plenty for testing)
-        for (int i = 0; i < 2; ++i) {
-            active_enemies.push_back(std::make_unique<Monster>(*base_monster));
-            enemy_slots[i] = active_enemies.back().get();
+void BattleState::populate_enemies(const std::string& enemies_list) {
+    std::stringstream ss(enemies_list);
+    std::string monster_id;
+    int index = 0;
+    while (std::getline(ss, monster_id, ',') && index < 4) {
+        // Trim whitespace just in case
+        monster_id.erase(0, monster_id.find_first_not_of(" \t\r\n"));
+        monster_id.erase(monster_id.find_last_not_of(" \t\r\n") + 1);
+        
+        const Monster* m = engine->get_db().get_monster(monster_id);
+        if (m) {
+            active_enemies.push_back(std::make_unique<Monster>(*m));
+            enemy_slots[index] = active_enemies.back().get();
+            index++;
         }
     }
 }
@@ -108,6 +115,10 @@ void BattleState::next_turn() {
     if (all_enemies_dead && enemy_pool.empty()) {
         add_log("All enemies defeated! YOU WIN!");
         
+        if (!victory_action.empty()) {
+            engine->get_actions().execute(victory_action);
+        }
+
         // Calculate alive party members
         int alive_members = 0;
         for (int i = 0; i < 4; ++i) {

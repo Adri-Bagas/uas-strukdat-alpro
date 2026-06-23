@@ -35,5 +35,6 @@
     "affinity": "none",
     "weakness": "none",
     "weapon_type": "unarmed",
-    "weapon_name": "tangan kosong"
+    "weapon_name": "tangan kosong",
+    "first_dialog": "scene_unnamed_first_meet"
 }

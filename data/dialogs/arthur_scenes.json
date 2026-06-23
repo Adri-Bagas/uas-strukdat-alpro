@@ -23,7 +23,9 @@
         "value": "Pergilah ke sana. Cari apa pun yang mereka lewatkan. Kalau kamu temukan sesuatu, beri tahu aku."
       }
     ],
-    "on_exit": ["accept_quest quest_stable_investigation"]
+    "on_exit": [
+      "accept_quest quest_stable_investigation"
+    ]
   },
   {
     "id": "scene_arthur_complete_stable_quest",
@@ -49,8 +51,7 @@
     "id": "scene_survei_complete",
     "on_exit": [
       "add_gold 50",
-      "add_var trust 5",
-      "complete_quest quest_survei_kota"
+      "add_var trust 5"
     ],
     "nodes": [
       {
@@ -61,7 +62,7 @@
       {
         "type": 2,
         "npc_name": "Hero",
-        "value": "Ya. Aku sudah berkeliling ke berbagai tempat—dari Biara hingga wilayah Outskirts. Beberapa orang tampak memusuhi Valerius, dan yang lain hanya ingin bertahan hidup."
+        "value": "Ya. Aku sudah berkeliling ke berbagai tempat\u2014dari Biara hingga wilayah Outskirts. Beberapa orang tampak memusuhi Valerius, dan yang lain hanya ingin bertahan hidup."
       },
       {
         "type": 1,
@@ -72,9 +73,7 @@
   },
   {
     "id": "first_enter_kedai_usang",
-    "on_enter": [
-      "move_to_arthur_bar"
-    ],
+    "on_enter": [],
     "on_exit": [
       "add_var visited_places_count 1"
     ],

@@ -12,6 +12,7 @@ Player::Player(std::string id, std::string name)
     this->mp = get_max_mp();
 
     gold = 0;
+    set_var("day", 1);
 }
 
 bool Player::spend_gold(int amount) {

@@ -2,18 +2,22 @@
   "id": "warga_miskin",
   "name": "Misteri Warga Kumuh",
   "description": "Bantu warga permukiman kumuh dan temukan bukti keterlibatan Valerius.",
-  "target_npc_id": "npc_bara",
+  "source_npc_id": "npc_bara",
+  "target_npc_id": "npc_arthur",
   "start_scene_id": "dialog_bara_01",
-  "complete_scene_id": "investigasi_abu_menara",
+  "complete_scene_id": "dialog_arthur_evaluasi",
   "unlock_condition": {
     "type": "none"
   },
   "condition": {
-    "type": "var_equal",
-    "key": "quest_warga_miskin_complete",
-    "value": 1
+    "type": "reach_location",
+    "key": "menara_tua"
   },
   "on_complete": [
     "set_var quest_warga_miskin 2"
-  ]
+  ],
+  "objective_text": "Selidiki Menara Tua untuk mencari bukti.",
+  "target_location_id": "menara_tua",
+  "location_trigger_scene": "investigasi_abu_menara",
+  "location_trigger_action": []
 }

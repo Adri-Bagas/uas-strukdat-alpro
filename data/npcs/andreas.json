@@ -24,7 +24,8 @@
   ],
   "default_dialog": "scene_andreas_idle",
   "quests": [
-    "quest_gereja_2"
+    "quest_gereja_2",
+    "quest_gereja_3"
   ],
   "str": 30,
   "cons": 40,
@@ -62,5 +63,6 @@
     "element": "light"
   },
   "affinity": "light",
-  "weakness": "none"
+  "weakness": "none",
+  "first_dialog": "scene_andreas_first_meet"
 }

@@ -35,5 +35,6 @@
     "affinity": "none",
     "weakness": "none",
     "weapon_type": "staff",
-    "weapon_name": "tongkat kayu"
+    "weapon_name": "tongkat kayu",
+    "first_dialog": "scene_unnamed_first_meet"
 }

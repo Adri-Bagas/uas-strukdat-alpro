@@ -35,5 +35,6 @@
     "affinity": "none",
     "weakness": "none",
     "weapon_type": "dagger",
-    "weapon_name": "pisau lipat"
+    "weapon_name": "pisau lipat",
+    "first_dialog": "scene_unnamed_first_meet"
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <stack>
+#include <vector>
 #include "managers/DialogManagers.hpp"
 #include "views/MainPage.hpp"
 #include "views/StartMenuPage.hpp"
@@ -32,6 +33,13 @@ private:
     std::stack<std::unique_ptr<GameState>> state_stack;
     std::unique_ptr<Utils::Popup> active_popup;
     bool is_running = true;
+
+    struct StateOp {
+        enum Type { PUSH, POP, CHANGE } type;
+        std::unique_ptr<GameState> state;
+    };
+    std::vector<StateOp> pending_ops;
+    void process_state_operations();
 
 public:
     GameEngine();

@@ -69,31 +69,54 @@ void GameEngine::init() {
 } // Setup ncurses, set initial state
 
 void GameEngine::push_state(GameState *new_state) {
-    state_stack.push(std::unique_ptr<GameState>(new_state));
-    state_stack.top()->on_enter();
+    pending_ops.push_back({StateOp::PUSH, std::unique_ptr<GameState>(new_state)});
 }
 
 void GameEngine::change_state(GameState *new_state) {
-    while (!state_stack.empty()) {
-        state_stack.top()->on_exit();
-        state_stack.pop();
-    }
-    push_state(new_state);
+    pending_ops.push_back({StateOp::CHANGE, std::unique_ptr<GameState>(new_state)});
 }
 
 // Removes top state, returning to the one below it.
 void GameEngine::pop_state() {
-    if (!state_stack.empty()) {
-        state_stack.top()->on_exit();
-        state_stack.pop();
+    pending_ops.push_back({StateOp::POP, nullptr});
+}
+
+void GameEngine::process_state_operations() {
+    if (pending_ops.empty()) return;
+    
+    std::vector<StateOp> ops = std::move(pending_ops);
+    pending_ops.clear();
+    
+    for (auto& op : ops) {
+        if (op.type == StateOp::PUSH) {
+            state_stack.push(std::move(op.state));
+            state_stack.top()->on_enter();
+        } else if (op.type == StateOp::POP) {
+            if (!state_stack.empty()) {
+                state_stack.top()->on_exit();
+                state_stack.pop();
+            }
+        } else if (op.type == StateOp::CHANGE) {
+            while (!state_stack.empty()) {
+                state_stack.top()->on_exit();
+                state_stack.pop();
+            }
+            if (op.state) {
+                state_stack.push(std::move(op.state));
+                state_stack.top()->on_enter();
+            }
+        }
     }
 }
+
 void GameEngine::show_popup(std::unique_ptr<Utils::Popup> popup) {
     active_popup = std::move(popup);
 }
+
 void GameEngine::run() {
     Utils::Logger::log("Engine: Starting run loop.");
     try {
+        process_state_operations();
         while (is_running && !state_stack.empty()) {
             int ch = getch();
 
@@ -125,6 +148,8 @@ void GameEngine::run() {
             }
 
             doupdate();
+
+            process_state_operations();
 
             napms(24);
         }

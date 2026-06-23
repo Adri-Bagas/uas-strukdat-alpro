@@ -48,6 +48,50 @@ bool SaveManager::save_game(GameEngine* engine, const std::string& filepath) {
         for (const auto& [key, val] : p->get_all_vars()) {
             data["player"]["vars"][key] = val;
         }
+
+        data["player"]["stat_points"] = p->get_stat_points();
+        
+        auto& magics_data = data["player"]["magics"];
+        for (const auto& m : p->get_magics()) {
+            json mj;
+            mj["id"] = m.id;
+            mj["name"] = m.name;
+            mj["type"] = static_cast<int>(m.type);
+            mj["mana_cost"] = m.mana_cost;
+            mj["power"] = m.power;
+            mj["elem"] = static_cast<int>(m.elem);
+            mj["range"] = static_cast<int>(m.range);
+            auto& mods_data = mj["modifiers"];
+            for (const auto& mod : m.modifiers) {
+                json modj;
+                modj["stat_name"] = mod.stat_name;
+                modj["amount"] = mod.amount;
+                modj["duration_turns"] = mod.duration_turns;
+                mods_data.push_back(modj);
+            }
+            magics_data.push_back(mj);
+        }
+
+        if (p->has_special()) {
+            auto& sm = p->get_special_move();
+            json smj;
+            smj["id"] = sm.id;
+            smj["name"] = sm.name;
+            smj["max_uses_per_day"] = sm.max_uses_per_day;
+            smj["current_uses"] = sm.current_uses;
+            smj["power"] = sm.power;
+            smj["elem"] = static_cast<int>(sm.elem);
+            smj["range"] = static_cast<int>(sm.range);
+            auto& mods_data = smj["modifiers"];
+            for (const auto& mod : sm.modifiers) {
+                json modj;
+                modj["stat_name"] = mod.stat_name;
+                modj["amount"] = mod.amount;
+                modj["duration_turns"] = mod.duration_turns;
+                mods_data.push_back(modj);
+            }
+            data["player"]["special_move"] = smj;
+        }
     }
 
     // 3. Quests
@@ -168,6 +212,58 @@ bool SaveManager::load_game(GameEngine* engine, const std::string& filepath) {
                 const Item* item = engine->get_db().get_item(el.value().get<std::string>());
                 if (item) p->equip(item);
             }
+        }
+
+        if (data["player"].contains("stat_points")) {
+            p->stat_points = data["player"]["stat_points"].get<int>();
+        }
+
+        if (data["player"].contains("magics")) {
+            p->clear_magics();
+            for (const auto& mj : data["player"]["magics"]) {
+                Magic m;
+                m.id = mj.value("id", "");
+                m.name = mj.value("name", "");
+                m.type = static_cast<MagicType>(mj.value("type", 0));
+                m.mana_cost = mj.value("mana_cost", 0);
+                m.power = mj.value("power", 0);
+                m.elem = static_cast<Element>(mj.value("elem", 0));
+                m.range = static_cast<TargetRange>(mj.value("range", 0));
+                if (mj.contains("modifiers")) {
+                    for (const auto& modj : mj["modifiers"]) {
+                        CombatModifier mod;
+                        mod.stat_name = modj.value("stat_name", "");
+                        mod.amount = modj.value("amount", 0);
+                        mod.duration_turns = modj.value("duration_turns", 0);
+                        m.modifiers.push_back(mod);
+                    }
+                }
+                p->add_magic(m);
+            }
+        }
+
+        if (data["player"].contains("special_move")) {
+            const auto& smj = data["player"]["special_move"];
+            SpecialMove sm;
+            sm.id = smj.value("id", "");
+            sm.name = smj.value("name", "");
+            sm.max_uses_per_day = smj.value("max_uses_per_day", 1);
+            sm.current_uses = smj.value("current_uses", 0);
+            sm.power = smj.value("power", 0);
+            sm.elem = static_cast<Element>(smj.value("elem", 0));
+            sm.range = static_cast<TargetRange>(smj.value("range", 0));
+            if (smj.contains("modifiers")) {
+                for (const auto& modj : smj["modifiers"]) {
+                    CombatModifier mod;
+                    mod.stat_name = modj.value("stat_name", "");
+                    mod.amount = modj.value("amount", 0);
+                    mod.duration_turns = modj.value("duration_turns", 0);
+                    sm.modifiers.push_back(mod);
+                }
+            }
+            p->set_special_move(sm);
+        } else {
+            p->clear_special_move();
         }
     }
 

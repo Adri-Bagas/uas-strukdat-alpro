@@ -111,10 +111,12 @@ public:
 
     const std::vector<Magic>& get_magics() const { return magics; }
     void add_magic(const Magic& m) { magics.push_back(m); }
+    void clear_magics() { magics.clear(); }
 
     bool has_special() const { return has_special_move; }
     SpecialMove& get_special_move() { return special_move; }
     void set_special_move(const SpecialMove& sm) { special_move = sm; has_special_move = true; }
+    void clear_special_move() { has_special_move = false; }
 
     bool is_dead() const { return hp <= 0; }
     

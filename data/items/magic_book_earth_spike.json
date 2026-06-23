@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_earth_spike",
+    "name": "Buku Sihir: Earth Spike",
+    "description": "Sihir tanah dasar. Kekuatan 20, Elemen Earth. (Sekali Pakai)",
+    "type": "consumable",
+    "value": 50,
+    "on_use": [
+        "learn_magic earth_spike magic_book_earth_spike"
+    ]
+}

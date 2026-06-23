@@ -1,0 +1,12 @@
+{
+    "id": "steel_armor",
+    "name": "Steel Armor",
+    "description": "Zirah baja yang melindungi tubuh dari serangan fisik.",
+    "type": "equipment",
+    "value": 200,
+    "equip_slot": "armor",
+    "equip_stats": {
+        "cons": 20,
+        "agi": -5
+    }
+}

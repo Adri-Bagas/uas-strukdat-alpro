@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_fire_wall",
+    "name": "Buku Sihir: Fire Wall",
+    "description": "Sihir api memanjang. (REACH) Kekuatan 18, Elemen Fire.",
+    "type": "consumable",
+    "value": 100,
+    "on_use": [
+        "learn_magic fire_wall magic_book_fire_wall"
+    ]
+}

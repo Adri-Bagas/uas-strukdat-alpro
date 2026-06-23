@@ -1,0 +1,29 @@
+{
+    "id": "restoran_warteg",
+    "name": "Restoran Lezat",
+    "on_first_enter": "sh_restoran_dialog_FIRST",
+    "on_enter": "",
+    "walkable": {
+        "west": "pasar_kota"
+    },
+    "activities": [
+        {
+            "id": "shop_restoran",
+            "name": "Beli Makanan",
+            "time_cost": 0,
+            "schedule": {
+                "days": [],
+                "phases": [
+                    "Pagi",
+                    "Siang",
+                    "Sore",
+                    "Malam"
+                ]
+            },
+            "dialogs": {},
+            "on_execute": [
+                "open_shop sh_restoran"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "npc_andreas",
+  "name": "Pastor Andreas",
+  "type": "named",
+  "role": "Pendeta paruh baya",
+  "faction": "Neutral",
+  "schedules": [
+    { "days": [], "phase": "Pagi", "location": "biara" },
+    { "days": [], "phase": "Siang", "location": "biara" },
+    { "days": [], "phase": "Malam", "location": "biara" }
+  ],
+  "default_dialog": "dialog_andreas_default",
+  "quests": ["quest_gereja_2", "quest_gereja_3", "quest_gereja_4"],
+  "str": 5, "cons": 5, "agi": 5, "intl": 5, "wis": 5,
+  "level": 5, "max_hp": 50, "max_mp": 50,
+  "magics": [],
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "unarmed", "weapon_name": "tangan kosong"
+}

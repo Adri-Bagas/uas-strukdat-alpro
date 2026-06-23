@@ -1,24 +1,26 @@
 {
-  "id": "mon_giant_bat",
-  "name": "Giant Bat",
-  "description": "Kelelawar raksasa yang hidup di goa-goa gelap. Sangat lincah.",
-  "level": 2,
-  "max_hp": 60,
-  "max_mp": 0,
-  "damage": 6,
-  "agility": 18,
-  "str": 8,
-  "cons": 8,
-  "agi": 18,
-  "intl": 3,
-  "wis": 3,
-  "loot": [
-    {
-      "item_id": "item_bat_wing",
-      "chance": 40
-    }
-  ],
-  "magics": [],
-  "affinity": "wind",
-  "weakness": "fire"
+    "id": "mon_giant_bat",
+    "name": "Giant Bat",
+    "description": "Kelelawar raksasa yang hidup di goa-goa gelap. Sangat lincah.",
+    "level": 2,
+    "max_hp": 60,
+    "max_mp": 0,
+    "damage": 6,
+    "agility": 18,
+    "str": 8,
+    "cons": 8,
+    "agi": 18,
+    "intl": 3,
+    "wis": 3,
+    "loot": [
+        {
+            "item_id": "item_bat_wing",
+            "chance": 40
+        }
+    ],
+    "magics": [],
+    "affinity": "wind",
+    "weakness": "fire",
+    "weapon_type": "unarmed",
+    "weapon_name": "taring tajam"
 }

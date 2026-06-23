@@ -1,8 +1,7 @@
 {
   "id": "day1_cs3",
-  "on_enter": ["move_to_town_hall", "set_time_afternoon"],
-  "on_exit": [
-  ],
+  "on_enter": ["move_to_town_hall", "set_time_siang"],
+  "on_exit": [],
   "next_scene": "day1_cs4",
   "nodes": [
     {
@@ -18,7 +17,7 @@
     {
       "type": 1,
       "npc_name": "Guildmaster",
-      "value": "Seorang petualang miskin yang putus asa membunuh Walikota demi kepingan emas. Cerita klasik. Hukum Nirva tidak mengizinkan main hakim sendiri. Hakim Bangsawan dari ibukota baru akan tiba dalam 14 hari. Peraturan melarang eksekusi sebelum beliau datang."
+      "value": "Seorang petualang miskin yang putus asa membunuh Walikota demi kepingan emas. Cerita klasik. Belati perak bersimbah darah yang disita prajuritku di tempat kejadian sudah cukup menjadi bukti kuat di hadapan Lord Inquisitor nanti. Hukum Nirva tidak mengizinkan main hakim sendiri. Hakim Agung dari ibukota baru akan tiba dalam 14 hari. Peraturan melarang eksekusi sebelum beliau datang."
     }
   ]
 }

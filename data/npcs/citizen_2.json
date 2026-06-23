@@ -1,42 +1,40 @@
 {
-  "id": "npc_citizen_2",
-  "name": "Warga Biasa",
-  "full_name": "Penduduk Nirva yang Kelelahan",
-  "type": "unnamed",
-  "role": "Citizen",
-  "faction": "Commoners",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "pasar_kota"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "pasar_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "jalanan_utama_kota"
-    }
-  ],
-  "default_dialog": "scene_citizen_idle",
-  "str": 13,
-  "cons": 11,
-  "agi": 14,
-  "intl": 14,
-  "wis": 12,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 2,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_citizen_2",
+    "name": "Warga Biasa",
+    "full_name": "Penduduk Nirva yang Kelelahan",
+    "type": "unnamed",
+    "role": "Citizen",
+    "faction": "Commoners",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "pasar_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "pasar_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "alun_alun"
+        }
+    ],
+    "default_dialog": "scene_citizen_idle",
+    "str": 13,
+    "cons": 11,
+    "agi": 14,
+    "intl": 14,
+    "wis": 12,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 2,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "unarmed",
+    "weapon_name": "tangan kosong",
+    "first_dialog": "scene_unnamed_first_meet"
 }

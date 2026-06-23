@@ -14,4 +14,5 @@ public:
     std::vector<Quest*> get_available_quests_for_npc(const std::string& npc_id);
     std::unordered_map<std::string, Quest*>& get_all_quests();
     void check_npc_quests(const NPC* npc, const Player* player);
+    std::string evaluate_endings(Player* player);
 };

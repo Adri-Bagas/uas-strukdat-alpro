@@ -1,7 +1,6 @@
 #include "StatAllocationState.hpp"
 #include "../GameEngine.hpp"
 #include <ncurses.h>
-#include <algorithm>
 
 StatAllocationState::StatAllocationState(GameEngine* eng) : GameState(eng), current_selection(0) {
     stat_names = {"Strength (STR) [+Damage/HP]", "Constitution (CON) [+HP/Def]", "Agility (AGI) [+Speed]", "Intelligence (INT) [+Magic Dmg]", "Wisdom (WIS) [+MP/Def]", "Done"};
@@ -17,6 +16,11 @@ void StatAllocationState::update() {
 }
 
 void StatAllocationState::handle_input(int ch) {
+    if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        return;
+    }
+
     if (ch == -1) return;
     
     Player* p = engine->get_player_manager().get_player();
@@ -89,7 +93,7 @@ void StatAllocationState::render() {
             else if (i == 4) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_wis());
         }
         
-        wrefresh(pop_win);
+        wnoutrefresh(pop_win);
         delwin(pop_win);
     }
 }

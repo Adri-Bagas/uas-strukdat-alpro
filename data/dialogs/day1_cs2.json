@@ -1,13 +1,13 @@
 {
   "id": "day1_cs2",
   "on_enter": [],
-  "on_exit": ["play_sfx doorOpen_2.mp3"],
+  "on_exit": ["move_to_main_street", "play_sfx doorOpen_2.mp3"],
   "next_scene": "day1_cs3",
   "nodes": [
     {
       "type": 3,
       "npc_name": "Narrator",
-      "value": "Sebelum kabut di kepalamu hilang, pintu kayu kandang didobrak kasar. Angin pagi yang membeku masuk. Dua penjaga berseragam lambang gagak hitam merangsek ke dalam dengan pedang terhunus. Lambang itu milik pasukan elit pribadi Guildmaster, bukan penjaga reguler kota."
+      "value": "Sebelum kabut di kepalamu hilang, pintu kayu kandang didobrak kasar. Angin pagi yang membeku masuk. Dua penjaga berseragam lambang gagak hitam merangsek ke dalam dengan pedang terhunus. Lambang itu milik pasukan elit pribadi Guildmaster, bukan penjaga reguler kota. Salah satu prajurit dengan kasar menyita belati perak berlumuran darah dari lantai sebagai barang bukti."
     },
     {
       "type": 1,

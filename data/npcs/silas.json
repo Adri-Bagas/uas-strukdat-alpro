@@ -1,92 +1,19 @@
 {
   "id": "npc_silas",
   "name": "Silas",
-  "full_name": "Silas 'The Rat' Blackwater",
   "type": "named",
-  "role": "Penyelundup Utama",
-  "faction": "Independent",
+  "role": "Penyelundup",
+  "faction": "Neutral",
   "schedules": [
-    {
-      "days": [
-        3,
-        7,
-        10
-      ],
-      "phase": "Morning",
-      "location": "menara_tua"
-    },
-    {
-      "days": [
-        3,
-        7,
-        10
-      ],
-      "phase": "Afternoon",
-      "location": "gua_tambang"
-    },
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "permukiman_kumuh"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "permukiman_kumuh"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "permukiman_kumuh"
-    }
+    { "days": [], "phase": "Pagi", "location": "permukiman_kumuh" },
+    { "days": [], "phase": "Siang", "location": "permukiman_kumuh" },
+    { "days": [], "phase": "Malam", "location": "permukiman_kumuh" }
   ],
-  "default_dialog": "scene_silas_idle",
-  "str": 23,
-  "cons": 21,
-  "agi": 27,
-  "intl": 44,
-  "wis": 43,
-  "max_hp": 210,
-  "max_mp": 340,
-  "level": 12,
-  "magics": [
-    {
-      "id": "mag_fireball",
-      "name": "Fireball",
-      "type": "attacking",
-      "mana_cost": 10,
-      "power": 15,
-      "element": "fire"
-    },
-    {
-      "id": "mag_heal",
-      "name": "Heal",
-      "type": "healing",
-      "mana_cost": 8,
-      "power": 20,
-      "element": "light"
-    },
-    {
-      "id": "mag_great_heal",
-      "name": "Great Heal",
-      "type": "healing",
-      "mana_cost": 25,
-      "power": 100,
-      "element": "light"
-    }
-  ],
-  "special_move": {
-    "id": "sp_arcane_burst",
-    "name": "Arcane Burst",
-    "max_uses_per_day": 2,
-    "power": 120,
-    "element": "light"
-  },
-  "affinity": "light",
-  "weakness": "none"
+  "default_dialog": "dialog_silas_default",
+  "quests": ["quest_gereja_silas_1"],
+  "str": 12, "cons": 12, "agi": 18, "intl": 14, "wis": 10,
+  "level": 6, "max_hp": 120, "max_mp": 60,
+  "magics": [],
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "dagger", "weapon_name": "belati"
 }

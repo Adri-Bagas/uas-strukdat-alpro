@@ -23,7 +23,18 @@
         "value": "Pergilah ke sana. Cari apa pun yang mereka lewatkan. Kalau kamu temukan sesuatu, beri tahu aku."
       }
     ],
-    "on_exit": ["accept_quest quest_stable_investigation"]
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_stable_investigation"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ],
+    "on_exit": []
   },
   {
     "id": "scene_arthur_complete_stable_quest",
@@ -44,5 +55,54 @@
         "value": "Gagak Hitam... Aku sudah menduganya. Kerja bagus. Simpan emas ini, kau akan membutuhkannya."
       }
     ]
+  },
+  {
+    "id": "scene_survei_complete",
+    "on_exit": [
+      "add_gold 50",
+      "add_var trust 5"
+    ],
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Bagaimana hasil penyelidikanmu? Apakah kamu sudah memetakan wilayah-wilayah penting di Nirva?"
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Ya. Aku sudah berkeliling ke berbagai tempat\u2014dari Biara hingga wilayah Outskirts. Beberapa orang tampak memusuhi Valerius, dan yang lain hanya ingin bertahan hidup."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Bagus. Mengetahui wilayah dan faksi adalah langkah pertamamu. Simpan kepingan emas ini untuk persediaan perjalananmu. Kita baru saja memulai."
+      }
+    ]
+  },
+  {
+    "id": "first_enter_kedai_usang",
+    "on_enter": [],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kedai minum usang, remang-remang, dan berbau kayu pinus tua. The Blind Boar terisolasi dari perhatian publik sehingga dihindari oleh otoritas penjaga resmi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di sudut yang remang, terlihat fasilitas untuk memulihkan diri. Tempat ini sangat strategis sebagai safehouse utama."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu dapat menggunakan fasilitas ini untuk beristirahat memulihkan HP/MP, mengubah fase hari, atau berdiskusi taktik dengan pemilik kedai."
+      }
+    ],
+    "choices": []
   }
 ]

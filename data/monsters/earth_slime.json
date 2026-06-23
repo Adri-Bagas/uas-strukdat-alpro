@@ -1,24 +1,26 @@
 {
-  "id": "mon_earth_slime",
-  "name": "Earth Slime",
-  "description": "Slime berbatu yang memiliki kulit keras.",
-  "level": 2,
-  "max_hp": 60,
-  "max_mp": 5,
-  "damage": 7,
-  "agility": 4,
-  "str": 10,
-  "cons": 12,
-  "agi": 4,
-  "intl": 2,
-  "wis": 3,
-  "loot": [
-    {
-      "item_id": "item_stone_heart",
-      "chance": 5
-    }
-  ],
-  "magics": [],
-  "affinity": "earth",
-  "weakness": "wind"
+    "id": "mon_earth_slime",
+    "name": "Earth Slime",
+    "description": "Slime berbatu yang memiliki kulit keras.",
+    "level": 2,
+    "max_hp": 60,
+    "max_mp": 5,
+    "damage": 7,
+    "agility": 4,
+    "str": 10,
+    "cons": 12,
+    "agi": 4,
+    "intl": 2,
+    "wis": 3,
+    "loot": [
+        {
+            "item_id": "item_stone_heart",
+            "chance": 5
+        }
+    ],
+    "magics": [],
+    "affinity": "earth",
+    "weakness": "wind",
+    "weapon_type": "unarmed",
+    "weapon_name": "tubuh keras"
 }

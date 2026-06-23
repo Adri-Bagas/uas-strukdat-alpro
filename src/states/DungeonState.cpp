@@ -4,6 +4,7 @@
 #include "../enums/Element.hpp"
 #include "StatAllocationState.hpp"
 #include "BattleState.hpp"
+#include "InventoryState.hpp"
 #include <ncurses.h>
 #include <random>
 #include <algorithm>
@@ -25,10 +26,12 @@ int get_random_odd(int min_val, int max_val) {
 }
 
 void DungeonState::on_enter() {
+
     // Putar musik dungeon
     engine->get_music_manager().playMusic("dungeon.mp3");
 
-    Logger::log("DungeonState: Generating multi-floor dungeon with random odd dimensions between 20-100...");
+    Utils::Logger::log("DungeonState: Generating multi-floor dungeon with random odd dimensions between 20-100...");
+
     dungeon.clear();
     has_won = false;
     active_tab = 0; // Default to Party tab
@@ -57,6 +60,30 @@ void DungeonState::on_enter() {
     DungeonFloorNode* current_node = dungeon.get_current_node();
     if (current_node) {
         update_visited(current_node->floor);
+    }
+
+    // Lukas marker logic for Floor 2
+    is_lukas_spawned = false;
+    lukas_x = -1; lukas_y = -1;
+    Quest* q2 = engine->get_quests().get_quest("quest_gereja_2");
+    if (q2 && q2->get_state() == QuestState::IN_PROGRESS) {
+        DungeonFloorNode* temp = current_node;
+        while (temp && temp->floor.floor_number != 2) temp = temp->next;
+        if (temp) {
+            std::random_device rd;
+            std::mt19937 gen(rd());
+            std::uniform_int_distribution<> dis_r(1, temp->floor.height - 2);
+            std::uniform_int_distribution<> dis_c(1, temp->floor.width - 2);
+            while (!is_lukas_spawned) {
+                int r = dis_r(gen);
+                int c = dis_c(gen);
+                if (temp->floor.grid[r][c] == 0 && (r != temp->floor.start_r || c != temp->floor.start_c)) { // 0 = Path
+                    lukas_x = c;
+                    lukas_y = r;
+                    is_lukas_spawned = true;
+                }
+            }
+        }
     }
 }
 
@@ -160,19 +187,53 @@ void DungeonState::update_visited(DungeonFloor& floor) {
 }
 
 void DungeonState::handle_input(int ch) {
+    if (ch == KEY_RESIZE) {
+        engine->get_layout().resize();
+        if (current_choice_popup) current_choice_popup->resize();
+        return;
+    }
+
+    if (engine->get_dialogs().has_active_choices()) {
+        int idx = engine->get_dialogs().get_selected_choice_index();
+        int count = engine->get_dialogs().get_active_choices().size();
+        if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
+            idx--;
+            if (idx < 0) idx = count - 1;
+            engine->get_dialogs().set_selected_choice_index(idx);
+        } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
+            idx++;
+            if (idx >= count) idx = 0;
+            engine->get_dialogs().set_selected_choice_index(idx);
+        } else if (ch == '\n' || ch == ' ') {
+            engine->get_dialogs().select_choice(idx, engine);
+            if (!engine->get_dialogs().has_active_choices() && !engine->get_dialogs().has_queued_dialog()) {
+                engine->get_dialogs().set_on_exit({});
+                engine->get_dialogs().set_next_scene("");
+            }
+        }
+        return;
+    }
+
+    if (engine->get_dialogs().has_queued_dialog() || engine->get_dialogs().has_queued_popup()) return;
+
     if (has_won) {
         engine->pop_state();
         return;
     }
 
     if (ch == 'q' || ch == 'Q') {
-        Logger::log("DungeonState: Player chose to forfeit and return to town.");
+        Utils::Logger::log("DungeonState: Player chose to forfeit and return to town.");
         engine->pop_state();
         return;
     }
     
     if (ch == 'c' || ch == 'C') {
         engine->push_state(new StatAllocationState(engine));
+        return;
+    }
+    
+    if (ch == 'i' || ch == 'I') {
+        engine->push_state(new InventoryState(engine));
         return;
     }
 
@@ -204,63 +265,76 @@ void DungeonState::handle_input(int ch) {
         next_c--;
     } else if (ch == KEY_RIGHT || ch == 'd' || ch == 'D') {
         next_c++;
-    } else if (ch == KEY_RESIZE) {
-        engine->get_layout().resize();
     }
 
+    bool moved = false;
     // Verify cell boundaries and ensure the destination is not a wall
     if (next_r >= 0 && next_r < current_floor.height && next_c >= 0 && next_c < current_floor.width) {
         if (current_floor.grid[next_r][next_c] == 0) {
-            bool moved = (current_floor.player_r != next_r || current_floor.player_c != next_c);
+            moved = (current_floor.player_r != next_r || current_floor.player_c != next_c);
             current_floor.player_r = next_r;
             current_floor.player_c = next_c;
             update_visited(current_floor); // Update fog of war
             
-            if (moved && !(next_r == current_floor.exit_r && next_c == current_floor.exit_c) && !(next_r == current_floor.start_r && next_c == current_floor.start_c)) {
-                int encounter_chance = rand() % 100;
-                if (encounter_chance < 10) { // 10% chance to encounter enemies
-                    // Note: Here we could randomize the monster group based on floor depth
-                    // For now, we'll hardcode or random select from a few basic groups
-                    std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
-                    engine->push_state(new BattleState(engine, group));
+            if (moved) {
+                if (is_lukas_spawned && current_floor.floor_number == 2 && current_floor.player_r == lukas_y && current_floor.player_c == lukas_x) {
+                    is_lukas_spawned = false; // Only trigger once
+                    const DialogScene* scene = engine->get_db().get_dialog_scene("scene_dungeon_lukas");
+                    if (scene) {
+                        engine->get_dialogs().start_scene(*scene, engine);
+                    }
                     return;
+                }
+
+                if (!(current_floor.player_r == current_floor.exit_r && current_floor.player_c == current_floor.exit_c) && !(current_floor.player_r == current_floor.start_r && current_floor.player_c == current_floor.start_c)) {
+                    int encounter_chance = rand() % 100;
+                    if (encounter_chance < 10) { // 10% chance to encounter enemies
+                        std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
+                        engine->push_state(new BattleState(engine, group));
+                        return;
+                    }
                 }
             }
         }
     }
 
-    // Check if player reached the exit
-    if (current_floor.player_r == current_floor.exit_r && current_floor.player_c == current_floor.exit_c) {
-        if (current_node->next != nullptr) {
-            dungeon.go_to_next_floor();
-            DungeonFloor& next_floor = dungeon.get_current_node()->floor;
-            next_floor.player_r = next_floor.start_r;
-            next_floor.player_c = next_floor.start_c;
-            update_visited(next_floor);
-            Logger::log("DungeonState: Player descended to Floor " + std::to_string(next_floor.floor_number));
-        } else {
-            has_won = true;
-            Player* p = engine->get_player_manager().get_player();
-            if (p) {
-                p->add_gold(50);
+    // Manual stair interaction instead of automatic
+    if (ch == 'e' || ch == 'E' || ch == '\n') {
+        if (current_floor.player_r == current_floor.exit_r && current_floor.player_c == current_floor.exit_c) {
+            if (current_node->next != nullptr) {
+                dungeon.go_to_next_floor();
+                DungeonFloor& next_floor = dungeon.get_current_node()->floor;
+                next_floor.player_r = next_floor.start_r;
+                next_floor.player_c = next_floor.start_c;
+                update_visited(next_floor);
+                Utils::Logger::log("DungeonState: Player descended to Floor " + std::to_string(next_floor.floor_number));
+            } else {
+                has_won = true;
+                Player* p = engine->get_player_manager().get_player();
+                if (p) p->add_gold(50);
+                Utils::Logger::log("DungeonState: Player cleared the final floor and won the dungeon!");
             }
-            Logger::log("DungeonState: Player cleared the final floor and won the dungeon!");
         }
-    }
-    // Check if player reached the start/entrance (to go back up)
-    else if (current_floor.player_r == current_floor.start_r && current_floor.player_c == current_floor.start_c) {
-        if (current_node->prev != nullptr) {
-            dungeon.go_to_prev_floor();
-            DungeonFloor& prev_floor = dungeon.get_current_node()->floor;
-            prev_floor.player_r = prev_floor.exit_r;
-            prev_floor.player_c = prev_floor.exit_c;
-            update_visited(prev_floor);
-            Logger::log("DungeonState: Player ascended back to Floor " + std::to_string(prev_floor.floor_number));
+        else if (current_floor.player_r == current_floor.start_r && current_floor.player_c == current_floor.start_c) {
+            if (current_node->prev != nullptr) {
+                dungeon.go_to_prev_floor();
+                DungeonFloor& prev_floor = dungeon.get_current_node()->floor;
+                prev_floor.player_r = prev_floor.exit_r;
+                prev_floor.player_c = prev_floor.exit_c;
+                update_visited(prev_floor);
+                Utils::Logger::log("DungeonState: Player ascended back to Floor " + std::to_string(prev_floor.floor_number));
+            }
         }
     }
 }
 
 void DungeonState::update() {
+    if (engine->get_dialogs().has_queued_dialog()) {
+        process_dialogue_queue();
+        if (!engine->get_dialogs().has_queued_dialog()) {
+            handle_post_dialogue();
+        }
+    }
 }
 
 void DungeonState::render() {
@@ -348,7 +422,7 @@ void DungeonState::render() {
         engine->get_layout().draw_title(win, "Dungeon", wx, 4);
         wattroff(win, COLOR_PAIR(4) | A_BOLD);
 
-        int view_h = (wy - 2) / 2;
+        int view_h = wy - 2;
         int view_w = (wx - 2) / 2;
 
         int pr = current_floor.player_r;
@@ -360,13 +434,8 @@ void DungeonState::render() {
         // Clamp camera to boundaries
         if (camera_r < 0) camera_r = 0;
         if (camera_c < 0) camera_c = 0;
-        if (camera_r + view_h > current_floor.height) camera_r = current_floor.height - view_h;
-        if (camera_c + view_w > current_floor.width) camera_c = current_floor.width - view_w;
-
-        if (camera_r < 0) camera_r = 0;
-        if (camera_c < 0) camera_c = 0;
-
-        int start_draw_h = view_h / 2;
+        if (camera_r + view_h > current_floor.height) camera_r = std::max(0, current_floor.height - view_h);
+        if (camera_c + view_w > current_floor.width) camera_c = std::max(0, current_floor.width - view_w);
 
         for (int vr = 0; vr < view_h; ++vr) {
             int r = camera_r + vr;
@@ -376,13 +445,17 @@ void DungeonState::render() {
                 int c = camera_c + vc;
                 if (c >= current_floor.width) break;
 
-                int draw_y = start_draw_h + 1 + vr;
+                int draw_y = 1 + vr;
                 int draw_x = 1 + (vc * 2);
 
                 if (r == pr && c == pc) {
                     wattron(win, COLOR_PAIR(4) | A_BOLD);
                     mvwprintw(win, draw_y, draw_x, "@ ");
                     wattroff(win, COLOR_PAIR(4) | A_BOLD);
+                } else if (is_lukas_spawned && current_floor.floor_number == 2 && r == lukas_y && c == lukas_x) {
+                    wattron(win, COLOR_PAIR(5) | A_BOLD);
+                    mvwprintw(win, draw_y, draw_x, "? ");
+                    wattroff(win, COLOR_PAIR(5) | A_BOLD);
                 } else if (r == current_floor.exit_r && c == current_floor.exit_c) {
                     wattron(win, COLOR_PAIR(5) | A_BOLD);
                     if (current_node->next != nullptr) {
@@ -406,6 +479,22 @@ void DungeonState::render() {
                 }
             }
         }
+
+        // Draw Interaction Hint if on stairs
+        if (pr == current_floor.exit_r && pc == current_floor.exit_c) {
+            wattron(win, COLOR_PAIR(5) | A_BOLD);
+            if (current_node->next != nullptr) {
+                mvwprintw(win, wy - 1, 2, " [E/Enter] Turun Lantai ");
+            } else {
+                mvwprintw(win, wy - 1, 2, " [E/Enter] Keluar Dungeon ");
+            }
+            wattroff(win, COLOR_PAIR(5) | A_BOLD);
+        } else if (pr == current_floor.start_r && pc == current_floor.start_c && current_node->prev != nullptr) {
+            wattron(win, COLOR_PAIR(4) | A_BOLD);
+            mvwprintw(win, wy - 1, 2, " [E/Enter] Naik Lantai ");
+            wattroff(win, COLOR_PAIR(4) | A_BOLD);
+        }
+
         wnoutrefresh(win);
     }
 
@@ -434,6 +523,29 @@ void DungeonState::render() {
             wrefresh(pop_win);
             delwin(pop_win);
         }
+    }
+
+    // Render Choice Popup
+    if (engine->get_dialogs().has_active_choices()) {
+        if (!current_choice_popup) {
+            auto log = engine->get_dialogs().get_combined_log();
+            std::string latest_dialog = "(Pilih Salah Satu)";
+            for (auto it = log.rbegin(); it != log.rend(); ++it) {
+                if (it->value != "--------------------------------") {
+                    latest_dialog = it->value;
+                    if (!it->npc_name.empty()) {
+                        latest_dialog = "[" + it->npc_name + "]: " + latest_dialog;
+                    }
+                    break;
+                }
+            }
+            current_choice_popup = std::make_unique<Utils::ChoicePopup>(latest_dialog, engine->get_dialogs().get_active_choices(), engine->get_dialogs().get_selected_choice_index());
+        } else {
+            current_choice_popup->set_selected_index(engine->get_dialogs().get_selected_choice_index());
+        }
+        current_choice_popup->render();
+    } else {
+        if (current_choice_popup) current_choice_popup.reset();
     }
 }
 
@@ -573,6 +685,10 @@ void DungeonState::render_map_tab(WINDOW* win, const DungeonFloor& floor) {
                     wattron(win, COLOR_PAIR(4) | A_BOLD);
                     mvwprintw(win, draw_y, draw_x, "@ ");
                     wattroff(win, COLOR_PAIR(4) | A_BOLD);
+                } else if (is_lukas_spawned && floor.floor_number == 2 && r == lukas_y && c == lukas_x) {
+                    wattron(win, COLOR_PAIR(5) | A_BOLD);
+                    mvwprintw(win, draw_y, draw_x, "? ");
+                    wattroff(win, COLOR_PAIR(5) | A_BOLD);
                 } else if (r == floor.exit_r && c == floor.exit_c) {
                     wattron(win, COLOR_PAIR(5) | A_BOLD);
                     if (dungeon.get_current_node()->next != nullptr) {
@@ -597,6 +713,39 @@ void DungeonState::render_map_tab(WINDOW* win, const DungeonFloor& floor) {
             } else {
                 mvwprintw(win, draw_y, draw_x, "  ");
             }
+        }
+    }
+}
+
+void DungeonState::process_dialogue_queue() {
+    DialogNode node = engine->get_dialogs().pop_dialog();
+    if (node.type == 1 || node.type == 2) {
+        engine->get_layout().type_new_text(engine->get_layout().win_dialog, "Dialog", engine->get_layout().w_left, engine->get_dialogs().get_combined_log(), node);
+        if (node.type == 1) engine->get_dialogs().add_dialog(node);
+        else engine->get_dialogs().add_thought(node);
+    } else if (node.type == 3) {
+        engine->get_dialogs().queue_popup(node.value); engine->get_dialogs().add_popup(node);
+    }
+    this->render();
+}
+
+void DungeonState::handle_post_dialogue() {
+    DialogNode separator {"--------------------------------", "", 0};
+    engine->get_dialogs().add_dialog(separator);
+
+    for (const auto& action : engine->get_dialogs().get_on_exit()) engine->get_actions().execute(action);
+
+    if (engine->get_dialogs().has_pending_choices()) {
+        engine->get_dialogs().activate_choices(engine);
+    } else {
+        std::string next_id = engine->get_dialogs().get_next_scene();
+        if (!next_id.empty()) {
+            const DialogScene* next_scene = engine->get_db().get_dialog_scene(next_id);
+            if (next_scene) {
+                engine->get_dialogs().start_scene(*next_scene, engine);
+            }
+        } else {
+            engine->get_dialogs().set_on_exit({}); engine->get_dialogs().set_next_scene("");
         }
     }
 }

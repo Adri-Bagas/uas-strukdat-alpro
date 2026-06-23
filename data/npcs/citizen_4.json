@@ -1,42 +1,40 @@
 {
-  "id": "npc_citizen_4",
-  "name": "Pengemis Tua",
-  "full_name": "Mantan Penambang yang Terlupakan",
-  "type": "unnamed",
-  "role": "Citizen",
-  "faction": "Commoners",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "permukiman_kumuh"
-    }
-  ],
-  "default_dialog": "scene_beggar_idle",
-  "str": 12,
-  "cons": 11,
-  "agi": 13,
-  "intl": 10,
-  "wis": 12,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 2,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_citizen_4",
+    "name": "Pengemis Tua",
+    "full_name": "Mantan Penambang yang Terlupakan",
+    "type": "unnamed",
+    "role": "Citizen",
+    "faction": "Commoners",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "jalanan_utama_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "jalanan_utama_kota"
+        }
+    ],
+    "default_dialog": "scene_beggar_idle",
+    "str": 12,
+    "cons": 11,
+    "agi": 13,
+    "intl": 10,
+    "wis": 12,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 2,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "unarmed",
+    "weapon_name": "tangan kosong",
+    "first_dialog": "scene_unnamed_first_meet"
 }

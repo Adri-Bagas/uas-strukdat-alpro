@@ -1,10 +1,13 @@
 {
   "id": "pasar_kota",
   "name": "Pasar Kota & Distrik Dagang",
-  "on_first_enter": "",
+  "on_first_enter": "hub_pasar_kota",
   "on_enter": "",
   "walkable": {
-    "west": "alun_alun"
+    "west": "alun_alun",
+    "north": "blacksmith_budi",
+    "east": "restoran_warteg",
+    "south": "magic_book_store"
   },
   "activities": []
 }

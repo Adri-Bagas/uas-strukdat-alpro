@@ -1,0 +1,31 @@
+{
+  "id": "quest_gereja_silas_1",
+  "name": "Informasi Berharga",
+  "description": "Dapatkan Bukti Gagak dari Anggota Sindikat di Jalanan Barat Kota untuk Silas.",
+  "target_npc_id": "npc_silas",
+  "target_location_id": "jalanan_barat_kota",
+  "location_trigger_scene": "scene_silas_target",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_1_complete",
+      "value": 1
+    }
+  ],
+  "completion_condition": {
+    "type": "has_item",
+    "key": "bukti_gagak",
+    "value": 1
+  },
+  "start_scene_id": "dialog_silas_q1_start",
+  "complete_scene_id": "selesai_silas_1",
+  "on_complete": [
+    "give_item leather_boots 1",
+    "set_var quest_silas_1_complete 1"
+  ],
+  "source_npc_id": "npc_silas",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_silas_1"
+  }
+}

@@ -1,49 +1,19 @@
 {
   "id": "npc_kael",
-  "name": "Kael",
-  "full_name": "High Priest Kaelen 'The Radiant' Lux",
+  "name": "High Priest Kael",
   "type": "named",
-  "role": "Pemilik Gereja Cahaya",
-  "faction": "Gereja Cahaya",
+  "role": "Pemimpin Biara",
+  "faction": "Neutral",
   "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "balai_kota"
-    }
+    { "days": [], "phase": "Pagi", "location": "biara" },
+    { "days": [], "phase": "Siang", "location": "biara" },
+    { "days": [], "phase": "Malam", "location": "biara" }
   ],
-  "default_dialog": "scene_kael_idle",
-  "str": 26,
-  "cons": 32,
-  "agi": 36,
-  "intl": 45,
-  "wis": 55,
-  "max_hp": 320,
-  "max_mp": 250,
-  "level": 15,
+  "default_dialog": "dialog_kael_default",
+  "quests": ["quest_gereja_kael_1"],
+  "str": 10, "cons": 10, "agi": 10, "intl": 20, "wis": 20,
+  "level": 10, "max_hp": 200, "max_mp": 200,
   "magics": [],
-  "special_move": {
-    "id": "sp_heroic_blow",
-    "name": "Heroic Blow",
-    "max_uses_per_day": 1,
-    "power": 50,
-    "element": "none"
-  },
-  "affinity": "none",
-  "weakness": "none"
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "staff", "weapon_name": "tongkat suci"
 }

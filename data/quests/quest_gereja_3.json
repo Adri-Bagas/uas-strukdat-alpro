@@ -1,0 +1,31 @@
+{
+  "id": "quest_gereja_3",
+  "name": "Pertahankan Biara",
+  "description": "Sekelompok Orc menyerang Biara Cahaya. Kalahkan mereka di Alun-Alun Kota.",
+  "target_npc_id": "npc_andreas",
+  "target_location_id": "alun_alun",
+  "location_trigger_scene": "scene_defend_biara",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_2_complete",
+      "value": 1
+    }
+  ],
+  "completion_condition": {
+    "type": "var_equal",
+    "key": "quest_gereja_3_defended",
+    "value": 1
+  },
+  "start_scene_id": "dialog_andreas_q3_start",
+  "complete_scene_id": "selesai_gereja_3",
+  "on_complete": [
+    "give_item iron_sword 1",
+    "set_var quest_gereja_3_complete 1"
+  ],
+  "source_npc_id": "npc_andreas",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_3"
+  }
+}

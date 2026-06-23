@@ -1,42 +1,40 @@
 {
-  "id": "npc_guard_3",
-  "name": "Patroli Malam",
-  "full_name": "Prajurit Shift Malam",
-  "type": "unnamed",
-  "role": "Guard",
-  "faction": "Penjaga Kota",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "jalanan_utama_kota"
-    }
-  ],
-  "default_dialog": "scene_guard_patrol_idle",
-  "str": 10,
-  "cons": 12,
-  "agi": 14,
-  "intl": 13,
-  "wis": 11,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 1,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_guard_3",
+    "name": "Patroli Malam",
+    "full_name": "Prajurit Shift Malam",
+    "type": "unnamed",
+    "role": "Guard",
+    "faction": "Penjaga Kota",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "jalanan_utama_kota"
+        }
+    ],
+    "default_dialog": "scene_guard_patrol_idle",
+    "str": 10,
+    "cons": 12,
+    "agi": 14,
+    "intl": 13,
+    "wis": 11,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 1,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "sword",
+    "weapon_name": "tombak penjaga",
+    "first_dialog": "scene_unnamed_first_meet"
 }

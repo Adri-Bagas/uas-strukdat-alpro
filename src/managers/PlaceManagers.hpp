@@ -94,7 +94,7 @@ public:
                 if (q && (q->get_state() == QuestState::AVAILABLE || q->get_state() == QuestState::IN_PROGRESS) &&
                     q->get_target_npc_id() == npc->get_id()) {
                     
-                    Place* quest_place = get_place(q->get_target_location());
+                    Place* quest_place = get_place(q->get_target_location_id());
                     if (quest_place) {
                         quest_place->add_npc(npc);
                     }

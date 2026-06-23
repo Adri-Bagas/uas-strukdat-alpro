@@ -1,0 +1,28 @@
+{
+  "id": "mob_bfb_04",
+  "name": "Assasin Taring Darah",
+  "description": "Pembunuh bayaran terlatih dari Klan Taring Darah.",
+  "level": 10,
+  "max_hp": 25,
+  "max_mp": 20,
+  "damage": 8,
+  "agility": 6,
+  "str": 15,
+  "cons": 12,
+  "agi": 16,
+  "intl": 10,
+  "wis": 10,
+  "gold_drop": 8,
+  "exp_drop": 15,
+  "loot": [
+    {
+      "item_id": "item_burial_map",
+      "chance": 100
+    }
+  ],
+  "magics": [],
+  "weapon_type": "dagger",
+  "weapon_name": "pisau belati",
+  "affinity": "none",
+  "weakness": "none"
+}

@@ -1,0 +1,11 @@
+{
+    "id": "food_sate_ayam",
+    "name": "Sate Ayam Madura",
+    "description": "Sate dengan bumbu kacang yang gurih. Memulihkan 30 HP dan 20 MP.",
+    "type": "consumable",
+    "value": 25,
+    "on_use": [
+        "add_hp 30",
+        "add_mp 20"
+    ]
+}

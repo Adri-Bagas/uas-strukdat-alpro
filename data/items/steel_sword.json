@@ -1,0 +1,12 @@
+{
+    "id": "steel_sword",
+    "name": "Steel Sword",
+    "description": "Pedang baja yang tajam dan tangguh.",
+    "type": "equipment",
+    "value": 150,
+    "equip_slot": "weapon",
+    "equip_stats": {
+        "str": 15,
+        "agi": 2
+    }
+}

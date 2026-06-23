@@ -2,7 +2,6 @@
 #include "./managers/DialogManagers.hpp"
 #include "./states/GameState.hpp"
 #include "./views/MainPage.hpp"
-#include "states/TownState.hpp"
 #include "states/StartState.hpp"
 #include "./utils/Logger.hpp"
 #include "./utils/components/ErrorPopup.hpp"
@@ -21,7 +20,14 @@ void GameEngine::init() {
     nodelay(stdscr, TRUE);
     refresh();
 
-    calendar.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
+    calendar.set_engine(this);
+    calendar.on_popup = [this](const std::string& msg) {
+        dialogs.queue_popup(msg);
+    };
+
+    calendar.on_day_advanced = [this](int day_of_week) {
+        shop_manager.process_daily_restock(db, day_of_week);
+    };
     places.on_popup = [this](const std::string& msg){ dialogs.queue_popup(msg); };
 
     start_color();
@@ -38,6 +44,8 @@ void GameEngine::init() {
     db.load_npcs("data/npcs");
     db.load_monsters("data/monsters");
     db.load_quests("data/quests");
+    db.load_shops("data/shops");
+    shop_manager.init_from_db(db);
 
     for (auto* p_const : db.get_all_places()) {
         places.add_place(const_cast<Place*>(p_const));
@@ -55,64 +63,68 @@ void GameEngine::init() {
     // places.set_current_place("kandang_kuda");
 
     player_manager.init_player("hero", "Nirva Hero");
-    // For testing: add party members
-    if (auto arthur = db.get_npc("npc_arthur")) player_manager.add_ally(*arthur);
-    if (auto silas = db.get_npc("npc_silas")) player_manager.add_ally(*silas);
 
-    // Add dummy skills for testing
-    Player* p = player_manager.get_player();
-    p->set_max_mp(100);
-    p->restore_mp(100);
-    
-    Magic fire;
-    fire.id = "fire_1";
-    fire.name = "Fireball";
-    fire.type = MagicType::ATTACKING;
-    fire.mana_cost = 15;
-    fire.power = 40;
-    p->add_magic(fire);
-
-    Magic heal;
-    heal.id = "heal_1";
-    heal.name = "Minor Heal";
-    heal.type = MagicType::HEALING;
-    heal.mana_cost = 10;
-    heal.power = 30;
-    p->add_magic(heal);
-
-    SpecialMove slash;
-    slash.id = "slash_1";
-    slash.name = "Cross Slash";
-    slash.max_uses_per_day = 3;
-    slash.power = 80;
-    p->set_special_move(slash);
 
     push_state(new StartState(this));
 } // Setup ncurses, set initial state
 
 void GameEngine::push_state(GameState *new_state) {
-    state_stack.push(std::unique_ptr<GameState>(new_state));
-    state_stack.top()->on_enter();
+    pending_ops.push_back({StateOp::PUSH, std::unique_ptr<GameState>(new_state)});
+}
+
+void GameEngine::change_state(GameState *new_state) {
+    pending_ops.push_back({StateOp::CHANGE, std::unique_ptr<GameState>(new_state)});
 }
 
 // Removes top state, returning to the one below it.
 void GameEngine::pop_state() {
-    if (!state_stack.empty()) {
-        state_stack.top()->on_exit();
-        state_stack.pop();
-        
-        if (!state_stack.empty()) {
-            state_stack.top()->on_resume();
+    pending_ops.push_back({StateOp::POP, nullptr});
+}
+
+void GameEngine::process_state_operations() {
+    if (pending_ops.empty()) return;
+    
+    std::vector<StateOp> ops = std::move(pending_ops);
+    pending_ops.clear();
+    
+    for (auto& op : ops) {
+        if (op.type == StateOp::PUSH) {
+            state_stack.push(std::move(op.state));
+            state_stack.top()->on_enter();
+        } else if (op.type == StateOp::POP) {
+            if (!state_stack.empty()) {
+                state_stack.top()->on_exit();
+                state_stack.pop();
+            }
+        } else if (op.type == StateOp::CHANGE) {
+            while (!state_stack.empty()) {
+                state_stack.top()->on_exit();
+                state_stack.pop();
+            }
+            if (op.state) {
+                state_stack.push(std::move(op.state));
+                state_stack.top()->on_enter();
+            }
         }
     }
 }
+
+void GameEngine::show_popup(std::unique_ptr<Utils::Popup> popup) {
+    active_popup = std::move(popup);
+}
+
 void GameEngine::run() {
-    Logger::log("Engine: Starting run loop.");
+    Utils::Logger::log("Engine: Starting run loop.");
     try {
+        process_state_operations();
         while (is_running && !state_stack.empty()) {
             int ch = getch();
 
             if (ch == KEY_RESIZE) {
+                endwin();
+                refresh();
+                clear();
+                
                 state_stack.top()->handle_input(ch);
                 if (active_popup) active_popup->handle_input(ch);
             }
@@ -124,15 +136,19 @@ void GameEngine::run() {
                     active_popup.reset();
                 }
             } else if (dialogs.has_queued_popup()) {
-                auto popup_data = dialogs.pop_popup();
-                active_popup = std::make_unique<Popup>(popup_data.first);
-                // Assign to all popups 
-                active_popup->on_type_start = [this]() {
-                    this->get_music_manager().startTypingSfx("typingText.mp3");
-                };
-                active_popup->on_type_stop = [this]() {
-                    this->get_music_manager().stopTypingSfx();
-                };
+// <<<<<<< feature/music-manager
+//                 auto popup_data = dialogs.pop_popup();
+//                 active_popup = std::make_unique<Popup>(popup_data.first);
+//                 // Assign to all popups 
+//                 active_popup->on_type_start = [this]() {
+//                     this->get_music_manager().startTypingSfx("typingText.mp3");
+//                 };
+//                 active_popup->on_type_stop = [this]() {
+//                     this->get_music_manager().stopTypingSfx();
+//                 };
+// =======
+//                 active_popup = std::make_unique<Utils::Popup>(dialogs.pop_popup());
+// >>>>>>> main
             } else {
                 if (ch != KEY_RESIZE) state_stack.top()->handle_input(ch);
                 state_stack.top()->update();
@@ -145,15 +161,17 @@ void GameEngine::run() {
 
             doupdate();
 
+            process_state_operations();
+
             napms(24);
         }
     } catch (const std::exception& e) {
-        Logger::log("ENGINE FATAL EXCEPTION: " + std::string(e.what()));
-        ErrorPopup err("Unexpected Engine Error: " + std::string(e.what()));
+        Utils::Logger::log("ENGINE FATAL EXCEPTION: " + std::string(e.what()));
+        Utils::ErrorPopup err("Unexpected Engine Error: " + std::string(e.what()));
         err.show_fatal();
     } catch (...) {
-        Logger::log("ENGINE FATAL EXCEPTION: Unknown error");
-        ErrorPopup err("Unexpected Engine Error: Unknown");
+        Utils::Logger::log("ENGINE FATAL EXCEPTION: Unknown error");
+        Utils::ErrorPopup err("Unexpected Engine Error: Unknown");
         err.show_fatal();
     }
 }
@@ -194,6 +212,8 @@ Action &GameEngine::get_actions() {
     return actions;
 }
 
+ShopManager& GameEngine::get_shop_manager() { return shop_manager; }
+LogManager& GameEngine::get_log_manager() { return log_manager; }
 void GameEngine::quit() {
     is_running = false;
 }

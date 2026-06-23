@@ -2,6 +2,8 @@
 #include <ncurses.h>
 #include <cstdlib>
 
+namespace Utils {
+
 ErrorPopup::ErrorPopup(const std::string &error_msg) 
     : Popup("FATAL ERROR: " + error_msg + " [Press any key to exit]") {
 }
@@ -27,3 +29,4 @@ void ErrorPopup::show_fatal() {
     endwin();
     exit(1);
 }
+} // namespace Utils

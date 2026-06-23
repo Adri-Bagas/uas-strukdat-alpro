@@ -1,0 +1,50 @@
+{
+  "id": "npc_hugo",
+  "name": "Hugo",
+  "full_name": "Hugo",
+  "type": "named",
+  "role": "Pedagang Kios Sayur",
+  "faction": "Commoners",
+  "schedules": [
+    {
+      "days": [],
+      "phase": "Pagi",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Siang",
+      "location": "pasar_kota"
+    },
+    {
+      "days": [],
+      "phase": "Malam",
+      "location": "alun_alun"
+    }
+  ],
+  "default_dialog": "scene_hugo_idle",
+  "quests": [
+    "quest_timbangan"
+  ],
+  "str": 15,
+  "cons": 15,
+  "agi": 15,
+  "intl": 12,
+  "wis": 14,
+  "max_hp": 150,
+  "max_mp": 80,
+  "level": 3,
+  "magics": [],
+  "special_move": {
+    "id": "none",
+    "name": "none",
+    "max_uses_per_day": 0,
+    "power": 0,
+    "element": "none"
+  },
+  "weapon_type": "unarmed",
+  "weapon_name": "tangan kosong",
+  "affinity": "none",
+  "weakness": "none",
+  "first_dialog": "scene_hugo_first_meet"
+}

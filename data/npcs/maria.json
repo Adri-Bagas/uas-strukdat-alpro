@@ -1,0 +1,19 @@
+{
+  "id": "npc_maria",
+  "name": "Maria",
+  "type": "named",
+  "role": "Relawan dapur umum biara",
+  "faction": "Neutral",
+  "schedules": [
+    { "days": [], "phase": "Pagi", "location": "biara" },
+    { "days": [], "phase": "Siang", "location": "biara" },
+    { "days": [], "phase": "Malam", "location": "biara" }
+  ],
+  "default_dialog": "dialog_maria_default",
+  "quests": ["quest_gereja_1"],
+  "str": 1, "cons": 1, "agi": 1, "intl": 1, "wis": 1,
+  "level": 1, "max_hp": 10, "max_mp": 10,
+  "magics": [],
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "unarmed", "weapon_name": "tangan kosong"
+}

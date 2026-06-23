@@ -1,0 +1,113 @@
+[
+  {
+    "id": "scene_arthur_first_meet",
+    "text": "Pria berwajah datar itu menatapmu dengan dingin sambil mengelap gelas kayunya. 'Pendatang baru. Jangan buat kekacauan di kedaiku.'",
+    "speaker": "Arthur",
+    "choices": [
+      {
+        "text": "Aku hanya mencari tempat istirahat.",
+        "next_scene": "scene_arthur_first_meet_2"
+      }
+    ]
+  },
+  {
+    "id": "scene_arthur_first_meet_2",
+    "text": "'Istirahatlah. Tapi jangan harap kau menemukan kedamaian di Nirva.' Pria itu kembali fokus pada pekerjaannya tanpa memedulikanmu.",
+    "speaker": "Arthur"
+  },
+  {
+    "id": "scene_valerius_first_meet",
+    "text": "Pria berpakaian mewah itu tersenyum tipis ke arahmu, nadanya halus namun merendahkan. 'Ah, sang buronan. Aku Valerius, Guildmaster kota ini. Semoga kau bisa menikmati sisa waktumu di Nirva dengan bijak sebelum Inquisitor tiba.'",
+    "speaker": "Valerius"
+  },
+  {
+    "id": "scene_garrick_first_meet",
+    "text": "Prajurit itu menatapmu dengan tajam, kantung matanya terlihat jelas di balik helmnya. 'Aku Kapten Garrick. Gelang di tanganmu itu sudah cukup membuktikan siapa dirimu. Jika kau melanggar hukum kota ini, kau akan berurusan denganku.'",
+    "speaker": "Garrick"
+  },
+  {
+    "id": "scene_silas_first_meet",
+    "text": "Pria lusuh di sudut gelap itu terkekeh pelan. 'Hehe... Wajah baru. Panggil saja aku Silas, Si Tikus. Jika kau butuh... barang khusus, kau tahu harus mencari siapa. Tentu saja, dengan harga yang pantas.'",
+    "speaker": "Silas"
+  },
+  {
+    "id": "scene_kael_first_meet",
+    "text": "Pendeta Tinggi itu memandangmu dari atas ke bawah dengan tatapan menghakimi yang tertutup senyum anggun. 'Cahaya memberkatimu, anakku. Aku Kael. Gelang di tanganmu itu... semoga menjadi pengingat suci untuk tidak mengulangi dosamu.'",
+    "speaker": "Kael"
+  },
+  {
+    "id": "scene_elara_first_meet",
+    "text": "Pendeta muda itu tampak sangat gugup melihatmu dan terus menghindari kontak mata. 'M-maaf. A-aku Elara. Tolong... jangan buat keributan di perpustakaan kuil.'",
+    "speaker": "Elara"
+  },
+  {
+    "id": "scene_vane_first_meet",
+    "text": "Pria itu berdiri tegak, tatapannya sedingin es. Aura otoriternya sangat mencekik. 'Aku Lord Inquisitor Vane. Aku tidak punya waktu untuk basa-basi. Keadilan kekaisaran mutlak, dan gerak-gerikmu sedang dalam pengawasanku yang ketat.'",
+    "speaker": "Vane"
+  },
+  {
+    "id": "scene_unnamed_first_meet",
+    "text": "Oh, wajah baru? Kuharap kau tidak membawa masalah ke tempat ini...",
+    "speaker": "Penduduk"
+  },
+  {
+    "id": "scene_andreas_first_meet",
+    "text": "Pria tua berjubah sederhana itu tersenyum ramah. 'Ah, saudara. Selamat datang di Biara. Aku Andreas. Semoga Cahaya selalu menerangi jalanmu.'",
+    "speaker": "Andreas"
+  },
+  {
+    "id": "scene_maria_first_meet",
+    "text": "Wanita paruh baya itu membersihkan tangannya yang kotor oleh debu. 'Halo. Aku Maria. Kami selalu membutuhkan bantuan ekstra di sini, jika kau tertarik.'",
+    "speaker": "Maria"
+  },
+  {
+    "id": "scene_bara_first_meet",
+    "text": "Pria berwajah keras itu menyilangkan lengannya, menatapmu curiga. 'Orang baru, ya? Aku Bara. Jangan coba-coba cari masalah dengan wargaku.'",
+    "speaker": "Bara"
+  },
+  {
+    "id": "scene_bjorn_first_meet",
+    "text": "Pria besar berotot itu menggebrak meja sambil tertawa keras. 'Hahaha! Aku Bjorn, pemimpin Taring Darah! Kalau kau punya nyali, bergabunglah dengan kami!'",
+    "speaker": "Bjorn"
+  },
+  {
+    "id": "scene_hugo_first_meet",
+    "text": "Pedagang sayur itu melambaikan tangannya ke arahmu. 'Sayur segar! Sayur segar! Aku Hugo, jangan ragu untuk melihat-lihat daganganku!'",
+    "speaker": "Hugo"
+  },
+  {
+    "id": "scene_tara_first_meet",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di sudut yang agak sepi, seorang pedagang—??? (Pedagang Kaki Lima)—baru saja selesai bertransaksi dengan pelanggan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Tiba-tiba, terdengar suara sepatu besi berderap mendekat. Dua anggota Pasukan Gagak Hitam sedang melakukan patroli rutin untuk merazia pedagang tanpa izin resmi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Wajah pedagang kaki lima itu pucat pasi. Ia memiliki satu karung persediaan makanan yang belum disembunyikan."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Kalau mereka melihat karung itu, pedagang itu pasti ditangkap, pikirku."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Bantu pedagang menyembunyikan karung",
+        "next_scene": "side_bantu_tara"
+      },
+      {
+        "text": "Diam saja dan pura-pura membeli barang resmi",
+        "next_scene": "side_abaikan_tara"
+      }
+    ]
+  }
+]

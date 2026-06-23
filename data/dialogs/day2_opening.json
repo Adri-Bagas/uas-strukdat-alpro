@@ -157,6 +157,16 @@
       },
       {
         "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Kau pikir aku akan memanggil pasukan untuk menangkapmu sekarang? Hahaha... Buat apa repot-repot? Gelang Penjara Suci di pergelangan tanganmu itu memastikan kau tidak bisa melarikan diri dari Nirva."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_valerius",
+        "value": "Lagipula, melihat seekor tikus kecil berkeliaran putus asa mencari bukti yang tidak ada sebelum hari gantungannya adalah hiburan yang luar biasa bagi rakyat Nirva. Itu adalah propaganda bagus untuk pengambilalihan kekuasaanku."
+      },
+      {
+        "type": 1,
         "npc_name": "npc_arthur",
         "value": "Dia tidak ada hubungannya dengan urusan kita. Keluar dari sini."
       },
@@ -201,7 +211,8 @@
         "npc_name": "Hero",
         "value": "Kau terdiam sejenak, melihat kekacauan di kedai ini dan rahasia besar yang baru saja kau ketahui tentang masa lalu Arthur."
       }
-    ]
+    ],
+    "next_scene": "quest_survei_intro"
   },
   {
     "id": "cutscene_19",
@@ -215,6 +226,41 @@
         "type": 1,
         "npc_name": "npc_arthur",
         "value": "Tiga belas hari bukan waktu yang lama... Jadi, apa yang mau kau lakukan sekarang?"
+      }
+    ],
+    "next_scene": "quest_survei_intro"
+  },
+  {
+    "id": "quest_survei_intro",
+    "on_enter": [],
+    "on_exit": [
+      "accept_quest quest_survei_kota"
+    ],
+    "nodes": [
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Aku harus mencari bukti untuk membersihkan namaku. Tapi kota ini sangat luas, dan penjaga Valerius ada di mana-mana. Dari mana aku harus mulai?"
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Valerius tidak mengendalikan seluruh kota. Warga biasa, kaum tertindas, dan bahkan beberapa faksi di dalam kuil membencinya."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Pergilah dan petakan wilayah kota. Kunjungi setidaknya delapan area penting di Nirva—seperti Biara Cahaya, Pasar, Permukiman Kumuh, bahkan Balai Kota jika kau berani."
+      },
+      {
+        "type": 1,
+        "npc_name": "npc_arthur",
+        "value": "Temui orang-orang di sana dan pelajari situasi mereka. Begitu kamu selesai mengamati tempat-tempat tersebut, lapor kembali padaku."
+      },
+      {
+        "type": 2,
+        "npc_name": "Hero",
+        "value": "Baiklah. Aku akan memetakan kota ini dan mencari sekutu potensial."
       }
     ]
   }

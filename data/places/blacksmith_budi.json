@@ -1,0 +1,28 @@
+{
+    "id": "blacksmith_budi",
+    "name": "Pandai Besi Budi",
+    "on_first_enter": "sh_blacksmith_dialog_FIRST",
+    "on_enter": "",
+    "walkable": {
+        "south": "pasar_kota"
+    },
+    "activities": [
+        {
+            "id": "shop_blacksmith",
+            "name": "Beli Senjata & Zirah",
+            "time_cost": 0,
+            "schedule": {
+                "days": [],
+                "phases": [
+                    "Pagi",
+                    "Siang",
+                    "Sore"
+                ]
+            },
+            "dialogs": {},
+            "on_execute": [
+                "open_shop sh_blacksmith"
+            ]
+        }
+    ]
+}

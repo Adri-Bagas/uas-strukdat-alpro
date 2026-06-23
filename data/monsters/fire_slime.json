@@ -1,33 +1,35 @@
 {
-  "id": "mon_fire_slime",
-  "name": "Fire Slime",
-  "description": "Slime yang terbakar dan sangat panas untuk disentuh.",
-  "level": 2,
-  "max_hp": 40,
-  "max_mp": 15,
-  "damage": 6,
-  "agility": 9,
-  "str": 8,
-  "cons": 8,
-  "agi": 9,
-  "intl": 6,
-  "wis": 4,
-  "loot": [
-    {
-      "item_id": "item_fire_core",
-      "chance": 10
-    }
-  ],
-  "magics": [
-    {
-      "id": "mag_fireball",
-      "name": "Fireball",
-      "type": "attacking",
-      "mana_cost": 10,
-      "power": 15,
-      "element": "fire"
-    }
-  ],
-  "affinity": "fire",
-  "weakness": "water"
+    "id": "mon_fire_slime",
+    "name": "Fire Slime",
+    "description": "Slime yang terbakar dan sangat panas untuk disentuh.",
+    "level": 2,
+    "max_hp": 40,
+    "max_mp": 15,
+    "damage": 6,
+    "agility": 9,
+    "str": 8,
+    "cons": 8,
+    "agi": 9,
+    "intl": 6,
+    "wis": 4,
+    "loot": [
+        {
+            "item_id": "item_fire_core",
+            "chance": 10
+        }
+    ],
+    "magics": [
+        {
+            "id": "mag_fireball",
+            "name": "Fireball",
+            "type": "attacking",
+            "mana_cost": 10,
+            "power": 15,
+            "element": "fire"
+        }
+    ],
+    "affinity": "fire",
+    "weakness": "water",
+    "weapon_type": "unarmed",
+    "weapon_name": "tubuh panas"
 }

@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 
+namespace Utils {
+
 Popup::Popup(const std::string &text) {
     int max_width = 50;
     
@@ -78,7 +80,6 @@ void Popup::update() {
 
 bool Popup::handle_input(int ch) {
     if (ch == KEY_RESIZE) {
-        resizeterm(0, 0);
         resize();
         return true;
     }
@@ -108,7 +109,7 @@ void Popup::render() {
         mvwin(win, y + (target_h - h) / 2, x + (target_w - w) / 2);
         werase(win);
         box(win, 0, 0);
-        wrefresh(win);
+        wnoutrefresh(win);
     } else {
         wresize(win, target_h, target_w);
         mvwin(win, y, x);
@@ -131,7 +132,7 @@ void Popup::render() {
                 mvwprintw(win, start_y + i, start_x, "%s", l.c_str());
             }
         }
-        wrefresh(win);
+        wnoutrefresh(win);
     }
 }
 
@@ -159,7 +160,6 @@ void Popup::type_text_blocking() {
             int ch = getch();
             if (ch != ERR) {
                 if (ch == KEY_RESIZE) {
-                    resizeterm(0, 0);
                     resize();
                     refresh();
                 }
@@ -182,12 +182,12 @@ void Popup::type_text_blocking() {
         int ch = getch();
         if (ch == '\n' || ch == ' ') break;
         if (ch == KEY_RESIZE) {
-            resizeterm(0, 0);
             resize();
             refresh();
-            wrefresh(win);
         }
+        wrefresh(win);
         napms(10);
     }
     werase(win); wrefresh(win);
 }
+} // namespace Utils

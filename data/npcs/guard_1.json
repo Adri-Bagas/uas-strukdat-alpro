@@ -1,42 +1,40 @@
 {
-  "id": "npc_guard_1",
-  "name": "Penjaga Kota",
-  "full_name": "Prajurit Reguler Nirva",
-  "type": "unnamed",
-  "role": "Guard",
-  "faction": "Penjaga Kota",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "kandang_kuda"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "alun_alun"
-    }
-  ],
-  "default_dialog": "scene_guard_idle",
-  "str": 15,
-  "cons": 13,
-  "agi": 15,
-  "intl": 15,
-  "wis": 15,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 1,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_guard_1",
+    "name": "Penjaga Kota",
+    "full_name": "Prajurit Reguler Nirva",
+    "type": "unnamed",
+    "role": "Guard",
+    "faction": "Penjaga Kota",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "alun_alun"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "kandang_kuda"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "balai_kota"
+        }
+    ],
+    "default_dialog": "scene_guard_idle",
+    "str": 15,
+    "cons": 13,
+    "agi": 15,
+    "intl": 15,
+    "wis": 15,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 1,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "sword",
+    "weapon_name": "tombak penjaga",
+    "first_dialog": "scene_unnamed_first_meet"
 }

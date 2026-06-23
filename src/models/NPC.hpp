@@ -22,6 +22,9 @@ protected:
     int str, cons, agi, intl, wis;
     Element affinity;
     Element weakness;
+    
+    std::string weapon_type = "unarmed";
+    std::string weapon_name = "tangan kosong";
 
     // Vitality
     int hp, max_hp;
@@ -61,11 +64,16 @@ public:
     const std::string& get_id() const { return id; }
     const std::string& get_name() const { return name; }
 
-    int get_str() const { return str; }
-    int get_cons() const { return cons; }
-    int get_agi() const { return agi; }
-    int get_intl() const { return intl; }
-    int get_wis() const { return wis; }
+    virtual int get_str() const { return str; }
+    virtual int get_cons() const { return cons; }
+    virtual int get_agi() const { return agi; }
+    virtual int get_intl() const { return intl; }
+    virtual int get_wis() const { return wis; }
+
+    virtual std::string get_weapon_type() const { return weapon_type; }
+    virtual std::string get_weapon_name() const { return weapon_name; }
+    void set_weapon_type(std::string t) { weapon_type = std::move(t); }
+    void set_weapon_name(std::string n) { weapon_name = std::move(n); }
 
     void set_str(int v) { str = v; }
     void set_cons(int v) { cons = v; }
@@ -103,10 +111,12 @@ public:
 
     const std::vector<Magic>& get_magics() const { return magics; }
     void add_magic(const Magic& m) { magics.push_back(m); }
+    void clear_magics() { magics.clear(); }
 
     bool has_special() const { return has_special_move; }
     SpecialMove& get_special_move() { return special_move; }
     void set_special_move(const SpecialMove& sm) { special_move = sm; has_special_move = true; }
+    void clear_special_move() { has_special_move = false; }
 
     bool is_dead() const { return hp <= 0; }
     
@@ -153,6 +163,7 @@ private:
     
     std::vector<ScheduleEntry> schedules; 
     std::string default_dialog_id;
+    std::string first_dialog_id;
     bool is_known = false;
 
     // For Quest Triggers
@@ -169,7 +180,8 @@ public:
     const std::string& get_full_name() const { return full_name; }
     void set_full_name(std::string name) { full_name = std::move(name); }
 
-    bool known() const { return type == NPCType::UNNAMED || is_known; }
+    bool has_met() const { return is_known; }
+    bool name_known() const { return type == NPCType::UNNAMED || is_known; }
     void reveal() { is_known = true; }
 
     void add_schedule_entry(ScheduleEntry entry) {
@@ -195,6 +207,9 @@ public:
 
     void set_default_dialog(std::string dialog_id) { default_dialog_id = std::move(dialog_id); }
     const std::string& get_default_dialog() const { return default_dialog_id; }
+
+    void set_first_dialog(std::string dialog_id) { first_dialog_id = std::move(dialog_id); }
+    const std::string& get_first_dialog() const { return first_dialog_id; }
 
     void modify_trust(int amount) { trust_level += amount; }
     int get_trust() const { return trust_level; }

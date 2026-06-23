@@ -1,10 +1,10 @@
 {
   "id": "menara_tua",
   "name": "Reruntuhan Menara Tua",
-  "on_first_enter": "",
+  "on_first_enter": "hub_menara_tua",
   "on_enter": "",
   "walkable": {
-    "west": "permukiman_kumuh"
+    "east": "permukiman_kumuh"
   },
   "activities": []
 }

@@ -3,7 +3,6 @@
 void PlayerManager::init_player(const std::string& id, const std::string& name) {
     player = std::make_unique<Player>(id, name);
     player->add_item("potion_hp", 3);
-    player->add_item("bread", 5);
 
     // Initialize slots to nullptr
     for (int i = 0; i < 4; ++i) {
@@ -11,6 +10,8 @@ void PlayerManager::init_player(const std::string& id, const std::string& name) 
     }
     // Player always occupies slot 0 by default
     party_slots[0] = player.get();
+    
+    npc_allies.clear();
 }
 
 Player* PlayerManager::get_player() const {

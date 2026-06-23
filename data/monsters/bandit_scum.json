@@ -1,24 +1,26 @@
 {
-  "id": "mon_bandit_scum",
-  "name": "Bandit",
-  "description": "Penjahat jalanan yang sering merampok musafir.",
-  "level": 3,
-  "max_hp": 100,
-  "max_mp": 10,
-  "damage": 10,
-  "agility": 12,
-  "str": 12,
-  "cons": 10,
-  "agi": 12,
-  "intl": 8,
-  "wis": 6,
-  "loot": [
-    {
-      "item_id": "item_gold_pouch",
-      "chance": 45
-    }
-  ],
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "mon_bandit_scum",
+    "name": "Bandit",
+    "description": "Penjahat jalanan yang sering merampok musafir.",
+    "level": 3,
+    "max_hp": 50,
+    "max_mp": 10,
+    "damage": 10,
+    "agility": 12,
+    "str": 12,
+    "cons": 5,
+    "agi": 12,
+    "intl": 8,
+    "wis": 6,
+    "loot": [
+        {
+            "item_id": "item_gold_pouch",
+            "chance": 45
+        }
+    ],
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "dagger",
+    "weapon_name": "belati tumpul"
 }

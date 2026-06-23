@@ -1,0 +1,78 @@
+[
+  {
+    "id": "fast_travel_event_1",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pedagang Asing",
+        "value": "Hei nak! Aku melihatmu bergegas. Maukah kamu membeli sesuatu dariku sebelum melanjutkan perjalanan?"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Lihat barang dagangannya",
+        "next_scene": "fast_travel_event_trade"
+      },
+      {
+        "text": "Abaikan dan lanjutkan perjalanan",
+        "next_scene": "fast_travel_event_ignore"
+      }
+    ]
+  },
+  {
+    "id": "fast_travel_event_trade",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pedagang Asing",
+        "value": "Silakan lihat-lihat, barangku langka semua!"
+      }
+    ],
+    "on_exit": [
+      "open_shop traveling_merchant_shop"
+    ]
+  },
+  {
+    "id": "fast_travel_event_ignore",
+    "nodes": [
+      {
+        "type": 2,
+        "npc_name": "",
+        "value": "Kamu mengabaikan pedagang itu dan melanjutkan perjalanan dengan cepat."
+      }
+    ]
+  },
+  {
+    "id": "fast_travel_event_pickpocket",
+    "nodes": [
+      {
+        "type": 2,
+        "npc_name": "",
+        "value": "Kamu merasa ada seseorang yang menabrakmu dengan keras saat di perjalanan..."
+      },
+      {
+        "type": 2,
+        "npc_name": "",
+        "value": "Saat kamu memeriksa kantongmu, kamu menyadari 50 Gold telah hilang!"
+      }
+    ],
+    "on_exit": [
+      "add_gold -50"
+    ]
+  },
+  {
+    "id": "fast_travel_event_gossip",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Penduduk Bising",
+        "value": "Hei, apa kau dengar? Konon ada monster menakutkan yang baru-baru ini muncul di hutan barat."
+      },
+      {
+        "type": 2,
+        "npc_name": "",
+        "value": "Kamu mencatat informasi itu dan melanjutkan perjalanan."
+      }
+    ]
+  }
+]

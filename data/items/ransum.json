@@ -1,0 +1,10 @@
+{
+  "id": "ransum",
+  "name": "Ransum Kering",
+  "description": "Roti keras dan daging kering. Cukup untuk mengganjal perut.",
+  "type": "consumable",
+  "value": 2,
+  "on_use": [
+    "heal_hp 15"
+  ]
+}

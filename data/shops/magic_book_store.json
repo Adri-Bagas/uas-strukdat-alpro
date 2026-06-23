@@ -1,0 +1,99 @@
+{
+    "id": "sh_magic",
+    "name": "Toko Buku Sihir Merlin",
+    "items": [
+        {
+            "item": "magic_book_inferno",
+            "base_stock": 1
+        },
+        {
+            "item": "magic_book_heal",
+            "base_stock": 1
+        },
+        {
+            "item": "magic_book_meteor",
+            "base_stock": 1
+        },
+        {
+            "item": "potion_mp",
+            "base_stock": 5
+        },
+        {
+            "item": "magic_book_water_splash",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_earth_spike",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_wind_blade",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_fire_bolt",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_minor_heal",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_water_wave",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_earth_tremor",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_wind_gust",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_fire_wall",
+            "base_stock": 2
+        }
+    ],
+    "restock_schedule": [
+        {
+            "day": 5,
+            "items": [
+                "magic_book_heal",
+                "potion_mp"
+            ]
+        },
+        {
+            "day": 10,
+            "items": [
+                "magic_book_inferno",
+                "magic_book_meteor"
+            ]
+        },
+        {
+            "day": 2,
+            "items": [
+                "magic_book_water_splash",
+                "magic_book_earth_spike",
+                "magic_book_wind_blade",
+                "magic_book_fire_bolt",
+                "magic_book_minor_heal"
+            ]
+        },
+        {
+            "day": 3,
+            "items": [
+                "magic_book_water_wave",
+                "magic_book_earth_tremor",
+                "magic_book_wind_gust",
+                "magic_book_fire_wall"
+            ]
+        }
+    ],
+    "on_enter": [
+        "set_next_dialog sh_magic_dialog"
+    ],
+    "on_exit": [
+        "set_next_dialog sh_magic_dialog_EXIT"
+    ]
+}

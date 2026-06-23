@@ -1,42 +1,40 @@
 {
-  "id": "npc_merchant_2",
-  "name": "Pedagang Asing",
-  "full_name": "Pedagang dari Ibukota",
-  "type": "unnamed",
-  "role": "Merchant",
-  "faction": "Independent",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "pasar_kota"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "pasar_kota"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "kedai_usang"
-    }
-  ],
-  "default_dialog": "scene_merchant_foreign_idle",
-  "str": 11,
-  "cons": 15,
-  "agi": 12,
-  "intl": 12,
-  "wis": 11,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 1,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_merchant_2",
+    "name": "Pedagang Asing",
+    "full_name": "Pedagang dari Ibukota",
+    "type": "unnamed",
+    "role": "Merchant",
+    "faction": "Independent",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "pasar_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "pasar_kota"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "alun_alun"
+        }
+    ],
+    "default_dialog": "scene_merchant_foreign_idle",
+    "str": 11,
+    "cons": 15,
+    "agi": 12,
+    "intl": 12,
+    "wis": 11,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 1,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "unarmed",
+    "weapon_name": "tangan kosong",
+    "first_dialog": "scene_unnamed_first_meet"
 }

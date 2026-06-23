@@ -6,13 +6,14 @@
 struct DialogNode {
     std::string value;
     std::string npc_name;
-    int type; // 1: Dialog, 2: Thought, 3: Popup
+    int type; // 1: Dialog, 2: Thought, 3: Utils::Popup
 };
 
 struct DialogChoice {
     std::string text;
     Condition condition;
     std::string next_scene;
+    std::vector<std::string> on_select;
 };
 
 struct DialogScene {

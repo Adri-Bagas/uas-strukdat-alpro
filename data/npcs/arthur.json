@@ -8,29 +8,22 @@
   "schedules": [
     {
       "days": [],
-      "phase": "Morning",
+      "phase": "Pagi",
       "location": "kedai_usang"
     },
     {
       "days": [],
-      "phase": "Afternoon",
+      "phase": "Siang",
       "location": "kedai_usang"
     },
     {
       "days": [],
-      "phase": "Evening",
+      "phase": "Malam",
       "location": "kedai_usang"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "kamar_loteng"
     }
   ],
   "default_dialog": "scene_arthur_idle",
-  "quests": [
-    "quest_stable_investigation"
-  ],
+  "quests": [],
   "str": 60,
   "cons": 25,
   "agi": 49,
@@ -58,5 +51,8 @@
     "element": "none"
   },
   "affinity": "none",
-  "weakness": "none"
+  "weakness": "none",
+  "weapon_type": "sword",
+  "weapon_name": "pedang pelatihan",
+  "first_dialog": "scene_arthur_first_meet"
 }

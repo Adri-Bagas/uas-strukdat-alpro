@@ -3,6 +3,8 @@
 #include "../../models/Dialog.hpp"
 #include <vector>
 
+namespace Utils {
+
 class ChoicePopup : public Popup {
 private:
     std::vector<DialogChoice> choices;
@@ -13,3 +15,4 @@ public:
     void render();
     void set_selected_index(int idx) { selected_index = idx; }
 };
+} // namespace Utils

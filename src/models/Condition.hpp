@@ -10,7 +10,11 @@ enum class ConditionType {
     VAR_GREATER_EQUAL,
     VAR_LESS_EQUAL,
     HAS_ITEM,
-    QUEST_STATE
+    QUEST_STATE,
+    KILLED_MONSTER,
+    EXPLORED_AREA,
+    REACH_LOCATION,
+    HAS_PARTY_MEMBER
 };
 
 struct Condition {

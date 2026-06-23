@@ -1,0 +1,44 @@
+{
+    "id": "sh_blacksmith",
+    "name": "Pandai Besi Budi",
+    "items": [
+        {
+            "item": "iron_sword",
+            "base_stock": 3
+        },
+        {
+            "item": "steel_sword",
+            "base_stock": 2
+        },
+        {
+            "item": "leather_armor",
+            "base_stock": 3
+        },
+        {
+            "item": "steel_armor",
+            "base_stock": 2
+        }
+    ],
+    "restock_schedule": [
+        {
+            "day": 3,
+            "items": [
+                "iron_sword",
+                "leather_armor"
+            ]
+        },
+        {
+            "day": 7,
+            "items": [
+                "steel_sword",
+                "steel_armor"
+            ]
+        }
+    ],
+    "on_enter": [
+        "set_next_dialog sh_blacksmith_dialog"
+    ],
+    "on_exit": [
+        "set_next_dialog sh_blacksmith_dialog_EXIT"
+    ]
+}

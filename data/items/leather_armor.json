@@ -5,10 +5,8 @@
   "type": "equipment",
   "value": 80,
   "equip_slot": "armor",
-  "equip_stats": {
-    "cons": 3,
-    "agi": 1
-  },
+  "cons": 3,
+  "agi": 1,
   "on_use": [
     "equip_item leather_armor"
   ]

@@ -1,6 +1,8 @@
 #include "TimeCalendarManagers.hpp"
 #include "../utils/Logger.hpp"
 #include "../utils/components/Popup.hpp"
+#include "../GameEngine.hpp"
+#include "../models/Player.hpp"
 
 DayTime TimeCalendarManagers::getDayTime() {
     return dayTime;
@@ -64,7 +66,7 @@ void TimeCalendarManagers::advanceTime(bool is_double) {
         advanceDate();
         return;
     default:
-        Logger::log("Error: Kesalahan saat memajukan waktu!");
+        Utils::Logger::log("Error: Kesalahan saat memajukan waktu!");
         return;
     }
 
@@ -75,7 +77,23 @@ void TimeCalendarManagers::advanceTime(bool is_double) {
 }
 
 void TimeCalendarManagers::advanceDate() {
+    if (this->day >= 14) {
+        if (engine) {
+            std::string final_ending = engine->get_quests().evaluate_endings(engine->get_player_manager().get_player());
+            const DialogScene* scene = engine->get_db().get_dialog_scene(final_ending);
+            if (scene) {
+                engine->get_dialogs().start_scene(*scene, engine);
+            }
+        }
+        return;
+    }
     this->day += 1;
     this->dayTime = MORNING;
     if (on_popup) on_popup("Hari telah berakhir. Kamu terbangun pada Hari ke-" + std::to_string(this->day));
+    
+    if (on_day_advanced) {
+        // Simple day of week calculation (1 to 7)
+        int day_of_week = ((this->day - 1) % 7) + 1;
+        on_day_advanced(day_of_week);
+    }
 }

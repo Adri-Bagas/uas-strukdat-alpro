@@ -5,9 +5,7 @@
   "type": "equipment",
   "value": 500,
   "equip_slot": "ring",
-  "equip_stats": {
-    "intl": 3
-  },
+  "intl": 3,
   "equip_affinity": "fire",
   "on_use": [
     "equip_item fire_ring"

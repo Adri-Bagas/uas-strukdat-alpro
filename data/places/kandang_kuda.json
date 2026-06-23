@@ -4,8 +4,7 @@
   "on_first_enter": "day1_start",
   "on_enter": "",
   "walkable": {
-    "north": "alun_alun",
-    "west": "jalanan_utama_kota"
+    "west": "jalanan_timur_kota"
   },
   "activities": [
     {
@@ -15,8 +14,8 @@
       "schedule": {
         "days": [],
         "phases": [
-          "Morning",
-          "Afternoon"
+          "Pagi",
+          "Siang"
         ]
       },
       "req": {
@@ -48,9 +47,9 @@
       "schedule": {
         "days": [],
         "phases": [
-          "Morning",
-          "Afternoon",
-          "Evening"
+          "Pagi",
+          "Siang",
+          "Malam"
         ]
       },
       "req": {

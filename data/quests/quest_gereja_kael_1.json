@@ -1,0 +1,27 @@
+{
+  "id": "quest_gereja_kael_1",
+  "name": "Tugas Suci",
+  "description": "Ambil artefak di Menara Tua untuk Kael. Hati-hati dengan jebakan.",
+  "target_npc_id": "npc_kael",
+  "target_location_id": "menara_tua",
+  "location_trigger_scene": "scene_garrick_ambush",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_1_complete",
+      "value": 1
+    }
+  ],
+  "completion_condition": {
+    "type": "var_equal",
+    "key": "kael_trap_survived",
+    "value": 1
+  },
+  "start_scene_id": "dialog_kael_q1_start",
+  "complete_scene_id": "selesai_kael_1",
+  "on_complete": [
+    "give_item potion_mp 3",
+    "set_var quest_kael_1_complete 1"
+  ],
+  "source_npc_id": "npc_kael"
+}

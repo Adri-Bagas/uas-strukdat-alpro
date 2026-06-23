@@ -1,42 +1,40 @@
 {
-  "id": "npc_acolyte_1",
-  "name": "Biarawan",
-  "full_name": "Biarawan Gereja Cahaya",
-  "type": "unnamed",
-  "role": "Cleric",
-  "faction": "Gereja Cahaya",
-  "schedules": [
-    {
-      "days": [],
-      "phase": "Morning",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Afternoon",
-      "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Evening",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Night",
-      "location": "balai_kota"
-    }
-  ],
-  "default_dialog": "scene_acolyte_idle",
-  "str": 11,
-  "cons": 13,
-  "agi": 10,
-  "intl": 12,
-  "wis": 12,
-  "max_hp": 100,
-  "max_mp": 50,
-  "level": 3,
-  "magics": [],
-  "affinity": "none",
-  "weakness": "none"
+    "id": "npc_acolyte_1",
+    "name": "Biarawan",
+    "full_name": "Biarawan Gereja Cahaya",
+    "type": "unnamed",
+    "role": "Cleric",
+    "faction": "Gereja Cahaya",
+    "schedules": [
+        {
+            "days": [],
+            "phase": "Pagi",
+            "location": "balai_kota"
+        },
+        {
+            "days": [],
+            "phase": "Siang",
+            "location": "alun_alun"
+        },
+        {
+            "days": [],
+            "phase": "Malam",
+            "location": "balai_kota"
+        }
+    ],
+    "default_dialog": "scene_acolyte_idle",
+    "str": 11,
+    "cons": 13,
+    "agi": 10,
+    "intl": 12,
+    "wis": 12,
+    "max_hp": 100,
+    "max_mp": 50,
+    "level": 3,
+    "magics": [],
+    "affinity": "none",
+    "weakness": "none",
+    "weapon_type": "staff",
+    "weapon_name": "tongkat kayu",
+    "first_dialog": "scene_unnamed_first_meet"
 }

@@ -1,0 +1,400 @@
+[
+  {
+    "id": "scene_acolyte_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Acolyte",
+        "text": "Acolyte itu berdoa dalam bisikan.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_unnamed_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Warga",
+        "text": "Orang itu memandangmu dengan curiga.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_nun_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Biarawati",
+        "text": "Biarawati itu menunduk menghindarimu.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_arthur_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Arthur",
+        "text": "Arthur mengelap gelas bir. 'Mau pesan apa?'",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_arthur_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Arthur",
+        "text": "Arthur menatapmu tajam. 'Aku tahu siapa kau... Tapi di kedai ini, emas adalah emas.'",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_citizen_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Warga",
+        "text": "Warga kota memalingkan muka.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_child_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Anak Kecil",
+        "text": "Anak itu berlarian di jalanan.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_beggar_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Pengemis",
+        "text": "Pengemis itu menengadahkan tangannya.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_guard_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Penjaga",
+        "text": "Penjaga kota menguap bosan.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_guard_gate_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Penjaga Gerbang",
+        "text": "Penjaga gerbang berdiri tegap.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_guard_patrol_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Patroli",
+        "text": "Penjaga patroli melihat sekeliling.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_merchant_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Pedagang",
+        "text": "Pedagang itu memilah barang dagangannya.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_merchant_foreign_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Pedagang Asing",
+        "text": "Pedagang asing itu berbicara dalam bahasa yang tak kau pahami.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_bara_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Bara",
+        "text": "Bara memukul palu ke landasan besi.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_bara_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Bara",
+        "text": "Bara menyeka keringatnya. 'Baja yang bagus tak pernah berbohong.'",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_bjorn_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Bjorn",
+        "text": "Bjorn menajamkan kapaknya.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_bjorn_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Bjorn",
+        "text": "Bjorn mengendus udara. 'Bau darah masih menempel padamu.'",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_hugo_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Hugo",
+        "text": "Hugo mencatat sesuatu di buku besarnya.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_hugo_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Hugo",
+        "text": "Hugo menyesuaikan kacamatanya. 'Waktu adalah uang.'",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "event_assasin_attack",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Pembunuh",
+        "text": "Sosok mencurigakan itu tiba-tiba menghunuskan pisau!",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_tara_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Tara",
+        "text": "Tara mengatur botol-botol ramuan.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_tara_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Tara",
+        "text": "Tara tersenyum misterius. 'Butuh sesuatu untuk rasa sakitmu?'",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_thug_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Preman",
+        "text": "Preman itu menyeringai di sudut gelap.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_pickpocket_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Pencopet",
+        "text": "Pencopet itu bersiul pura-pura tak melihatmu.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_valerius_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Valerius",
+        "text": "Valerius sibuk membaca tumpukan laporan.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_valerius_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Valerius",
+        "text": "Valerius menatapmu dengan pandangan menilai.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_vane_idle",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Vane",
+        "text": "Vane berdiri layaknya patung penjaga yang tak kenal lelah.",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_vane_first_meet",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "Vane",
+        "text": "Vane menghunus pedangnya. 'Hukum Kekaisaran tak pernah tidur.'",
+        "choices": []
+      }
+    ]
+  },
+  {
+    "id": "scene_sleep_prompt",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "speaker": "",
+        "text": "Waktunya istirahat. Apa yang ingin kamu lakukan?"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Save Saja",
+        "next_scene": "",
+        "on_select": ["save_game"]
+      },
+      {
+        "text": "Save & Tidur",
+        "next_scene": "",
+        "on_select": ["save_game", "heal_full", "advance_day"]
+      },
+      {
+        "text": "Tidur Saja",
+        "next_scene": "",
+        "on_select": ["heal_full", "advance_day"]
+      },
+      {
+        "text": "Tidak Jadi",
+        "next_scene": "",
+        "on_select": []
+      }
+    ]
+  }
+]

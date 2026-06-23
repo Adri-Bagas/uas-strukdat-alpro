@@ -1,0 +1,30 @@
+{
+  "id": "quest_gereja_kael_1_garrick",
+  "name": "Jebakan Kael",
+  "description": "Bertahan hidup dari jebakan Garrick di Menara Tua.",
+  "target_npc_id": "npc_garrick",
+  "target_location_id": "menara_tua",
+  "location_trigger_scene": "scene_garrick_ambush",
+  "unlock_conditions": [
+    {
+      "type": "var_equal",
+      "key": "quest_gereja_kael_1_active",
+      "value": 1
+    }
+  ],
+  "completion_conditions": [
+    {
+      "type": "var_equal",
+      "key": "kael_trap_survived",
+      "value": 1
+    }
+  ],
+  "start_scene_id": "scene_garrick_ambush",
+  "complete_scene_id": "",
+  "on_complete": [],
+  "source_npc_id": "npc_garrick",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_kael_1_garrick"
+  }
+}

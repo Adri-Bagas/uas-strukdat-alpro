@@ -1,0 +1,32 @@
+{
+  "id": "quest_gereja_1",
+  "name": "Bantuan untuk Dapur Umum",
+  "description": "Maria membutuhkan 3 Roti untuk dapur umum. Pergi ke Pasar Kota dan temukan kusir pembawa gandum.",
+  "target_npc_id": "npc_maria",
+  "target_location_id": "pasar_kota",
+  "location_trigger_scene": "scene_pasar_gandum",
+  "unlock_conditions": [
+    {
+      "type": "var_greater_equal",
+      "key": "day",
+      "value": 1
+    }
+  ],
+  "completion_condition": {
+    "type": "has_item",
+    "key": "bread",
+    "value": 3
+  },
+  "start_scene_id": "dialog_maria_q1_start",
+  "complete_scene_id": "selesai_gereja_1",
+  "on_complete": [
+    "add_gold 10",
+    "set_var quest_gereja_1_complete 1",
+    "remove_item bread 3"
+  ],
+  "source_npc_id": "npc_maria",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_1"
+  }
+}

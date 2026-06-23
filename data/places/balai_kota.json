@@ -1,11 +1,10 @@
 {
   "id": "balai_kota",
   "name": "Balai Kota",
-  "on_first_enter": "",
+  "on_first_enter": "first_enter_balai_kota",
   "on_enter": "",
   "walkable": {
-    "east": "alun_alun",
-    "south": "jalanan_utama_kota"
+    "east": "alun_alun"
   },
   "activities": []
 }

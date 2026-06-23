@@ -5,7 +5,6 @@
   "type": "consumable",
   "value": 5,
   "on_use": [
-    "heal_hp 10",
-    "remove_item bread 1"
+    "heal_hp 10"
   ]
 }

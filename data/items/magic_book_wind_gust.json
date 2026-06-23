@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_wind_gust",
+    "name": "Buku Sihir: Wind Gust",
+    "description": "Sihir angin memanjang. (REACH) Kekuatan 18, Elemen Wind.",
+    "type": "consumable",
+    "value": 100,
+    "on_use": [
+        "learn_magic wind_gust magic_book_wind_gust"
+    ]
+}

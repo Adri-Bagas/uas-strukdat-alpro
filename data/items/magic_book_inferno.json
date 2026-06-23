@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_inferno",
+    "name": "Buku Sihir: Inferno Blast",
+    "description": "Buku kuno yang mengajarkan sihir api tingkat tinggi. (Sekali Pakai)",
+    "type": "consumable",
+    "value": 200,
+    "on_use": [
+        "learn_magic inferno magic_book_inferno"
+    ]
+}

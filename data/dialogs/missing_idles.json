@@ -1,0 +1,87 @@
+[
+  {
+    "id": "scene_acolyte_idle",
+    "text": "Acolyte itu berdoa dalam bisikan. 'Cahaya, lindungi kami dari korupsi dunia ini...'",
+    "speaker": "Acolyte"
+  },
+  {
+    "id": "scene_nun_idle",
+    "text": "Biarawati itu menunduk menghindarimu. 'Maaf, pendeta Kael melarang kami berbicara dengan orang asing.'",
+    "speaker": "Biarawati"
+  },
+  {
+    "id": "scene_citizen_idle",
+    "text": "Warga kota memalingkan muka dengan cepat saat melihat gelang di tanganmu.",
+    "speaker": "Warga"
+  },
+  {
+    "id": "scene_child_idle",
+    "text": "Anak itu menunjuk ke gelangmu. 'Wah, gelangmu menyala! Apa kau penjahat yang dibicarakan orang-orang?'",
+    "speaker": "Anak Kecil"
+  },
+  {
+    "id": "scene_beggar_idle",
+    "text": "Pengemis itu tertawa serak. 'Nirva mengutuk kita semua! Hari ini aku, besok kau!'",
+    "speaker": "Pengemis"
+  },
+  {
+    "id": "scene_elara_idle",
+    "text": "Elara sibuk menyortir gulungan perkamen. 'P-pintu perpustakaan hampir ditutup... Jangan sentuh buku-buku itu.'",
+    "speaker": "Elara"
+  },
+  {
+    "id": "scene_guard_idle",
+    "text": "Penjaga kota menguap bosan. 'Teruslah berjalan. Jangan membuat masalah di wilayah ini.'",
+    "speaker": "Penjaga"
+  },
+  {
+    "id": "scene_guard_gate_idle",
+    "text": "Penjaga gerbang memelototimu. 'Gerbang ditutup. Jangan mencoba macam-macam, tahanan.'",
+    "speaker": "Penjaga Gerbang"
+  },
+  {
+    "id": "scene_guard_patrol_idle",
+    "text": "Penjaga patroli menyipitkan mata. 'Kudengar ada buronan di sekitar sini. Sebaiknya kau hati-hati.'",
+    "speaker": "Patroli"
+  },
+  {
+    "id": "scene_kael_idle",
+    "text": "Pendeta Tinggi Kael tersenyum penuh arti. 'Cahaya tidak pernah buta terhadap dosa-dosamu, anakku.'",
+    "speaker": "Kael"
+  },
+  {
+    "id": "scene_merchant_idle",
+    "text": "Pedagang itu mengelap mejanya dengan kasar. 'Harga gandum naik lagi. Dasar serikat dagang serakah!'",
+    "speaker": "Pedagang"
+  },
+  {
+    "id": "scene_merchant_foreign_idle",
+    "text": "Pedagang asing itu berbisik. 'Nirva bukan tempat yang ramah untuk berbisnis sejak Walikota Alden meninggal.'",
+    "speaker": "Pedagang Asing"
+  },
+  {
+    "id": "scene_silas_idle",
+    "text": "Silas memainkan koin emas di tangannya. 'Informasi tidak gratis, kawan. Apalagi di tempat sebusuk Nirva.'",
+    "speaker": "Silas"
+  },
+  {
+    "id": "scene_thug_idle",
+    "text": "Preman berwajah sangar itu menyeringai. 'Salah jalan, kawan. Tempat ini bukan untuk petualang cengeng sepertimu.'",
+    "speaker": "Preman"
+  },
+  {
+    "id": "scene_pickpocket_idle",
+    "text": "Anak jalanan itu bersiul polos sambil mencoba mendekat ke kantong koinmu secara perlahan.",
+    "speaker": "Pencopet"
+  },
+  {
+    "id": "scene_valerius_idle",
+    "text": "Guildmaster Valerius menghentikan bacaannya. 'Waktumu terus berjalan. Jangan buang-buang waktuku jika tidak ada urusan penting.'",
+    "speaker": "Valerius"
+  },
+  {
+    "id": "scene_vane_idle",
+    "text": "Lord Inquisitor Vane berdiri tegak bak patung. 'Setiap langkahmu diawasi oleh Kekaisaran. Jangan bertindak bodoh.'",
+    "speaker": "Vane"
+  }
+]

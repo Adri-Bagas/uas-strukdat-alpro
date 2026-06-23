@@ -1,0 +1,267 @@
+[
+  {
+    "id": "dialog_elara_default",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Priestess Elara",
+        "value": "Aku bisa merasakan ketulusan di hatimu."
+      }
+    ]
+  },
+  {
+    "id": "dialog_elara_q1_start",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Priestess Elara",
+        "value": "Aku mencurigai Kael. Temani aku ke Dungeon, aku yakin ada dokumen suap di sana."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_gereja_elara_1", "add_party_member npc_elara"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "scene_dungeon_elara",
+    "on_start": [],
+    "on_exit": ["start_story_battle mon_vampire_lord \"give_item dokumen_kael 1\""],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Vampire Lord",
+        "value": "Kalian mencari rahasia tuanku? Kalian tidak akan pernah kembali!"
+      }
+    ]
+  },
+  {
+    "id": "selesai_elara_1",
+    "on_start": [],
+    "on_exit": ["remove_party_member npc_elara"],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Priestess Elara",
+        "value": "Ini buktinya! Kita harus menyerahkannya pada pihak yang tepat."
+      }
+    ]
+  },
+  {
+    "id": "dialog_kael_default",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "High Priest Kael",
+        "value": "Cahaya hanya bersinar bagi mereka yang patuh."
+      }
+    ]
+  },
+  {
+    "id": "dialog_kael_q1_start",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "High Priest Kael",
+        "value": "Kau ingin melepaskan gelang itu? Ambil artefak di Menara Tua untukku. Baru kita bicara."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_gereja_kael_1", "set_var quest_gereja_kael_1_active 1"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "scene_garrick_ambush",
+    "on_start": [],
+    "on_exit": ["start_story_battle mon_bandit_scum,mon_bandit_scum,mon_stone_golem \"set_var kael_trap_survived 1\""],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Captain Garrick",
+        "value": "Bodoh! Kael mengirimmu ke sini untuk mati! Bersiaplah meregang nyawa!"
+      }
+    ]
+  },
+  {
+    "id": "selesai_kael_1",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "High Priest Kael",
+        "value": "Kau masih hidup?! Bagaimana bisa?! Sialan Garrick!"
+      }
+    ]
+  },
+  {
+    "id": "dialog_silas_default",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Silas",
+        "value": "Harga informasi selalu mahal."
+      }
+    ]
+  },
+  {
+    "id": "dialog_silas_q1_start",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Silas",
+        "value": "Kau mencari tahu tentang Walikota? Bawa 'Bukti Gagak' dari Jalanan Barat Kota. Targetmu ada di sana."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_gereja_silas_1"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "scene_silas_target",
+    "on_start": [],
+    "on_exit": ["start_story_battle boss_bfb_01 \"give_item bukti_gagak 1\""],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Anggota Sindikat",
+        "value": "Silas mengutusmu? Langkahi dulu mayatku!"
+      }
+    ]
+  },
+  {
+    "id": "selesai_silas_1",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Silas",
+        "value": "Bagus. Orang yang membunuh Walikota bekerja untuk Kael. Sekarang pergilah."
+      }
+    ]
+  },
+  {
+    "id": "dialog_lukas_default",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Lukas",
+        "value": "Kakak pahlawan! Ajari aku berpedang!"
+      }
+    ]
+  },
+  {
+    "id": "dialog_garrick_default",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Captain Garrick",
+        "value": "Jangan macam-macam di kotaku."
+      }
+    ]
+  },
+  {
+    "id": "alun2",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Jantung aktivitas Nirva. Terdapat menara lonceng batu besar di tengahnya serta papan pengumuman umum."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Suasana terasa tegang. Papan pengumuman kini dipenuhi propaganda dan maklumat dari faksi Guildmaster."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Di tempat ini kamu bisa mengumpulkan rumor warga dan memantau pergerakan patroli penjaga kota."
+      }
+    ],
+    "choices": []
+  },
+  {
+    "id": "first_enter_biara",
+    "on_start": [],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Biara Cahaya, pusat spiritual kota Nirva. Arsitekturnya megah dengan pilar-pilar suci yang terhubung langsung dengan Gelang Penjara Suci milikmu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Saat melangkah masuk, Gelang Penjara Suci di pergelangan tanganmu sedikit menghangat. Pilar-pilar di sini memperkuat sihir yang mengikat jiwamu."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Meskipun merupakan tempat ibadah, kekayaan berlebih dan penjagaan ketat menunjukkan adanya penyelewengan di tempat suci ini."
+      }
+    ],
+    "choices": []
+  }
+]

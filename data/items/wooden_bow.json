@@ -1,0 +1,14 @@
+{
+  "id": "wooden_bow",
+  "name": "Busur Kayu",
+  "description": "Busur berburu standar. Memberikan efek serangan REACH.",
+  "type": "equipment",
+  "value": 150,
+  "equip_slot": "weapon",
+  "weapon_type": "bow",
+  "agi": 5,
+  "str": 2,
+  "on_use": [
+    "equip_item wooden_bow"
+  ]
+}

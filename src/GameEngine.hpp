@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <stack>
+#include <vector>
 #include "managers/DialogManagers.hpp"
 #include "views/MainPage.hpp"
 #include "views/StartMenuPage.hpp"
@@ -11,6 +12,8 @@
 #include "managers/PlayerManager.hpp"
 #include "./db/DB.hpp"
 #include "actions/Actions.hpp"
+#include "managers/ShopManager.hpp"
+#include "managers/LogManager.hpp"
 #include "utils/components/Popup.hpp"
 #include "managers/MusicManager.hpp"
 
@@ -26,20 +29,32 @@ private:
     DB db;
     Action actions;
     MusicManager music_manager;
+    ShopManager shop_manager;
+    LogManager log_manager;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
-    std::unique_ptr<Popup> active_popup;
+    std::unique_ptr<Utils::Popup> active_popup;
     bool is_running = true;
+
+    struct StateOp {
+        enum Type { PUSH, POP, CHANGE } type;
+        std::unique_ptr<GameState> state;
+    };
+    std::vector<StateOp> pending_ops;
+    void process_state_operations();
 
 public:
     GameEngine();
     void init(); // Setup ncurses, set initial state
 
     void push_state(GameState* new_state);
+    void change_state(GameState* new_state);
 
     // Removes top state, returning to the one below it (e.g., Battle ends -> back to Dungeon)
     void pop_state();
     void run();
+    void show_popup(std::unique_ptr<Utils::Popup> popup);
+    GameState* get_current_state() { return state_stack.empty() ? nullptr : state_stack.top().get(); }
 
     // Getters for states to access models
     DialogManager& get_dialogs();
@@ -52,5 +67,7 @@ public:
     DB& get_db();
     Action& get_actions();
     MusicManager& get_music_manager();
+    ShopManager& get_shop_manager();
+    LogManager& get_log_manager();
     void quit();
 };

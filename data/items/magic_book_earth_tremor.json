@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_earth_tremor",
+    "name": "Buku Sihir: Earth Tremor",
+    "description": "Sihir tanah memanjang. (REACH) Kekuatan 18, Elemen Earth.",
+    "type": "consumable",
+    "value": 100,
+    "on_use": [
+        "learn_magic earth_tremor magic_book_earth_tremor"
+    ]
+}

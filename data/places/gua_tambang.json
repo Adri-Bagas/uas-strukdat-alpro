@@ -1,7 +1,7 @@
 {
   "id": "gua_tambang",
   "name": "Gua Tambang Terabaikan",
-  "on_first_enter": "",
+  "on_first_enter": "first_enter_gua_tambang",
   "on_enter": "",
   "walkable": {
     "north": "permukiman_kumuh"

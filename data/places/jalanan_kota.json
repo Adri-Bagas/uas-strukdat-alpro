@@ -26,8 +26,9 @@
     }
   ],
   "walkable": {
-    "north": "balai_kota",
-    "east": "kandang_kuda",
-    "south": "kedai_usang"
+    "north": "jalanan_utara_kota",
+    "south": "jalanan_selatan_kota",
+    "east": "jalanan_timur_kota",
+    "west": "jalanan_barat_kota"
   }
 }

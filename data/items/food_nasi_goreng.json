@@ -1,0 +1,10 @@
+{
+    "id": "food_nasi_goreng",
+    "name": "Nasi Goreng Spesial",
+    "description": "Nasi goreng hangat yang lezat. Memulihkan 50 HP.",
+    "type": "consumable",
+    "value": 15,
+    "on_use": [
+        "add_hp 50"
+    ]
+}

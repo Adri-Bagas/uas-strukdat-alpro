@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_heal",
+    "name": "Buku Sihir: Greater Heal",
+    "description": "Buku suci yang mengajarkan penyembuhan kuat. (Sekali Pakai)",
+    "type": "consumable",
+    "value": 150,
+    "on_use": [
+        "learn_magic heal_greater magic_book_heal"
+    ]
+}

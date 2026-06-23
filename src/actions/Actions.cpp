@@ -153,6 +153,55 @@ Action::Action(GameEngine* eng) : engine(eng) {
     });
 
     // Party Actions
+    register_action("learn_magic", [this](const std::string& arg) {
+        Player* p = engine->get_player_manager().get_player();
+        if (!p) return;
+        std::istringstream iss(arg);
+        std::string magic_id, item_id;
+        iss >> magic_id >> item_id;
+
+        for (const auto& mag : p->get_magics()) {
+            if (mag.id == magic_id) {
+                engine->get_dialogs().queue_popup("Kamu sudah mengetahui sihir ini!");
+                if (!item_id.empty()) p->add_item(item_id, 1); // Refund
+                return;
+            }
+        }
+        
+        if (magic_id == "inferno") {
+            Magic m; m.id = "inferno"; m.name = "Inferno Blast"; m.type = MagicType::ATTACKING;
+            m.power = 40; m.mana_cost = 15; m.elem = Element::FIRE; m.range = TargetRange::AOE;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Inferno Blast!");
+        } else if (magic_id == "heal_greater") {
+            Magic m; m.id = "heal_greater"; m.name = "Greater Heal"; m.type = MagicType::HEALING;
+            m.power = 50; m.mana_cost = 10; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Greater Heal!");
+        }
+    });
+
+    register_action("learn_special", [this](const std::string& arg) {
+        Player* p = engine->get_player_manager().get_player();
+        if (!p) return;
+        std::istringstream iss(arg);
+        std::string move_id, item_id;
+        iss >> move_id >> item_id;
+
+        if (p->has_special() && p->get_special_move().id == move_id) {
+            engine->get_dialogs().queue_popup("Kamu sudah mempelajari Special Move ini!");
+            if (!item_id.empty()) p->add_item(item_id, 1); // Refund
+            return;
+        }
+
+        if (move_id == "meteor") {
+            SpecialMove sm; sm.id = "meteor"; sm.name = "Meteor Strike"; sm.power = 80;
+            sm.max_uses_per_day = 1; sm.current_uses = 1; sm.elem = Element::FIRE; sm.range = TargetRange::AOE;
+            p->set_special_move(sm);
+            engine->get_dialogs().queue_popup("Mempelajari Special Move: Meteor Strike!");
+        }
+    });
+
     register_action("add_party_member", [this](const std::string& npc_id) {
         if (!npc_id.empty()) {
             const NPC* npc = engine->get_db().get_npc(npc_id);

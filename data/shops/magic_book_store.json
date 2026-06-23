@@ -1,0 +1,44 @@
+{
+    "id": "sh_magic",
+    "name": "Toko Buku Sihir Merlin",
+    "items": [
+        {
+            "item": "magic_book_inferno",
+            "base_stock": 1
+        },
+        {
+            "item": "magic_book_heal",
+            "base_stock": 1
+        },
+        {
+            "item": "magic_book_meteor",
+            "base_stock": 1
+        },
+        {
+            "item": "potion_mp",
+            "base_stock": 5
+        }
+    ],
+    "restock_schedule": [
+        {
+            "day": 5,
+            "items": [
+                "magic_book_heal",
+                "potion_mp"
+            ]
+        },
+        {
+            "day": 10,
+            "items": [
+                "magic_book_inferno",
+                "magic_book_meteor"
+            ]
+        }
+    ],
+    "on_enter": [
+        "set_next_dialog sh_magic_dialog"
+    ],
+    "on_exit": [
+        "set_next_dialog sh_magic_dialog_EXIT"
+    ]
+}

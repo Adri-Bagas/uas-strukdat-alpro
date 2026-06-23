@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_meteor",
+    "name": "Tome of Meteor Strike",
+    "description": "Buku legendaris yang berisi Special Move meteor! (Sekali Pakai)",
+    "type": "consumable",
+    "value": 500,
+    "on_use": [
+        "learn_special meteor magic_book_meteor"
+    ]
+}

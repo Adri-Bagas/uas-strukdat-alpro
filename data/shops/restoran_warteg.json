@@ -1,0 +1,40 @@
+{
+    "id": "sh_restoran",
+    "name": "Restoran Lezat",
+    "items": [
+        {
+            "item": "food_nasi_goreng",
+            "base_stock": 10
+        },
+        {
+            "item": "food_sate_ayam",
+            "base_stock": 5
+        },
+        {
+            "item": "potion_hp",
+            "base_stock": 5
+        }
+    ],
+    "restock_schedule": [
+        {
+            "day": 1,
+            "items": [
+                "food_nasi_goreng",
+                "potion_hp"
+            ]
+        },
+        {
+            "day": 2,
+            "items": [
+                "food_nasi_goreng",
+                "food_sate_ayam"
+            ]
+        }
+    ],
+    "on_enter": [
+        "set_next_dialog sh_restoran_dialog"
+    ],
+    "on_exit": [
+        "set_next_dialog sh_restoran_dialog_EXIT"
+    ]
+}

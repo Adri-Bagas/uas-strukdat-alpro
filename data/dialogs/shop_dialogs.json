@@ -114,5 +114,148 @@
         "value": "~Orang ini sedikit aneh ya~"
       }
     ]
+  },
+  {
+    "id": "sh_blacksmith_dialog",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Budi",
+        "value": "Senjata buatanku jaminan mutu! Mau beli apa?"
+      }
+    ]
+  },
+  {
+    "id": "sh_blacksmith_dialog_EXIT",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Budi",
+        "value": "Semoga senjatanya awet! Jangan ragu buat mampir lagi."
+      }
+    ]
+  },
+  {
+    "id": "sh_blacksmith_dialog_FIRST",
+    "on_start": [],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Budi",
+        "value": "Halo orang asing! Baru pertama ke sini ya?"
+      },
+      {
+        "type": 1,
+        "npc_name": "Budi",
+        "value": "Namaku Budi, sang pandai besi. Senjata dan zirahnya semua ku buat sendiri loh!"
+      }
+    ]
+  },
+  {
+    "id": "sh_restoran_dialog",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Ibu Warteg",
+        "value": "Makan apa hari ini dek?"
+      }
+    ]
+  },
+  {
+    "id": "sh_restoran_dialog_EXIT",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Ibu Warteg",
+        "value": "Makasih ya! Kalo laper mampir aja kesini lagi!"
+      }
+    ]
+  },
+  {
+    "id": "sh_restoran_dialog_FIRST",
+    "on_start": [],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Ibu Warteg",
+        "value": "Waduh, belum pernah lihat wajahmu dek."
+      },
+      {
+        "type": 1,
+        "npc_name": "Ibu Warteg",
+        "value": "Ini restoran paling laku di distrik pasar, makanannya dijamin buat kenyang dan memulihkan tenagamu!"
+      }
+    ]
+  },
+  {
+    "id": "sh_magic_dialog",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Merlin",
+        "value": "Kau mencari pengetahuan sihir? Silahkan lihat koleksi bukuku."
+      }
+    ]
+  },
+  {
+    "id": "sh_magic_dialog_EXIT",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Merlin",
+        "value": "Semoga bukunya bermanfaat. Hati-hati menggunakannya."
+      }
+    ]
+  },
+  {
+    "id": "sh_magic_dialog_FIRST",
+    "on_start": [],
+    "on_exit": [
+      "add_var visited_places_count 1"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Merlin",
+        "value": "Ah, pelanggan baru. Namaku Merlin."
+      },
+      {
+        "type": 1,
+        "npc_name": "Merlin",
+        "value": "Aku menjual buku sihir. Hanya dengan membacanya, kau bisa langsung mempelajari sihirnya."
+      },
+      {
+        "type": 1,
+        "npc_name": "Merlin",
+        "value": "Buku ini hanya bisa dipakai sekali, jadi pastikan kau sudah siap sebelum membacanya."
+      }
+    ]
   }
 ]

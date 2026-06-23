@@ -1,6 +1,5 @@
 #include "TownState.hpp"
 #include "DungeonState.hpp"
-#include "../utils/components/Popup.hpp"
 #include "../utils/components/ChoicePopup.hpp"
 #include "../utils/components/LogPopup.hpp"
 #include "BattleState.hpp"
@@ -62,8 +61,12 @@ void TownState::on_enter() {
         engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Discovered new location: " + cur->get_name());
         if (!cur->get_on_first_enter().empty()) {
             queued_scenes.push(cur->get_on_first_enter());
+        } else {
+            cur->set_has_entered(true);
+            if (!cur->get_on_enter().empty()) {
+                queued_scenes.push(cur->get_on_enter());
+            }
         }
-        cur->set_has_entered(true);
     } else {
         if (!cur->get_on_enter().empty()) {
             queued_scenes.push(cur->get_on_enter());
@@ -92,6 +95,12 @@ void TownState::on_enter() {
         const DialogScene* scene = engine->get_db().get_dialog_scene(first_scene);
         if (scene) {
             engine->get_dialogs().start_scene(*scene, engine);
+            
+            if (first_scene == cur->get_on_first_enter() && !cur->get_has_entered()) {
+                auto exit_actions = engine->get_dialogs().get_on_exit();
+                exit_actions.push_back("mark_current_place_entered");
+                engine->get_dialogs().set_on_exit(exit_actions);
+            }
         }
     }
     init_tabs();

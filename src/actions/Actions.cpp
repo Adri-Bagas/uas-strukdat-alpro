@@ -139,9 +139,16 @@ Action::Action(GameEngine* eng) : engine(eng) {
     });
     register_action("save_game", [this](const std::string&) {
         if (SaveManager::save_game(engine, "savegame.json")) {
-            engine->get_dialogs().queue_popup("Game berhasil disimpan.");
+            engine->get_dialogs().queue_popup("Game berhasil disimpan!");
         } else {
             engine->get_dialogs().queue_popup("Gagal menyimpan game!");
+        }
+    });
+
+    register_action("mark_current_place_entered", [this](const std::string&) {
+        Place* cur = engine->get_places().get_current_place();
+        if (cur) {
+            cur->set_has_entered(true);
         }
     });
 

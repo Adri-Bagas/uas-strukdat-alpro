@@ -1,7 +1,6 @@
 #include "StatAllocationState.hpp"
 #include "../GameEngine.hpp"
 #include <ncurses.h>
-#include <algorithm>
 
 StatAllocationState::StatAllocationState(GameEngine* eng) : GameState(eng), current_selection(0) {
     stat_names = {"Strength (STR) [+Damage/HP]", "Constitution (CON) [+HP/Def]", "Agility (AGI) [+Speed]", "Intelligence (INT) [+Magic Dmg]", "Wisdom (WIS) [+MP/Def]", "Done"};

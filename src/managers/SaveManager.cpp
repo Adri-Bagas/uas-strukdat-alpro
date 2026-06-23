@@ -68,6 +68,12 @@ bool SaveManager::save_game(GameEngine* engine, const std::string& filepath) {
         }
     }
 
+    // 6. Places
+    data["places"] = json::object();
+    for (const auto& place_ptr : engine->get_db().get_all_places()) {
+        data["places"][place_ptr->get_id()]["has_entered"] = place_ptr->get_has_entered();
+    }
+
     std::ofstream file(filepath);
     if (file.is_open()) {
         file << data.dump(4);
@@ -171,6 +177,18 @@ bool SaveManager::load_game(GameEngine* engine, const std::string& filepath) {
             const NPC* npc = engine->get_db().get_npc(el.value().get<std::string>());
             if (npc) {
                 engine->get_player_manager().add_ally(*npc);
+            }
+        }
+    }
+
+    // Places
+    if (data.contains("places")) {
+        for (auto& el : data["places"].items()) {
+            std::string place_id = el.key();
+            const Place* place = engine->get_db().get_place(place_id);
+            if (place && el.value().contains("has_entered")) {
+                bool entered = el.value()["has_entered"].get<bool>();
+                const_cast<Place*>(place)->set_has_entered(entered);
             }
         }
     }

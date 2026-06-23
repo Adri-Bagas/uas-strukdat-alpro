@@ -601,11 +601,13 @@ void BattleState::handle_input(int ch) {
 
     if (menu_options.empty()) return;
     
-    if (ch == KEY_UP && current_menu_selection > 0) {
+    if ((ch == KEY_UP || ch == 'w' || ch == 'W') && current_menu_selection > 0) {
         current_menu_selection--;
+        engine->get_music_manager().playSfx("select_001.mp3");
         return;
-    } else if (ch == KEY_DOWN && current_menu_selection < (int)menu_options.size() - 1) {
+    } else if ((ch == KEY_DOWN || ch == 's' || ch == 'S') && current_menu_selection < (int)menu_options.size() - 1) {
         current_menu_selection++;
+        engine->get_music_manager().playSfx("select_001.mp3");
         return;
     } else if (ch != 10) {
         return; // Only process enter key beyond this point
@@ -863,6 +865,10 @@ void BattleState::add_log(const std::string& msg) {
         battle_log.erase(battle_log.begin());
     }
 
+    if (!skip_animations) {
+        engine->get_music_manager().startTypingSfx("typingText.mp3");
+    }
+
     // Typing animation
     for (char c : msg) {
         battle_log.back() += c;
@@ -878,6 +884,8 @@ void BattleState::add_log(const std::string& msg) {
             if (!skip_animations) napms(15);
         }
     }
+    
+    engine->get_music_manager().stopTypingSfx();
     
     if (skip_animations) {
         view.draw(

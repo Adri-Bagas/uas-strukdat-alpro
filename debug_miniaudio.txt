@@ -432,3 +432,1643 @@ SUCCESS: Typing SFX stopped.
 SUCCESS: Typing SFX started: data/audio/typingText.mp3
 SUCCESS: Typing SFX stopped.
 SUCCESS: Typing SFX started: data/audio/typingText.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/mystery.mp3
+ERROR: File MP3 gagal dimuat. Kode error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+ERROR: Typing SFX gagal dimuat. Error: -7
+DEBUG: Gagal memutar SFX. Kode Error: -7 Path: data/audio/doorOpen_2.wav
+ERROR: Typing SFX gagal dimuat. Error: -7
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/doorOpen_2.wav
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/doorOpen_2.wav
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/doorOpen_2.wav
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+Mencoba memutar file: data/audio/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+Mencoba memutar file: audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+Mencoba memutar file: audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+Mencoba memutar file: audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started: data/audio/sfx/typingText.mp3
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/select_001.mp3
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: SFX berhasil ditembakkan: data/audio/sfx/doorOpen_2.mp3
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+
+=== STARTUP ENGINE ===
+SUCCESS: Engine menyala. Driver yang dipakai: PulseAudio
+Mencoba memutar file: data/audio/bgm/exploration.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+INFO: Menambahkan salinan baru ke SFX Pool untuk select_001.mp3. Total: 1
+Mencoba memutar file: data/audio/bgm/mystery.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+INFO: Menambahkan salinan baru ke SFX Pool untuk doorOpen_2.mp3. Total: 1
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+Mencoba memutar file: data/audio/bgm/melancholy.mp3
+SUCCESS: Lagu mulai diputar ke speaker!
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.
+SUCCESS: Typing SFX started.
+SUCCESS: Typing SFX stopped.

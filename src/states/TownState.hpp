@@ -6,6 +6,7 @@
 #include "../models/Place.hpp"
 #include <vector>
 #include <memory>
+#include "../views/MainPage.hpp"
 
 class ChoicePopup;
 
@@ -25,6 +26,11 @@ class TownState : public GameState {
     bool is_in_map_mode = false;
     int map_selection_index = 0;
     std::vector<Place*> map_places;
+
+    // Cached Map Graph untuk Optimasi Performa (menghindari memory leak / CPU overload)
+    std::string cached_root_id = "";
+    std::vector<GraphNode> cached_graph_nodes;
+    std::vector<GraphEdge> cached_edges;
 
     // Choice Component
     std::unique_ptr<ChoicePopup> current_choice_popup;
@@ -48,6 +54,9 @@ private:
     void render_world_menu(Player* p, std::vector<std::string>& menu_display);
     void render_map_preview(Player* p, std::vector<std::string>& menu_display);
     void render_sidebars(Player* p);
+
+    // --- Optimasi ---
+    void rebuild_map_graph();
 
 public:
     TownState(GameEngine* eng);

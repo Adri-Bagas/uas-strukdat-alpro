@@ -103,10 +103,12 @@ void TownState::handle_input(int ch) {
             idx--;
             if (idx < 0) idx = count - 1;
             engine->get_dialogs().set_selected_choice_index(idx);
+            engine->get_music_manager().playSfx("select_001.mp3");
         } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
             idx++;
             if (idx >= count) idx = 0;
             engine->get_dialogs().set_selected_choice_index(idx);
+            engine->get_music_manager().playSfx("select_001.mp3");
         } else if (ch == '\n' || ch == ' ') {
             engine->get_dialogs().select_choice(idx, engine);
         }
@@ -127,19 +129,16 @@ void TownState::update() {
     }
 }
 
-void TownState::render() {
-    engine->get_layout().draw();
-    Player* p = engine->get_player_manager().get_player();
-    if (!p) return;
-
-    render_player_status(p);
-
-    // Render the Map
-    std::map<std::string, std::pair<int, int>> coords;
-    std::vector<GraphEdge> edges;
-    std::queue<std::pair<std::string, std::pair<int, int>>> q;
+void TownState::rebuild_map_graph() {
+    cached_graph_nodes.clear();
+    cached_edges.clear();
     
     std::string root_id = engine->get_places().get_current_place()->get_id();
+    cached_root_id = root_id;
+
+    std::map<std::string, std::pair<int, int>> coords;
+    std::queue<std::pair<std::string, std::pair<int, int>>> q;
+    
     q.push({root_id, {50, 50}});
     coords[root_id] = {50, 50};
 
@@ -152,7 +151,7 @@ void TownState::render() {
         for (const auto& [dir, wp] : curr_place->get_walkable_places()) {
             std::string nbr_id = wp->get_id();
             if (curr_id < nbr_id) {
-                edges.push_back({curr_id, nbr_id});
+                cached_edges.push_back({curr_id, nbr_id});
             }
             if (coords.find(nbr_id) == coords.end()) {
                 int nx = pos.first;
@@ -176,7 +175,6 @@ void TownState::render() {
         if (pos.second > max_y) max_y = pos.second;
     }
 
-    std::vector<GraphNode> graph_nodes;
     for (const auto& [id, pos] : coords) {
         std::string n_name = "";
         for (Place* p : map_places) {
@@ -184,14 +182,28 @@ void TownState::render() {
         }
         int norm_x = pos.first - min_x;
         int norm_y = pos.second - min_y;
-        graph_nodes.push_back({id, n_name, norm_x, norm_y});
+        cached_graph_nodes.push_back({id, n_name, norm_x, norm_y});
     }
     
     int overflow_y = (max_y == -9999) ? 0 : (max_y - min_y + 1);
     for (Place* p : map_places) {
         if (coords.find(p->get_id()) == coords.end()) {
-            graph_nodes.push_back({p->get_id(), p->get_name(), 0, overflow_y++});
+            cached_graph_nodes.push_back({p->get_id(), p->get_name(), 0, overflow_y++});
         }
+    }
+}
+
+void TownState::render() {
+    engine->get_layout().draw();
+    Player* p = engine->get_player_manager().get_player();
+    if (!p) return;
+
+    render_player_status(p);
+
+    std::string root_id = engine->get_places().get_current_place()->get_id();
+    // Rebuild Map Graph HANYA jika berpindah tempat! (Optimasi CPU & Memory)
+    if (root_id != cached_root_id || cached_graph_nodes.empty()) {
+        rebuild_map_graph();
     }
 
     std::string selected_id = "";
@@ -199,7 +211,7 @@ void TownState::render() {
         selected_id = map_places[map_selection_index]->get_id();
     }
 
-    engine->get_layout().draw_map(engine->get_layout().win_thought, graph_nodes, edges, selected_id, is_in_map_mode, root_id);
+    engine->get_layout().draw_map(engine->get_layout().win_thought, cached_graph_nodes, cached_edges, selected_id, is_in_map_mode, root_id);
 
     std::vector<std::string> menu_display;
     if (is_in_quest_menu && interacting_npc) {
@@ -247,9 +259,11 @@ void TownState::handle_quest_menu_input(int ch) {
     if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
         quest_selection_index--;
         if (quest_selection_index < 0) quest_selection_index = total_quest_options - 1;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
         quest_selection_index++;
         if (quest_selection_index >= total_quest_options) quest_selection_index = 0;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == '\n' || ch == ' ') {
         if (quest_selection_index == (int)available_quests.size()) {
             interacting_npc = nullptr; available_quests.clear(); is_in_quest_menu = false; selection_index = 0;
@@ -285,9 +299,11 @@ void TownState::handle_map_menu_input(int ch) {
     if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
         map_selection_index--;
         if (map_selection_index < 0) map_selection_index = (int)map_places.size() - 1;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
         map_selection_index++;
         if (map_selection_index >= (int)map_places.size()) map_selection_index = 0;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == '\n' || ch == ' ') {
         Place* cur = engine->get_places().get_current_place();
         Place* target = map_places[map_selection_index];
@@ -320,9 +336,11 @@ void TownState::handle_world_menu_input(int ch) {
     if (ch == KEY_UP || ch == 'w' || ch == KEY_LEFT || ch == 'a') {
         selection_index--;
         if (selection_index < 0) selection_index = total_options - 1;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
         selection_index++;
         if (selection_index >= total_options) selection_index = 0;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == '\n' || ch == ' ') {
         if (selection_index < 0) return;
         if (selection_index < (int)current_npcs.size()) {

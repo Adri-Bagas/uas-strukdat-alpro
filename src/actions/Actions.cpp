@@ -142,10 +142,10 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("save_game", [this](const std::string&) {
         auto saves = SaveManager::get_save_files();
         std::vector<std::string> options;
+        options.push_back("<Buat Save Baru>");
         for (const auto& s : saves) {
             options.push_back(s.filename + " (" + s.player_name + " Lv." + std::to_string(s.level) + " " + s.phase_name + ")");
         }
-        options.push_back("<Buat Save Baru>");
         options.push_back("Batal");
 
         auto popup = std::make_unique<Utils::MenuPopup>(
@@ -153,7 +153,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             options,
             [this, saves](int choice) {
                 if (choice < 0 || choice == (int)saves.size() + 1) return; // Batal
-                if (choice == (int)saves.size()) {
+                if (choice == 0) {
                     // Buat Save Baru
                     auto input_popup = std::make_unique<Utils::InputPopup>(
                         "Masukkan nama save file (tanpa spasi/simbol):",
@@ -168,8 +168,9 @@ Action::Action(GameEngine* eng) : engine(eng) {
                     engine->show_popup(std::move(input_popup));
                 } else {
                     // Overwrite existing save
-                    if (SaveManager::save_game(engine, saves[choice].filename)) {
-                        engine->get_dialogs().queue_popup("Game berhasil ditimpa ke " + saves[choice].filename + "!");
+                    int save_idx = choice - 1;
+                    if (SaveManager::save_game(engine, saves[save_idx].filename)) {
+                        engine->get_dialogs().queue_popup("Game berhasil ditimpa ke " + saves[save_idx].filename + "!");
                     } else {
                         engine->get_dialogs().queue_popup("Gagal menyimpan game!");
                     }

@@ -20,7 +20,7 @@
             "has_met": false
         },
         "npc_bjorn": {
-            "has_met": true
+            "has_met": false
         },
         "npc_citizen_1": {
             "has_met": false
@@ -50,7 +50,7 @@
             "has_met": false
         },
         "npc_hugo": {
-            "has_met": true
+            "has_met": false
         },
         "npc_kael": {
             "has_met": false
@@ -74,7 +74,7 @@
             "has_met": false
         },
         "npc_tara": {
-            "has_met": true
+            "has_met": false
         },
         "npc_thug_1": {
             "has_met": false
@@ -91,13 +91,13 @@
     },
     "places": {
         "alun_alun": {
-            "has_entered": true
+            "has_entered": false
         },
         "balai_kota": {
             "has_entered": false
         },
         "biara": {
-            "has_entered": true
+            "has_entered": false
         },
         "blacksmith_budi": {
             "has_entered": false
@@ -106,13 +106,13 @@
             "has_entered": false
         },
         "gua_tambang": {
-            "has_entered": true
+            "has_entered": false
         },
         "jalanan_barat_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "jalanan_selatan_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "jalanan_timur_kota": {
             "has_entered": false
@@ -121,28 +121,28 @@
             "has_entered": true
         },
         "jalanan_utara_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "kamar_loteng": {
             "has_entered": true
         },
         "kandang_kuda": {
-            "has_entered": false
+            "has_entered": true
         },
         "kedai_usang": {
-            "has_entered": true
+            "has_entered": false
         },
         "magic_book_store": {
             "has_entered": false
         },
         "menara_tua": {
-            "has_entered": true
+            "has_entered": false
         },
         "pasar_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "permukiman_kumuh": {
-            "has_entered": true
+            "has_entered": false
         },
         "restoran_warteg": {
             "has_entered": false
@@ -153,14 +153,11 @@
         "agi": 15,
         "cons": 15,
         "exp": 0,
-        "gold": 50,
+        "gold": 0,
         "hp": 150,
         "id": "hero",
         "intl": 15,
         "inventory": {
-            "item_nirva_sword": 1,
-            "leather_armor": 1,
-            "leather_boots": 1,
             "potion_hp": 3
         },
         "level": 1,
@@ -173,9 +170,7 @@
         "str": 15,
         "vars": {
             "day": 2,
-            "seen_day2_cutscene": 1,
-            "trust": 5,
-            "visited_places_count": 6
+            "seen_day2_cutscene": 1
         },
         "weakness": 5,
         "wis": 15
@@ -189,6 +184,6 @@
         "quest_gereja_kael_1": 0,
         "quest_gereja_kael_1_garrick": 0,
         "quest_gereja_silas_1": 0,
-        "quest_survei_kota": 4
+        "quest_survei_kota": 0
     }
 }

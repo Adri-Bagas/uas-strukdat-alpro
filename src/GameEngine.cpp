@@ -2,7 +2,6 @@
 #include "./managers/DialogManagers.hpp"
 #include "./states/GameState.hpp"
 #include "./views/MainPage.hpp"
-#include "states/TownState.hpp"
 #include "states/StartState.hpp"
 #include "./utils/Logger.hpp"
 #include "./utils/components/ErrorPopup.hpp"

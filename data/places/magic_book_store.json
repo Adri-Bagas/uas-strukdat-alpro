@@ -1,0 +1,28 @@
+{
+    "id": "magic_book_store",
+    "name": "Toko Buku Sihir Merlin",
+    "on_first_enter": "sh_magic_dialog_FIRST",
+    "on_enter": "",
+    "walkable": {
+        "north": "pasar_kota"
+    },
+    "activities": [
+        {
+            "id": "shop_magic",
+            "name": "Beli Buku Sihir",
+            "time_cost": 0,
+            "schedule": {
+                "days": [],
+                "phases": [
+                    "Pagi",
+                    "Siang",
+                    "Sore"
+                ]
+            },
+            "dialogs": {},
+            "on_execute": [
+                "open_shop sh_magic"
+            ]
+        }
+    ]
+}

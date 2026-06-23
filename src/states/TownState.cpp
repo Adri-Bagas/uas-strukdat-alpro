@@ -138,6 +138,11 @@ void TownState::handle_input(int ch) {
             engine->get_dialogs().set_selected_choice_index(idx);
         } else if (ch == '\n' || ch == ' ') {
             engine->get_dialogs().select_choice(idx, engine);
+            if (!engine->get_dialogs().has_active_choices() && !engine->get_dialogs().has_queued_dialog()) {
+                engine->get_dialogs().set_on_exit({});
+                engine->get_dialogs().set_next_scene("");
+                this->on_enter();
+            }
         }
         return;
     }
@@ -325,14 +330,21 @@ void TownState::handle_quest_menu_input(int ch) {
         } else {
             Quest* q = available_quests[quest_selection_index];
             Player* p = engine->get_player_manager().get_player();
-            std::string scene_id = q->can_complete(p) ? q->get_complete_scene() : (q->get_state() == QuestState::AVAILABLE ? q->get_start_scene() : "");
+            std::string scene_id = q->can_complete(p, &engine->get_quests()) ? q->get_complete_scene() : (q->get_state() == QuestState::AVAILABLE ? q->get_start_scene() : "");
 
             if (!scene_id.empty()) {
                 const DialogScene* scene = engine->get_db().get_dialog_scene(scene_id);
                 if (scene) {
                     is_in_quest_menu = false; 
-                    if (q->can_complete(p)) engine->get_actions().execute("complete_quest " + q->get_id());
+                    if (q->get_state() == QuestState::AVAILABLE) {
+                        engine->get_actions().execute("accept_quest " + q->get_id());
+                    }
                     engine->get_dialogs().start_scene(*scene, engine);
+                    if (q->can_complete(p, &engine->get_quests())) {
+                        auto current_on_exit = engine->get_dialogs().get_on_exit();
+                        current_on_exit.push_back("complete_quest " + q->get_id());
+                        engine->get_dialogs().set_on_exit(current_on_exit);
+                    }
                 }
             } else {
                 engine->get_dialogs().queue_popup(q->get_state() == QuestState::IN_PROGRESS ? "Kamu masih mengerjakan ini: " + q->get_description() : "Tahap misi ini belum memiliki cerita.");

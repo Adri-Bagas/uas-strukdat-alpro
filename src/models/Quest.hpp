@@ -53,8 +53,8 @@ public:
         }
     }
 
-    bool can_complete(const Player* player) const {
-        return state == QuestState::IN_PROGRESS && completion_condition.evaluate(player);
+    bool can_complete(const Player* player, const QuestManager* qm = nullptr) const {
+        return state == QuestState::IN_PROGRESS && completion_condition.evaluate(player, qm);
     }
 
     QuestState get_state() const { return state; }

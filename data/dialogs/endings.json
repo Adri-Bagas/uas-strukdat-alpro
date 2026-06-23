@@ -1,0 +1,107 @@
+[
+  {
+    "id": "ending_good_exonerated",
+    "on_enter": [],
+    "on_exit": [
+      "return_to_main_menu"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "=== EXONERATED (GOOD ENDING) ==="
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Hari ke-14 telah tiba. Sang Inquisitor memasuki kota perdagangan Nirva dengan wewenang penuh dari Takhta Agung."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kamu melangkah maju ke Balai Kota, menghadapi tuduhan pembunuhan Walikota terdahulu dengan kepala tegak."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Sebelum keputusan akhir dijatuhkan, kamu menarik Buku Kas Ledger rahasia yang telah kamu amankan dari rencana konspirasi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Setelah pemeriksaan cepat namun teliti oleh sang Inquisitor, kebenaran akhirnya terungkap kepada publik."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kael dan Valerius terbukti melakukan makar dan korupsi besar-besaran. Mereka langsung diringkus di tempat oleh para penjaga."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Sang Inquisitor menatapmu dengan rasa hormat, lalu memberi isyarat kepada bawahan."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Gelang Penjara Suci (Holy Prison Bracelet) yang melumpuhkan sihirmu akhirnya dibuka. Namamu sepenuhnya bersih."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kebenaran telah menang. Nirva kembali damai, dan petualangan barumu menanti di luar sana."
+      }
+    ]
+  },
+  {
+    "id": "ending_bad_inquisitor",
+    "on_enter": [],
+    "on_exit": [
+      "return_to_main_menu"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "=== EXECUTION (BAD ENDING) ==="
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Batas waktu 14 hari yang diberikan kepadamu untuk membuktikan ketidakbersalahanmu telah sepenuhnya habis."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Sang Inquisitor tiba dengan jubah hitamnya yang megah dan aura intimidasi yang pekat."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Lantaran tidak adanya bukti konkret untuk membantah tuduhan pembunuhan Walikota Nirva, kamu tidak punya pembelaan lagi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Masyarakat Nirva berkumpul di Alun-Alun kota dalam keheningan yang dingin dan mencekam."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Sang Inquisitor membacakan titah hukuman mati atas tuduhan pengkhianatan tinggi dan konspirasi."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Algojo mengangkat kapaknya yang besar. Dengan satu tebasan cepat, semuanya menjadi gelap gulita."
+      },
+      {
+        "type": 3,
+        "npc_name": "Narrator",
+        "value": "Kebenaran tentang konspirasi Nirva terkubur bersamamu selamanya, sementara konspirator asli tersenyum di balik layar."
+      }
+    ]
+  }
+]

@@ -2,7 +2,6 @@
 #include "../utils/Logger.hpp"
 #include "../utils/components/Popup.hpp"
 #include "../GameEngine.hpp"
-#include "../states/EndingState.hpp"
 #include "../models/Player.hpp"
 
 DayTime TimeCalendarManagers::getDayTime() {
@@ -81,7 +80,10 @@ void TimeCalendarManagers::advanceDate() {
     if (this->day >= 14) {
         if (engine) {
             std::string final_ending = engine->get_quests().evaluate_endings(engine->get_player_manager().get_player());
-            engine->push_state(new EndingState(engine, final_ending));
+            const DialogScene* scene = engine->get_db().get_dialog_scene(final_ending);
+            if (scene) {
+                engine->get_dialogs().start_scene(*scene, engine);
+            }
         }
         return;
     }

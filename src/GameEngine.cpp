@@ -45,7 +45,6 @@ void GameEngine::init() {
     db.load_monsters("data/monsters");
     db.load_quests("data/quests");
     db.load_shops("data/shops");
-    db.load_endings("data/endings.json");
     shop_manager.init_from_db(db);
 
     for (auto* p_const : db.get_all_places()) {

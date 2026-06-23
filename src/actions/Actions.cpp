@@ -1,3 +1,4 @@
+#include "../states/StartState.hpp"
 #include "../GameEngine.hpp"
 #include "../utils/Logger.hpp"
 #include "./Actions.hpp"
@@ -185,6 +186,10 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (cur) {
             cur->set_has_entered(true);
         }
+    });
+
+    register_action("return_to_main_menu", [this](const std::string&) {
+        engine->change_state(new StartState(engine));
     });
 
     // Party Actions

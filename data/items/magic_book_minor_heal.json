@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_minor_heal",
+    "name": "Buku Sihir: Minor Heal",
+    "description": "Sihir penyembuhan dasar. Menyembuhkan 25 HP. (Sekali Pakai)",
+    "type": "consumable",
+    "value": 40,
+    "on_use": [
+        "learn_magic minor_heal magic_book_minor_heal"
+    ]
+}

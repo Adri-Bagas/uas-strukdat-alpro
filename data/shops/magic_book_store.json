@@ -17,6 +17,26 @@
         {
             "item": "potion_mp",
             "base_stock": 5
+        },
+        {
+            "item": "magic_book_water_splash",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_earth_spike",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_wind_blade",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_fire_bolt",
+            "base_stock": 2
+        },
+        {
+            "item": "magic_book_minor_heal",
+            "base_stock": 2
         }
     ],
     "restock_schedule": [
@@ -32,6 +52,16 @@
             "items": [
                 "magic_book_inferno",
                 "magic_book_meteor"
+            ]
+        },
+        {
+            "day": 2,
+            "items": [
+                "magic_book_water_splash",
+                "magic_book_earth_spike",
+                "magic_book_wind_blade",
+                "magic_book_fire_bolt",
+                "magic_book_minor_heal"
             ]
         }
     ],

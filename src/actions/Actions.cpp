@@ -178,6 +178,31 @@ Action::Action(GameEngine* eng) : engine(eng) {
             m.power = 50; m.mana_cost = 10; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
             p->add_magic(m);
             engine->get_dialogs().queue_popup("Mempelajari sihir: Greater Heal!");
+        } else if (magic_id == "water_splash") {
+            Magic m; m.id = "water_splash"; m.name = "Water Splash"; m.type = MagicType::ATTACKING;
+            m.power = 20; m.mana_cost = 5; m.elem = Element::WATER; m.range = TargetRange::DIRECT;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Water Splash!");
+        } else if (magic_id == "earth_spike") {
+            Magic m; m.id = "earth_spike"; m.name = "Earth Spike"; m.type = MagicType::ATTACKING;
+            m.power = 20; m.mana_cost = 5; m.elem = Element::EARTH; m.range = TargetRange::DIRECT;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Earth Spike!");
+        } else if (magic_id == "wind_blade") {
+            Magic m; m.id = "wind_blade"; m.name = "Wind Blade"; m.type = MagicType::ATTACKING;
+            m.power = 20; m.mana_cost = 5; m.elem = Element::WIND; m.range = TargetRange::DIRECT;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Wind Blade!");
+        } else if (magic_id == "fire_bolt") {
+            Magic m; m.id = "fire_bolt"; m.name = "Fire Bolt"; m.type = MagicType::ATTACKING;
+            m.power = 20; m.mana_cost = 5; m.elem = Element::FIRE; m.range = TargetRange::DIRECT;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Fire Bolt!");
+        } else if (magic_id == "minor_heal") {
+            Magic m; m.id = "minor_heal"; m.name = "Minor Heal"; m.type = MagicType::HEALING;
+            m.power = 25; m.mana_cost = 5; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Minor Heal!");
         }
     });
 

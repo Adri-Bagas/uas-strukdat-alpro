@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_wind_blade",
+    "name": "Buku Sihir: Wind Blade",
+    "description": "Sihir angin dasar. Kekuatan 20, Elemen Wind. (Sekali Pakai)",
+    "type": "consumable",
+    "value": 50,
+    "on_use": [
+        "learn_magic wind_blade magic_book_wind_blade"
+    ]
+}

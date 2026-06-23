@@ -5,13 +5,17 @@
 
 #include <functional>
 
+class GameEngine;
+
 class TimeCalendarManagers {
     DayTime dayTime = MORNING;
 
     int month = 6;
     int day = 1;
+    GameEngine* engine = nullptr;
 
   public:
+    void set_engine(GameEngine* eng) { engine = eng; }
     std::function<void(std::string)> on_popup;
     std::function<void(int)> on_day_advanced;
 

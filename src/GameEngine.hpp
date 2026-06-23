@@ -38,6 +38,7 @@ public:
     void init(); // Setup ncurses, set initial state
 
     void push_state(GameState* new_state);
+    void change_state(GameState* new_state);
 
     // Removes top state, returning to the one below it (e.g., Battle ends -> back to Dungeon)
     void pop_state();

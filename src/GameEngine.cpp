@@ -20,6 +20,7 @@ void GameEngine::init() {
     nodelay(stdscr, TRUE);
     refresh();
 
+    calendar.set_engine(this);
     calendar.on_popup = [this](const std::string& msg) {
         dialogs.queue_popup(msg);
     };
@@ -44,6 +45,7 @@ void GameEngine::init() {
     db.load_monsters("data/monsters");
     db.load_quests("data/quests");
     db.load_shops("data/shops");
+    db.load_endings("data/endings.json");
     shop_manager.init_from_db(db);
 
     for (auto* p_const : db.get_all_places()) {
@@ -70,6 +72,14 @@ void GameEngine::init() {
 void GameEngine::push_state(GameState *new_state) {
     state_stack.push(std::unique_ptr<GameState>(new_state));
     state_stack.top()->on_enter();
+}
+
+void GameEngine::change_state(GameState *new_state) {
+    while (!state_stack.empty()) {
+        state_stack.top()->on_exit();
+        state_stack.pop();
+    }
+    push_state(new_state);
 }
 
 // Removes top state, returning to the one below it.

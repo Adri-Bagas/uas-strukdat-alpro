@@ -1,0 +1,31 @@
+{
+  "ending_good_exonerated": [
+    "--- EXONERATED (GOOD ENDING) ---",
+    "",
+    "Hari ke-14 telah tiba. Sang Inquisitor memasuki kota dengan wewenang penuh.",
+    "Kamu melangkah maju ke Balai Kota, menghadapi tuduhan dengan kepala tegak.",
+    "",
+    "Sebelum keputusan dijatuhkan, kamu mengeluarkan Buku Kas Ledger rahasia yang",
+    "berhasil kamu amankan dari kedalaman plot konspirasi.",
+    "",
+    "Setelah pemeriksaan cepat namun teliti oleh sang Inquisitor, kebenaran terungkap.",
+    "Kael dan Valerius terbukti melakukan pengkhianatan dan langsung ditangkap oleh penjaga.",
+    "",
+    "Sang Inquisitor menatapmu, lalu memberi isyarat kepada bawahannya.",
+    "Gelang Penjara Suci (Holy Prison Bracelet) yang membelenggu tanganmu akhirnya dilepas.",
+    "Namamu sepenuhnya bersih. Kebenaran telah menang."
+  ],
+  "ending_bad_inquisitor": [
+    "--- EXECUTION (BAD ENDING) ---",
+    "",
+    "Batas waktu 14 hari telah habis. Sang Inquisitor tiba untuk menjatuhkan keputusan.",
+    "Tanpa bukti kuat yang dapat membersihkan namamu dari tuduhan pengkhianatan,",
+    "kamu tidak memiliki pembelaan yang tersisa.",
+    "",
+    "Penduduk kota berkumpul di alun-alun dalam keheningan.",
+    "Sang Inquisitor menyatakan dirimu bersalah atas kejahatan pengkhianatan tinggi.",
+    "",
+    "Hukuman mati dijatuhkan seketika. Kamu dieksekusi di hadapan publik.",
+    "Kebenaran terkubur bersamamu, dan konspirator yang sesungguhnya terus tertawa di kegelapan."
+  ]
+}

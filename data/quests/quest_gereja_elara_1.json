@@ -1,32 +1,28 @@
 {
   "id": "quest_gereja_elara_1",
-  "name": "Buku Suci yang Hilang",
-  "description": "Bantu Inquisitor Elara menemukan buku suci kuno yang dikabarkan jatuh ke pasar gelap. Temui Silas si Tikus.",
+  "name": "Kecurigaan Elara",
+  "description": "Temani Elara ke Dungeon untuk mencari bukti korupsi Kael.",
   "target_npc_id": "npc_elara",
-  "start_scene_id": "elara_start_1",
-  "complete_scene_id": "elara_complete_1",
+  "target_location_id": "dungeon_f1",
+  "location_trigger_scene": "scene_dungeon_elara",
   "unlock_conditions": [
     {
       "type": "var_equal",
-      "key": "quest_gereja_2",
+      "key": "quest_gereja_1_complete",
       "value": 1
-    },
-    {
-      "type": "var_greater_equal",
-      "key": "day",
-      "value": 5
     }
   ],
-  "condition": {
-    "type": "reach_location",
-    "key": "quest_gereja_elara_1"
+  "completion_condition": {
+    "type": "has_item",
+    "key": "dokumen_kael",
+    "value": 1
   },
+  "start_scene_id": "dialog_elara_q1_start",
+  "complete_scene_id": "selesai_elara_1",
   "on_complete": [
-    "add_gold 50",
-    "add_var trust 5",
-    "set_var quest_gereja_elara_1 1"
+    "give_item silver_ring 1",
+    "set_var quest_elara_1_complete 1",
+    "remove_item bunga_langka 1"
   ],
-  "objective_text": "Temui Silas di Permukiman Kumuh.",
-  "target_location_id": "permukiman_kumuh",
-  "location_trigger_action": []
+  "source_npc_id": "npc_elara"
 }

@@ -1,0 +1,239 @@
+[
+  {
+    "id": "dialog_maria_default",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Maria",
+        "value": "Semoga Cahaya memberkatimu, pengembara."
+      }
+    ]
+  },
+  {
+    "id": "dialog_maria_q1_start",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Maria",
+        "value": "Tolong, persediaan gandum kami di Pasar Kota dicegat bandit! Bisakah kau membantunya dan membawakan kami 3 Roti?"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_gereja_1"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "scene_pasar_gandum",
+    "on_start": [],
+    "on_exit": [
+      "start_story_battle mon_bandit_scum,mon_bandit_scum \"give_item bread 3\""
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Kusir Gandum",
+        "value": "Hei kau! Bandit ini mau merampas gandum gereja! Tolong aku!"
+      }
+    ]
+  },
+  {
+    "id": "selesai_gereja_1",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Maria",
+        "value": "Terima kasih atas rotinya. Ini sedikit imbalan untukmu."
+      }
+    ]
+  },
+  {
+    "id": "dialog_andreas_default",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pastor Andreas",
+        "value": "Banyak anak yang kehilangan orang tua akibat monster."
+      }
+    ]
+  },
+  {
+    "id": "dialog_andreas_q2_start",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pastor Andreas",
+        "value": "Lukas kabur ke Dungeon! Elara akan menemanimu, tolong bawa dia kembali!"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_gereja_2", "add_party_member npc_elara"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "scene_dungeon_lukas",
+    "on_start": [],
+    "on_exit": [
+      "add_party_member npc_lukas"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Lukas",
+        "value": "Syukurlah kalian menemukanku! Tempat ini menyeramkan!"
+      }
+    ]
+  },
+  {
+    "id": "selesai_gereja_2",
+    "on_start": [],
+    "on_exit": [
+      "remove_party_member npc_elara",
+      "remove_party_member npc_lukas"
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pastor Andreas",
+        "value": "Lukas selamat! Terima kasih, dan terima kasih Elara."
+      }
+    ]
+  },
+  {
+    "id": "dialog_andreas_q3_start",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pastor Andreas",
+        "value": "Gawat! Sekelompok Orc terlihat menuju kemari! Kita harus mempertahankan gereja!"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_gereja_3"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "scene_defend_biara",
+    "on_start": [],
+    "on_exit": [
+      "start_story_battle mon_goblin,mon_goblin,mon_orc_boss \"set_var quest_gereja_3_defended 1\""
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Orc Shaman",
+        "value": "Hancurkan tempat ini! Rebut apa yang ada di dalamnya!"
+      }
+    ]
+  },
+  {
+    "id": "selesai_gereja_3",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pastor Andreas",
+        "value": "Kita berhasil bertahan. Namun perlindungan biara mulai melemah."
+      }
+    ]
+  },
+  {
+    "id": "dialog_andreas_q4_start",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pastor Andreas",
+        "value": "Untuk memperkuat pelindung, kita butuh Relik Suci di Gua Tambang. Harap berhati-hati, Golem menjaganya."
+      }
+    ],
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_gereja_4"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ]
+  },
+  {
+    "id": "scene_tambang_relik",
+    "on_start": [],
+    "on_exit": [
+      "start_story_battle mon_stone_golem \"give_item relik_suci 1\""
+    ],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Golem Tambang",
+        "value": "*Batu-batu bergemuruh, Golem raksasa terbangun!*"
+      }
+    ]
+  },
+  {
+    "id": "selesai_gereja_4",
+    "on_start": [],
+    "on_exit": [],
+    "next_scene": "",
+    "nodes": [
+      {
+        "type": 1,
+        "npc_name": "Pastor Andreas",
+        "value": "Dengan relik ini, gereja kembali aman. Terima kasih, pahlawan."
+      }
+    ]
+  }
+]

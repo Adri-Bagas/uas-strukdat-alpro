@@ -1,50 +1,19 @@
 {
   "id": "npc_maria",
   "name": "Maria",
-  "full_name": "Maria",
   "type": "named",
-  "role": "Relawan Biara",
-  "faction": "Gereja Cahaya",
+  "role": "Relawan dapur umum biara",
+  "faction": "Neutral",
   "schedules": [
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "biara"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "biara"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "biara"
-    }
+    { "days": [], "phase": "Pagi", "location": "biara" },
+    { "days": [], "phase": "Siang", "location": "biara" },
+    { "days": [], "phase": "Malam", "location": "biara" }
   ],
-  "default_dialog": "scene_maria_idle",
-  "quests": [
-    "quest_gereja_1"
-  ],
-  "str": 15,
-  "cons": 20,
-  "agi": 18,
-  "intl": 12,
-  "wis": 15,
-  "max_hp": 120,
-  "max_mp": 80,
-  "level": 5,
-  "weapon_type": "unarmed",
-  "weapon_name": "tangan kosong",
+  "default_dialog": "dialog_maria_default",
+  "quests": ["quest_gereja_1"],
+  "str": 1, "cons": 1, "agi": 1, "intl": 1, "wis": 1,
+  "level": 1, "max_hp": 10, "max_mp": 10,
   "magics": [],
-  "special_move": {
-    "id": "none",
-    "name": "none",
-    "max_uses_per_day": 0,
-    "power": 0,
-    "element": "none"
-  },
-  "affinity": "none",
-  "weakness": "none",
-  "first_dialog": "scene_maria_first_meet"
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "unarmed", "weapon_name": "tangan kosong"
 }

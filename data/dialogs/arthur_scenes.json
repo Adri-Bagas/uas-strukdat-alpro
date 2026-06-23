@@ -23,9 +23,18 @@
         "value": "Pergilah ke sana. Cari apa pun yang mereka lewatkan. Kalau kamu temukan sesuatu, beri tahu aku."
       }
     ],
-    "on_exit": [
-      "accept_quest quest_stable_investigation"
-    ]
+    "choices": [
+      {
+        "text": "Terima Misi",
+        "next_scene": "",
+        "on_select": ["accept_quest quest_stable_investigation"]
+      },
+      {
+        "text": "Tolak / Nanti Saja",
+        "next_scene": ""
+      }
+    ],
+    "on_exit": []
   },
   {
     "id": "scene_arthur_complete_stable_quest",
@@ -81,23 +90,19 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Kamu menuruni tangga kayu kedai 'The Blind Boar'. Bau pinus tua dan aroma ale yang khas langsung menyambutmu."
+        "value": "Kedai minum usang, remang-remang, dan berbau kayu pinus tua. The Blind Boar terisolasi dari perhatian publik sehingga dihindari oleh otoritas penjaga resmi."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Arthur berdiri di balik meja konter kayu, sedang mengelap gelas. Di balik penampilannya yang santai, gerak-geriknya menunjukkan kesiagaan penuh."
+        "value": "Di sudut yang remang, terlihat fasilitas untuk memulihkan diri. Tempat ini sangat strategis sebagai safehouse utama."
       },
       {
-        "type": 1,
-        "npc_name": "npc_arthur",
-        "value": "Ini wilayah yang aman dari jangkauan langsung patroli Valerius. Di sini kau bisa memulihkan diri atau berdiskusi denganku mengenai petunjuk yang kaudapatkan."
-      },
-      {
-        "type": 2,
-        "npc_name": "Hero",
-        "value": "Ini akan menjadi safehouse dan pusat operasiku selama menyelidiki kejahatan Valerius."
+        "type": 3,
+        "npc_name": "Narator",
+        "value": "Kamu dapat menggunakan fasilitas ini untuk beristirahat memulihkan HP/MP, mengubah fase hari, atau berdiskusi taktik dengan pemilik kedai."
       }
-    ]
+    ],
+    "choices": []
   }
 ]

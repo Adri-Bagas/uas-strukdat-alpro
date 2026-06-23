@@ -2,15 +2,13 @@
   {
     "id": "hub_permukiman_kumuh",
     "on_enter": [
-      "set_time_siang",
-      "check_zona_kuning",
       "add_var visited_places_count 1"
     ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Kamu melangkah keluar dari tembok kota menuju kawasan tenda dan gubuk liar yang dihuni oleh para pekerja kasar dan korban pengusiran pajak tinggi serikat dagang Nirva."
+        "value": "Kawasan tenda dan gubuk liar di luar tembok selatan kota Nirva. Dihuni oleh pekerja kasar, buronan, dan korban pengusiran pajak tinggi serikat dagang kota."
       },
       {
         "type": 3,
@@ -20,28 +18,10 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di sudut jalan, seorang pria kurus\u2014??? (Wakil Warga Kumuh)\u2014terbatuk hebat sambil memegangi perutnya. Ia adalah salah satu warga yang dibuang oleh Valerius."
-      },
-      {
-        "type": 2,
-        "npc_name": "Hero",
-        "value": "Jika aku bisa membantunya, mungkin warga di sini mau membuka mulut soal Valerius..."
+        "value": "Ini adalah zona abu-abu kota. Di tempat ini kamu bisa mencari informasi rahasia kaum bawah, merekrut aliansi marjinal, atau mengakses Black Market milik Silas."
       }
     ],
-    "choices": [
-      {
-        "text": "Ajak Wakil Warga Kumuh bicara",
-        "next_scene": "dialog_bara_01"
-      },
-      {
-        "text": "Kunjungi Black Market Silas",
-        "next_scene": "hub_pasar_gelap"
-      },
-      {
-        "text": "Kembali ke dalam kota Nirva",
-        "next_scene": "hub_alun_alun"
-      }
-    ]
+    "choices": []
   },
   {
     "id": "dialog_bara_01",
@@ -157,42 +137,26 @@
   {
     "id": "hub_menara_tua",
     "on_enter": [
-      "set_time_evening",
-      "heal_hp -5",
       "add_var visited_places_count 1"
     ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Kamu memaksakan diri mencapai sisa bangunan pos pengawas militer yang hancur terbengkalai ini."
+        "value": "Sisa bangunan pos pengawas militer masa lalu yang kini hancur terbengkalai. Tempat ini adalah penanda batas maksimal radius sihir pilar kota."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Begitu menginjakkan kaki di area ini, gelang di tanganmu membara merah menyala secara agresif. Sihir pengikat mulai merebus darahmu. Rasa sakit yang luar biasa menjalar di lenganmu!"
-      },
-      {
-        "type": 2,
-        "npc_name": "Hero",
-        "value": "Sial, ini batas Zona Merah radius sihir pilar kota. Aku tidak bisa lama-lama di sini!"
+        "value": "Sering digunakan sebagai lokasi transaksi gelap atau pertemuan tersembunyi. Tempat di mana barang bukti krusial biasanya disembunyikan oleh Pasukan Gagak Hitam."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di tengah puing-puing, kamu melihat tumpukan tong yang baru saja dibakar."
+        "value": "Begitu menginjakkan kaki di area ini, gelang di tanganmu membara merah menyala secara agresif. Efek sihir mulai merebus darahmu, memberikan rasa sakit yang konstan."
       }
     ],
-    "choices": [
-      {
-        "text": "Geledah tumpukan abu dengan cepat",
-        "next_scene": "investigasi_abu_menara"
-      },
-      {
-        "text": "Mundur sebelum terbunuh oleh gelang (Kembali ke Kumuh)",
-        "next_scene": "hub_permukiman_kumuh"
-      }
-    ]
+    "choices": []
   },
   {
     "id": "hub_pasar_kota",
@@ -203,43 +167,25 @@
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Kamu berada di area komersial padat Nirva. Kios-kios kecil berjejer, tapi sebagian besar barang didominasi oleh serikat dagang Valerius."
+        "value": "Area komersial padat dengan hiruk pikuk pedagang dan pembeli. Kios-kios kecil berjejer rapat, menawarkan kebutuhan pokok dan perbekalan."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Di sudut yang agak sepi, seorang pedagang\u2014??? (Pedagang Kaki Lima)\u2014baru saja selesai bertransaksi dengan pelanggan."
+        "value": "Di bagian belakang pasar, terlihat deretan gudang penyimpanan logistik yang dijaga ketat oleh Pasukan Gagak Hitam."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Tiba-tiba, terdengar suara sepatu besi berderap mendekat. Dua anggota Pasukan Gagak Hitam sedang melakukan patroli rutin untuk merazia pedagang tanpa izin resmi."
+        "value": "Monopoli ekonomi terlihat jelas di sini, di mana spanduk serikat dagang Valerius mendominasi setiap transaksi besar."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Wajah pedagang kaki lima itu pucat pasi. Ia memiliki satu karung persediaan makanan yang belum disembunyikan."
-      },
-      {
-        "type": 2,
-        "npc_name": "Hero",
-        "value": "Kalau mereka melihat karung itu, pedagang itu pasti ditangkap, pikirku."
+        "value": "Di tempat ini kamu dapat membeli item logistik, menaikkan tingkat kepercayaan warga setempat, atau menginvestigasi aliran barang mencurigakan."
       }
     ],
-    "choices": [
-      {
-        "text": "Bantu pedagang menyembunyikan karung (Butuh Kecepatan)",
-        "next_scene": "side_bantu_tara"
-      },
-      {
-        "text": "Diam saja dan pura-pura membeli barang resmi",
-        "next_scene": "side_abaikan_tara"
-      },
-      {
-        "text": "Tinggalkan area pasar menuju Kumuh",
-        "next_scene": "hub_permukiman_kumuh"
-      }
-    ]
+    "choices": []
   },
   {
     "id": "side_bantu_tara",
@@ -450,33 +396,25 @@
   {
     "id": "first_enter_gua_tambang",
     "on_enter": [
-      "move_to gua_tambang",
-      "check_zona_kuning"
-    ],
-    "on_exit": [
       "add_var visited_places_count 1"
     ],
     "nodes": [
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Kamu berdiri di depan mulut Gua Tambang Terabaikan di lereng barat outskirts Nirva. Hawa dingin berembus keluar membawa bau karat besi."
+        "value": "Tambang bijih besi kuno yang ditutup paksa. Udara di dalam sangat pengap, gelap, dan memiliki labirin vertikal yang dalam."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Rangka kayu penyangga tambang mulai membusuk, dan gelang di pergelangan tanganmu mulai berdenyut merah redup\u2014peringatan bahwa kau berada di batas outskirts Zona Kuning."
+        "value": "Gelang Penjara Suci di pergelangan tanganmu memancarkan pendaran rune merah redup dan hawa hangat, menandakan bahwa kamu telah masuk ke Zona Kuning."
       },
       {
         "type": 3,
         "npc_name": "Narator",
-        "value": "Arthur menyebutkan tambang ini ditutup paksa oleh Valerius. Banyak monster bersarang di dalamnya, tetapi ada rumor operasi penambangan emas ilegal di dalam gua."
-      },
-      {
-        "type": 2,
-        "npc_name": "Hero",
-        "value": "Gua ini berbahaya. Semakin dalam aku masuk, sihir gelang ini akan menyiksaku. Tapi ini juga tempat terbaik untuk mencari emas dan melatih kekuatanku."
+        "value": "Kedalaman awal dungeon ini masih cukup aman dari efek mematikan gelang. Tempat ini kini dipenuhi monster bersarang dan menjadi zona utama berburu emas."
       }
-    ]
+    ],
+    "choices": []
   }
 ]

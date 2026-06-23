@@ -1,32 +1,28 @@
 {
   "id": "quest_gereja_4",
-  "name": "Dosa yang Terukir di Kertas",
-  "description": "Elara memintamu menyusup ke perpustakaan pribadi Kael untuk mencari bukti penggelapan dan sekte sesat. Temui Arthur di The Blind Boar untuk konsultasi rute.",
-  "target_npc_id": "npc_elara",
-  "start_scene_id": "elara_start_4",
-  "complete_scene_id": "elara_complete_4",
+  "name": "Relik Suci",
+  "description": "Ambil Relik Suci di Gua Tambang untuk memperkuat perlindungan Biara.",
+  "target_npc_id": "npc_andreas",
+  "target_location_id": "gua_tambang",
+  "location_trigger_scene": "scene_tambang_relik",
   "unlock_conditions": [
     {
       "type": "var_equal",
-      "key": "quest_gereja_kael_1",
+      "key": "quest_gereja_3_complete",
       "value": 1
-    },
-    {
-      "type": "var_greater_equal",
-      "key": "day",
-      "value": 12
     }
   ],
-  "condition": {
-    "type": "reach_location",
-    "key": "quest_gereja_4"
+  "completion_condition": {
+    "type": "has_item",
+    "key": "relik_suci",
+    "value": 1
   },
+  "start_scene_id": "dialog_andreas_q4_start",
+  "complete_scene_id": "selesai_gereja_4",
   "on_complete": [
-    "add_gold 200",
-    "add_var trust 20",
-    "set_var quest_gereja_4 1"
+    "add_gold 100",
+    "set_var quest_gereja_4_complete 1",
+    "remove_item relik_suci 1"
   ],
-  "objective_text": "Temui Arthur di Kedai Usang.",
-  "target_location_id": "kedai_usang",
-  "location_trigger_action": []
+  "source_npc_id": "npc_andreas"
 }

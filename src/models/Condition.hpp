@@ -13,7 +13,8 @@ enum class ConditionType {
     QUEST_STATE,
     KILLED_MONSTER,
     EXPLORED_AREA,
-    REACH_LOCATION
+    REACH_LOCATION,
+    HAS_PARTY_MEMBER
 };
 
 struct Condition {

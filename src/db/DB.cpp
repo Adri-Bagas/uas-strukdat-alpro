@@ -71,6 +71,7 @@ Condition parse_condition(const json& j) {
     else if (type_str == "killed_monster") cond.type = ConditionType::KILLED_MONSTER;
     else if (type_str == "explored_area") cond.type = ConditionType::EXPLORED_AREA;
     else if (type_str == "reach_location") cond.type = ConditionType::REACH_LOCATION;
+    else if (type_str == "has_party_member") cond.type = ConditionType::HAS_PARTY_MEMBER;
 
     // Mengambil data tambahan seperti nama variabel (key) atau nilai target (value)
     cond.key = j.value("key", "");

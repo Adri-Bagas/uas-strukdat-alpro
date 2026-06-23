@@ -4,8 +4,8 @@
 
 #include <sstream>
 
-BattleState::BattleState(GameEngine* engine, const std::string& enemies_list, const std::string& victory_action)
-    : GameState(engine), current_menu_selection(0), current_phase(Phase::PROCESSING_TURN), victory_action(victory_action) {
+BattleState::BattleState(GameEngine* engine, const std::string& enemies_list, const std::string& victory_action, bool can_flee)
+    : GameState(engine), current_menu_selection(0), current_phase(Phase::PROCESSING_TURN), victory_action(victory_action), can_flee(can_flee) {
     enemy_slots.fill(nullptr);
     // Deep copy party slots
     party_slots = engine->get_player_manager().get_party_slots();
@@ -728,6 +728,11 @@ void BattleState::handle_input(int ch) {
             current_phase = Phase::SELECTING_TACTIC_MEMBER;
             build_tactic_member_menu();
         } else if (sel == "8. Flee") {
+            if (!can_flee) {
+                add_log("Kamu tidak bisa kabur dari pertarungan ini!");
+                current_phase = Phase::WAITING_FOR_INPUT;
+                return;
+            }
             add_log(active->get_name() + " flees the battle!");
             engine->pop_state();
             return;

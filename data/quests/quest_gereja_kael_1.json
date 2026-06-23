@@ -1,32 +1,27 @@
 {
   "id": "quest_gereja_kael_1",
-  "name": "Penebusan Dosa di Kedalaman",
-  "description": "Pendeta Tinggi Kael memerintahkanmu untuk membasmi sarang Spider Queen di Gua Tambang Lantai 3.",
+  "name": "Tugas Suci",
+  "description": "Ambil artefak di Menara Tua untuk Kael. Hati-hati dengan jebakan.",
   "target_npc_id": "npc_kael",
-  "start_scene_id": "kael_start_1",
-  "complete_scene_id": "kael_complete_1",
+  "target_location_id": "menara_tua",
+  "location_trigger_scene": "scene_garrick_ambush",
   "unlock_conditions": [
     {
       "type": "var_equal",
-      "key": "quest_gereja_3",
+      "key": "quest_gereja_1_complete",
       "value": 1
-    },
-    {
-      "type": "var_greater_equal",
-      "key": "day",
-      "value": 9
     }
   ],
-  "condition": {
-    "type": "reach_location",
-    "key": "quest_gereja_kael_1"
+  "completion_condition": {
+    "type": "var_equal",
+    "key": "kael_trap_survived",
+    "value": 1
   },
+  "start_scene_id": "dialog_kael_q1_start",
+  "complete_scene_id": "selesai_kael_1",
   "on_complete": [
-    "add_gold 150",
-    "give_item potion_hp_large 3",
-    "add_var trust 10",
-    "set_var quest_gereja_kael_1 1"
+    "give_item potion_mp 3",
+    "set_var quest_kael_1_complete 1"
   ],
-  "objective_text": "Kalahkan Spider Queen di Gua Tambang.",
-  "target_location_id": "gua_tambang"
+  "source_npc_id": "npc_kael"
 }

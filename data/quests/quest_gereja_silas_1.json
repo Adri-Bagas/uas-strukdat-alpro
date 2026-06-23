@@ -1,23 +1,27 @@
 {
   "id": "quest_gereja_silas_1",
-  "name": "Buku Suci: Temui Silas",
-  "description": "Elara memintamu menemui Silas untuk mendapatkan informasi tentang buku suci.",
+  "name": "Informasi Berharga",
+  "description": "Dapatkan Bukti Gagak dari Anggota Sindikat di Jalanan Barat Kota untuk Silas.",
   "target_npc_id": "npc_silas",
-  "start_scene_id": "silas_start_buku",
-  "complete_scene_id": "silas_complete_buku",
+  "target_location_id": "jalanan_barat_kota",
+  "location_trigger_scene": "scene_silas_target",
   "unlock_conditions": [
     {
-      "type": "quest_state",
-      "key": "quest_gereja_elara_1",
-      "value": 2
+      "type": "var_equal",
+      "key": "quest_gereja_1_complete",
+      "value": 1
     }
   ],
-  "condition": {
+  "completion_condition": {
     "type": "has_item",
-    "key": "benda_penting",
+    "key": "bukti_gagak",
     "value": 1
   },
+  "start_scene_id": "dialog_silas_q1_start",
+  "complete_scene_id": "selesai_silas_1",
   "on_complete": [
-    "set_var quest_gereja_elara_1_complete 1"
-  ]
+    "give_item leather_boots 1",
+    "set_var quest_silas_1_complete 1"
+  ],
+  "source_npc_id": "npc_silas"
 }

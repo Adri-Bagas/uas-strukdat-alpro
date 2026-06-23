@@ -1,68 +1,19 @@
 {
   "id": "npc_andreas",
-  "name": "Andreas",
-  "full_name": "Pastor Andreas",
+  "name": "Pastor Andreas",
   "type": "named",
-  "role": "Pastor Biara",
-  "faction": "Gereja Cahaya",
+  "role": "Pendeta paruh baya",
+  "faction": "Neutral",
   "schedules": [
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "biara"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "biara"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "biara"
-    }
+    { "days": [], "phase": "Pagi", "location": "biara" },
+    { "days": [], "phase": "Siang", "location": "biara" },
+    { "days": [], "phase": "Malam", "location": "biara" }
   ],
-  "default_dialog": "scene_andreas_idle",
-  "quests": [
-    "quest_gereja_2",
-    "quest_gereja_3"
-  ],
-  "str": 30,
-  "cons": 40,
-  "agi": 20,
-  "intl": 35,
-  "wis": 45,
-  "max_hp": 300,
-  "max_mp": 250,
-  "level": 15,
-  "weapon_type": "staff",
-  "weapon_name": "Sacred Staff",
-  "magics": [
-    {
-      "id": "mag_heal",
-      "name": "Heal",
-      "type": "healing",
-      "mana_cost": 8,
-      "power": 20,
-      "element": "light"
-    },
-    {
-      "id": "mag_great_heal",
-      "name": "Great Heal",
-      "type": "healing",
-      "mana_cost": 20,
-      "power": 60,
-      "element": "light"
-    }
-  ],
-  "special_move": {
-    "id": "sp_sacred_shield",
-    "name": "Sacred Shield",
-    "max_uses_per_day": 2,
-    "power": 40,
-    "element": "light"
-  },
-  "affinity": "light",
-  "weakness": "none",
-  "first_dialog": "scene_andreas_first_meet"
+  "default_dialog": "dialog_andreas_default",
+  "quests": ["quest_gereja_2", "quest_gereja_3", "quest_gereja_4"],
+  "str": 5, "cons": 5, "agi": 5, "intl": 5, "wis": 5,
+  "level": 5, "max_hp": 50, "max_mp": 50,
+  "magics": [],
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "unarmed", "weapon_name": "tangan kosong"
 }

@@ -36,6 +36,8 @@ bool Condition::evaluate(const Player* player, const QuestManager* quest_manager
                 if (q) return (int)q->get_state() == 3; // 3 == READY_TO_TURN_IN
             }
             return false;
+        case ConditionType::HAS_PARTY_MEMBER:
+            return player->get_var("party_" + key) == 1;
         default:
             return true;
     }

@@ -1,0 +1,15 @@
+{
+  "id": "npc_lukas",
+  "name": "Lukas",
+  "type": "named",
+  "role": "Anak yatim",
+  "faction": "Neutral",
+  "schedules": [],
+  "default_dialog": "dialog_lukas_default",
+  "quests": [],
+  "str": 4, "cons": 5, "agi": 15, "intl": 6, "wis": 4,
+  "level": 1, "max_hp": 40, "max_mp": 10,
+  "magics": [],
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "unarmed", "weapon_name": "tangan kosong"
+}

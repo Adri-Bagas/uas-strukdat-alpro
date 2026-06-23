@@ -1,19 +1,21 @@
 {
   "id": "quest_survei_kota",
   "name": "Investigasi Wilayah Nirva",
-  "description": "Kunjungi setidaknya 8 lokasi penting di kota Nirva dan sekitarnya untuk memetakan wilayah serta mencari kontak sebelum Inquisitor tiba.",
+  "description": "Kunjungi setidaknya 4 lokasi penting di kota Nirva dan sekitarnya untuk memetakan wilayah serta mencari kontak sebelum Inquisitor tiba.",
   "target_npc_id": "npc_arthur",
   "start_scene_id": "",
   "complete_scene_id": "scene_survei_complete",
-  "unlock_conditions": [
-    {
-      "type": "none"
-    }
-  ],
+  "unlock_condition": {
+    "type": "none"
+  },
   "condition": {
     "type": "var_greater_equal",
     "key": "visited_places_count",
-    "value": 8
+    "value": 4
   },
-  "on_complete": []
+  "on_complete": [
+    "give_item leather_boots 1",
+    "give_item item_nirva_sword 1",
+    "give_item leather_armor 1" 
+  ]
 }

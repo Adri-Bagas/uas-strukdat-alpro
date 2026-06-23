@@ -80,8 +80,10 @@ private:
     void build_tactic_type_menu();
     void execute_action(Entity* target);
 
+    bool can_flee;
+
 public:
-    BattleState(GameEngine* engine, const std::string& enemies_list, const std::string& victory_action = "");
+    BattleState(GameEngine* engine, const std::string& enemies_list, const std::string& victory_action = "", bool can_flee = true);
     ~BattleState() override = default;
 
     void on_enter() override;

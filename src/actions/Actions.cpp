@@ -131,6 +131,29 @@ Action::Action(GameEngine* eng) : engine(eng) {
         Utils::Logger::log("Action: Advanced to the next day");
     });
 
+    // Party Actions
+    register_action("add_party_member", [this](const std::string& npc_id) {
+        if (!npc_id.empty()) {
+            const NPC* npc = engine->get_db().get_npc(npc_id);
+            if (npc) {
+                if (engine->get_player_manager().add_ally(*npc)) {
+                    Player* p = engine->get_player_manager().get_player();
+                    if (p) p->set_var("party_" + npc_id, 1);
+                    Utils::Logger::log("Action: Added party member " + npc_id);
+                }
+            }
+        }
+    });
+
+    register_action("remove_party_member", [this](const std::string& npc_id) {
+        if (!npc_id.empty()) {
+            engine->get_player_manager().remove_ally(npc_id);
+            Player* p = engine->get_player_manager().get_player();
+            if (p) p->set_var("party_" + npc_id, 0);
+            Utils::Logger::log("Action: Removed party member " + npc_id);
+        }
+    });
+
     // Inventory Actions
     register_action("give_item", [this](const std::string& arg) {
         if (!arg.empty()) {
@@ -225,6 +248,21 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("accept_quest", [this](const std::string& arg) {
         if (!arg.empty()) {
             Quest* q = engine->get_quests().get_quest(arg);
+            if (!q || q->get_state() == QuestState::IN_PROGRESS) return;
+
+            bool has_active = false;
+            for (const auto& pair : engine->get_quests().get_all_quests()) {
+                if (pair.second->get_state() == QuestState::IN_PROGRESS) {
+                    has_active = true;
+                    break;
+                }
+            }
+
+            if (has_active) {
+                engine->get_dialogs().queue_popup("Gagal: Selesaikan misi aktifmu terlebih dahulu!");
+                return;
+            }
+
             if (q && (q->get_state() == QuestState::AVAILABLE || q->get_state() == QuestState::LOCKED)) {
                 q->set_state(QuestState::IN_PROGRESS);
                 engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Started Quest: " + q->get_name());
@@ -283,18 +321,53 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (!arg.empty()) {
             std::string enemies_list;
             std::string victory_action;
-            std::stringstream ss(arg);
-            ss >> enemies_list;
-            
             size_t quote_start = arg.find('"');
             if (quote_start != std::string::npos) {
                 size_t quote_end = arg.find('"', quote_start + 1);
                 if (quote_end != std::string::npos) {
                     victory_action = arg.substr(quote_start + 1, quote_end - quote_start - 1);
                 }
+                enemies_list = arg.substr(0, quote_start);
+            } else {
+                enemies_list = arg;
             }
+            // Trim trailing whitespace from enemies_list
+            size_t last_not_space = enemies_list.find_last_not_of(" \t\r\n");
+            if (last_not_space != std::string::npos) {
+                enemies_list.erase(last_not_space + 1);
+            } else {
+                enemies_list.clear();
+            }
+            
             engine->push_state(new BattleState(engine, enemies_list, victory_action));
             Utils::Logger::log("Action: Started battle with enemies: " + enemies_list);
+        }
+    });
+
+    register_action("start_story_battle", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            std::string enemies_list;
+            std::string victory_action;
+            size_t quote_start = arg.find('"');
+            if (quote_start != std::string::npos) {
+                size_t quote_end = arg.find('"', quote_start + 1);
+                if (quote_end != std::string::npos) {
+                    victory_action = arg.substr(quote_start + 1, quote_end - quote_start - 1);
+                }
+                enemies_list = arg.substr(0, quote_start);
+            } else {
+                enemies_list = arg;
+            }
+            // Trim trailing whitespace from enemies_list
+            size_t last_not_space = enemies_list.find_last_not_of(" \t\r\n");
+            if (last_not_space != std::string::npos) {
+                enemies_list.erase(last_not_space + 1);
+            } else {
+                enemies_list.clear();
+            }
+            
+            engine->push_state(new BattleState(engine, enemies_list, victory_action, false));
+            Utils::Logger::log("Action: Started story battle with enemies: " + enemies_list);
         }
     });
 }

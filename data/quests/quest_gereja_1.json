@@ -1,16 +1,10 @@
 {
   "id": "quest_gereja_1",
-  "name": "Bahan Makanan Biara",
-  "description": "Bantu Maria mencari persediaan bahan makanan untuk dapur umum Biara Cahaya dari Pasar Kota.",
-  "objective_text": "Ambil gandum/roti di Pasar Kota.",
+  "name": "Bantuan untuk Dapur Umum",
+  "description": "Maria membutuhkan 3 Roti untuk dapur umum. Pergi ke Pasar Kota dan temukan kusir pembawa gandum.",
+  "target_npc_id": "npc_maria",
   "target_location_id": "pasar_kota",
   "location_trigger_scene": "scene_pasar_gandum",
-  "location_trigger_action": [
-    "give_item bread 1"
-  ],
-  "target_npc_id": "npc_maria",
-  "start_scene_id": "dialog_maria_q1_start",
-  "complete_scene_id": "selesai_gereja_1",
   "unlock_conditions": [
     {
       "type": "var_greater_equal",
@@ -18,15 +12,17 @@
       "value": 1
     }
   ],
-  "condition": {
+  "completion_condition": {
     "type": "has_item",
     "key": "bread",
-    "value": 1
+    "value": 3
   },
+  "start_scene_id": "dialog_maria_q1_start",
+  "complete_scene_id": "selesai_gereja_1",
   "on_complete": [
-    "add_gold 20",
-    "add_var trust 3",
-    "remove_item bread 1",
-    "set_var quest_gereja_1 1"
-  ]
+    "add_gold 10",
+    "set_var quest_gereja_1_complete 1",
+    "remove_item bread 3"
+  ],
+  "source_npc_id": "npc_maria"
 }

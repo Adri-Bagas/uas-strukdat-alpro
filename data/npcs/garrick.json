@@ -1,50 +1,19 @@
 {
   "id": "npc_garrick",
-  "name": "Garrick",
-  "full_name": "Captain Garrick of the Iron Guard",
+  "name": "Captain Garrick",
   "type": "named",
   "role": "Kapten Penjaga",
-  "faction": "Penjaga Kota",
+  "faction": "Neutral",
   "schedules": [
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "jalanan_utama_kota"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "alun_alun"
-    }
+    { "days": [], "phase": "Pagi", "location": "jalanan_kota" },
+    { "days": [], "phase": "Siang", "location": "jalanan_kota" },
+    { "days": [], "phase": "Malam", "location": "jalanan_kota" }
   ],
-  "default_dialog": "scene_garrick_idle",
-  "quests": [
-    "quest_gereja_kael_1_garrick"
-  ],
-  "str": 42,
-  "cons": 34,
-  "agi": 30,
-  "intl": 32,
-  "wis": 38,
-  "max_hp": 230,
-  "max_mp": 320,
-  "level": 14,
+  "default_dialog": "dialog_garrick_default",
+  "quests": [],
+  "str": 25, "cons": 20, "agi": 15, "intl": 8, "wis": 8,
+  "level": 8, "max_hp": 250, "max_mp": 50,
   "magics": [],
-  "special_move": {
-    "id": "sp_heroic_blow",
-    "name": "Heroic Blow",
-    "max_uses_per_day": 1,
-    "power": 50,
-    "element": "none"
-  },
-  "affinity": "none",
-  "weakness": "none",
-  "weapon_type": "sword",
-  "weapon_name": "pedang prajurit",
-  "first_dialog": "scene_garrick_first_meet"
+  "affinity": "none", "weakness": "none",
+  "weapon_type": "sword", "weapon_name": "pedang besar"
 }

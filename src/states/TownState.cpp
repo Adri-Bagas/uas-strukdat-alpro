@@ -361,6 +361,20 @@ void TownState::handle_quest_menu_input(int ch) {
             std::string scene_id = q->can_complete(p, &engine->get_quests()) ? q->get_complete_scene() : (q->get_state() == QuestState::AVAILABLE ? q->get_start_scene() : "");
 
             if (!scene_id.empty()) {
+                if (q->get_state() == QuestState::AVAILABLE) {
+                    bool has_active = false;
+                    for (const auto& pair : engine->get_quests().get_all_quests()) {
+                        if (pair.second->get_state() == QuestState::IN_PROGRESS) {
+                            has_active = true;
+                            break;
+                        }
+                    }
+                    if (has_active) {
+                        engine->get_dialogs().queue_popup("Selesaikan misi aktifmu terlebih dahulu sebelum mengambil misi baru!");
+                        return;
+                    }
+                }
+
                 const DialogScene* scene = engine->get_db().get_dialog_scene(scene_id);
                 if (scene) {
                     is_in_quest_menu = false; 
@@ -369,6 +383,8 @@ void TownState::handle_quest_menu_input(int ch) {
                     auto current_on_exit = engine->get_dialogs().get_on_exit();
                     if (q->can_complete(p, &engine->get_quests())) {
                         current_on_exit.push_back("complete_quest " + q->get_id());
+                    } else if (q->get_state() == QuestState::AVAILABLE) {
+                        current_on_exit.push_back("accept_quest " + q->get_id());
                     }
                     engine->get_dialogs().set_on_exit(current_on_exit);
                 }

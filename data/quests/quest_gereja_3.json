@@ -1,35 +1,27 @@
 {
   "id": "quest_gereja_3",
-  "name": "PERTAHANAN BIARA",
-  "description": "Bantu Pastor Andreas mempertahankan gerbang Biara Cahaya dari serangan bandit.",
+  "name": "Pertahankan Biara",
+  "description": "Sekelompok Orc menyerang Biara Cahaya. Kalahkan mereka di Alun-Alun Kota.",
   "target_npc_id": "npc_andreas",
-  "start_scene_id": "dialog_andreas_q3_start",
-  "complete_scene_id": "selesai_gereja_3",
+  "target_location_id": "alun_alun",
+  "location_trigger_scene": "scene_defend_biara",
   "unlock_conditions": [
     {
       "type": "var_equal",
-      "key": "quest_gereja_2",
+      "key": "quest_gereja_2_complete",
       "value": 1
-    },
-    {
-      "type": "var_greater_equal",
-      "key": "day",
-      "value": 7
     }
   ],
-  "condition": {
-    "type": "reach_location",
-    "key": "quest_gereja_3"
+  "completion_condition": {
+    "type": "var_equal",
+    "key": "quest_gereja_3_defended",
+    "value": 1
   },
+  "start_scene_id": "dialog_andreas_q3_start",
+  "complete_scene_id": "selesai_gereja_3",
   "on_complete": [
-    "add_gold 50",
-    "add_var str 1",
-    "set_var quest_gereja_3 1"
+    "give_item iron_sword 1",
+    "set_var quest_gereja_3_complete 1"
   ],
-  "objective_text": "Pergi ke Jalanan Barat Kota untuk menahan bandit.",
-  "target_location_id": "jalanan_barat_kota",
-  "location_trigger_scene": "scene_serangan_bandit",
-  "location_trigger_action": [
-    "start_battle mg_goblin"
-  ]
+  "source_npc_id": "npc_andreas"
 }

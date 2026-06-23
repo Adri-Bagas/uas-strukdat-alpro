@@ -1,34 +1,27 @@
 {
   "id": "quest_gereja_2",
-  "name": "ANAK YANG TAK PULANG",
-  "description": "Temukan Lukas, anak yatim dari Biara Cahaya yang menghilang sejak pagi.",
+  "name": "Anak yang Hilang",
+  "description": "Lukas lari ke dalam Dungeon. Temani Elara mencarinya di Dungeon Lantai 2.",
   "target_npc_id": "npc_andreas",
-  "start_scene_id": "dialog_andreas_q2_start",
-  "complete_scene_id": "selesai_gereja_2",
+  "target_location_id": "dungeon_f2",
+  "location_trigger_scene": "scene_dungeon_lukas",
   "unlock_conditions": [
     {
       "type": "var_equal",
-      "key": "quest_gereja_1",
+      "key": "quest_gereja_1_complete",
       "value": 1
-    },
-    {
-      "type": "var_greater_equal",
-      "key": "day",
-      "value": 3
     }
   ],
-  "condition": {
-    "type": "reach_location",
-    "key": "quest_gereja_2"
+  "completion_condition": {
+    "type": "has_party_member",
+    "key": "npc_lukas",
+    "value": 1
   },
+  "start_scene_id": "dialog_andreas_q2_start",
+  "complete_scene_id": "selesai_gereja_2",
   "on_complete": [
-    "add_gold 35",
     "give_item potion_hp 2",
-    "add_var trust 5",
-    "set_var quest_gereja_2 1"
+    "set_var quest_gereja_2_complete 1"
   ],
-  "objective_text": "Periksa Kandang Kuda untuk mencari Lukas.",
-  "target_location_id": "kandang_kuda",
-  "location_trigger_scene": "scene_lukas_found",
-  "location_trigger_action": []
+  "source_npc_id": "npc_andreas"
 }

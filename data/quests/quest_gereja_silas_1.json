@@ -23,5 +23,9 @@
     "give_item leather_boots 1",
     "set_var quest_silas_1_complete 1"
   ],
-  "source_npc_id": "npc_silas"
+  "source_npc_id": "npc_silas",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_silas_1"
+  }
 }

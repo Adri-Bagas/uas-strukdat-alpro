@@ -16,6 +16,6 @@
   "on_complete": [
     "give_item leather_boots 1",
     "give_item item_nirva_sword 1",
-    "give_item leather_armor 1" 
+    "give_item leather_armor 1"
   ]
 }

@@ -24,5 +24,9 @@
     "set_var quest_gereja_4_complete 1",
     "remove_item relik_suci 1"
   ],
-  "source_npc_id": "npc_andreas"
+  "source_npc_id": "npc_andreas",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_4"
+  }
 }

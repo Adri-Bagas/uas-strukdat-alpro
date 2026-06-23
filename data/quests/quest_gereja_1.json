@@ -24,5 +24,9 @@
     "set_var quest_gereja_1_complete 1",
     "remove_item bread 3"
   ],
-  "source_npc_id": "npc_maria"
+  "source_npc_id": "npc_maria",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_1"
+  }
 }

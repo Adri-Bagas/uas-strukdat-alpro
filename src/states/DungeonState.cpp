@@ -267,8 +267,8 @@ void DungeonState::handle_input(int ch) {
             current_floor.player_c = next_c;
             update_visited(current_floor); // Update fog of war
             
-            if (moved && !(next_r == current_floor.exit_r && next_c == current_floor.exit_c) && !(next_r == current_floor.start_r && next_c == current_floor.start_c)) {
-                if (is_lukas_spawned && current_floor.floor_number == 2 && next_r == lukas_y && next_c == lukas_x) {
+            if (moved) {
+                if (is_lukas_spawned && current_floor.floor_number == 2 && current_floor.player_r == lukas_y && current_floor.player_c == lukas_x) {
                     is_lukas_spawned = false; // Only trigger once
                     const DialogScene* scene = engine->get_db().get_dialog_scene("scene_dungeon_lukas");
                     if (scene) {
@@ -276,21 +276,21 @@ void DungeonState::handle_input(int ch) {
                     }
                     return;
                 }
-                
-                int encounter_chance = rand() % 100;
-                if (encounter_chance < 10) { // 10% chance to encounter enemies
-                    // Note: Here we could randomize the monster group based on floor depth
-                    // For now, we'll hardcode or random select from a few basic groups
-                    std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
-                    engine->push_state(new BattleState(engine, group));
-                    return;
+
+                if (!(current_floor.player_r == current_floor.exit_r && current_floor.player_c == current_floor.exit_c) && !(current_floor.player_r == current_floor.start_r && current_floor.player_c == current_floor.start_c)) {
+                    int encounter_chance = rand() % 100;
+                    if (encounter_chance < 10) { // 10% chance to encounter enemies
+                        std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
+                        engine->push_state(new BattleState(engine, group));
+                        return;
+                    }
                 }
             }
         }
     }
 
-    if (moved) {
-        // Check if player reached the exit
+    // Manual stair interaction instead of automatic
+    if (ch == 'e' || ch == 'E' || ch == '\n') {
         if (current_floor.player_r == current_floor.exit_r && current_floor.player_c == current_floor.exit_c) {
             if (current_node->next != nullptr) {
                 dungeon.go_to_next_floor();
@@ -302,13 +302,10 @@ void DungeonState::handle_input(int ch) {
             } else {
                 has_won = true;
                 Player* p = engine->get_player_manager().get_player();
-                if (p) {
-                    p->add_gold(50);
-                }
+                if (p) p->add_gold(50);
                 Utils::Logger::log("DungeonState: Player cleared the final floor and won the dungeon!");
             }
         }
-        // Check if player reached the start/entrance (to go back up)
         else if (current_floor.player_r == current_floor.start_r && current_floor.player_c == current_floor.start_c) {
             if (current_node->prev != nullptr) {
                 dungeon.go_to_prev_floor();
@@ -416,7 +413,7 @@ void DungeonState::render() {
         engine->get_layout().draw_title(win, "Dungeon", wx, 4);
         wattroff(win, COLOR_PAIR(4) | A_BOLD);
 
-        int view_h = (wy - 2) / 2;
+        int view_h = wy - 2;
         int view_w = (wx - 2) / 2;
 
         int pr = current_floor.player_r;
@@ -428,13 +425,8 @@ void DungeonState::render() {
         // Clamp camera to boundaries
         if (camera_r < 0) camera_r = 0;
         if (camera_c < 0) camera_c = 0;
-        if (camera_r + view_h > current_floor.height) camera_r = current_floor.height - view_h;
-        if (camera_c + view_w > current_floor.width) camera_c = current_floor.width - view_w;
-
-        if (camera_r < 0) camera_r = 0;
-        if (camera_c < 0) camera_c = 0;
-
-        int start_draw_h = view_h / 2;
+        if (camera_r + view_h > current_floor.height) camera_r = std::max(0, current_floor.height - view_h);
+        if (camera_c + view_w > current_floor.width) camera_c = std::max(0, current_floor.width - view_w);
 
         for (int vr = 0; vr < view_h; ++vr) {
             int r = camera_r + vr;
@@ -444,7 +436,7 @@ void DungeonState::render() {
                 int c = camera_c + vc;
                 if (c >= current_floor.width) break;
 
-                int draw_y = start_draw_h + 1 + vr;
+                int draw_y = 1 + vr;
                 int draw_x = 1 + (vc * 2);
 
                 if (r == pr && c == pc) {
@@ -478,6 +470,22 @@ void DungeonState::render() {
                 }
             }
         }
+
+        // Draw Interaction Hint if on stairs
+        if (pr == current_floor.exit_r && pc == current_floor.exit_c) {
+            wattron(win, COLOR_PAIR(5) | A_BOLD);
+            if (current_node->next != nullptr) {
+                mvwprintw(win, wy - 1, 2, " [E/Enter] Turun Lantai ");
+            } else {
+                mvwprintw(win, wy - 1, 2, " [E/Enter] Keluar Dungeon ");
+            }
+            wattroff(win, COLOR_PAIR(5) | A_BOLD);
+        } else if (pr == current_floor.start_r && pc == current_floor.start_c && current_node->prev != nullptr) {
+            wattron(win, COLOR_PAIR(4) | A_BOLD);
+            mvwprintw(win, wy - 1, 2, " [E/Enter] Naik Lantai ");
+            wattroff(win, COLOR_PAIR(4) | A_BOLD);
+        }
+
         wnoutrefresh(win);
     }
 

@@ -23,5 +23,9 @@
     "give_item iron_sword 1",
     "set_var quest_gereja_3_complete 1"
   ],
-  "source_npc_id": "npc_andreas"
+  "source_npc_id": "npc_andreas",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_3"
+  }
 }

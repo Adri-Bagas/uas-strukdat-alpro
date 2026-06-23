@@ -23,5 +23,9 @@
     "give_item potion_hp 2",
     "set_var quest_gereja_2_complete 1"
   ],
-  "source_npc_id": "npc_andreas"
+  "source_npc_id": "npc_andreas",
+  "condition": {
+    "type": "reach_location",
+    "key": "quest_gereja_2"
+  }
 }

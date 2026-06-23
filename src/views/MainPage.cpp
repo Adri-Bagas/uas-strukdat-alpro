@@ -206,6 +206,9 @@ void MainPage::type_new_text(WINDOW* win_in, const char* title, int width,
         }
         current_line_in_block++;
     }
+    
+    if (win) { wnoutrefresh(win); doupdate(); }
+    
     napms(150); flushinp();
     while (true) {
         int ch = getch();

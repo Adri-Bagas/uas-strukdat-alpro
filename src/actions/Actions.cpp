@@ -212,9 +212,10 @@ Action::Action(GameEngine* eng) : engine(eng) {
     register_action("accept_quest", [this](const std::string& arg) {
         if (!arg.empty()) {
             Quest* q = engine->get_quests().get_quest(arg);
-            if (q && q->get_state() == QuestState::AVAILABLE) {
+            if (q && (q->get_state() == QuestState::AVAILABLE || q->get_state() == QuestState::LOCKED)) {
                 q->set_state(QuestState::IN_PROGRESS);
                 engine->get_log_manager().add_log(engine->get_calendar().getTimeString(), "Started Quest: " + q->get_name());
+                engine->get_dialogs().queue_popup("Misi Baru: " + q->get_name());
                 Utils::Logger::log("Action: Quest accepted: " + arg);
             }
         }

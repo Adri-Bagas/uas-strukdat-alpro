@@ -18,7 +18,8 @@ std::vector<Quest*> QuestManager::get_available_quests_for_npc(const std::string
     std::vector<Quest*> found;
     for (auto& pair : quests) {
         Quest* q = pair.second;
-        if (q && q->get_target_npc_id() == npc_id && q->get_state() == QuestState::AVAILABLE) {
+        if (q && q->get_target_npc_id() == npc_id && 
+           (q->get_state() == QuestState::AVAILABLE || q->get_state() == QuestState::IN_PROGRESS)) {
             found.push_back(q);
         }
     }

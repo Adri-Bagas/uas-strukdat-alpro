@@ -371,29 +371,29 @@
     "nodes": [
       {
         "speaker": "",
-        "text": "Waktunya istirahat. Apa yang ingin kamu lakukan?",
-        "choices": [
-          {
-            "text": "Save Saja",
-            "next_scene": "",
-            "on_select": ["save_game"]
-          },
-          {
-            "text": "Save & Tidur",
-            "next_scene": "",
-            "on_select": ["save_game", "heal_full", "advance_day"]
-          },
-          {
-            "text": "Tidur Saja",
-            "next_scene": "",
-            "on_select": ["heal_full", "advance_day"]
-          },
-          {
-            "text": "Tidak Jadi",
-            "next_scene": "",
-            "on_select": []
-          }
-        ]
+        "text": "Waktunya istirahat. Apa yang ingin kamu lakukan?"
+      }
+    ],
+    "choices": [
+      {
+        "text": "Save Saja",
+        "next_scene": "",
+        "on_select": ["save_game"]
+      },
+      {
+        "text": "Save & Tidur",
+        "next_scene": "",
+        "on_select": ["save_game", "heal_full", "advance_day"]
+      },
+      {
+        "text": "Tidur Saja",
+        "next_scene": "",
+        "on_select": ["heal_full", "advance_day"]
+      },
+      {
+        "text": "Tidak Jadi",
+        "next_scene": "",
+        "on_select": []
       }
     ]
   }

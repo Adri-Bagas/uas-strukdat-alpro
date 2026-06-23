@@ -39,6 +39,8 @@ bool InputPopup::handle_input(int ch) {
 void InputPopup::render() {
     if (state == PopupState::DISMISSED) return;
     
+    wresize(win, target_h, target_w);
+    mvwin(win, y, x);
     wbkgdset(win, COLOR_PAIR(1));
     werase(win);
     box(win, 0, 0);

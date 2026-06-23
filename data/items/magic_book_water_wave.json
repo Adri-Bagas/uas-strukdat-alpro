@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_water_wave",
+    "name": "Buku Sihir: Water Wave",
+    "description": "Sihir air memanjang. (REACH) Kekuatan 18, Elemen Water.",
+    "type": "consumable",
+    "value": 100,
+    "on_use": [
+        "learn_magic water_wave magic_book_water_wave"
+    ]
+}

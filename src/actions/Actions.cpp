@@ -203,6 +203,26 @@ Action::Action(GameEngine* eng) : engine(eng) {
             m.power = 25; m.mana_cost = 5; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
             p->add_magic(m);
             engine->get_dialogs().queue_popup("Mempelajari sihir: Minor Heal!");
+        } else if (magic_id == "water_wave") {
+            Magic m; m.id = "water_wave"; m.name = "Water Wave"; m.type = MagicType::ATTACKING;
+            m.power = 18; m.mana_cost = 10; m.elem = Element::WATER; m.range = TargetRange::REACH;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Water Wave!");
+        } else if (magic_id == "earth_tremor") {
+            Magic m; m.id = "earth_tremor"; m.name = "Earth Tremor"; m.type = MagicType::ATTACKING;
+            m.power = 18; m.mana_cost = 10; m.elem = Element::EARTH; m.range = TargetRange::REACH;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Earth Tremor!");
+        } else if (magic_id == "wind_gust") {
+            Magic m; m.id = "wind_gust"; m.name = "Wind Gust"; m.type = MagicType::ATTACKING;
+            m.power = 18; m.mana_cost = 10; m.elem = Element::WIND; m.range = TargetRange::REACH;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Wind Gust!");
+        } else if (magic_id == "fire_wall") {
+            Magic m; m.id = "fire_wall"; m.name = "Fire Wall"; m.type = MagicType::ATTACKING;
+            m.power = 18; m.mana_cost = 10; m.elem = Element::FIRE; m.range = TargetRange::REACH;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Fire Wall!");
         }
     });
 

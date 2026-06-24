@@ -1,3 +1,4 @@
+#include <fstream>
 #include "../states/StartState.hpp"
 #include "../states/GameOverState.hpp"
 #include "../GameEngine.hpp"
@@ -224,7 +225,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             engine->get_dialogs().queue_popup("Mempelajari sihir: Inferno Blast!");
         } else if (magic_id == "heal_greater") {
             Magic m; m.id = "heal_greater"; m.name = "Greater Heal"; m.type = MagicType::HEALING;
-            m.power = 50; m.mana_cost = 10; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
+            m.power = 50; m.mana_cost = 10; m.elem = Element::LIGHT; m.range = TargetRange::REACH;
             p->add_magic(m);
             engine->get_dialogs().queue_popup("Mempelajari sihir: Greater Heal!");
         } else if (magic_id == "water_splash") {
@@ -249,7 +250,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             engine->get_dialogs().queue_popup("Mempelajari sihir: Fire Bolt!");
         } else if (magic_id == "minor_heal") {
             Magic m; m.id = "minor_heal"; m.name = "Minor Heal"; m.type = MagicType::HEALING;
-            m.power = 25; m.mana_cost = 5; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
+            m.power = 25; m.mana_cost = 5; m.elem = Element::LIGHT; m.range = TargetRange::REACH;
             p->add_magic(m);
             engine->get_dialogs().queue_popup("Mempelajari sihir: Minor Heal!");
         } else if (magic_id == "water_wave") {
@@ -469,6 +470,23 @@ Action::Action(GameEngine* eng) : engine(eng) {
         }
     });
 
+  
+    register_action("play_music", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            engine->get_music_manager().playMusic(arg);
+        }
+    });
+
+    register_action("stop_music", [this](const std::string&) {
+        engine->get_music_manager().stopMusic();
+    });
+
+    register_action("play_sfx", [this](const std::string& arg) {
+        if (!arg.empty()) {
+            engine->get_music_manager().playSfx(arg);
+        }
+      });
+  
     register_action("open_quest_menu", [this](const std::string&) {
         Player* p = engine->get_player_manager().get_player();
         if (p) p->set_var("open_quest_menu", 1);

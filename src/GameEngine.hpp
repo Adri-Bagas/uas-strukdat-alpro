@@ -15,6 +15,7 @@
 #include "managers/ShopManager.hpp"
 #include "managers/LogManager.hpp"
 #include "utils/components/Popup.hpp"
+#include "managers/MusicManager.hpp"
 
 class GameEngine {
 private:
@@ -27,6 +28,7 @@ private:
     PlayerManager player_manager;
     DB db;
     Action actions;
+    MusicManager music_manager;
     ShopManager shop_manager;
     LogManager log_manager;
 
@@ -64,6 +66,7 @@ public:
     PlayerManager& get_player_manager();
     DB& get_db();
     Action& get_actions();
+    MusicManager& get_music_manager();
     ShopManager& get_shop_manager();
     LogManager& get_log_manager();
     void quit();

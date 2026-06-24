@@ -34,5 +34,5 @@ public:
     void update() override;
     void render() override;
     void on_enter() override;
+    void on_resume() override;
 };
-

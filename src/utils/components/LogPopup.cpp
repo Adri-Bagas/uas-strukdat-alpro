@@ -1,5 +1,5 @@
 #include "LogPopup.hpp"
-#include <algorithm>
+
 
 namespace Utils {
 

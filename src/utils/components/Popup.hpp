@@ -2,6 +2,7 @@
 #include <ncurses.h>
 #include <string>
 #include <vector>
+#include <functional>
 
 namespace Utils {
 
@@ -21,6 +22,11 @@ protected:
     int frame_counter = 0;
 
 public:
+    std::function<void()> on_type_char = nullptr;
+    std::function<void()> on_type_start = nullptr;
+    std::function<void()> on_type_stop = nullptr;
+    bool typing_started = false;
+
     Popup(const std::string &text);
     virtual ~Popup();
     

@@ -6,9 +6,10 @@
 #include "../models/Place.hpp"
 #include <vector>
 #include <memory>
+#include <queue>
 #include "../utils/Queue.hpp"
 #include "../utils/Stack.hpp"
-#include <queue>
+#include "../views/MainPage.hpp"
 
 namespace Utils { class ChoicePopup; }
 
@@ -35,6 +36,11 @@ class TownState : public GameState {
     MenuTab current_tab = MenuTab::MAP;
     int map_selection_index = 0;
     std::vector<Place*> map_places;
+
+    // Cached Map Graph untuk Optimasi Performa
+    std::string cached_root_id = "";
+    std::vector<GraphNode> cached_graph_nodes;
+    std::vector<GraphEdge> cached_edges;
 
     // Choice Component
     std::unique_ptr<Utils::ChoicePopup> current_choice_popup;
@@ -75,6 +81,9 @@ private:
     void render_world_menu(Player* p, std::vector<std::string>& menu_display);
     void render_map_preview(Player* p, std::vector<std::string>& menu_display);
     void render_sidebars(Player* p);
+
+    // --- Optimasi ---
+    void rebuild_map_graph();
 
 public:
     TownState(GameEngine* eng);

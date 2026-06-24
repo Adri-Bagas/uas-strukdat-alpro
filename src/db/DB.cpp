@@ -669,3 +669,35 @@ std::vector<const Shop*> DB::get_all_shops() const {
     for (auto& pair : shops_db) all.push_back(&(pair.second));
     return all;
 }
+
+void DB::load_dungeon_pools(const std::string& filepath) {
+    Utils::Logger::log("DB: Memuat pool monster dungeon dari " + filepath);
+    std::ifstream file(filepath);
+    if (!file.is_open()) {
+        Utils::Logger::log("DB ERROR: Tidak bisa membuka file pool dungeon " + filepath);
+        return;
+    }
+    try {
+        json root;
+        file >> root;
+        for (auto& [floor_str, list_j] : root.items()) {
+            int floor = std::stoi(floor_str);
+            std::vector<std::string> pool;
+            for (const auto& id_j : list_j) {
+                pool.push_back(id_j.get<std::string>());
+            }
+            dungeon_pools[floor] = pool;
+        }
+    } catch (...) {
+        Utils::Logger::log("DB ERROR: Gagal memparsing JSON pool dungeon " + filepath);
+    }
+}
+
+const std::vector<std::string>& DB::get_dungeon_pool(int floor) const {
+    auto it = dungeon_pools.find(floor);
+    if (it != dungeon_pools.end()) {
+        return it->second;
+    }
+    static std::vector<std::string> empty_pool;
+    return empty_pool;
+}

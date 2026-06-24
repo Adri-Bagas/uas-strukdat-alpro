@@ -29,9 +29,11 @@ void StatAllocationState::handle_input(int ch) {
     if (ch == KEY_UP || ch == 'w') {
         current_selection--;
         if (current_selection < 0) current_selection = stat_names.size() - 1;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == KEY_DOWN || ch == 's') {
         current_selection++;
         if (current_selection >= stat_names.size()) current_selection = 0;
+        engine->get_music_manager().playSfx("select_001.mp3");
     } else if (ch == 10) { // Enter
         if (current_selection == 5) { // Done
             engine->pop_state();

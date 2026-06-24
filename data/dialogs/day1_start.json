@@ -2,6 +2,7 @@
   "id": "day1_start",
   "on_enter": [
     "move_to_stable",
+    "play_music mystery.mp3",
     "set_time_pagi"
   ],
   "on_exit": [],

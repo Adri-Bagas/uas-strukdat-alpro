@@ -16,6 +16,7 @@ class DB {
     std::unordered_map<std::string, Monster> monsters_db;
     std::unordered_map<std::string, Quest> quests_db;
     std::unordered_map<std::string, Shop> shops_db;
+    std::unordered_map<int, std::vector<std::string>> dungeon_pools;
 
 public:
     DB();
@@ -45,4 +46,7 @@ public:
     void load_shops(const std::string& directory_path);
     const Shop* get_shop(const std::string& id) const;
     std::vector<const Shop*> get_all_shops() const;
+
+    void load_dungeon_pools(const std::string& filepath);
+    const std::vector<std::string>& get_dungeon_pool(int floor) const;
 };

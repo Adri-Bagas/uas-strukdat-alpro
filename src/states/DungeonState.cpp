@@ -9,6 +9,7 @@
 #include <random>
 #include <algorithm>
 #include <string>
+#include <functional>
 
 DungeonState::DungeonState(GameEngine* eng) 
     : GameState(eng), has_won(false), active_tab(0) {
@@ -26,11 +27,15 @@ int get_random_odd(int min_val, int max_val) {
 }
 
 void DungeonState::on_enter() {
+
+    // Putar musik dungeon
+    engine->get_music_manager().playMusic("dungeon.mp3");
+
     Utils::Logger::log("DungeonState: Generating multi-floor dungeon with random odd dimensions between 20-100...");
+
     dungeon.clear();
     has_won = false;
     active_tab = 0; // Default to Party tab
-
     // Generate 3 floors for our dungeon
     for (int f = 1; f <= 3; ++f) {
         DungeonFloor floor;
@@ -56,6 +61,10 @@ void DungeonState::on_enter() {
     DungeonFloorNode* current_node = dungeon.get_current_node();
     if (current_node) {
         update_visited(current_node->floor);
+        Player* p = engine->get_player_manager().get_player();
+        if (p) {
+            p->set_var("dungeon_floor", current_node->floor.floor_number);
+        }
     }
 
     // Lukas marker logic for Floor 2
@@ -81,6 +90,11 @@ void DungeonState::on_enter() {
             }
         }
     }
+}
+
+void DungeonState::on_resume() {
+    // Putar kembali musik dungeon jika kembali dari BattleState
+    engine->get_music_manager().playMusic("dungeon.mp3");
 }
 
 std::vector<std::vector<int>> DungeonState::generate_maze_grid(int h, int w, int exit_r, int exit_c) {
@@ -191,10 +205,12 @@ void DungeonState::handle_input(int ch) {
             idx--;
             if (idx < 0) idx = count - 1;
             engine->get_dialogs().set_selected_choice_index(idx);
+            engine->get_music_manager().playSfx("select_001.mp3");
         } else if (ch == KEY_DOWN || ch == 's' || ch == KEY_RIGHT || ch == 'd') {
             idx++;
             if (idx >= count) idx = 0;
             engine->get_dialogs().set_selected_choice_index(idx);
+            engine->get_music_manager().playSfx("select_001.mp3");
         } else if (ch == '\n' || ch == ' ') {
             engine->get_dialogs().select_choice(idx, engine);
             if (!engine->get_dialogs().has_active_choices() && !engine->get_dialogs().has_queued_dialog()) {
@@ -280,8 +296,7 @@ void DungeonState::handle_input(int ch) {
                 if (!(current_floor.player_r == current_floor.exit_r && current_floor.player_c == current_floor.exit_c) && !(current_floor.player_r == current_floor.start_r && current_floor.player_c == current_floor.start_c)) {
                     int encounter_chance = rand() % 100;
                     if (encounter_chance < 10) { // 10% chance to encounter enemies
-                        std::string group = (rand() % 2 == 0) ? "mg_slime" : "mg_goblin";
-                        engine->push_state(new BattleState(engine, group));
+                        engine->push_state(new BattleState(engine, ""));
                         return;
                     }
                 }
@@ -298,6 +313,10 @@ void DungeonState::handle_input(int ch) {
                 next_floor.player_r = next_floor.start_r;
                 next_floor.player_c = next_floor.start_c;
                 update_visited(next_floor);
+                Player* p = engine->get_player_manager().get_player();
+                if (p) {
+                    p->set_var("dungeon_floor", next_floor.floor_number);
+                }
                 Utils::Logger::log("DungeonState: Player descended to Floor " + std::to_string(next_floor.floor_number));
             } else {
                 has_won = true;
@@ -313,6 +332,10 @@ void DungeonState::handle_input(int ch) {
                 prev_floor.player_r = prev_floor.exit_r;
                 prev_floor.player_c = prev_floor.exit_c;
                 update_visited(prev_floor);
+                Player* p = engine->get_player_manager().get_player();
+                if (p) {
+                    p->set_var("dungeon_floor", prev_floor.floor_number);
+                }
                 Utils::Logger::log("DungeonState: Player ascended back to Floor " + std::to_string(prev_floor.floor_number));
             }
         }
@@ -711,11 +734,18 @@ void DungeonState::render_map_tab(WINDOW* win, const DungeonFloor& floor) {
 void DungeonState::process_dialogue_queue() {
     DialogNode node = engine->get_dialogs().pop_dialog();
     if (node.type == 1 || node.type == 2) {
-        engine->get_layout().type_new_text(engine->get_layout().win_dialog, "Dialog", engine->get_layout().w_left, engine->get_dialogs().get_combined_log(), node);
+        std::function<void()> start_cb = [this]() {
+            this->engine->get_music_manager().startTypingSfx("typingText.mp3");
+        };
+        std::function<void()> stop_cb = [this]() {
+            this->engine->get_music_manager().stopTypingSfx();
+        };
+        engine->get_layout().type_new_text(engine->get_layout().win_dialog, "Dialog", engine->get_layout().w_left, engine->get_dialogs().get_combined_log(), node, start_cb, stop_cb);
         if (node.type == 1) engine->get_dialogs().add_dialog(node);
         else engine->get_dialogs().add_thought(node);
     } else if (node.type == 3) {
-        engine->get_dialogs().queue_popup(node.value); engine->get_dialogs().add_popup(node);
+        engine->get_dialogs().queue_popup(node.value, node.npc_name == "Narrator"); 
+        engine->get_dialogs().add_popup(node);
     }
     this->render();
 }

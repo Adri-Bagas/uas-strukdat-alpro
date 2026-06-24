@@ -1,6 +1,6 @@
 {
   "id": "day1_cs4",
-  "on_enter": [],
+  "on_enter": ["play_music melancholy.mp3"],
   "on_exit": [],
   "next_scene": "day1_cs5",
   "nodes": [

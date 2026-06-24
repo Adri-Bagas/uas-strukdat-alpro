@@ -1,7 +1,11 @@
 {
   "id": "day1_cs14",
-  "on_enter": ["move_to_attic"],
-  "on_exit": [],
+  "on_enter": [
+    "move_to_attic"
+  ],
+  "on_exit": [
+    "stop_music"
+  ],
   "next_scene": "",
   "nodes": [
     {

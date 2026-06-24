@@ -56,6 +56,11 @@ void Popup::update() {
             state = PopupState::TYPING;
         }
     } else if (state == PopupState::TYPING) {
+        if (!typing_started) {
+            if (on_type_start) on_type_start();
+            typing_started = true;
+        }
+
         if (type_line < (int)wrapped_lines.size()) {
             type_char += 2;
             if (type_char >= (int)wrapped_lines[type_line].length()) {
@@ -63,10 +68,12 @@ void Popup::update() {
                 type_char = 0;
                 if (type_line >= (int)wrapped_lines.size()) {
                     state = PopupState::WAITING;
+                    if (on_type_stop) on_type_stop();
                 }
             }
         } else {
             state = PopupState::WAITING;
+            if (on_type_stop) on_type_stop();
         }
     }
 }
@@ -79,6 +86,7 @@ bool Popup::handle_input(int ch) {
     
     if (state == PopupState::TYPING && ch != ERR) {
         state = PopupState::WAITING;
+        if (on_type_stop) on_type_stop();
         type_line = wrapped_lines.size();
         return true;
     }

@@ -115,7 +115,9 @@ MainPage::~MainPage() { destroy_windows(); }
 
 void MainPage::type_new_text(WINDOW* win_in, const char* title, int width, 
                              const std::vector<DialogNode>& history, 
-                             const DialogNode& new_text) {
+                             const DialogNode& new_text,
+                             std::function<void()> on_type_start,
+                             std::function<void()> on_type_stop) {
     if (!win_in) return;
     
     WINDOW* win = win_in;
@@ -183,21 +185,35 @@ void MainPage::type_new_text(WINDOW* win_in, const char* title, int width,
     int anim_start_y = (max_y - 1) - total_new_lines;
     bool skipped = false;
     int current_line_in_block = 0;
+    
+    bool stopped_audio = false;
+    auto safe_stop_audio = [&]() {
+        if (on_type_stop && !stopped_audio) {
+            on_type_stop();
+            stopped_audio = true;
+        }
+    };
+
+    if (on_type_start) on_type_start();
 
     for (const auto& line_str : new_lines_all) {
         int current_y = anim_start_y + current_line_in_block;
         if (current_y >= max_y - 1) break;
-        if (skipped) { if(win) mvwprintw(win, current_y, 2, "%s", line_str.c_str()); }
-        else {
+        if (skipped) { 
+            safe_stop_audio();
+            if(win) mvwprintw(win, current_y, 2, "%s", line_str.c_str()); 
+        } else {
             int current_x = 2;
             for (char c : line_str) {
                 if (!win) break;
                 mvwaddch(win, current_y, current_x++, c);
                 wnoutrefresh(win); doupdate();
+
                 int ch = getch();
                 if (ch != ERR) {
                     if (ch == KEY_RESIZE) { redraw_all(); skipped = true; break; }
                     skipped = true; mvwprintw(win, current_y, 2, "%s", line_str.c_str());
+                    safe_stop_audio();
                     wnoutrefresh(win); doupdate(); break;
                 }
                 napms(20);
@@ -206,6 +222,7 @@ void MainPage::type_new_text(WINDOW* win_in, const char* title, int width,
         current_line_in_block++;
     }
     
+    safe_stop_audio();
     if (win) { wnoutrefresh(win); doupdate(); }
     
     napms(150); flushinp();

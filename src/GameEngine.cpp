@@ -45,6 +45,7 @@ void GameEngine::init() {
     db.load_monsters("data/monsters");
     db.load_quests("data/quests");
     db.load_shops("data/shops");
+    db.load_dungeon_pools("data/dungeon_pools.json");
     shop_manager.init_from_db(db);
 
     for (auto* p_const : db.get_all_places()) {
@@ -136,19 +137,15 @@ void GameEngine::run() {
                     active_popup.reset();
                 }
             } else if (dialogs.has_queued_popup()) {
-// <<<<<<< feature/music-manager
-//                 auto popup_data = dialogs.pop_popup();
-//                 active_popup = std::make_unique<Popup>(popup_data.first);
-//                 // Assign to all popups 
-//                 active_popup->on_type_start = [this]() {
-//                     this->get_music_manager().startTypingSfx("typingText.mp3");
-//                 };
-//                 active_popup->on_type_stop = [this]() {
-//                     this->get_music_manager().stopTypingSfx();
-//                 };
-// =======
-//                 active_popup = std::make_unique<Utils::Popup>(dialogs.pop_popup());
-// >>>>>>> main
+                auto popup_data = dialogs.pop_popup();
+                active_popup = std::make_unique<Utils::Popup>(popup_data.first);
+                // Assign to all popups 
+                active_popup->on_type_start = [this]() {
+                    this->get_music_manager().startTypingSfx("typingText.mp3");
+                };
+                active_popup->on_type_stop = [this]() {
+                    this->get_music_manager().stopTypingSfx();
+                };
             } else {
                 if (ch != KEY_RESIZE) state_stack.top()->handle_input(ch);
                 state_stack.top()->update();

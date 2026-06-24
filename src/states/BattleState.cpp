@@ -1,5 +1,6 @@
 #include "BattleState.hpp"
 #include "../GameEngine.hpp"
+#include "../utils/Sort.hpp"
 #include <algorithm>
 
 #include <sstream>
@@ -13,19 +14,66 @@ BattleState::BattleState(GameEngine* engine, const std::string& enemies_list, co
 }
 
 void BattleState::populate_enemies(const std::string& enemies_list) {
-    std::stringstream ss(enemies_list);
+    std::string final_enemies = enemies_list;
+
+    if (final_enemies == "test_group") {
+        final_enemies = "mon_vampire_lord,mon_shadow_knight,mon_orc_boss,mon_stone_golem,mon_forest_troll,mon_fire_elemental";
+    } else if (final_enemies == "mg_slime") {
+        final_enemies = "mon_slime,mon_giant_bat,mon_wolf";
+    } else if (final_enemies == "mg_goblin") {
+        final_enemies = "mon_goblin,mon_skeleton_warrior";
+    }
+
+    if (final_enemies.empty()) {
+        Player* p = engine->get_player_manager().get_player();
+        int floor = p ? p->get_var("dungeon_floor") : 1;
+        if (floor <= 0) floor = 1;
+
+        const auto& pool = engine->get_db().get_dungeon_pool(floor);
+        if (!pool.empty()) {
+            int count = (rand() % 3) + 1; // Spawn 1 to 3 enemies
+            for (int i = 0; i < count; ++i) {
+                if (i > 0) final_enemies += ",";
+                final_enemies += pool[rand() % pool.size()];
+            }
+        } else {
+            // Fallback default
+            final_enemies = "slime";
+        }
+    }
+
+    std::stringstream ss(final_enemies);
     std::string monster_id;
     int index = 0;
-    while (std::getline(ss, monster_id, ',') && index < 4) {
+    while (std::getline(ss, monster_id, ',')) {
         // Trim whitespace just in case
         monster_id.erase(0, monster_id.find_first_not_of(" \t\r\n"));
         monster_id.erase(monster_id.find_last_not_of(" \t\r\n") + 1);
         
         const Monster* m = engine->get_db().get_monster(monster_id);
         if (m) {
-            active_enemies.push_back(std::make_unique<Monster>(*m));
-            enemy_slots[index] = active_enemies.back().get();
-            index++;
+            auto monster_obj = std::make_unique<Monster>(*m);
+
+            // Scale up the test battle enemies to be as strong as the MC
+            if (enemies_list == "test_group") {
+                monster_obj->set_str(150);
+                monster_obj->set_cons(150);
+                monster_obj->set_agi(150);
+                monster_obj->set_intl(150);
+                monster_obj->set_wis(150);
+                monster_obj->set_max_hp(1500);
+                monster_obj->heal_hp(1500);
+                monster_obj->set_max_mp(800);
+                monster_obj->restore_mp(800);
+            }
+
+            if (index < 4) {
+                active_enemies.push_back(std::move(monster_obj));
+                enemy_slots[index] = active_enemies.back().get();
+                index++;
+            } else {
+                enemy_pool.push_back(std::move(monster_obj));
+            }
         }
     }
 }
@@ -47,7 +95,7 @@ void BattleState::build_turn_queue() {
     
     // Sort by AGI descending
     auto vec = turn_queue.to_vector();
-    std::sort(vec.begin(), vec.end(), [](Entity* a, Entity* b) {
+    Utils::merge_sort(vec, [](Entity* a, Entity* b) {
         return a->get_agi() > b->get_agi();
     });
     turn_queue.clear();

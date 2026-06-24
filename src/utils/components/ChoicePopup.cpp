@@ -1,5 +1,4 @@
 #include "ChoicePopup.hpp"
-#include <sstream>
 
 namespace Utils {
 

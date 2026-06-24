@@ -225,7 +225,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             engine->get_dialogs().queue_popup("Mempelajari sihir: Inferno Blast!");
         } else if (magic_id == "heal_greater") {
             Magic m; m.id = "heal_greater"; m.name = "Greater Heal"; m.type = MagicType::HEALING;
-            m.power = 50; m.mana_cost = 10; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
+            m.power = 50; m.mana_cost = 10; m.elem = Element::LIGHT; m.range = TargetRange::REACH;
             p->add_magic(m);
             engine->get_dialogs().queue_popup("Mempelajari sihir: Greater Heal!");
         } else if (magic_id == "water_splash") {
@@ -250,7 +250,7 @@ Action::Action(GameEngine* eng) : engine(eng) {
             engine->get_dialogs().queue_popup("Mempelajari sihir: Fire Bolt!");
         } else if (magic_id == "minor_heal") {
             Magic m; m.id = "minor_heal"; m.name = "Minor Heal"; m.type = MagicType::HEALING;
-            m.power = 25; m.mana_cost = 5; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
+            m.power = 25; m.mana_cost = 5; m.elem = Element::LIGHT; m.range = TargetRange::REACH;
             p->add_magic(m);
             engine->get_dialogs().queue_popup("Mempelajari sihir: Minor Heal!");
         } else if (magic_id == "water_wave") {

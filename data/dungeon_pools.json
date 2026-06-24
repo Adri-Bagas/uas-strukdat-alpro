@@ -1,0 +1,5 @@
+{
+  "1": ["mon_slime", "mon_giant_bat", "mon_wolf"],
+  "2": ["mon_goblin", "mon_skeleton_warrior", "mon_bandit_scum", "mon_earth_slime"],
+  "3": ["mon_forest_troll", "mon_stone_golem", "mon_shadow_knight", "mon_fire_slime", "mon_water_slime", "mon_wind_slime"]
+}

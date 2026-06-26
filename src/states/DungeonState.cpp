@@ -15,7 +15,7 @@ DungeonState::DungeonState(GameEngine* eng)
     : GameState(eng), has_won(false), active_tab(0) {
 }
 
-int get_random_odd(int min_val, int max_val) {
+static int get_random_odd(int min_val, int max_val) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(min_val, max_val);
@@ -216,6 +216,7 @@ void DungeonState::handle_input(int ch) {
             if (!engine->get_dialogs().has_active_choices() && !engine->get_dialogs().has_queued_dialog()) {
                 engine->get_dialogs().set_on_exit({});
                 engine->get_dialogs().set_next_scene("");
+                engine->get_music_manager().playMusic("dungeon.mp3");
             }
         }
         return;
@@ -352,6 +353,14 @@ void DungeonState::update() {
 }
 
 void DungeonState::render() {
+    int my, mx;
+    getmaxyx(stdscr, my, mx);
+    if (my < 24 || mx < 80) {
+        mvprintw(my / 2, std::max(0, (mx - 30) / 2), "TERMINAL TERLALU KECIL (%dx%d)", mx, my);
+        refresh();
+        return;
+    }
+
     DungeonFloorNode* current_node = dungeon.get_current_node();
     if (!current_node) return;
 
@@ -433,7 +442,7 @@ void DungeonState::render() {
         wattron(win, COLOR_PAIR(4) | A_BOLD);
         werase(win);
         box(win, 0, 0);
-        engine->get_layout().draw_title(win, "Dungeon", wx, 4);
+        engine->get_layout().draw_title(win, "Dungeon", 4);
         wattroff(win, COLOR_PAIR(4) | A_BOLD);
 
         int view_h = wy - 2;
@@ -495,17 +504,19 @@ void DungeonState::render() {
         }
 
         // Draw Interaction Hint if on stairs
+        int hint_max = wx - 4;
+        if (hint_max < 4) hint_max = 4;
         if (pr == current_floor.exit_r && pc == current_floor.exit_c) {
             wattron(win, COLOR_PAIR(5) | A_BOLD);
             if (current_node->next != nullptr) {
-                mvwprintw(win, wy - 1, 2, " [E/Enter] Turun Lantai ");
+                mvwprintw(win, wy - 1, 2, "%.*s", hint_max, " [E/Enter] Turun Lantai ");
             } else {
-                mvwprintw(win, wy - 1, 2, " [E/Enter] Keluar Dungeon ");
+                mvwprintw(win, wy - 1, 2, "%.*s", hint_max, " [E/Enter] Keluar Dungeon ");
             }
             wattroff(win, COLOR_PAIR(5) | A_BOLD);
         } else if (pr == current_floor.start_r && pc == current_floor.start_c && current_node->prev != nullptr) {
             wattron(win, COLOR_PAIR(4) | A_BOLD);
-            mvwprintw(win, wy - 1, 2, " [E/Enter] Naik Lantai ");
+            mvwprintw(win, wy - 1, 2, "%.*s", hint_max, " [E/Enter] Naik Lantai ");
             wattroff(win, COLOR_PAIR(4) | A_BOLD);
         }
 
@@ -573,7 +584,7 @@ void DungeonState::render_thought_tabs() {
     wattron(win, COLOR_PAIR(2));
     werase(win);
     box(win, 0, 0);
-    engine->get_layout().draw_title(win, "Pikiran / Log", wx, 2);
+    engine->get_layout().draw_title(win, "Pikiran / Log", 2);
     wattroff(win, COLOR_PAIR(2));
 
     // Render Tab bar
@@ -638,26 +649,29 @@ void DungeonState::render_party_tab(WINDOW* win) {
 
     for (int i = 0; i < 4; ++i) {
         int x_offset = 2 + (col_w + 1) * i + 2;
+        int slot_w = col_w - 2;
         
         if (party[i] == nullptr) {
             wattron(win, COLOR_PAIR(2));
-            mvwprintw(win, 3, x_offset, "Slot %d", i + 1);
-            mvwprintw(win, 4, x_offset, "(Kosong)");
+            mvwprintw(win, 3, x_offset, "%.*s", slot_w, ("Slot " + std::to_string(i + 1)).c_str());
+            mvwprintw(win, 4, x_offset, "%.*s", slot_w, "(Kosong)");
             wattroff(win, COLOR_PAIR(2));
         } else {
-            if (i == 0 && party[i]->get_id() == "hero") { // Just a visual highlight for the player
+            if (i == 0 && party[i]->get_id() == "hero") {
                 wattron(win, COLOR_PAIR(4) | A_BOLD);
-                mvwprintw(win, 3, x_offset, "Leader");
+                mvwprintw(win, 3, x_offset, "%.*s", slot_w, "Leader");
                 wattroff(win, COLOR_PAIR(4) | A_BOLD);
             } else {
                 wattron(win, COLOR_PAIR(3) | A_BOLD);
-                mvwprintw(win, 3, x_offset, "Ally %d", i + 1);
+                mvwprintw(win, 3, x_offset, "%.*s", slot_w, ("Ally " + std::to_string(i + 1)).c_str());
                 wattroff(win, COLOR_PAIR(3) | A_BOLD);
             }
             
-            mvwprintw(win, 4, x_offset, "%s", party[i]->get_name().c_str());
-            mvwprintw(win, 5, x_offset, "HP: %d/%d", party[i]->get_hp(), party[i]->get_max_hp());
-            mvwprintw(win, 6, x_offset, "MP: %d/%d", party[i]->get_mp(), party[i]->get_max_mp());
+            mvwprintw(win, 4, x_offset, "%.*s", slot_w, party[i]->get_name().c_str());
+            std::string hp_str = "HP:" + std::to_string(party[i]->get_hp()) + "/" + std::to_string(party[i]->get_max_hp());
+            mvwprintw(win, 5, x_offset, "%.*s", slot_w, hp_str.c_str());
+            std::string mp_str = "MP:" + std::to_string(party[i]->get_mp()) + "/" + std::to_string(party[i]->get_max_mp());
+            mvwprintw(win, 6, x_offset, "%.*s", slot_w, mp_str.c_str());
         }
     }
 }
@@ -767,6 +781,7 @@ void DungeonState::handle_post_dialogue() {
             }
         } else {
             engine->get_dialogs().set_on_exit({}); engine->get_dialogs().set_next_scene("");
+            engine->get_music_manager().playMusic("dungeon.mp3");
         }
     }
 }

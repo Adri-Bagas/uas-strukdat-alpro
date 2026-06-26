@@ -30,6 +30,11 @@ void GameOverState::render() {
 
     int max_y, max_x;
     getmaxyx(stdscr, max_y, max_x);
+    if (max_y < 15 || max_x < 50) {
+        mvprintw(max_y / 2, std::max(0, (max_x - 30) / 2), "TERMINAL TERLALU KECIL (%dx%d)", max_x, max_y);
+        refresh();
+        return;
+    }
 
     std::vector<std::string> art;
     if (title == "GAME OVER") {

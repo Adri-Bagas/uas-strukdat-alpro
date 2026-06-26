@@ -15,6 +15,7 @@
 TownState::TownState(GameEngine* eng) : GameState(eng) {}
 
 void TownState::on_enter() {
+     engine->get_music_manager().playMusic("exploration.mp3");
      Utils::Logger::log("TownState: Entering state.");
      selection_index = 0;
     
@@ -740,17 +741,26 @@ void TownState::render_quest_menu(Player* p, std::vector<std::string>& menu_disp
      std::string ex_p = (quest_selection_index == (int)available_quests.size() ? "> " : "  ");
      menu_display.push_back(ex_p + "[Keluar]");
     
-     // Add Quest Details
-     if (quest_selection_index >= 0 && quest_selection_index < (int)available_quests.size()) {
-         menu_display.push_back("");
-         menu_display.push_back("--- Detail Quest ---");
-         Quest* selected_q = available_quests[quest_selection_index];
-         menu_display.push_back(selected_q->get_name());
-         menu_display.push_back("Deskripsi: " + selected_q->get_description());
-     }
+      // Add Quest Details
+      if (quest_selection_index >= 0 && quest_selection_index < (int)available_quests.size()) {
+          menu_display.push_back("");
+          menu_display.push_back("--- Detail Quest ---");
+          Quest* selected_q = available_quests[quest_selection_index];
+          menu_display.push_back(selected_q->get_name());
+          int desc_w = engine->get_layout().w_col3 - 6;
+          if (desc_w < 20) desc_w = 20;
+          std::string desc = "Deskripsi: " + selected_q->get_description();
+          while ((int)desc.length() > desc_w) {
+              size_t brk = desc.rfind(' ', desc_w);
+              if (brk == std::string::npos || brk < 10) brk = desc_w;
+              menu_display.push_back(desc.substr(0, brk));
+              desc = "    " + desc.substr(brk + 1);
+          }
+          if (!desc.empty()) menu_display.push_back(desc);
+      }
 
      std::string npc_disp_name = interacting_npc->name_known() ? interacting_npc->get_name() : "??? (" + interacting_npc->get_role() + ")";
-     engine->get_layout().draw_title(engine->get_layout().win_menu, ("Interaksi dengan " + npc_disp_name).c_str(), engine->get_layout().w_col2, 4);
+     engine->get_layout().draw_title(engine->get_layout().win_menu, ("Interaksi dengan " + npc_disp_name).c_str(), 4);
 }
 
 void TownState::render_world_menu(Player* p, std::vector<std::string>& menu_display) {
@@ -909,28 +919,28 @@ void TownState::render_map_preview(Player* p, std::vector<std::string>& menu_dis
          }
      }
     
-     engine->get_layout().draw_title(engine->get_layout().win_menu, "Informasi Lokasi", engine->get_layout().w_col2, 4);
+     engine->get_layout().draw_title(engine->get_layout().win_menu, "Informasi Lokasi", 4);
 }
 
 void TownState::render_sidebars(Player* p) {
-     std::vector<std::string> info; info.push_back("--- Misi ---");
-     for (auto& pair : engine->get_quests().get_all_quests()) {
-         if (pair.second) {
-             if (pair.second->get_state() == QuestState::IN_PROGRESS) {
-                 info.push_back(" Q: " + pair.second->get_name());
-                 info.push_back("   Obj: " + pair.second->get_objective_text());
-                 std::string loc_id = pair.second->get_target_location_id();
-                 if (!loc_id.empty()) {
-                     const Place* target_place = engine->get_db().get_place(loc_id);
-                     std::string loc_name = target_place ? target_place->get_name() : loc_id;
-                     info.push_back("   Lok: " + loc_name);
-                 }
-             } else if (pair.second->get_state() == QuestState::READY_TO_TURN_IN) {
-                 info.push_back(" Q: " + pair.second->get_name());
-                 info.push_back("   [SELESAI] Lapor ke pemberi misi!");
-             }
-         }
-     }
+      std::vector<std::string> info; info.push_back("--- Misi ---");
+      for (auto& pair : engine->get_quests().get_all_quests()) {
+          if (pair.second) {
+              if (pair.second->get_state() == QuestState::IN_PROGRESS) {
+                  info.push_back(" Q: " + pair.second->get_name());
+                  info.push_back(" Obj: " + pair.second->get_objective_text());
+                  std::string loc_id = pair.second->get_target_location_id();
+                  if (!loc_id.empty()) {
+                      const Place* target_place = engine->get_db().get_place(loc_id);
+                      std::string loc_name = target_place ? target_place->get_name() : loc_id;
+                      info.push_back(" Lok: " + loc_name);
+                  }
+              } else if (pair.second->get_state() == QuestState::READY_TO_TURN_IN) {
+                  info.push_back(" Q: " + pair.second->get_name());
+                  info.push_back(" [SELESAI] Lapor ke pemberi misi!");
+              }
+          }
+      }
      info.push_back(""); info.push_back("--- Inventaris ---");
      for (const auto& pair : p->get_inventory()) {
          const Item* item = engine->get_db().get_item(pair.first);
@@ -941,28 +951,33 @@ void TownState::render_sidebars(Player* p) {
      info.push_back(" [TAB] Buka Peta");
 
      engine->get_layout().draw_tasks(engine->get_layout().win_task, info);
-     // Render Fast Travel Confirmation
-     if (is_confirming_fast_travel) {
-         int pw = 60;
-         int ph = 7;
-         int px = (COLS - pw) / 2;
-         int py = (LINES - ph) / 2;
-         WINDOW* win_confirm = newwin(ph, pw, py, px);
-         box(win_confirm, 0, 0);
-         wattron(win_confirm, COLOR_PAIR(4));
-         mvwprintw(win_confirm, 0, 2, " FAST TRAVEL ");
-         wattroff(win_confirm, COLOR_PAIR(4));
+      // Render Fast Travel Confirmation
+      if (is_confirming_fast_travel) {
+          int pw = std::min(60, COLS - 2);
+          int ph = std::min(7, LINES - 2);
+          int px = std::max(0, (COLS - pw) / 2);
+          int py = std::max(0, (LINES - ph) / 2);
+          WINDOW* win_confirm = newwin(ph, pw, py, px);
+          box(win_confirm, 0, 0);
+          wattron(win_confirm, COLOR_PAIR(4));
+          mvwprintw(win_confirm, 0, 2, " FAST TRAVEL ");
+          wattroff(win_confirm, COLOR_PAIR(4));
 
-         std::string msg = "Perjalanan ke " + fast_travel_target->get_name() + " melewati " + std::to_string(fast_travel_path_preview.size() - 1) + " area.";
-         mvwprintw(win_confirm, 2, 2, "%s", msg.c_str());
-         mvwprintw(win_confirm, 3, 2, "Ada kemungkinan random encounter di jalan.");
-        
-         wattron(win_confirm, A_BOLD);
-         mvwprintw(win_confirm, 5, 2, "[Y] Lanjutkan     [N] Batal");
-         wattroff(win_confirm, A_BOLD);
+          std::string msg = "Perjalanan ke " + fast_travel_target->get_name();
+          if (!fast_travel_path_preview.empty()) {
+              msg += " melewati " + std::to_string(fast_travel_path_preview.size() - 1) + " area.";
+          }
+          int msg_max = pw - 4;
+          if ((int)msg.length() > msg_max) msg = msg.substr(0, msg_max - 1) + "~";
+          mvwprintw(win_confirm, 2, 2, "%.*s", msg_max, msg.c_str());
+          mvwprintw(win_confirm, 3, 2, "Ada kemungkinan random encounter di jalan.");
+         
+          wattron(win_confirm, A_BOLD);
+          mvwprintw(win_confirm, 5, 2, "[Y] Lanjutkan     [N] Batal");
+          wattroff(win_confirm, A_BOLD);
 
-         wrefresh(win_confirm);
-         delwin(win_confirm);
-     }
+          wrefresh(win_confirm);
+          delwin(win_confirm);
+      }
      engine->get_layout().render_history(engine->get_layout().win_dialog, engine->get_dialogs().get_combined_log());
 }

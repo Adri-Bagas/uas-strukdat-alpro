@@ -67,10 +67,11 @@ void BattlePage::draw(
     }
 
     // Text from bottom to up
+    int log_precision = std::max(0, left_w - 4);
     int logs_to_draw = std::min(num_logs, max_logs);
     for (int i = 0; i < logs_to_draw; ++i) {
         int draw_y = (my - 1) - logs_to_draw + i;
-        mvprintw(draw_y, 2, "%.*s", left_w - 4, battle_log[start_log + i].c_str());
+        mvprintw(draw_y, 2, "%.*s", log_precision, battle_log[start_log + i].c_str());
     }
 
     // --- MAIN BATTLE AREA (RIGHT) ---
@@ -81,6 +82,7 @@ void BattlePage::draw(
 
     int box_w = 18;
     int box_h = 7;
+    int text_w = box_w - 4;
     int gap = 2;
     int lanes_w = 4 * box_w + 3 * gap;
     
@@ -97,9 +99,11 @@ void BattlePage::draw(
     for (size_t i = 0; i < turn_queue.size() && q_x < start_x + lanes_w - 5; ++i) {
         if (i == 0) attron(A_REVERSE);
         std::string name = turn_queue[i] ? turn_queue[i]->get_name() : "???";
-        mvprintw(start_y - 1, q_x, "[%s]", name.c_str());
+        int remain = (start_x + lanes_w - 5) - q_x - 2;
+        if (remain < 3) break;
+        mvprintw(start_y - 1, q_x, "[%.*s]", remain, name.c_str());
         if (i == 0) attroff(A_REVERSE);
-        q_x += name.length() + 3;
+        q_x += std::min((int)name.length(), remain) + 3;
     }
 
     int enemy_y = start_y + 2;
@@ -119,8 +123,9 @@ void BattlePage::draw(
             else if (is_active) attron(COLOR_PAIR(5) | A_BOLD);
             
             mvprintw(enemy_y + 1, x + 2, "Slot %d", i + 1);
-            mvprintw(enemy_y + 2, x + 2, "%.14s", e->get_name().c_str());
-            mvprintw(enemy_y + 4, x + 2, "HP: %d/%d", e->get_hp(), e->get_max_hp());
+            mvprintw(enemy_y + 2, x + 2, "%.*s", text_w, e->get_name().c_str());
+            std::string hp_s = "HP:" + std::to_string(e->get_hp()) + "/" + std::to_string(e->get_max_hp());
+            mvprintw(enemy_y + 4, x + 2, "%.*s", text_w, hp_s.c_str());
             
             if (is_flashing) attroff(COLOR_PAIR(5) | A_BOLD | A_REVERSE);
             else if (is_active) attroff(COLOR_PAIR(5) | A_BOLD);
@@ -145,9 +150,9 @@ void BattlePage::draw(
             else if (is_active) attron(COLOR_PAIR(4) | A_BOLD);
             
             mvprintw(party_y + 1, x + 2, "Slot %d", i + 1);
-            mvprintw(party_y + 2, x + 2, "%.14s", e->get_name().c_str());
-            mvprintw(party_y + 3, x + 2, "HP: %d/%d", e->get_hp(), e->get_max_hp());
-            mvprintw(party_y + 4, x + 2, "MP: %d/%d", e->get_mp(), e->get_max_mp());
+            mvprintw(party_y + 2, x + 2, "%.*s", text_w, e->get_name().c_str());
+            { std::string s = "HP:" + std::to_string(e->get_hp()) + "/" + std::to_string(e->get_max_hp()); mvprintw(party_y + 3, x + 2, "%.*s", text_w, s.c_str()); }
+            { std::string s = "MP:" + std::to_string(e->get_mp()) + "/" + std::to_string(e->get_max_mp()); mvprintw(party_y + 4, x + 2, "%.*s", text_w, s.c_str()); }
             
             if (is_flashing) attroff(COLOR_PAIR(4) | A_BOLD | A_REVERSE);
             else if (is_active) attroff(COLOR_PAIR(4) | A_BOLD);
@@ -161,8 +166,9 @@ void BattlePage::draw(
     // Menu
     if (!menu_options.empty()) {
         int menu_y = party_y + box_h + 1;
-        int menu_h = menu_options.size() + 2;
+        int menu_h = std::min((int)menu_options.size() + 2, my - menu_y - 1);
         if (menu_h < 4) menu_h = 4; // minimum height
+        int menu_txt_w = lanes_w - 4;
         
         draw_box(menu_y, start_x, lanes_w, menu_h, true, false, false); // active style (color 4)
         
@@ -170,9 +176,9 @@ void BattlePage::draw(
         mvprintw(menu_y, start_x + 2, " ACTION MENU ");
         attroff(COLOR_PAIR(4) | A_BOLD);
 
-        for (size_t i = 0; i < menu_options.size(); ++i) {
+        for (size_t i = 0; i < menu_options.size() && (int)i < menu_h - 2; ++i) {
             if (static_cast<int>(i) == current_menu_selection) attron(A_REVERSE);
-            mvprintw(menu_y + 1 + i, start_x + 2, "%s", menu_options[i].c_str());
+            mvprintw(menu_y + 1 + i, start_x + 2, "%.*s", menu_txt_w, menu_options[i].c_str());
             if (static_cast<int>(i) == current_menu_selection) attroff(A_REVERSE);
         }
     }

@@ -18,6 +18,18 @@ ChoicePopup::ChoicePopup(const std::string& header, const std::vector<DialogChoi
     keypad(win, TRUE);
 }
 
+void ChoicePopup::resize() {
+    target_w = 60;
+    if (target_w > COLS - 2) target_w = COLS - 2;
+    target_h = wrapped_lines.size() + choices.size() + 4;
+    if (target_h > LINES - 2) target_h = LINES - 2;
+
+    y = std::max(0, (LINES - target_h) / 2);
+    x = std::max(0, (COLS - target_w) / 2);
+    wresize(win, target_h, target_w);
+    mvwin(win, y, x);
+}
+
 void ChoicePopup::render() {
     if (!win) return;
 
@@ -32,7 +44,7 @@ void ChoicePopup::render() {
 
     // Header text
     for (size_t i = 0; i < wrapped_lines.size(); ++i) {
-        mvwprintw(win, 1 + i, 2, "%s", wrapped_lines[i].c_str());
+        mvwprintw(win, 1 + i, 2, "%.*s", target_w - 4, wrapped_lines[i].c_str());
     }
 
     // Divider
@@ -40,13 +52,16 @@ void ChoicePopup::render() {
 
     // Choices
     int choice_start_y = wrapped_lines.size() + 2;
+    int opt_max = target_w - 4;
     for (size_t i = 0; i < choices.size(); ++i) {
+        std::string txt = choices[i].text;
+        if ((int)txt.length() > opt_max) txt = txt.substr(0, opt_max - 1) + "~";
         if (selected_index == (int)i) {
             wattron(win, A_REVERSE | COLOR_PAIR(4));
-            mvwprintw(win, choice_start_y + i, 2, "> %s", choices[i].text.c_str());
+            mvwprintw(win, choice_start_y + i, 2, "> %s", txt.c_str());
             wattroff(win, A_REVERSE | COLOR_PAIR(4));
         } else {
-            mvwprintw(win, choice_start_y + i, 2, "  %s", choices[i].text.c_str());
+            mvwprintw(win, choice_start_y + i, 2, "  %s", txt.c_str());
         }
     }
 

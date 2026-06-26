@@ -649,11 +649,6 @@ void BattleState::execute_action(Entity* target) {
             }
         }
     } else if (pending_action == "Item") {
-        if (target) {
-            target->heal_hp(50);
-            add_log("Used Item on " + target->get_name() + ", healing 50 HP.");
-        }
-    } else if (pending_action == "Item") {
         if (!selected_item_id.empty()) {
             const Item* itm = engine->get_db().get_item(selected_item_id);
             if (itm) {
@@ -872,35 +867,6 @@ void BattleState::handle_input(int ch) {
                 add_log("Not enough MP!");
             }
         }
-    } else if (current_phase == Phase::SELECTING_SWAP_SLOT) {
-        if (current_menu_selection == (int)menu_options.size() - 1) { // Cancel
-            current_phase = Phase::WAITING_FOR_ACTION;
-            build_main_menu();
-        } else {
-            int target_slot = current_menu_selection;
-            int my_slot = -1;
-            for (int i = 0; i < 4; ++i) if (party_slots[i] == active) my_slot = i;
-            
-            if (my_slot != -1 && my_slot != target_slot) {
-                engine->get_player_manager().swap_slots(my_slot, target_slot);
-                party_slots = engine->get_player_manager().get_party_slots();
-                add_log(active->get_name() + " moved to Slot " + std::to_string(target_slot + 1) + "!");
-            } else {
-                add_log("Invalid move!");
-            }
-            // Move is a free action, do not erase from turn_queue!
-            current_phase = Phase::WAITING_FOR_ACTION;
-            build_main_menu();
-        }
-    } else if (current_phase == Phase::SELECTING_ITEM) {
-        if (current_menu_selection == (int)menu_options.size() - 1) { // Cancel
-            current_phase = Phase::WAITING_FOR_ACTION;
-            build_main_menu();
-        } else {
-            selected_item_idx = current_menu_selection;
-            current_phase = Phase::SELECTING_TARGET_ALLY;
-            build_ally_target_menu();
-        }
     } else if (current_phase == Phase::SELECTING_TACTIC_MEMBER) {
         if (current_menu_selection == (int)menu_options.size() - 1) { // Cancel
             current_phase = Phase::WAITING_FOR_ACTION;
@@ -974,6 +940,7 @@ void BattleState::render() {
 }
 
 void BattleState::on_exit() {
+    engine->get_music_manager().stopMusic();
     clear();
 }
 

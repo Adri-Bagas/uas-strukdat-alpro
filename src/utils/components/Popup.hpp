@@ -13,13 +13,14 @@ class Popup {
 protected:
     int target_h, target_w, y, x;
     WINDOW *win;
+    std::string original_text;
     std::vector<std::string> wrapped_lines;
     
     PopupState state = PopupState::ANIMATING;
     int anim_step = 1;
     int type_line = 0;
     int type_char = 0;
-    int frame_counter = 0;
+
 
 public:
     std::function<void()> on_type_char = nullptr;
@@ -33,7 +34,7 @@ public:
     virtual void update();
     virtual bool handle_input(int ch);
     virtual void render();
-    void resize();
+    virtual void resize();
     
     bool is_dismissed() const { return state == PopupState::DISMISSED; }
 

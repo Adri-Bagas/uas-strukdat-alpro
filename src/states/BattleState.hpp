@@ -55,7 +55,7 @@ private:
     int accumulated_gold = 0;
     std::vector<std::string> end_battle_logs;
     int selected_magic_idx = -1;
-    int selected_item_idx = -1;
+
     std::string selected_item_id;
     std::vector<std::string> current_item_menu_ids;
     int selected_tactic_member = -1;

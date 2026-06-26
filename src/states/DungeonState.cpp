@@ -67,25 +67,28 @@ void DungeonState::on_enter() {
         }
     }
 
-    // Lukas marker logic for Floor 2
-    is_lukas_spawned = false;
-    lukas_x = -1; lukas_y = -1;
-    Quest* q2 = engine->get_quests().get_quest("quest_gereja_2");
-    if (q2 && q2->get_state() == QuestState::IN_PROGRESS) {
-        DungeonFloorNode* temp = current_node;
-        while (temp && temp->floor.floor_number != 2) temp = temp->next;
-        if (temp) {
-            std::random_device rd;
-            std::mt19937 gen(rd());
-            std::uniform_int_distribution<> dis_r(1, temp->floor.height - 2);
-            std::uniform_int_distribution<> dis_c(1, temp->floor.width - 2);
-            while (!is_lukas_spawned) {
-                int r = dis_r(gen);
-                int c = dis_c(gen);
-                if (temp->floor.grid[r][c] == 0 && (r != temp->floor.start_r || c != temp->floor.start_c)) { // 0 = Path
-                    lukas_x = c;
-                    lukas_y = r;
-                    is_lukas_spawned = true;
+    // Quest marker logic: spawn ? markers for IN_PROGRESS dungeon quests
+    quest_markers.clear();
+    for (const auto& pair : engine->get_quests().get_all_quests()) {
+        Quest* q = pair.second;
+        if (q->get_state() == QuestState::IN_PROGRESS) {
+            const std::string& loc_id = q->get_target_location_id();
+            if (loc_id.rfind("dungeon_f", 0) == 0 && !q->get_location_trigger_scene().empty()) {
+                int floor_num = std::stoi(loc_id.substr(9));
+                DungeonFloorNode* temp = current_node;
+                while (temp && temp->floor.floor_number != floor_num) temp = temp->next;
+                if (temp) {
+                    std::random_device rd;
+                    std::mt19937 gen(rd());
+                    std::uniform_int_distribution<> dis_r(1, temp->floor.height - 2);
+                    std::uniform_int_distribution<> dis_c(1, temp->floor.width - 2);
+                    int mx, my;
+                    do {
+                        my = dis_r(gen);
+                        mx = dis_c(gen);
+                    } while (temp->floor.grid[my][mx] != 0 ||
+                             (my == temp->floor.start_r && mx == temp->floor.start_c));
+                    quest_markers.push_back({q->get_id(), q->get_location_trigger_scene(), floor_num, mx, my});
                 }
             }
         }
@@ -285,13 +288,21 @@ void DungeonState::handle_input(int ch) {
             update_visited(current_floor); // Update fog of war
             
             if (moved) {
-                if (is_lukas_spawned && current_floor.floor_number == 2 && current_floor.player_r == lukas_y && current_floor.player_c == lukas_x) {
-                    is_lukas_spawned = false; // Only trigger once
-                    const DialogScene* scene = engine->get_db().get_dialog_scene("scene_dungeon_lukas");
-                    if (scene) {
-                        engine->get_dialogs().start_scene(*scene, engine);
+                for (auto it = quest_markers.begin(); it != quest_markers.end(); ) {
+                    if (it->floor_number == current_floor.floor_number &&
+                        current_floor.player_r == it->y && current_floor.player_c == it->x) {
+                        std::string scene_id = it->scene_id;
+                        it = quest_markers.erase(it);
+                        if (!scene_id.empty()) {
+                            const DialogScene* scene = engine->get_db().get_dialog_scene(scene_id);
+                            if (scene) {
+                                engine->get_dialogs().start_scene(*scene, engine);
+                            }
+                        }
+                        return;
+                    } else {
+                        ++it;
                     }
-                    return;
                 }
 
                 if (!(current_floor.player_r == current_floor.exit_r && current_floor.player_c == current_floor.exit_c) && !(current_floor.player_r == current_floor.start_r && current_floor.player_c == current_floor.start_c)) {
@@ -475,7 +486,9 @@ void DungeonState::render() {
                     wattron(win, COLOR_PAIR(4) | A_BOLD);
                     mvwprintw(win, draw_y, draw_x, "@ ");
                     wattroff(win, COLOR_PAIR(4) | A_BOLD);
-                } else if (is_lukas_spawned && current_floor.floor_number == 2 && r == lukas_y && c == lukas_x) {
+                } else if (auto m_it = std::find_if(quest_markers.begin(), quest_markers.end(),
+                    [&](const QuestMarker& m) { return m.floor_number == current_floor.floor_number && m.y == r && m.x == c; });
+                    m_it != quest_markers.end()) {
                     wattron(win, COLOR_PAIR(5) | A_BOLD);
                     mvwprintw(win, draw_y, draw_x, "? ");
                     wattroff(win, COLOR_PAIR(5) | A_BOLD);
@@ -713,7 +726,9 @@ void DungeonState::render_map_tab(WINDOW* win, const DungeonFloor& floor) {
                     wattron(win, COLOR_PAIR(4) | A_BOLD);
                     mvwprintw(win, draw_y, draw_x, "@ ");
                     wattroff(win, COLOR_PAIR(4) | A_BOLD);
-                } else if (is_lukas_spawned && floor.floor_number == 2 && r == lukas_y && c == lukas_x) {
+                } else if (auto m_it = std::find_if(quest_markers.begin(), quest_markers.end(),
+                    [&](const QuestMarker& m) { return m.floor_number == floor.floor_number && m.y == r && m.x == c; });
+                    m_it != quest_markers.end()) {
                     wattron(win, COLOR_PAIR(5) | A_BOLD);
                     mvwprintw(win, draw_y, draw_x, "? ");
                     wattroff(win, COLOR_PAIR(5) | A_BOLD);

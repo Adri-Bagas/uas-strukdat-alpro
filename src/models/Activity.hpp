@@ -8,8 +8,8 @@ struct Activity {
     std::string id;
     std::string name;
     
-    // Visibility
-    Condition visible_condition;
+    // Visibility (supports compound conditions via array in JSON)
+    std::vector<Condition> visible_conditions;
 
     // Kept for UI display purposes
     int time_cost = 1;

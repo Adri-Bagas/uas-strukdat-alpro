@@ -62,8 +62,7 @@
     "id": "dialog_bara_bantu",
     "on_enter": [
       "add_var trust_warga 5",
-      "remove_item ransum 1",
-      "accept_quest warga_miskin"
+      "remove_item ransum 1"
     ],
     "on_exit": [
       "reveal_name npc_bara",
@@ -309,9 +308,7 @@
       "add_var clue_count 1",
       "advance_time 1"
     ],
-    "on_exit": [
-      "set_var quest_warga_miskin_complete 1"
-    ],
+    "on_exit": [],
     "nodes": [
       {
         "type": 3,

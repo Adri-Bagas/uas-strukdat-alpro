@@ -38,11 +38,10 @@
     {
       "id": "investigasi_tkp",
       "name": "Investigasi TKP",
-      "visible_condition": {
-        "type": "var_equal",
-        "key": "stable_clue_found",
-        "value": 0
-      },
+      "visible_condition": [
+        { "type": "quest_state", "key": "quest_stable_investigation", "value": 2 },
+        { "type": "var_equal", "key": "stable_clue_found", "value": 0 }
+      ],
       "time_cost": 1,
       "schedule": {
         "days": [],

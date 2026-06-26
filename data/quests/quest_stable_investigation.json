@@ -1,0 +1,23 @@
+{
+  "id": "quest_stable_investigation",
+  "name": "Investigasi Kandang Kuda",
+  "description": "Cari bukti di TKP pembunuhan Walikota di Kandang Kuda, lalu laporkan ke Arthur.",
+  "target_npc_id": "npc_arthur",
+  "start_scene_id": "scene_arthur_give_stable_quest",
+  "complete_scene_id": "scene_arthur_complete_stable_quest",
+  "unlock_conditions": [
+    {
+      "type": "none"
+    }
+  ],
+  "completion_condition": {
+    "type": "var_equal",
+    "key": "stable_clue_found",
+    "value": 1
+  },
+  "on_complete": [
+    "add_gold 30",
+    "give_item potion_hp 1",
+    "set_var quest_stable_investigation_complete 1"
+  ]
+}

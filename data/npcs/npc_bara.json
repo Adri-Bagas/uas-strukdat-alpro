@@ -23,9 +23,7 @@
     }
   ],
   "default_dialog": "scene_bara_idle",
-  "quests": [
-    "warga_miskin"
-  ],
+  "quests": [],
   "str": 35,
   "cons": 25,
   "agi": 20,

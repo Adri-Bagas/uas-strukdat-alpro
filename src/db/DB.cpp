@@ -273,8 +273,16 @@ void DB::load_places(const std::string& directory_path) {
                         act.name = act_j["name"].get<std::string>();
                         
                         // Syarat apakah menu kegiatan ini muncul atau tidak
+                        // Support both single object and array of conditions
                         if (act_j.contains("visible_condition")) {
-                            act.visible_condition = parse_condition(act_j["visible_condition"]);
+                            const auto& vc = act_j["visible_condition"];
+                            if (vc.is_array()) {
+                                for (const auto& cond_j : vc) {
+                                    act.visible_conditions.push_back(parse_condition(cond_j));
+                                }
+                            } else {
+                                act.visible_conditions.push_back(parse_condition(vc));
+                            }
                         }
 
                         act.time_cost = act_j.value("time_cost", 1);

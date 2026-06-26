@@ -23,9 +23,7 @@
     }
   ],
   "default_dialog": "scene_hugo_idle",
-  "quests": [
-    "quest_timbangan"
-  ],
+  "quests": [],
   "str": 15,
   "cons": 15,
   "agi": 15,

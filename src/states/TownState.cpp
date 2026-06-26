@@ -348,7 +348,13 @@ void TownState::cycle_tab() {
              int day = engine->get_calendar().getDay(); 
              std::string phase = engine->get_calendar().getTimeString();
              for (const auto& act : cur->get_activities()) {
-                 if (!act.visible_condition.evaluate(p, &engine->get_quests())) continue;
+                 if (!act.visible_conditions.empty()) {
+                    bool vis = true;
+                    for (const auto& c : act.visible_conditions) {
+                        if (!c.evaluate(p, &engine->get_quests())) { vis = false; break; }
+                    }
+                    if (!vis) continue;
+                }
                  bool day_ok = act.days.empty() || std::find(act.days.begin(), act.days.end(), day) != act.days.end();
                  bool phase_ok = act.phases.empty() || std::find(act.phases.begin(), act.phases.end(), phase) != act.phases.end();
                  if (day_ok && phase_ok) return true;
@@ -776,7 +782,13 @@ void TownState::render_world_menu(Player* p, std::vector<std::string>& menu_disp
          if (tab == MenuTab::EXIT) return !cur->get_walkable_places().empty();
          if (tab == MenuTab::ACTIVITY) {
              for (const auto& act : cur->get_activities()) {
-                 if (!act.visible_condition.evaluate(p, &engine->get_quests())) continue;
+                 if (!act.visible_conditions.empty()) {
+                    bool vis = true;
+                    for (const auto& c : act.visible_conditions) {
+                        if (!c.evaluate(p, &engine->get_quests())) { vis = false; break; }
+                    }
+                    if (!vis) continue;
+                }
                  bool day_ok = act.days.empty() || std::find(act.days.begin(), act.days.end(), day) != act.days.end();
                  bool phase_ok = act.phases.empty() || std::find(act.phases.begin(), act.phases.end(), phase) != act.phases.end();
                  if (day_ok && phase_ok) return true;
@@ -811,12 +823,18 @@ void TownState::render_world_menu(Player* p, std::vector<std::string>& menu_disp
      if (current_tab == MenuTab::ACTIVITY) {
          std::vector<Activity> valid_acts;
          for (const auto& act : cur->get_activities()) {
-             if (!act.visible_condition.evaluate(p, &engine->get_quests())) continue;
-             bool day_ok = act.days.empty() || std::find(act.days.begin(), act.days.end(), day) != act.days.end();
-             bool phase_ok = act.phases.empty() || std::find(act.phases.begin(), act.phases.end(), phase) != act.phases.end();
-             if (day_ok && phase_ok) valid_acts.push_back(act);
-         }
-         if (!valid_acts.empty()) {
+              if (!act.visible_conditions.empty()) {
+                  bool vis = true;
+                  for (const auto& c : act.visible_conditions) {
+                      if (!c.evaluate(p, &engine->get_quests())) { vis = false; break; }
+                  }
+                  if (!vis) continue;
+              }
+              bool day_ok = act.days.empty() || std::find(act.days.begin(), act.days.end(), day) != act.days.end();
+              bool phase_ok = act.phases.empty() || std::find(act.phases.begin(), act.phases.end(), phase) != act.phases.end();
+              if (day_ok && phase_ok) valid_acts.push_back(act);
+          }
+          if (!valid_acts.empty()) {
              menu_display.push_back("--- Lakukan Aktivitas ---");
              for (const auto& act : valid_acts) {
                  current_activities.push_back(act);
@@ -856,7 +874,13 @@ void TownState::render_map_preview(Player* p, std::vector<std::string>& menu_dis
          if (tab == MenuTab::ACTIVITY) {
              if (!cur) return false;
              for (const auto& act : cur->get_activities()) {
-                 if (!act.visible_condition.evaluate(p, &engine->get_quests())) continue;
+                 if (!act.visible_conditions.empty()) {
+                    bool vis = true;
+                    for (const auto& c : act.visible_conditions) {
+                        if (!c.evaluate(p, &engine->get_quests())) { vis = false; break; }
+                    }
+                    if (!vis) continue;
+                }
                  bool day_ok = act.days.empty() || std::find(act.days.begin(), act.days.end(), day) != act.days.end();
                  bool phase_ok = act.phases.empty() || std::find(act.phases.begin(), act.phases.end(), phase) != act.phases.end();
                  if (day_ok && phase_ok) return true;
@@ -906,14 +930,20 @@ void TownState::render_map_preview(Player* p, std::vector<std::string>& menu_dis
 
      std::vector<Activity> valid_acts;
      for (const auto& act : target->get_activities()) {
-         if (!act.visible_condition.evaluate(p, &engine->get_quests())) continue;
-         bool day_ok = act.days.empty() || std::find(act.days.begin(), act.days.end(), day) != act.days.end();
-         bool phase_ok = act.phases.empty() || std::find(act.phases.begin(), act.phases.end(), phase) != act.phases.end();
-         if (day_ok && phase_ok) valid_acts.push_back(act);
-     }
-    
-     if (!valid_acts.empty()) {
-         menu_display.push_back("- Aktivitas -");
+          if (!act.visible_conditions.empty()) {
+              bool vis = true;
+              for (const auto& c : act.visible_conditions) {
+                  if (!c.evaluate(p, &engine->get_quests())) { vis = false; break; }
+              }
+              if (!vis) continue;
+          }
+          bool day_ok = act.days.empty() || std::find(act.days.begin(), act.days.end(), day) != act.days.end();
+          bool phase_ok = act.phases.empty() || std::find(act.phases.begin(), act.phases.end(), phase) != act.phases.end();
+          if (day_ok && phase_ok) valid_acts.push_back(act);
+      }
+     
+      if (!valid_acts.empty()) {
+          menu_display.push_back("- Aktivitas -");
          for (const auto& act : valid_acts) {
              std::string lock = (act.is_locked || (day == 1 && act.id != "tidur") ? "[TERKUNCI] " : "");
              menu_display.push_back("  " + lock + act.name);

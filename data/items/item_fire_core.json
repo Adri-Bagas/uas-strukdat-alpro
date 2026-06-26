@@ -1,0 +1,7 @@
+{
+  "id": "item_fire_core",
+  "name": "Inti Api",
+  "description": "Bola api kecil yang terus menyala. Sumber energi elemental yang kuat.",
+  "type": "material",
+  "value": 40
+}

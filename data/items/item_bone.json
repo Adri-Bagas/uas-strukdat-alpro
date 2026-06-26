@@ -1,0 +1,7 @@
+{
+  "id": "item_bone",
+  "name": "Tulang Kuno",
+  "description": "Tulang berusia ratusan tahun yang masih utuh. Mungkin berguna untuk bahan kerajinan atau riset.",
+  "type": "material",
+  "value": 15
+}

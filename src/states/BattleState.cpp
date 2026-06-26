@@ -1,6 +1,7 @@
 #include "BattleState.hpp"
 #include "../GameEngine.hpp"
 #include "../utils/Sort.hpp"
+#include "../utils/StringUtils.hpp"
 #include <algorithm>
 
 #include <sstream>
@@ -139,7 +140,7 @@ void BattleState::next_turn() {
                             engine->get_player_manager().get_player()->add_item(loot.item_id, 1);
                             // Get item name for better logging if possible, but ID works too
                             const Item* item_data = engine->get_db().get_item(loot.item_id);
-                            std::string item_name = item_data ? item_data->name : loot.item_id;
+                            std::string item_name = item_data ? item_data->name : to_display_name(loot.item_id);
                             end_battle_logs.push_back("Found loot: " + item_name + "!");
                         }
                     }

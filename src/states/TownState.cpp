@@ -5,6 +5,7 @@
 #include "BattleState.hpp"
 #include "../GameEngine.hpp" 
 #include "../utils/Logger.hpp"
+#include "../utils/StringUtils.hpp"
 #include <ncurses.h>
 #include <queue>
 #include <map>
@@ -944,7 +945,7 @@ void TownState::render_sidebars(Player* p) {
      info.push_back(""); info.push_back("--- Inventaris ---");
      for (const auto& pair : p->get_inventory()) {
          const Item* item = engine->get_db().get_item(pair.first);
-         info.push_back(" - " + (item ? item->name : pair.first) + " x" + std::to_string(pair.second));
+         info.push_back(" - " + (item ? item->name : to_display_name(pair.first)) + " x" + std::to_string(pair.second));
      }
 
      info.push_back(""); info.push_back("--- Pintasan ---");

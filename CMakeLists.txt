@@ -53,4 +53,8 @@ add_executable(ftdd src/main.cpp src/GameEngine.cpp src/managers/MusicManager.cp
 target_include_directories(ftdd PRIVATE ${CURSES_INCLUDE_DIRS} ${CURSES_INCLUDE_DIRS}/ncursesw ${CURSES_INCLUDE_DIRS}/ncurses)
 
 # Tambahan pthread, dl, dan m untuk dependensi sistem Miniaudio di Linux/WSL
-target_link_libraries(ftdd PRIVATE nlohmann_json::nlohmann_json ${CURSES_LIBRARIES} ${MENU_LIBRARY} ${PANEL_LIBRARY} asound pulse pthread dl m)
+if(APPLE)
+    target_link_libraries(ftdd PRIVATE nlohmann_json::nlohmann_json ${CURSES_LIBRARIES} ${MENU_LIBRARY} ${PANEL_LIBRARY} pthread dl m)
+else()
+    target_link_libraries(ftdd PRIVATE nlohmann_json::nlohmann_json ${CURSES_LIBRARIES} ${MENU_LIBRARY} ${PANEL_LIBRARY} asound pulse pthread dl m)
+endif()

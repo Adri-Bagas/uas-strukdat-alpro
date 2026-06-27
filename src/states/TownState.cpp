@@ -120,24 +120,34 @@ void TownState::handle_input(int ch) {
      }
 
      if (is_fast_traveling) return; // Block input during travel
-     if (is_confirming_fast_travel) {
-         if (ch == 'y' || ch == 'Y') {
-             is_confirming_fast_travel = false;
-             is_fast_traveling = true;
-             fast_travel_queue.clear();
-             for (size_t i = 1; i < fast_travel_path_preview.size(); ++i) {
-                 fast_travel_queue.enqueue(fast_travel_path_preview[i]);
-             }
-             cycle_tab();
-         } else if (ch == 'n' || ch == 'N' || ch == 27) { // 27 = ESC
-             is_confirming_fast_travel = false;
-         }
-         return;
-     }
+      if (is_confirming_fast_travel) {
+          if (ch == 'y' || ch == 'Y') {
+              is_confirming_fast_travel = false;
+              is_fast_traveling = true;
+              fast_travel_queue.clear();
+              for (size_t i = 1; i < fast_travel_path_preview.size(); ++i) {
+                  fast_travel_queue.enqueue(fast_travel_path_preview[i]);
+              }
+              cycle_tab();
+          } else if (ch == 'n' || ch == 'N' || ch == 27) { // 27 = ESC
+              is_confirming_fast_travel = false;
+          }
+          return;
+      }
 
-     if (engine->get_dialogs().has_queued_dialog()) return;
+      if (is_confirming_quit) {
+          if (ch == 'y' || ch == 'Y') {
+              is_confirming_quit = false;
+              engine->quit();
+          } else if (ch == 'n' || ch == 'N' || ch == 27) {
+              is_confirming_quit = false;
+          }
+          return;
+      }
 
-     if (ch == 'q') { engine->quit(); return; } 
+      if (engine->get_dialogs().has_queued_dialog()) return;
+
+      if (ch == 'q') { is_confirming_quit = true; return; } 
      else if (ch == 'c' || ch == 'C') {
          engine->push_state(new StatAllocationState(engine));
          return;
@@ -983,7 +993,11 @@ void TownState::render_sidebars(Player* p) {
      }
 
      info.push_back(""); info.push_back("--- Pintasan ---");
-     info.push_back(" [TAB] Buka Peta");
+     info.push_back(" [W/S/↑/↓] Navigasi         [Enter] Pilih");
+     info.push_back(" [TAB] Ganti Tab             [q] Keluar");
+     info.push_back(" [c] Alokasi Stat            [i] Inventaris");
+     info.push_back(" [l] Log                     [e] Ensiklopedia");
+     info.push_back(" [u] Undo Langkah");
 
      engine->get_layout().draw_tasks(engine->get_layout().win_task, info);
       // Render Fast Travel Confirmation
@@ -1012,7 +1026,26 @@ void TownState::render_sidebars(Player* p) {
           wattroff(win_confirm, A_BOLD);
 
           wrefresh(win_confirm);
-          delwin(win_confirm);
-      }
-     engine->get_layout().render_history(engine->get_layout().win_dialog, engine->get_dialogs().get_combined_log());
+           delwin(win_confirm);
+       }
+       // Render Quit Confirmation
+       if (is_confirming_quit) {
+           int pw = std::min(40, COLS - 2);
+           int ph = 7;
+           int px = std::max(0, (COLS - pw) / 2);
+           int py = std::max(0, (LINES - ph) / 2);
+           WINDOW* win_quit = newwin(ph, pw, py, px);
+           box(win_quit, 0, 0);
+           wattron(win_quit, COLOR_PAIR(4) | A_BOLD);
+           mvwprintw(win_quit, 0, 2, " YAKIN? ");
+           wattroff(win_quit, COLOR_PAIR(4) | A_BOLD);
+           mvwprintw(win_quit, 2, 2, "Apakah Anda yakin ingin");
+           mvwprintw(win_quit, 3, 2, "keluar dari permainan?");
+           wattron(win_quit, A_BOLD);
+           mvwprintw(win_quit, 5, 2, "[Y] Ya     [N] Tidak");
+           wattroff(win_quit, A_BOLD);
+           wrefresh(win_quit);
+           delwin(win_quit);
+       }
+      engine->get_layout().render_history(engine->get_layout().win_dialog, engine->get_dialogs().get_combined_log());
 }

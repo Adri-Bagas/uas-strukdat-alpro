@@ -39,6 +39,14 @@ The core foundation and engine of the game are solid and fully operational:
 *   **Resilient Ncurses UI**: 
     *   Localized to Indonesian.
     *   Robust `KEY_RESIZE` handling prevents terminal crashes when resizing or zooming (Ctrl +/-).
+*   **Interactive Inventory System**: 
+    *   Full `InventoryState` accessible from `TownState` and `DungeonState`.
+    *   Players can view items, read word-wrapped descriptions, consume potions (`on_use`), and equip weapons/armor.
+    *   Keyboard navigation with W/S/↑/↓ and contextual shortcuts.
+*   **Keyboard Shortcuts (Pintasan)**: Every primary state (TownState, DungeonState, InventoryState) displays contextual shortcuts in `win_task`.
+*   **Quit Confirmation**: Prevents accidental exits in TownState with a Y/N confirmation popup.
+*   **Word Wrap Utility**: Shared `word_wrap()` function in `StringUtils.hpp` for consistent text wrapping across all dialogue and description rendering.
+*   **Data-Driven Day 2 Trigger**: The `seen_day2_cutscene` variable is set via the JSON action system (`set_var seen_day2_cutscene 1` in `day2_opening.json`) instead of being hardcoded in `TownState.cpp`.
 
 ---
 
@@ -47,9 +55,6 @@ The core foundation and engine of the game are solid and fully operational:
 These systems have their data models built and JSON loaded, but lack the gameplay loops to fully utilize them:
 
 
-*   **Equipment & Inventory System**: 
-    *   *Done*: Items are loaded (`load_items`), players can receive them (`give_item`), and `Player` model has `equip()` logic. The UI reserves space to show equipped items.
-    *   *Missing*: There is no interactive Inventory Menu for the player to manually consume potions (`on_use`) or equip weapons/armor.
 *   **Time Limit Mechanic (14 Days)**: 
     *   *Done*: The Calendar tracks days, UI shows "Sisa Hari" (Days Left), and Lord Inquisitor Vane is scheduled to arrive on Day 14.
     *   *Missing*: A hard "Game Over" or "Judgment" engine trigger if the player fails to solve the mystery by Day 15.
@@ -66,9 +71,7 @@ To finish the project, the following major features must be built:
     *   **Complex Completion Triggers**: Upgrade the `Condition` evaluator to support diverse quest objectives beyond just variable tracking. This includes specific item fetching, targeted monster kills, talking to a specific NPC in a sequence, or triggering completion simply by entering a specific area.
 3.  **Bulletin Board System (Papan Pengumuman)**:
     *   Create a centralized hub (likely in the `alun_alun` or `balai_kota`) for procedural or generic "Unnamed NPC" quests. This prevents the player from having to hunt down random citizens for basic fetch/kill tasks.
-4.  **Interactive Inventory UI**:
-    *   A new sub-menu (perhaps triggered by pressing 'i' in `TownState`) where players can view item descriptions, consume healing items, and equip gear.
-5.  **Data Structures Implementation (From Scratch)**:
+4.  **Data Structures Implementation (From Scratch)**:
     *   **Double Linked List** (DONE): Implemented a custom `DoubleLinkedList` to manage a Message Log / Activity History. Players can press `L` to view notifications chronologically.
     *   **Binary Search Tree (BST) / AVL Tree**: 
         *   **Implementation Strategy**: Construct a custom, self-balancing tree (such as an AVL Tree) to serve as the backend for the **Encyclopedia/Bestiary** system. 

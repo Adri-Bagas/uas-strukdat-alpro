@@ -1,4 +1,5 @@
 #include "BattleState.hpp"
+#include "GameOverState.hpp"
 #include "../GameEngine.hpp"
 #include "../utils/Sort.hpp"
 #include "../utils/StringUtils.hpp"
@@ -106,18 +107,11 @@ void BattleState::build_turn_queue() {
 }
 
 void BattleState::next_turn() {
-    // Check win/loss condition
-    bool all_party_dead = true;
-    for (int i = 0; i < 4; ++i) {
-        if (party_slots[i] && party_slots[i]->get_hp() > 0) {
-            all_party_dead = false;
-        }
-    }
-    
-    if (all_party_dead) {
-        add_log("Your party has been defeated... GAME OVER");
-        current_phase = Phase::WAITING_FOR_ACTION; // Just wait indefinitely or pop_state
-        engine->pop_state();
+    // Check if player is dead
+    Player* player = engine->get_player_manager().get_player();
+    if (player && player->get_hp() <= 0) {
+        add_log(player->get_name() + " has been defeated... GAME OVER");
+        engine->change_state(new GameOverState(engine, "GAME OVER", "Kamu telah gugur dalam pertempuran!"));
         return;
     }
 

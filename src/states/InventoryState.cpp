@@ -201,6 +201,9 @@ void InventoryState::render() {
         }
     }
     
+    details_display.push_back(""); details_display.push_back("--- Pintasan ---");
+    details_display.push_back(" [W/S/↑/↓] Pilih Item      [Enter] Pakai");
+    details_display.push_back(" [I/Q] Keluar");
     engine->get_layout().draw_tasks(engine->get_layout().win_task, details_display);
     
     // Refresh all windows safely without touching curses directly outside LayoutManager

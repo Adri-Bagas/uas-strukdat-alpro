@@ -20,7 +20,7 @@ This is a terminal-based Role-Playing Game (RPG) written in C++17. The game is r
   - `views/` - `ncurses` UI layouts and static drawing logic (`MainPage`, `BattlePage`).
   - `db/` - JSON loading and data storage (`DB` class).
   - `actions/` - The string-based Action Dispatcher.
-  - `utils/components/` - Floating, interactive UI components like `Popup`, `ChoicePopup`, and `ErrorPopup`.
+  - `utils/` - Shared utilities (`StringUtils.hpp` with word-wrap) and floating UI components (`Popup`, `ChoicePopup`, `ErrorPopup`).
 - `data/` - JSON configuration files holding the game's data (`dialogs`, `items`, `monsters`, `npcs`, `places`, `quests`).
 - `CMakeLists.txt` - Build configuration.
 - `shell.nix` - Nix environment configuration defining required system dependencies.
@@ -88,6 +88,18 @@ The game calculates shortest paths across the world map using **Breadth-First Se
 
 ### Dungeon Maze Generation
 `DungeonState` uses a **Randomized Prim's Algorithm** to generate a perfect maze (no isolated sections, guaranteed path to exit) dynamically every time the state is entered. 
+
+### Word Wrap Utility
+The `word_wrap()` function in `src/utils/StringUtils.hpp` splits text at word boundaries up to a `max_width`. It is used by `MainPage` for dialogue rendering and by `InventoryState` for item descriptions. Words longer than `max_width` are split at the character limit to prevent ncurses from wrapping individual characters.
+
+### Keyboard Shortcuts (Pintasan)
+Every primary game state displays a contextual shortcuts panel in the bottom task window (`win_task`):
+- **TownState**: `W/S/↑/↓` (navigate), `Enter` (select), `TAB` (cycle tabs), `q` (quit with confirmation), `c` (character), `i` (inventory), `l` (log), `e` (equip), `u` (use item).
+- **DungeonState**: `WASD/↑↓←→` (move), `Enter/E` (interact), `TAB/t` (toggle map), `q` (quit), `c` (character), `i` (inventory), `b` (back), `1/2` (skills).
+- **InventoryState**: `W/S/↑/↓` (navigate), `Enter` (select/use/equip), `I/Q` (close).
+
+### Quit Confirmation
+Pressing `q` in `TownState` no longer exits immediately. Instead, it sets an `is_confirming_quit` flag, which renders a Y/N popup. The player must confirm with `Y` or cancel with `N`/`ESC`. This follows the same non-blocking pattern as the fast travel confirmation.
 
 ---
 

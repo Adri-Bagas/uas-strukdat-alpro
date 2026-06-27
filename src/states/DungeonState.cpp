@@ -444,6 +444,11 @@ void DungeonState::render() {
     if (!has_quests) {
         task_list.push_back("- Tidak ada misi");
     }
+    task_list.push_back(""); task_list.push_back("--- Pintasan ---");
+    task_list.push_back(" [WASD/↑↓←→] Gerak       [Enter/E] Interaksi");
+    task_list.push_back(" [TAB/t] Ganti Tab        [q] Tinggalkan");
+    task_list.push_back(" [c] Alokasi Stat         [i] Inventaris");
+    task_list.push_back(" [b] Ensiklopedia         [1/2] Party/Peta");
     engine->get_layout().draw_tasks(engine->get_layout().win_task, task_list);
 
     // 6. Render Party and Map tabs in Thoughts container (win_thought)

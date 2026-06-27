@@ -49,6 +49,9 @@ class TownState : public GameState {
     Utils::Queue<std::string> fast_travel_queue;
     bool is_fast_traveling = false;
     bool is_confirming_fast_travel = false;
+
+    // Quit Confirmation
+    bool is_confirming_quit = false;
     Place* fast_travel_target = nullptr;
     std::vector<std::string> fast_travel_path_preview;
 

@@ -1,4 +1,5 @@
 #include "MainPage.hpp"
+#include "../utils/StringUtils.hpp"
 #include <cstring>
 #include <ncurses.h>
 #include <sstream>
@@ -137,14 +138,8 @@ void MainPage::type_new_text(WINDOW* win_in, const char* title, int width,
             else name_line += " (Pikiran)";
         }
         if (!name_line.empty()) lines.push_back(name_line);
-        std::stringstream ss(node.value);
-        std::string word, line = "";
-        while (ss >> word) {
-            if (line.empty()) line = word;
-            else if (line.length() + 1 + word.length() <= (size_t)max_width) line += " " + word;
-            else { lines.push_back(line); line = word; }
-        }
-        if (!line.empty()) lines.push_back(line);
+        auto wrapped = word_wrap(node.value, max_width);
+        lines.insert(lines.end(), wrapped.begin(), wrapped.end());
         return lines;
     };
 
@@ -254,14 +249,8 @@ void MainPage::render_history(WINDOW* win, const std::vector<DialogNode>& histor
             else name_line += " (Pikiran)";
         }
         if (!name_line.empty()) lines.push_back(name_line);
-        std::stringstream ss(node.value);
-        std::string word, line = "";
-        while (ss >> word) {
-            if (line.empty()) line = word;
-            else if (line.length() + 1 + word.length() <= (size_t)max_width) line += " " + word;
-            else { lines.push_back(line); line = word; }
-        }
-        if (!line.empty()) lines.push_back(line);
+        auto wrapped = word_wrap(node.value, max_width);
+        lines.insert(lines.end(), wrapped.begin(), wrapped.end());
         return lines;
     };
 

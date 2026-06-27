@@ -112,7 +112,13 @@ bool SaveManager::save_game(GameEngine* engine, const std::string& filename) {
         data["npcs"][npc->get_id()]["has_met"] = npc->has_met();
     }
 
-    // 5. Party
+    // 5. Encyclopedia
+    std::vector<std::string> discovered = engine->get_encyclopedia().get_discovered_ids();
+    for (const auto& id : discovered) {
+        data["encyclopedia"]["discovered_ids"].push_back(id);
+    }
+
+    // 6. Party
     auto party_slots = engine->get_player_manager().get_party_slots();
     for (int i = 0; i < 4; ++i) {
         if (party_slots[i] && party_slots[i] != p) {
@@ -120,7 +126,7 @@ bool SaveManager::save_game(GameEngine* engine, const std::string& filename) {
         }
     }
 
-    // 6. Places
+    // 7. Places
     data["places"] = json::object();
     for (const auto& place_ptr : engine->get_db().get_all_places()) {
         data["places"][place_ptr->get_id()]["has_entered"] = place_ptr->get_has_entered();
@@ -321,6 +327,13 @@ bool SaveManager::load_game(GameEngine* engine, const std::string& filename) {
                     const_cast<Place*>(place)->set_has_entered(entered);
                 }
             }
+        }
+
+        // Encyclopedia
+        if (data.contains("encyclopedia") && data["encyclopedia"].is_object() &&
+            data["encyclopedia"].contains("discovered_ids") && data["encyclopedia"]["discovered_ids"].is_array()) {
+            std::vector<std::string> discovered = data["encyclopedia"]["discovered_ids"].get<std::vector<std::string>>();
+            engine->get_encyclopedia().set_discovered(discovered);
         }
     } catch (...) {
         return false;

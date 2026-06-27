@@ -6,6 +6,7 @@
 #include "../GameEngine.hpp" 
 #include "../utils/Logger.hpp"
 #include "../utils/StringUtils.hpp"
+#include "../utils/components/EncyclopediaPopup.hpp"
 #include <ncurses.h>
 #include <queue>
 #include <map>
@@ -143,9 +144,12 @@ void TownState::handle_input(int ch) {
      } else if (ch == 'i' || ch == 'I') {
          engine->push_state(new InventoryState(engine));
          return;
-     } else if (ch == 'l' || ch == 'L') {
-         engine->show_popup(std::make_unique<Utils::LogPopup>(engine->get_log_manager()));
-         return;
+      } else if (ch == 'l' || ch == 'L') {
+          engine->show_popup(std::make_unique<Utils::LogPopup>(engine->get_log_manager()));
+          return;
+      } else if (ch == 'e' || ch == 'E') {
+          engine->show_popup(std::make_unique<Utils::EncyclopediaPopup>(engine));
+          return;
      } else if (ch == 'u' || ch == 'U') {
          if (!movement_history.is_empty()) {
              std::string prev_loc = movement_history.top();

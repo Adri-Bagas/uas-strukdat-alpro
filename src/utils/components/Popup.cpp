@@ -130,6 +130,7 @@ void Popup::render() {
         box(win, 0, 0);
         wnoutrefresh(win);
     } else if (state == PopupState::TYPING) {
+        box(win, 0, 0);
         int start_y = (target_h - wrapped_lines.size()) / 2;
         for (int i = 0; i < (int)wrapped_lines.size() && i <= type_line; ++i) {
             const auto& l = wrapped_lines[i];
@@ -142,6 +143,8 @@ void Popup::render() {
         }
         wnoutrefresh(win);
     } else if (state == PopupState::WAITING) {
+        werase(win);
+        box(win, 0, 0);
         int start_y = (target_h - wrapped_lines.size()) / 2;
         for (int i = 0; i < (int)wrapped_lines.size(); ++i) {
             const auto& l = wrapped_lines[i];

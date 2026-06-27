@@ -25,6 +25,26 @@
         "add_var str 1",
         "advance_time 1"
       ]
+    },
+    {
+      "id": "masuk_dungeon",
+      "name": "Masuk Dungeon (Maze)",
+      "time_cost": 1,
+      "stamina_cost": 10,
+      "schedule": {
+        "days": [],
+        "phases": []
+      },
+      "req": {
+        "quest": "",
+        "min_str": 0,
+        "locked": false
+      },
+      "effect": {
+        "gold": 0,
+        "str": 0,
+        "finish_quest": ""
+      }
     }
   ],
   "walkable": {

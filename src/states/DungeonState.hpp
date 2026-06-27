@@ -2,9 +2,17 @@
 #include "GameState.hpp"
 #include "../models/Dungeon.hpp"
 #include "../utils/components/ChoicePopup.hpp"
+#include <string>
 #include <vector>
 #include <memory>
 #include <ncurses.h>
+
+struct QuestMarker {
+    std::string quest_id;
+    std::string scene_id;
+    int floor_number;
+    int x, y;
+};
 
 class DungeonState : public GameState {
 private:
@@ -12,8 +20,7 @@ private:
     bool has_won;
     int active_tab; // 0 = Party, 1 = Map
 
-    int lukas_x = -1, lukas_y = -1;
-    bool is_lukas_spawned = false;
+    std::vector<QuestMarker> quest_markers;
 
     std::unique_ptr<Utils::ChoicePopup> current_choice_popup;
 

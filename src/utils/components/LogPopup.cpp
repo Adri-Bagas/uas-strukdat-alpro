@@ -26,6 +26,17 @@ LogPopup::LogPopup(LogManager& manager, int w, int h)
     }
 }
 
+void LogPopup::resize() {
+    int max_y, max_x;
+    getmaxyx(stdscr, max_y, max_x);
+    if (target_w > max_x - 2) target_w = max_x - 2;
+    if (target_h > max_y - 2) target_h = max_y - 2;
+    y = std::max(0, (max_y - target_h) / 2);
+    x = std::max(0, (max_x - target_w) / 2);
+    wresize(win, target_h, target_w);
+    mvwin(win, y, x);
+}
+
 void LogPopup::update() {
     // Override to skip typing animation
 }
@@ -75,8 +86,8 @@ void LogPopup::render() {
     if (!win) {
         int max_y, max_x;
         getmaxyx(stdscr, max_y, max_x);
-        y = (max_y - target_h) / 2;
-        x = (max_x - target_w) / 2;
+        y = std::max(0, (max_y - target_h) / 2);
+        x = std::max(0, (max_x - target_w) / 2);
         win = newwin(target_h, target_w, y, x);
     }
 
@@ -93,16 +104,23 @@ void LogPopup::render() {
         mvwprintw(win, target_h / 2, (target_w - 18) / 2, "No messages yet...");
     } else {
         int line = 2;
+        int ts_max = target_w - 4;
         auto it = current_top;
         while (it != log_manager.get_logs().end() && line < target_h - 1) {
             const auto& entry = *it;
-            // Print timestamp
-            wattron(win, COLOR_PAIR(3)); // Assuming 3 is a nice color (cyan/yellow)
-            mvwprintw(win, line, 2, "[%s]", entry.timestamp.c_str());
+            int ts_len = entry.timestamp.length();
+            // Print timestamp (truncated if needed)
+            wattron(win, COLOR_PAIR(3));
+            std::string ts_disp = "[" + entry.timestamp + "]";
+            if ((int)ts_disp.length() > ts_max) ts_disp = ts_disp.substr(0, ts_max - 1) + "~";
+            mvwprintw(win, line, 2, "%s", ts_disp.c_str());
             wattroff(win, COLOR_PAIR(3));
             
-            // Print message
-            mvwprintw(win, line, 2 + entry.timestamp.length() + 3, "%s", entry.message.c_str());
+            // Print message (truncated to remaining width)
+            int msg_max = target_w - 2 - ts_disp.length();
+            if (msg_max > 0) {
+                mvwprintw(win, line, 2 + ts_disp.length(), "%.*s", msg_max, entry.message.c_str());
+            }
             
             ++it;
             ++line;

@@ -1,0 +1,7 @@
+{
+  "id": "item_gold_pouch",
+  "name": "Kantung Emas",
+  "description": "Kantung berisi koin emas yang dirampas dari bandit. Bisa ditukar dengan uang tunai.",
+  "type": "material",
+  "value": 50
+}

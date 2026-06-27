@@ -5,34 +5,41 @@
 
 namespace Utils {
 
-Popup::Popup(const std::string &text) {
-    int max_width = 50;
-    
-    // 1. Word wrap logic
+static void rewrap_text(const std::string& text, int max_width, std::vector<std::string>& out_lines, int& out_longest) {
+    out_lines.clear();
+    out_longest = 0;
     std::stringstream ss(text);
-    std::string word, current_line = "";
-    int longest_line = 0;
-
+    std::string word;
     while (ss >> word) {
-        if (current_line.empty()) {
-            current_line = word;
-        } else if (current_line.length() + 1 + word.length() <= (size_t)max_width) {
-            current_line += " " + word;
+        while ((int)word.length() > max_width) {
+            out_lines.push_back(word.substr(0, max_width));
+            out_longest = max_width;
+            word = word.substr(max_width);
+        }
+        if (out_lines.empty() || out_lines.back().length() + 1 + word.length() > (size_t)max_width) {
+            out_lines.push_back(word);
+            out_longest = std::max(out_longest, (int)word.length());
         } else {
-            wrapped_lines.push_back(current_line);
-            longest_line = std::max(longest_line, (int)current_line.length());
-            current_line = word;
+            out_lines.back() += " " + word;
+            out_longest = std::max(out_longest, (int)out_lines.back().length());
         }
     }
-    if (!current_line.empty()) {
-        wrapped_lines.push_back(current_line);
-        longest_line = std::max(longest_line, (int)current_line.length());
+    if (out_lines.empty()) {
+        out_lines.push_back("");
     }
+}
 
-    // 2. Calculate dynamic dimensions
-    target_h = wrapped_lines.size() + 4; // Top/bottom border + padding
-    target_w = longest_line + 6;         // Left/right border + padding
-    if (target_w < 20) target_w = 20;    // Minimum width
+Popup::Popup(const std::string &text) : original_text(text) {
+    int max_width = std::min(50, COLS - 8);
+    if (max_width < 10) max_width = 10;
+    
+    int longest_line = 0;
+    rewrap_text(text, max_width, wrapped_lines, longest_line);
+
+    target_h = wrapped_lines.size() + 4;
+    target_w = longest_line + 6;
+    if (target_w < 20) target_w = 20;
+    if (target_w > COLS) target_w = COLS;
 
     y = (LINES - target_h) / 2;
     x = (COLS - target_w) / 2;
@@ -44,8 +51,20 @@ Popup::Popup(const std::string &text) {
 Popup::~Popup() { delwin(win); }
 
 void Popup::resize() {
+    int max_width = std::min(50, COLS - 8);
+    if (max_width < 10) max_width = 10;
+    
+    int longest_line = 0;
+    rewrap_text(original_text, max_width, wrapped_lines, longest_line);
+    
+    target_h = wrapped_lines.size() + 4;
+    target_w = longest_line + 6;
+    if (target_w < 20) target_w = 20;
+    if (target_w > COLS) target_w = COLS;
+    
     y = (LINES - target_h) / 2;
     x = (COLS - target_w) / 2;
+    wresize(win, target_h, target_w);
     mvwin(win, y, x);
 }
 
@@ -110,27 +129,23 @@ void Popup::render() {
         werase(win);
         box(win, 0, 0);
         wnoutrefresh(win);
-    } else {
-        wresize(win, target_h, target_w);
-        mvwin(win, y, x);
-        werase(win);
-        box(win, 0, 0);
-        
+    } else if (state == PopupState::TYPING) {
         int start_y = (target_h - wrapped_lines.size()) / 2;
-        
-        for (int i = 0; i < (int)wrapped_lines.size(); ++i) {
-            if (i > type_line) break;
-            
+        for (int i = 0; i < (int)wrapped_lines.size() && i <= type_line; ++i) {
             const auto& l = wrapped_lines[i];
-            int start_x = (target_w - (int)l.length()) / 2;
-            
-            if (i == type_line) {
-                if (type_char > 0) {
-                    mvwprintw(win, start_y + i, start_x, "%.*s", type_char, l.c_str());
-                }
+            int sx = (target_w - (int)l.length()) / 2;
+            if (i < type_line) {
+                mvwprintw(win, start_y + i, sx, "%s", l.c_str());
             } else {
-                mvwprintw(win, start_y + i, start_x, "%s", l.c_str());
+                mvwprintw(win, start_y + i, sx, "%.*s", type_char, l.c_str());
             }
+        }
+        wnoutrefresh(win);
+    } else if (state == PopupState::WAITING) {
+        int start_y = (target_h - wrapped_lines.size()) / 2;
+        for (int i = 0; i < (int)wrapped_lines.size(); ++i) {
+            const auto& l = wrapped_lines[i];
+            mvwprintw(win, start_y + i, (target_w - (int)l.length()) / 2, "%s", l.c_str());
         }
         wnoutrefresh(win);
     }
@@ -150,7 +165,8 @@ void Popup::animate_blocking() {
 void Popup::type_text_blocking() {
     int start_y = (target_h - wrapped_lines.size()) / 2;
     
-    for (const auto& l : wrapped_lines) {
+    for (size_t li = 0; li < wrapped_lines.size(); ++li) {
+        const auto& l = wrapped_lines[li];
         int start_x = (target_w - (int)l.length()) / 2;
         for (char c : l) {
             mvwaddch(win, start_y, start_x++, c);
@@ -161,18 +177,23 @@ void Popup::type_text_blocking() {
             if (ch != ERR) {
                 if (ch == KEY_RESIZE) {
                     resize();
-                    refresh();
+                    werase(win);
+                    box(win, 0, 0);
                 }
-                // Instantly draw remaining characters in line
-                mvwprintw(win, start_y, (target_w - (int)l.length()) / 2, "%s", l.c_str());
+                // Instantly draw ALL remaining text (current + subsequent lines)
+                for (size_t ri = li; ri < wrapped_lines.size(); ++ri) {
+                    int ry = start_y + ri - li;
+                    mvwprintw(win, ry, (target_w - (int)wrapped_lines[ri].length()) / 2, "%s", wrapped_lines[ri].c_str());
+                }
                 wrefresh(win);
-                break;
+                goto done_typing;
             }
             napms(20);
         }
         start_y++;
     }
     
+done_typing:
     // Anti-skip: Flush any keys pressed during animation and add a tiny delay
     napms(150);
     flushinp();
@@ -183,7 +204,14 @@ void Popup::type_text_blocking() {
         if (ch == '\n' || ch == ' ') break;
         if (ch == KEY_RESIZE) {
             resize();
-            refresh();
+            werase(win);
+            box(win, 0, 0);
+            int ry = (target_h - wrapped_lines.size()) / 2;
+            for (const auto& ll : wrapped_lines) {
+                mvwprintw(win, ry, (target_w - (int)ll.length()) / 2, "%s", ll.c_str());
+                ry++;
+            }
+            wrefresh(win);
         }
         wrefresh(win);
         napms(10);

@@ -4,6 +4,8 @@
 #include "../db/DB.hpp"
 #include "../enums/Element.hpp"
 #include <ncurses.h>
+#include <sstream>
+#include <algorithm>
 
 InventoryState::InventoryState(GameEngine* eng) : GameState(eng) {}
 
@@ -86,6 +88,13 @@ void InventoryState::update() {
 }
 
 void InventoryState::render() {
+    int my, mx;
+    getmaxyx(stdscr, my, mx);
+    if (my < 15 || mx < 60) {
+        mvprintw(my / 2, std::max(0, (mx - 30) / 2), "TERMINAL TERLALU KECIL (%dx%d)", mx, my);
+        refresh();
+        return;
+    }
     engine->get_layout().draw();
     Player* p = engine->get_player_manager().get_player();
     if (!p) return;
@@ -105,9 +114,9 @@ void InventoryState::render() {
     // Use win_thought to show title & instructions
     WINDOW* wt = engine->get_layout().win_thought;
     wbkgdset(wt, COLOR_PAIR(2)); werase(wt); box(wt, 0, 0);
-    engine->get_layout().draw_title(wt, "INVENTARIS & EQUIPMENT", engine->get_layout().w_right, 2);
+    engine->get_layout().draw_title(wt, "INVENTARIS & EQUIPMENT", 2);
     mvwprintw(wt, 2, 2, "Gunakan W/S untuk memilih item.");
-    mvwprintw(wt, 3, 2, "Tekan ENTER untuk menggunakan barang atau memakai equipment.");
+    mvwprintw(wt, 3, 2, "Tekan ENTER untuk menggunakan/pakai item.");
     mvwprintw(wt, 4, 2, "Tekan I atau Q untuk keluar.");
     wnoutrefresh(wt);
 
@@ -152,16 +161,23 @@ void InventoryState::render() {
         details_display.push_back("Harga : " + std::to_string(item->value) + " G");
         details_display.push_back("Deskripsi:");
         
-        // Simple manual word wrap for description
-        std::string desc = item->description;
-        int max_w = engine->get_layout().w_col3 - 4; // approximate
-        if (max_w < 10) max_w = 20;
+        // Word-wrap description
+        std::stringstream ss_desc(item->description);
+        std::string word;
+        int max_w = std::max(10, engine->get_layout().w_col3 - 6);
         std::string line = "";
-        for (char c : desc) {
-            line += c;
-            if (c == ' ' && line.length() > (size_t)max_w) {
+        while (ss_desc >> word) {
+            while ((int)word.length() > max_w) {
+                details_display.push_back("  " + word.substr(0, max_w));
+                word = word.substr(max_w);
+            }
+            if (line.empty()) {
+                line = word;
+            } else if ((int)(line.length() + 1 + word.length()) > max_w) {
                 details_display.push_back("  " + line);
-                line = "";
+                line = word;
+            } else {
+                line += " " + word;
             }
         }
         if (!line.empty()) details_display.push_back("  " + line);

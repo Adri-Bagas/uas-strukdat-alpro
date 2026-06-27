@@ -28,7 +28,7 @@ class MainPage {
     int w_left, w_right, w_col1, w_col2, w_col3;
     
     MainPage();
-    void draw_title(WINDOW *win, const char *title, int width, int color_pair_id);
+    void draw_title(WINDOW *win, const char *title, int color_pair_id);
     void draw();
     void resize();
     void type_new_text(WINDOW* win, const char* title, int width, 

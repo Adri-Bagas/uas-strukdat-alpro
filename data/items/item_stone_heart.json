@@ -1,0 +1,7 @@
+{
+  "id": "item_stone_heart",
+  "name": "Hati Batu",
+  "description": "Kristal padat yang menjadi inti dari golem batu. Memiliki energi geomansi yang kuat.",
+  "type": "material",
+  "value": 35
+}

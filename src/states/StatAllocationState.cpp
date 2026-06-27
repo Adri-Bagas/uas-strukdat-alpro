@@ -1,6 +1,7 @@
 #include "StatAllocationState.hpp"
 #include "../GameEngine.hpp"
 #include <ncurses.h>
+#include <algorithm>
 
 StatAllocationState::StatAllocationState(GameEngine* eng) : GameState(eng), current_selection(0) {
     stat_names = {"Strength (STR) [+Damage/HP]", "Constitution (CON) [+HP/Def]", "Agility (AGI) [+Speed]", "Intelligence (INT) [+Magic Dmg]", "Wisdom (WIS) [+MP/Def]", "Done"};
@@ -58,10 +59,18 @@ void StatAllocationState::render() {
     Player* p = engine->get_player_manager().get_player();
     if (!p) return;
 
-    int popup_w = 55;
-    int popup_h = stat_names.size() + 6;
-    int popup_y = (LINES - popup_h) / 2;
-    int popup_x = (COLS - popup_w) / 2;
+    int my, mx;
+    getmaxyx(stdscr, my, mx);
+    if (my < 12 || mx < 40) {
+        mvprintw(my / 2, std::max(0, (mx - 30) / 2), "TERMINAL TERLALU KECIL (%dx%d)", mx, my);
+        refresh();
+        return;
+    }
+
+    int popup_w = std::min(55, mx - 2);
+    int popup_h = std::min((int)stat_names.size() + 6, my - 2);
+    int popup_y = std::max(0, (my - popup_h) / 2);
+    int popup_x = std::max(0, (mx - popup_w) / 2);
     
     WINDOW* pop_win = newwin(popup_h, popup_w, popup_y, popup_x);
     if (pop_win) {
@@ -75,22 +84,29 @@ void StatAllocationState::render() {
         
         mvwprintw(pop_win, 3, 2, "Stat Points Available: %d", p->get_stat_points());
         
+        int val_col = popup_w - 10;
+        if (val_col < 30) val_col = 30;
         for (size_t i = 0; i < stat_names.size(); ++i) {
             if (i == current_selection) {
                 wattron(pop_win, COLOR_PAIR(1) | A_REVERSE);
             }
-            mvwprintw(pop_win, 5 + i, 4, "%-35s", stat_names[i].c_str());
+            std::string sn = stat_names[i];
+            int sn_max = val_col - 6;
+            if ((int)sn.length() > sn_max) sn = sn.substr(0, sn_max - 1) + "~";
+            mvwprintw(pop_win, 5 + i, 4, "%s", sn.c_str());
             
             if (i == current_selection) {
                 wattroff(pop_win, COLOR_PAIR(1) | A_REVERSE);
             }
             
             // Render current values
-            if (i == 0) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_str());
-            else if (i == 1) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_cons());
-            else if (i == 2) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_agi());
-            else if (i == 3) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_intl());
-            else if (i == 4) mvwprintw(pop_win, 5 + i, 45, "%d", p->get_wis());
+            int val = 0;
+            if (i == 0) val = p->get_str();
+            else if (i == 1) val = p->get_cons();
+            else if (i == 2) val = p->get_agi();
+            else if (i == 3) val = p->get_intl();
+            else if (i == 4) val = p->get_wis();
+            mvwprintw(pop_win, 5 + i, val_col, "%d", val);
         }
         
         wnoutrefresh(pop_win);

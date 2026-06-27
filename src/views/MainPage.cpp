@@ -64,10 +64,15 @@ MainPage::MainPage() {
     create_windows();
 }
 
-void MainPage::draw_title(WINDOW *win, const char *title, int width, int color_pair_id) {
+void MainPage::draw_title(WINDOW *win, const char *title, int color_pair_id) {
     if (!win) return;
+    int max_y, max_x;
+    getmaxyx(win, max_y, max_x);
+    std::string t = title;
+    int max_w = max_x - 4;
+    if ((int)t.length() > max_w) t = t.substr(0, max_w - 2) + "..";
     wattron(win, A_BOLD | A_REVERSE | COLOR_PAIR(color_pair_id));
-    mvwprintw(win, 0, 1, " %s ", title);
+    mvwprintw(win, 0, 1, " %s ", t.c_str());
     wattroff(win, A_BOLD | A_REVERSE | COLOR_PAIR(color_pair_id));
 }
 
@@ -80,25 +85,25 @@ void MainPage::draw() {
     }
 
     wbkgdset(win_dialog, COLOR_PAIR(2)); werase(win_dialog); box(win_dialog, 0, 0);
-    draw_title(win_dialog, "Dialog", w_left, 2); wnoutrefresh(win_dialog);
+    draw_title(win_dialog, "Dialog", 2); wnoutrefresh(win_dialog);
 
     wbkgdset(win_thought, COLOR_PAIR(2)); werase(win_thought); box(win_thought, 0, 0);
-    draw_title(win_thought, "Peta Kota", w_right, 2); wnoutrefresh(win_thought);
+    draw_title(win_thought, "Peta Kota", 2); wnoutrefresh(win_thought);
 
     wbkgdset(win_stat, COLOR_PAIR(2)); werase(win_stat); box(win_stat, 0, 0);
-    draw_title(win_stat, "Atribut", w_col1, 2); wnoutrefresh(win_stat);
+    draw_title(win_stat, "Atribut", 2); wnoutrefresh(win_stat);
 
     wbkgdset(win_hp, COLOR_PAIR(2)); werase(win_hp); box(win_hp, 0, 0);
-    draw_title(win_hp, "Vitalitas", w_col1, 2); wnoutrefresh(win_hp);
+    draw_title(win_hp, "Vitalitas", 2); wnoutrefresh(win_hp);
 
     wbkgdset(win_cal, COLOR_PAIR(2)); werase(win_cal); box(win_cal, 0, 0);
-    draw_title(win_cal, "Status Dunia", w_col1, 2); wnoutrefresh(win_cal);
+    draw_title(win_cal, "Status Dunia", 2); wnoutrefresh(win_cal);
 
     wbkgdset(win_menu, COLOR_PAIR(2)); werase(win_menu); box(win_menu, 0, 0);
-    draw_title(win_menu, "Tindakan Tersedia", w_col2, 2); wnoutrefresh(win_menu);
+    draw_title(win_menu, "Tindakan Tersedia", 2); wnoutrefresh(win_menu);
 
     wbkgdset(win_task, COLOR_PAIR(2)); werase(win_task); box(win_task, 0, 0);
-    draw_title(win_task, "Inventaris & Misi", w_col3, 2); wnoutrefresh(win_task);
+    draw_title(win_task, "Inventaris & Misi", 2); wnoutrefresh(win_task);
 }
 
 void MainPage::resize() {
@@ -162,7 +167,7 @@ void MainPage::type_new_text(WINDOW* win_in, const char* title, int width,
     };
 
     wbkgdset(win, COLOR_PAIR(4) | A_BOLD); werase(win); box(win, 0, 0);
-    draw_title(win, title, width, 4);
+    draw_title(win, title, 4);
 
     std::vector<std::string> new_lines_all = wrap_node(new_text);
     int total_new_lines = new_lines_all.size();
@@ -276,27 +281,39 @@ void MainPage::render_history(WINDOW* win, const std::vector<DialogNode>& histor
 void MainPage::draw_calendar(WINDOW* win, int days_left, int month, int day, std::string time, std::string location_name) {
     if (!win) return;
     int max_y, max_x; getmaxyx(win, max_y, max_x);
-    int total_height = 11;
+    int total_height = std::min(11, max_y - 2);
+    if (total_height < 4) { wnoutrefresh(win); return; }
     int start_y = std::max(1, (max_y - total_height) / 2);
     wattron(win, COLOR_PAIR(4) | A_BOLD);
-    mvwprintw(win, start_y, std::max(1, (max_x - (int)location_name.length()) / 2), "%s", location_name.c_str());
+    mvwprintw(win, start_y, std::max(1, (max_x - (int)location_name.length()) / 2), "%.*s", max_x - 2, location_name.c_str());
     wattroff(win, COLOR_PAIR(4) | A_BOLD);
     start_y += 1;
     int tens = days_left / 10, ones = days_left % 10;
     int digits_width = (tens > 0) ? 7 : 3; 
     int digits_start_x = (max_x - digits_width) / 2;
-    wattron(win, COLOR_PAIR(2) | A_BOLD);
-    for (int row = 0; row < 5; ++row) {
-        if (tens > 0) mvwprintw(win, start_y + row, digits_start_x, "%s", big_digits[tens][row]);
-        mvwprintw(win, start_y + row, digits_start_x + (tens > 0 ? 4 : 0), "%s", big_digits[ones][row]);
+    if (digits_start_x >= 1) {
+        wattron(win, COLOR_PAIR(2) | A_BOLD);
+        for (int row = 0; row < 5 && start_y + row < max_y - 1; ++row) {
+            if (tens > 0) mvwprintw(win, start_y + row, digits_start_x, "%.*s", max_x - digits_start_x - 1, big_digits[tens][row]);
+            mvwprintw(win, start_y + row, digits_start_x + (tens > 0 ? 4 : 0), "%.*s", max_x - digits_start_x - (tens > 0 ? 4 : 0) - 1, big_digits[ones][row]);
+        }
+        wattroff(win, COLOR_PAIR(2) | A_BOLD);
     }
-    wattroff(win, COLOR_PAIR(2) | A_BOLD);
-    std::string title = "SISA HARI";
-    mvwprintw(win, start_y + 6, (max_x - (int)title.length()) / 2, "%s", title.c_str());
-    std::string date_str = "Tgl: " + std::string(month < 10 ? "0" : "") + std::to_string(month) + " / " + std::string(day < 10 ? "0" : "") + std::to_string(day);
-    mvwprintw(win, start_y + 8, (max_x - (int)date_str.length()) / 2, "%s", date_str.c_str());
-    std::string phase_str = "Fase: " + time;
-    mvwprintw(win, start_y + 9, (max_x - (int)phase_str.length()) / 2, "%s", phase_str.c_str());
+    int line_y = start_y + 6;
+    if (line_y < max_y - 1) {
+        std::string title = "SISA HARI";
+        mvwprintw(win, line_y, (max_x - (int)title.length()) / 2, "%.*s", max_x - 2, title.c_str());
+    }
+    line_y = start_y + 8;
+    if (line_y < max_y - 1) {
+        std::string date_str = "Tgl: " + std::string(month < 10 ? "0" : "") + std::to_string(month) + " / " + std::string(day < 10 ? "0" : "") + std::to_string(day);
+        mvwprintw(win, line_y, (max_x - (int)date_str.length()) / 2, "%.*s", max_x - 2, date_str.c_str());
+    }
+    line_y = start_y + 9;
+    if (line_y < max_y - 1) {
+        std::string phase_str = "Fase: " + time;
+        mvwprintw(win, line_y, (max_x - (int)phase_str.length()) / 2, "%.*s", max_x - 2, phase_str.c_str());
+    }
     wnoutrefresh(win);
 }
 
@@ -308,7 +325,7 @@ void MainPage::draw_map(WINDOW* win, const std::vector<GraphNode>& nodes, const 
     wbkgdset(win, COLOR_PAIR(2));
     werase(win);
     box(win, 0, 0);
-    draw_title(win, "Peta Kota", w_right, title_color);
+    draw_title(win, "Peta Kota", title_color);
 
     if (nodes.empty()) {
         wnoutrefresh(win);
@@ -439,24 +456,28 @@ void MainPage::draw_player_stats(WINDOW* win, int str, int cons, int agi, int in
     
     if (stat_points > 0) {
         wattron(win, COLOR_PAIR(4) | A_BOLD);
-        mvwprintw(win, start_y + 5, 2, "Pts : %d (Press 'C' to level up!)", stat_points);
+        mvwprintw(win, start_y + 5, 2, "Pts : %d [C] Level Up!", stat_points);
         wattroff(win, COLOR_PAIR(4) | A_BOLD);
     } else {
         mvwprintw(win, start_y + 5, 2, "Pts : %d", stat_points);
     }
     
     int equip_x = std::max(20, max_x / 2 - 2);
+    int equip_max_w = std::max(10, max_x - equip_x - 2);
     for (size_t i = 0; i < equipped_info.size() && (int)(start_y + i) < max_y - 2; ++i) {
-        mvwprintw(win, start_y + i, equip_x, "%s", equipped_info[i].c_str());
+        std::string s = equipped_info[i];
+        if ((int)s.length() > equip_max_w) s = s.substr(0, equip_max_w - 1) + "~";
+        mvwprintw(win, start_y + i, equip_x, "%s", s.c_str());
     }
     wattron(win, COLOR_PAIR(4) | A_BOLD);
-    mvwprintw(win, max_y - 2, 2, "Afin: %s", affinity.c_str());
+    int afin_max = std::max(10, max_x - 20);
+    mvwprintw(win, max_y - 2, 2, "%.*s", afin_max, ("Afin: " + affinity).c_str());
     wattroff(win, COLOR_PAIR(4) | A_BOLD);
     mvwprintw(win, max_y - 2, max_x - 12, "G: %d", gold);
     wnoutrefresh(win);
 }
 
-void draw_bar(WINDOW* win, int y, int x, int width, int current, int max, int color_pair) {
+static void draw_bar(WINDOW* win, int y, int x, int width, int current, int max, int color_pair) {
     float fill = (max > 0) ? (float) current / max : 0;
     int filled_width = width * fill;
     mvwprintw(win, y, x, "[");
@@ -481,13 +502,23 @@ void MainPage::draw_vitals(WINDOW* win, int hp, int max_hp, int mp, int max_mp) 
 void MainPage::draw_inventory(WINDOW* win, const std::vector<std::string>& item_names) {
     if (!win) return;
     int max_y, max_x; getmaxyx(win, max_y, max_x);
-    for (size_t i = 0; i < item_names.size() && (int)i < max_y - 2; ++i) mvwprintw(win, 1 + i, 2, "- %s", item_names[i].c_str());
+    int max_w = max_x - 5;
+    for (size_t i = 0; i < item_names.size() && (int)i < max_y - 2; ++i) {
+        std::string s = item_names[i];
+        if ((int)s.length() > max_w) s = s.substr(0, max_w - 1) + "~";
+        mvwprintw(win, 1 + i, 2, "- %s", s.c_str());
+    }
     wnoutrefresh(win);
 }
 
 void MainPage::draw_tasks(WINDOW* win, const std::vector<std::string>& tasks) {
     if (!win) return;
     int max_y, max_x; getmaxyx(win, max_y, max_x);
-    for (size_t i = 0; i < tasks.size() && (int)i < max_y - 2; ++i) mvwprintw(win, 1 + i, 2, "%s", tasks[i].c_str());
+    int max_w = max_x - 4;
+    for (size_t i = 0; i < tasks.size() && (int)i < max_y - 2; ++i) {
+        std::string s = tasks[i];
+        if ((int)s.length() > max_w) s = s.substr(0, max_w - 1) + "~";
+        mvwprintw(win, 1 + i, 2, "%s", s.c_str());
+    }
     wnoutrefresh(win);
 }

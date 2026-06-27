@@ -1,15 +1,5 @@
 [
   {
-    "id": "scene_arthur_idle",
-    "nodes": [
-      {
-        "type": 1,
-        "npc_name": "Arthur",
-        "value": "Ah, kamu rupanya. Masih hidup rupanya setelah kejadian semalam."
-      }
-    ]
-  },
-  {
     "id": "scene_arthur_give_stable_quest",
     "nodes": [
       {
@@ -27,7 +17,9 @@
       {
         "text": "Terima Misi",
         "next_scene": "",
-        "on_select": ["accept_quest quest_stable_investigation"]
+        "on_select": [
+          "accept_quest quest_stable_investigation"
+        ]
       },
       {
         "text": "Tolak / Nanti Saja",

@@ -1,6 +1,7 @@
 #include "ShopState.hpp"
 #include "../GameEngine.hpp"
 #include <ncurses.h>
+#include <algorithm>
 
 ShopState::ShopState(GameEngine* eng, const std::string& shop_id) 
     : GameState(eng), shop_id(shop_id), current_selection(0) {}
@@ -82,10 +83,18 @@ void ShopState::render() {
     Player* p = engine->get_player_manager().get_player();
     if (!p) return;
 
-    int popup_w = 60;
-    int popup_h = display_items.size() + 8;
-    int popup_y = (LINES - popup_h) / 2;
-    int popup_x = (COLS - popup_w) / 2;
+    int my, mx;
+    getmaxyx(stdscr, my, mx);
+    if (my < 15 || mx < 40) {
+        mvprintw(my / 2, std::max(0, (mx - 30) / 2), "TERMINAL TERLALU KECIL (%dx%d)", mx, my);
+        refresh();
+        return;
+    }
+
+    int popup_w = std::min(60, mx - 2);
+    int popup_h = std::min((int)display_items.size() + 8, my - 2);
+    int popup_y = std::max(0, (my - popup_h) / 2);
+    int popup_x = std::max(0, (mx - popup_w) / 2);
     
     WINDOW* pop_win = newwin(popup_h, popup_w, popup_y, popup_x);
     if (pop_win) {
@@ -106,7 +115,7 @@ void ShopState::render() {
             }
             
             if (i == display_items.size() - 1) {
-                mvwprintw(pop_win, 6 + i, 4, "%-35s", "Exit Shop");
+                mvwprintw(pop_win, 6 + i, 4, "Exit Shop");
             } else {
                 const std::string& item_id = display_items[i];
                 const Item* item = engine->get_db().get_item(item_id);
@@ -119,9 +128,14 @@ void ShopState::render() {
                         stock_str = " [SOLD OUT]";
                     }
                     std::string display_str = item_name + " - " + item_price + stock_str;
+                    int max_display_w = popup_w - 6;
+                    if ((int)display_str.length() > max_display_w) display_str = display_str.substr(0, max_display_w - 1) + "~";
                     mvwprintw(pop_win, 6 + i, 4, "%s", display_str.c_str());
                 } else {
-                    mvwprintw(pop_win, 6 + i, 4, "%-35s ????G", display_items[i].c_str());
+                    std::string fb = display_items[i] + " ????G";
+                    int fb_max = popup_w - 6;
+                    if ((int)fb.length() > fb_max) fb = fb.substr(0, fb_max - 1) + "~";
+                    mvwprintw(pop_win, 6 + i, 4, "%s", fb.c_str());
                 }
             }
             

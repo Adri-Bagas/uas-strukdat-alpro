@@ -18,6 +18,7 @@ public:
     void update() override;
     bool handle_input(int ch) override;
     void render() override;
+    void resize() override;
 };
 
 } // namespace Utils

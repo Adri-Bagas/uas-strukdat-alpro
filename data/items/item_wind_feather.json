@@ -1,0 +1,7 @@
+{
+  "id": "item_wind_feather",
+  "name": "Bulu Angin",
+  "description": "Bulu ringan yang melayang terus meski tidak ada angin. Berasal dari elemental angin.",
+  "type": "material",
+  "value": 40
+}

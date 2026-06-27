@@ -584,10 +584,10 @@ void DB::load_quests(const std::string& directory_path) {
                 }
 
                 // Syarat agar misi ini dianggap selesai (Progress tracking)
-                if (j.contains("condition")) {
-                    q.set_completion_condition(parse_condition(j["condition"]));
-                } else if (j.contains("completion_condition")) {
+                if (j.contains("completion_condition")) {
                     q.set_completion_condition(parse_condition(j["completion_condition"]));
+                } else if (j.contains("condition")) {
+                    q.set_completion_condition(parse_condition(j["condition"]));
                 }
 
                 // Hadiah atau efek yang didapat saat misi ini diselesaikan

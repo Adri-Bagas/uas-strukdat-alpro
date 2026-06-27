@@ -7,13 +7,7 @@
         "discovered_ids": [
             "npc_citizen_3",
             "npc_arthur",
-            "mon_bandit_scum",
             "npc_acolyte_1",
-            "mon_wolf",
-            "mon_giant_bat",
-            "npc_kael",
-            "npc_maria",
-            "npc_andreas",
             "npc_guard_3",
             "npc_merchant_2",
             "npc_merchant_1",
@@ -22,8 +16,6 @@
             "npc_guard_2",
             "npc_guard_1",
             "npc_thug_1",
-            "npc_elara",
-            "mon_slime",
             "npc_suspicious_person",
             "npc_acolyte_2",
             "npc_citizen_2",
@@ -35,10 +27,10 @@
             "has_met": false
         },
         "npc_acolyte_2": {
-            "has_met": true
+            "has_met": false
         },
         "npc_andreas": {
-            "has_met": true
+            "has_met": false
         },
         "npc_arthur": {
             "has_met": true
@@ -62,7 +54,7 @@
             "has_met": false
         },
         "npc_elara": {
-            "has_met": true
+            "has_met": false
         },
         "npc_garrick": {
             "has_met": false
@@ -80,13 +72,13 @@
             "has_met": false
         },
         "npc_kael": {
-            "has_met": true
+            "has_met": false
         },
         "npc_lukas": {
             "has_met": false
         },
         "npc_maria": {
-            "has_met": true
+            "has_met": false
         },
         "npc_merchant_1": {
             "has_met": false
@@ -118,13 +110,13 @@
     },
     "places": {
         "alun_alun": {
-            "has_entered": true
+            "has_entered": false
         },
         "balai_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "biara": {
-            "has_entered": true
+            "has_entered": false
         },
         "blacksmith_budi": {
             "has_entered": false
@@ -133,22 +125,22 @@
             "has_entered": false
         },
         "gua_tambang": {
-            "has_entered": true
+            "has_entered": false
         },
         "jalanan_barat_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "jalanan_selatan_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "jalanan_timur_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "jalanan_utama_kota": {
             "has_entered": true
         },
         "jalanan_utara_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "kamar_loteng": {
             "has_entered": true
@@ -157,19 +149,19 @@
             "has_entered": true
         },
         "kedai_usang": {
-            "has_entered": true
+            "has_entered": false
         },
         "magic_book_store": {
-            "has_entered": true
+            "has_entered": false
         },
         "menara_tua": {
-            "has_entered": true
+            "has_entered": false
         },
         "pasar_kota": {
-            "has_entered": true
+            "has_entered": false
         },
         "permukiman_kumuh": {
-            "has_entered": true
+            "has_entered": false
         },
         "restoran_warteg": {
             "has_entered": false
@@ -179,69 +171,32 @@
         "affinity": 5,
         "agi": 15,
         "cons": 15,
-        "equipment": {
-            "armor": "leather_armor",
-            "boots": "leather_boots",
-            "weapon": "item_nirva_sword"
-        },
-        "exp": 110,
-        "gold": 80,
-        "hp": 153,
+        "exp": 0,
+        "gold": 0,
+        "hp": 150,
         "id": "hero",
         "intl": 15,
         "inventory": {
-            "item_bat_wing": 1,
-            "item_gold_pouch": 2,
-            "item_slime_gel": 1,
-            "potion_hp": 5,
-            "potion_mp": 1
+            "potion_hp": 3
         },
-        "level": 2,
-        "magics": [
-            {
-                "elem": 3,
-                "id": "wind_blade",
-                "mana_cost": 5,
-                "modifiers": null,
-                "name": "Wind Blade",
-                "power": 20,
-                "range": 0,
-                "type": 0
-            },
-            {
-                "elem": 4,
-                "id": "minor_heal",
-                "mana_cost": 5,
-                "modifiers": null,
-                "name": "Minor Heal",
-                "power": 25,
-                "range": 1,
-                "type": 2
-            }
-        ],
-        "max_hp": 160,
-        "max_mp": 80,
+        "level": 1,
+        "magics": null,
+        "max_hp": 150,
+        "max_mp": 75,
         "mp": 75,
         "name": "Nirva Hero",
-        "stat_points": 5,
+        "stat_points": 0,
         "str": 15,
         "vars": {
             "day": 2,
-            "dungeon_floor": 2,
-            "party_npc_elara": 0,
-            "party_npc_lukas": 0,
-            "quest_gereja_1_complete": 1,
-            "quest_gereja_2_complete": 1,
-            "seen_day2_cutscene": 1,
-            "trust": 5,
-            "visited_places_count": 9
+            "seen_day2_cutscene": 1
         },
         "weakness": 5,
         "wis": 15
     },
     "quests": {
-        "quest_gereja_1": 4,
-        "quest_gereja_2": 4,
+        "quest_gereja_1": 0,
+        "quest_gereja_2": 0,
         "quest_gereja_3": 0,
         "quest_gereja_4": 0,
         "quest_gereja_elara_1": 0,
@@ -249,6 +204,6 @@
         "quest_gereja_kael_1_garrick": 0,
         "quest_gereja_silas_1": 0,
         "quest_stable_investigation": 0,
-        "quest_survei_kota": 4
+        "quest_survei_kota": 0
     }
 }

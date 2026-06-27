@@ -43,7 +43,7 @@ void StatAllocationState::handle_input(int ch) {
         
         if (p->get_stat_points() > 0) {
             p->add_stat_points(-1);
-            if (current_selection == 0) p->set_str(p->get_str() + 1);
+            if (current_selection == 0) p->set_str(p->Entity::get_str() + 1);
             else if (current_selection == 1) { p->set_cons(p->get_cons() + 1); p->set_max_hp(p->get_max_hp() + 10); p->heal_hp(10); }
             else if (current_selection == 2) p->set_agi(p->get_agi() + 1);
             else if (current_selection == 3) p->set_intl(p->get_intl() + 1);

@@ -306,7 +306,7 @@ bool SaveManager::load_game(GameEngine* engine, const std::string& filename) {
         }
 
         // Party
-        if (data.contains("party") && data["party"].is_array()) {
+        if (data.contains("party") && data["party"].is_object()) {
             for (auto& el : data["party"].items()) {
                 if (el.value().is_string()) {
                     const NPC* npc = engine->get_db().get_npc(el.value().get<std::string>());

@@ -409,9 +409,9 @@ Action::Action(GameEngine* eng) : engine(eng) {
         if (ss >> key >> amount) {
             Player* p = engine->get_player_manager().get_player();
             if (p) {
-                if (key == "str") p->set_str(p->get_str() + amount);
-                else if (key == "cons") p->set_cons(p->get_cons() + amount);
-                else if (key == "agi") p->set_agi(p->get_agi() + amount);
+                if (key == "str") p->set_str(p->Entity::get_str() + amount);
+                else if (key == "cons") p->set_cons(p->Entity::get_cons() + amount);
+                else if (key == "agi") p->set_agi(p->Entity::get_agi() + amount);
                 else if (key == "intl") p->set_intl(p->get_intl() + amount);
                 else if (key == "wis") p->set_wis(p->get_wis() + amount);
                 else p->add_var(key, amount);

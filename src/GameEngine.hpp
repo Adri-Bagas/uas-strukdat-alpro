@@ -16,6 +16,7 @@
 #include "managers/LogManager.hpp"
 #include "utils/components/Popup.hpp"
 #include "managers/MusicManager.hpp"
+#include "utils/EncyclopediaBST.hpp"
 
 class GameEngine {
 private:
@@ -31,6 +32,7 @@ private:
     MusicManager music_manager;
     ShopManager shop_manager;
     LogManager log_manager;
+    Utils::EncyclopediaBST encyclopedia;
 
     std::stack<std::unique_ptr<GameState>> state_stack;
     std::unique_ptr<Utils::Popup> active_popup;
@@ -69,5 +71,6 @@ public:
     MusicManager& get_music_manager();
     ShopManager& get_shop_manager();
     LogManager& get_log_manager();
+    Utils::EncyclopediaBST& get_encyclopedia();
     void quit();
 };

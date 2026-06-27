@@ -132,6 +132,7 @@ void BattleState::next_turn() {
                 if (Monster* m = dynamic_cast<Monster*>(dead_enemy)) {
                     accumulated_exp += m->get_exp_drop();
                     accumulated_gold += m->get_gold_drop();
+                    engine->get_encyclopedia().discover_entry(m->get_id());
                     
                     // Process loot table
                     for (const auto& loot : m->get_loot_table()) {

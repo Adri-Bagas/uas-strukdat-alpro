@@ -5,6 +5,7 @@
 #include "StatAllocationState.hpp"
 #include "BattleState.hpp"
 #include "InventoryState.hpp"
+#include "../utils/components/EncyclopediaPopup.hpp"
 #include <ncurses.h>
 #include <random>
 #include <algorithm>
@@ -245,6 +246,11 @@ void DungeonState::handle_input(int ch) {
     
     if (ch == 'i' || ch == 'I') {
         engine->push_state(new InventoryState(engine));
+        return;
+    }
+
+    if (ch == 'b' || ch == 'B') {
+        engine->show_popup(std::make_unique<Utils::EncyclopediaPopup>(engine));
         return;
     }
 

@@ -31,7 +31,17 @@
   "max_hp": 320,
   "max_mp": 220,
   "level": 16,
-  "magics": [],
+  "magics": [
+    {
+      "id": "mag_shadow_bolt",
+      "name": "Shadow Bolt",
+      "type": "attacking",
+      "mana_cost": 10,
+      "power": 28,
+      "element": "wind",
+      "range": "direct"
+    }
+  ],
   "special_move": {
     "id": "sp_black_crow_execution",
     "name": "Black Crow Execution",

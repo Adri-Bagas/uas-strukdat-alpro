@@ -13,7 +13,17 @@
   "quests": ["quest_gereja_2", "quest_gereja_3", "quest_gereja_4"],
   "str": 5, "cons": 5, "agi": 5, "intl": 5, "wis": 5,
   "level": 5, "max_hp": 50, "max_mp": 50,
-  "magics": [],
+  "magics": [
+    {
+      "id": "mag_andreas_minor_heal",
+      "name": "Minor Heal",
+      "type": "healing",
+      "mana_cost": 6,
+      "power": 25,
+      "element": "light",
+      "range": "reach"
+    }
+  ],
   "affinity": "none", "weakness": "none",
   "weapon_type": "unarmed", "weapon_name": "tangan kosong"
 }

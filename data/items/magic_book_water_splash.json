@@ -3,7 +3,7 @@
     "name": "Buku Sihir: Water Splash",
     "description": "Sihir air dasar. Kekuatan 20, Elemen Water. (Sekali Pakai)",
     "type": "consumable",
-    "value": 50,
+    "value": 25,
     "on_use": [
         "learn_magic water_splash magic_book_water_splash"
     ]

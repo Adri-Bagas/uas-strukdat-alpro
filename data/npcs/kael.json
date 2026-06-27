@@ -13,7 +13,34 @@
   "quests": ["quest_gereja_kael_1"],
   "str": 10, "cons": 10, "agi": 10, "intl": 20, "wis": 20,
   "level": 10, "max_hp": 200, "max_mp": 200,
-  "magics": [],
+  "magics": [
+    {
+      "id": "mag_light_strike",
+      "name": "Light Strike",
+      "type": "attacking",
+      "mana_cost": 8,
+      "power": 22,
+      "element": "light",
+      "range": "direct"
+    },
+    {
+      "id": "mag_minor_heal",
+      "name": "Minor Heal",
+      "type": "healing",
+      "mana_cost": 5,
+      "power": 25,
+      "element": "light",
+      "range": "reach"
+    }
+  ],
+  "special_move": {
+    "id": "sp_divine_judgment",
+    "name": "Divine Judgment",
+    "max_uses_per_day": 2,
+    "power": 70,
+    "element": "light",
+    "range": "aoe"
+  },
   "affinity": "none", "weakness": "none",
   "weapon_type": "staff", "weapon_name": "tongkat suci"
 }

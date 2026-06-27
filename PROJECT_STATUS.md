@@ -50,55 +50,12 @@ The core foundation and engine of the game are solid and fully operational:
 
 ---
 
-## 2. In Progress / Partially Implemented
-
-These systems have their data models built and JSON loaded, but lack the gameplay loops to fully utilize them:
-
-
-*   **Time Limit Mechanic (14 Days)**: 
-    *   *Done*: The Calendar tracks days, UI shows "Sisa Hari" (Days Left), and Lord Inquisitor Vane is scheduled to arrive on Day 14.
-    *   *Missing*: A hard "Game Over" or "Judgment" engine trigger if the player fails to solve the mystery by Day 15.
-
----
-
-## 3. To-Do / Needs Implementation (Road to 1.0)
-
-To finish the project, the following major features must be built:
-
-
-2.  **Advanced Quest Mechanics**:
-    *   **Quest Rejection & Retention**: Allow players to decline a quest during dialogue and still have the option to pick it up later from the NPC on a different day.
-    *   **Complex Completion Triggers**: Upgrade the `Condition` evaluator to support diverse quest objectives beyond just variable tracking. This includes specific item fetching, targeted monster kills, talking to a specific NPC in a sequence, or triggering completion simply by entering a specific area.
-3.  **Bulletin Board System (Papan Pengumuman)**:
-    *   Create a centralized hub (likely in the `alun_alun` or `balai_kota`) for procedural or generic "Unnamed NPC" quests. This prevents the player from having to hunt down random citizens for basic fetch/kill tasks.
-4.  **Data Structures Implementation (From Scratch)**:
-    *   **Double Linked List** (DONE): Implemented a custom `DoubleLinkedList` to manage a Message Log / Activity History. Players can press `L` to view notifications chronologically.
-    *   **Binary Search Tree (BST) / AVL Tree**: 
-        *   **Implementation Strategy**: Construct a custom, self-balancing tree (such as an AVL Tree) to serve as the backend for the **Encyclopedia/Bestiary** system. 
-        *   **Mechanics**: Every time the player encounters a new monster, discovers a new item, or uncovers lore, an entry is inserted into the BST. The nodes should be keyed by alphabetical string comparison (e.g., entity name) or a numerical ID.
-        *   **Advantages**: This guarantees `O(log N)` search and insertion times. When the player opens the Encyclopedia UI, an **in-order traversal** of the tree will automatically yield a perfectly alphabetized list of all discovered entities, making UI rendering incredibly efficient without needing an external sorting algorithm like `std::sort`.
-    *   **Stack (LIFO)**: 
-        *   **Implementation Strategy**: Develop a custom, from-scratch `Stack` class utilizing templates.
-        *   **Mechanics**: Integrate this stack into the `GameEngine` or specific UI states to manage **Menu/Screen Navigation History**. Whenever a player drills down into a sub-menu (e.g., Main Menu -> Inventory -> Select Item -> Use Item Confirmation), the previous menu's pointer or context state is pushed onto the stack. 
-        *   **Advantages**: Pressing `ESC` or a "Back" button will simply pop the top element off the stack, instantly restoring the exact previous state and cursor position. This completely eliminates hardcoded "back" routing and enables infinitely nested menus safely.
-    *   **Graph with BFS/DFS**: Implemented (Breadth-First Search utilized for Fast Travel pathfinding across the Town's map nodes).
-7.  **Save/Load System (Optional but Recommended)**:
-    *   Implement a way to serialize the `Player` state (variables, inventory, quest states, time) back into a save-game JSON file.
-
----
-
-## 4. Known Bugs & Code Smells
+## 2. Known Bugs & Code Smells
 
 These are technical debts and bugs currently existing in the code that should be addressed:
 
 ### Bugs
 
-*   **Dungeon Terminal Size Crash**: `DungeonState::render()` requires a minimum terminal size of 110x24. If the terminal is resized smaller than this *while* inside the dungeon, it shows an error overlay, but rapid resizing might still cause `std::vector` out-of-bounds exceptions if the player moves while the terminal is too small.
-
 ### Known Bugs / Code Smells
-- **Terminal Resize Responsiveness Issue**: Components in certain states (like Popups or inner contents in `TownState` / `ShopState`) are sometimes not correctly re-calculating their proportional width/height after a `KEY_RESIZE` event, meaning they maintain their original dimensions instead of becoming responsive like web layouts. This appears related to ncurses window destruction/re-creation loops.
 
 ### Completed Refactors
-- **Blocking UI Loops**: Refactored `Popup` to use a non-blocking state machine via `GameEngine::run()`.
-- **Hardcoded Dialogue Choice Parser**: Replaced custom string parsing in `DialogManagers.cpp` with the `Condition` system.
-- **Action Dispatcher Duplication**: Replaced hardcoded string parsing in `execute_actions` with standard action dispatcher.

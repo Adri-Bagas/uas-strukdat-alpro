@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_light_burst",
+    "name": "Buku Sihir: Light Burst",
+    "description": "Sihir cahaya lanjutan. Kekuatan 32, Elemen Light, menjangkau semua lawan. (Sekali Pakai)",
+    "type": "consumable",
+    "value": 80,
+    "on_use": [
+        "learn_magic light_burst magic_book_light_burst"
+    ]
+}

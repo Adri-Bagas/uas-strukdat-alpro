@@ -6,7 +6,9 @@
         {"item": "fire_ring", "base_stock": 1},
         {"item": "potion_hp", "base_stock": 3},
         {"item": "potion_mp", "base_stock": 3},
-        {"item": "leather_boots", "base_stock": 1}  
+        {"item": "leather_boots", "base_stock": 1},
+        {"item": "magic_book_minor_heal", "base_stock": 1},
+        {"item": "magic_book_wind_blade", "base_stock": 1}
     ],
     "restock_schedule": [
         {
@@ -20,7 +22,14 @@
             "day": 5,
             "items": [
                 "bread",
-                "potion_mp"
+                "potion_mp",
+                "magic_book_wind_blade"
+            ]
+        },
+        {
+            "day": 3,
+            "items": [
+                "magic_book_minor_heal"
             ]
         }
     ], 

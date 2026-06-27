@@ -5,24 +5,26 @@
   "on_enter": "",
   "activities": [
     {
-      "id": "masuk_dungeon",
-      "name": "Masuk Dungeon (Maze)",
+      "id": "jaga_keamanan",
+      "name": "Jaga Keamanan",
       "time_cost": 1,
-      "stamina_cost": 10,
       "schedule": {
         "days": [],
-        "phases": []
+        "phases": ["Pagi", "Siang"]
       },
       "req": {
-        "quest": "",
-        "min_str": 0,
+        "stats": { "str": 5 },
         "locked": false
       },
-      "effect": {
-        "gold": 0,
-        "str": 0,
-        "finish_quest": ""
-      }
+      "dialogs": {
+        "success": "Kamu membantu penjaga kota berpatroli dan mengamankan jalanan. Mereka memberimu upah!",
+        "fail": "Kamu belum cukup kuat untuk menghadapi preman-preman jalanan. (Butuh STR 5)"
+      },
+      "on_execute": [
+        "add_gold 25",
+        "add_var str 1",
+        "advance_time 1"
+      ]
     }
   ],
   "walkable": {

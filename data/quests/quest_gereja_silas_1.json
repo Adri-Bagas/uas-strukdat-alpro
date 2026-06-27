@@ -21,7 +21,8 @@
   "complete_scene_id": "selesai_silas_1",
   "on_complete": [
     "give_item leather_boots 1",
-    "set_var quest_silas_1_complete 1"
+    "set_var quest_silas_1_complete 1",
+    "set_var silas_intel_secured 1"
   ],
   "source_npc_id": "npc_silas",
   "condition": {

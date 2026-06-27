@@ -119,7 +119,13 @@ void TownState::handle_input(int ch) {
          return; 
      }
 
-     if (is_fast_traveling) return; // Block input during travel
+     if (is_fast_traveling) {
+         if (!engine->get_dialogs().has_queued_dialog() &&
+             !engine->get_dialogs().has_queued_popup() &&
+             !engine->get_dialogs().has_active_choices()) {
+             return;
+         }
+     }
       if (is_confirming_fast_travel) {
           if (ch == 'y' || ch == 'Y') {
               is_confirming_fast_travel = false;
@@ -661,9 +667,10 @@ void TownState::execute_fast_travel_step() {
                  "fast_travel_event_gossip"
              };
              std::string selected_event = events[rand() % events.size()];
-             if (const DialogScene* scene = engine->get_db().get_dialog_scene(selected_event)) {
-                 engine->get_dialogs().start_scene(*scene, engine);
-             }
+              if (const DialogScene* scene = engine->get_db().get_dialog_scene(selected_event)) {
+                  engine->get_dialogs().start_scene(*scene, engine);
+                  is_fast_traveling = false;
+              }
          }
      }
 }
@@ -715,12 +722,12 @@ void TownState::handle_post_dialogue() {
                  if (scene) {
                      engine->get_dialogs().start_scene(*scene, engine);
                  }
-             } else {
-                 this->on_enter();
-             }
-         }
-     }
-     if (interacting_npc) {
+              } else if (!is_fast_traveling) {
+                  this->on_enter();
+              }
+          }
+      }
+      if (interacting_npc) {
          Player* p = engine->get_player_manager().get_player();
          if (p && p->get_var("open_quest_menu") == 1) {
              p->set_var("open_quest_menu", 0);

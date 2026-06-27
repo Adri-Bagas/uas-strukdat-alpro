@@ -5,48 +5,48 @@
   "on_enter": "",
   "activities": [
     {
-      "id": "dengar_gosip",
-      "name": "Dengar Gosip Warga",
+      "id": "lari_pagi",
+      "name": "Lari Pagi",
       "time_cost": 1,
-      "stamina_cost": 5,
       "schedule": {
         "days": [],
-        "phases": [
-          "Pagi",
-          "Siang",
-          "Malam"
-        ]
+        "phases": ["Pagi", "Sore"]
       },
       "req": {
-        "quest": "",
-        "min_str": 0,
+        "stats": { "cons": 3 },
         "locked": false
       },
-      "effect": {
-        "gold": 0,
-        "str": 0,
-        "finish_quest": ""
-      }
+      "dialogs": {
+        "success": "Kamu berlari mengelilingi alun-alun. Napasmu terasa berat, tapi tubuhmu terasa lebih kuat!",
+        "fail": "Kamu baru beberapa langkah sudah terengah-engah. (Butuh CON 3)"
+      },
+      "on_execute": [
+        "add_var str 1",
+        "add_var cons 1",
+        "advance_time 1"
+      ]
     },
     {
-      "id": "ke_permukiman_kumuh",
-      "name": "Pergi ke Permukiman Kumuh",
-      "time_cost": 0,
-      "stamina_cost": 0,
+      "id": "baca_buku_kuno",
+      "name": "Baca Buku Kuno",
+      "time_cost": 1,
       "schedule": {
         "days": [],
-        "phases": []
+        "phases": ["Siang", "Malam"]
       },
       "req": {
-        "quest": "",
-        "min_str": 0,
+        "stats": { "intl": 3 },
         "locked": false
       },
-      "effect": {
-        "gold": 0,
-        "str": 0,
-        "finish_quest": ""
-      }
+      "dialogs": {
+        "success": "Kamu membaca buku kuno yang ditemukan di pojok taman. Pengetahuanmu bertambah luas.",
+        "fail": "Tulisan di buku ini terlalu rumit untuk dipahami. (Butuh INT 3)"
+      },
+      "on_execute": [
+        "add_var intl 1",
+        "add_var wis 1",
+        "advance_time 1"
+      ]
     }
   ],
   "walkable": {

@@ -7,5 +7,28 @@
     "north": "jalanan_selatan_kota",
     "south": "kamar_loteng"
   },
-  "activities": []
+  "activities": [
+    {
+      "id": "bantu_serve",
+      "name": "Bantu Serve Pelanggan",
+      "time_cost": 1,
+      "schedule": {
+        "days": [],
+        "phases": ["Pagi", "Siang", "Sore", "Malam"]
+      },
+      "req": {
+        "stats": { "agi": 3 },
+        "locked": false
+      },
+      "dialogs": {
+        "success": "Kamu melayani pelanggan dengan sigap. Beberapa dari mereka memberikan tip!",
+        "fail": "Gerakanmu terlalu lambat untuk jadi pelayan. (Butuh AGI 3)"
+      },
+      "on_execute": [
+        "add_gold 20",
+        "add_var agi 1",
+        "advance_time 1"
+      ]
+    }
+  ]
 }

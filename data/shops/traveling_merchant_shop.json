@@ -18,6 +18,18 @@
         {
             "item": "silver_ring",
             "base_stock": 1
+        },
+        {
+            "item": "magic_book_fire_bolt",
+            "base_stock": 1
+        },
+        {
+            "item": "magic_book_water_splash",
+            "base_stock": 1
+        },
+        {
+            "item": "magic_book_light_strike",
+            "base_stock": 1
         }
     ]
 }

@@ -4,11 +4,11 @@
     "items": [
         {
             "item": "magic_book_inferno",
-            "base_stock": 1
+            "base_stock": 2
         },
         {
             "item": "magic_book_heal",
-            "base_stock": 1
+            "base_stock": 2
         },
         {
             "item": "magic_book_meteor",
@@ -16,51 +16,51 @@
         },
         {
             "item": "potion_mp",
-            "base_stock": 5
+            "base_stock": 8
         },
         {
             "item": "magic_book_water_splash",
-            "base_stock": 2
+            "base_stock": 5
         },
         {
             "item": "magic_book_earth_spike",
-            "base_stock": 2
+            "base_stock": 5
         },
         {
             "item": "magic_book_wind_blade",
-            "base_stock": 2
+            "base_stock": 5
         },
         {
             "item": "magic_book_fire_bolt",
-            "base_stock": 3
+            "base_stock": 5
         },
         {
             "item": "magic_book_minor_heal",
-            "base_stock": 3
+            "base_stock": 5
         },
         {
             "item": "magic_book_light_strike",
-            "base_stock": 2
+            "base_stock": 4
         },
         {
             "item": "magic_book_light_burst",
-            "base_stock": 1
+            "base_stock": 2
         },
         {
             "item": "magic_book_water_wave",
-            "base_stock": 2
+            "base_stock": 3
         },
         {
             "item": "magic_book_earth_tremor",
-            "base_stock": 2
+            "base_stock": 3
         },
         {
             "item": "magic_book_wind_gust",
-            "base_stock": 2
+            "base_stock": 3
         },
         {
             "item": "magic_book_fire_wall",
-            "base_stock": 2
+            "base_stock": 3
         }
     ],
     "restock_schedule": [

@@ -11,18 +11,12 @@ static void rewrap_text(const std::string& text, int max_width, std::vector<std:
     std::stringstream ss(text);
     std::string word;
     while (ss >> word) {
-        while ((int)word.length() > max_width) {
-            out_lines.push_back(word.substr(0, max_width));
-            out_longest = max_width;
-            word = word.substr(max_width);
-        }
         if (out_lines.empty() || out_lines.back().length() + 1 + word.length() > (size_t)max_width) {
             out_lines.push_back(word);
-            out_longest = std::max(out_longest, (int)word.length());
         } else {
             out_lines.back() += " " + word;
-            out_longest = std::max(out_longest, (int)out_lines.back().length());
         }
+        out_longest = std::max(out_longest, (int)out_lines.back().length());
     }
     if (out_lines.empty()) {
         out_lines.push_back("");
@@ -37,12 +31,13 @@ Popup::Popup(const std::string &text) : original_text(text) {
     rewrap_text(text, max_width, wrapped_lines, longest_line);
 
     target_h = wrapped_lines.size() + 4;
+    if (target_h > LINES) target_h = LINES;
     target_w = longest_line + 6;
     if (target_w < 20) target_w = 20;
     if (target_w > COLS) target_w = COLS;
 
-    y = (LINES - target_h) / 2;
-    x = (COLS - target_w) / 2;
+    y = std::max(0, (LINES - target_h) / 2);
+    x = std::max(0, (COLS - target_w) / 2);
     
     win = newwin(2, 4, y + (target_h/2), x + (target_w/2));
     keypad(win, TRUE);
@@ -58,12 +53,13 @@ void Popup::resize() {
     rewrap_text(original_text, max_width, wrapped_lines, longest_line);
     
     target_h = wrapped_lines.size() + 4;
+    if (target_h > LINES) target_h = LINES;
     target_w = longest_line + 6;
     if (target_w < 20) target_w = 20;
     if (target_w > COLS) target_w = COLS;
     
-    y = (LINES - target_h) / 2;
-    x = (COLS - target_w) / 2;
+    y = std::max(0, (LINES - target_h) / 2);
+    x = std::max(0, (COLS - target_w) / 2);
     wresize(win, target_h, target_w);
     mvwin(win, y, x);
 }

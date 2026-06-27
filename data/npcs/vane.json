@@ -5,30 +5,7 @@
   "type": "named",
   "role": "Hakim Agung Ibukota",
   "faction": "Imperial Throne",
-  "schedules": [
-    {
-      "days": [
-        14
-      ],
-      "phase": "Pagi",
-      "location": "alun_alun"
-    },
-    {
-      "days": [],
-      "phase": "Pagi",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Siang",
-      "location": "balai_kota"
-    },
-    {
-      "days": [],
-      "phase": "Malam",
-      "location": "balai_kota"
-    }
-  ],
+  "schedules": [],
   "default_dialog": "scene_vane_idle",
   "str": 31,
   "cons": 40,

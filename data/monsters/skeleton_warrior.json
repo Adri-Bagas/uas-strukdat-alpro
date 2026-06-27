@@ -4,7 +4,7 @@
     "description": "Prajurit kerangka yang dibangkitkan dari kuburan tua.",
     "level": 4,
     "max_hp": 120,
-    "max_mp": 0,
+    "max_mp": 20,
     "damage": 12,
     "agility": 10,
     "str": 15,
@@ -18,7 +18,17 @@
             "chance": 70
         }
     ],
-    "magics": [],
+    "magics": [
+        {
+            "id": "mag_bone_shard",
+            "name": "Bone Shard",
+            "type": "attacking",
+            "mana_cost": 5,
+            "power": 12,
+            "element": "wind",
+            "range": "direct"
+        }
+    ],
     "affinity": "none",
     "weakness": "light",
     "weapon_type": "sword",

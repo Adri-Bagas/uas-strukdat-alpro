@@ -32,11 +32,19 @@
         },
         {
             "item": "magic_book_fire_bolt",
-            "base_stock": 2
+            "base_stock": 3
         },
         {
             "item": "magic_book_minor_heal",
+            "base_stock": 3
+        },
+        {
+            "item": "magic_book_light_strike",
             "base_stock": 2
+        },
+        {
+            "item": "magic_book_light_burst",
+            "base_stock": 1
         },
         {
             "item": "magic_book_water_wave",
@@ -77,7 +85,8 @@
                 "magic_book_earth_spike",
                 "magic_book_wind_blade",
                 "magic_book_fire_bolt",
-                "magic_book_minor_heal"
+                "magic_book_minor_heal",
+                "magic_book_light_strike"
             ]
         },
         {
@@ -86,7 +95,8 @@
                 "magic_book_water_wave",
                 "magic_book_earth_tremor",
                 "magic_book_wind_gust",
-                "magic_book_fire_wall"
+                "magic_book_fire_wall",
+                "magic_book_light_burst"
             ]
         }
     ],

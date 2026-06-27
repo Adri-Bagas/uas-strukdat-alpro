@@ -18,7 +18,17 @@
             "chance": 50
         }
     ],
-    "magics": [],
+    "magics": [
+        {
+            "id": "mag_goblin_fire",
+            "name": "Goblin Fire",
+            "type": "attacking",
+            "mana_cost": 4,
+            "power": 10,
+            "element": "fire",
+            "range": "direct"
+        }
+    ],
     "affinity": "none",
     "weakness": "none",
     "weapon_type": "dagger",

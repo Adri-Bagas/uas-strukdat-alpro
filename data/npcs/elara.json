@@ -13,7 +13,26 @@
   "quests": ["quest_gereja_elara_1"],
   "str": 10, "cons": 10, "agi": 15, "intl": 20, "wis": 18,
   "level": 3, "max_hp": 100, "max_mp": 100,
-  "magics": [],
+  "magics": [
+    {
+      "id": "mag_elara_light_strike",
+      "name": "Light Strike",
+      "type": "attacking",
+      "mana_cost": 6,
+      "power": 18,
+      "element": "light",
+      "range": "direct"
+    },
+    {
+      "id": "mag_elara_minor_heal",
+      "name": "Minor Heal",
+      "type": "healing",
+      "mana_cost": 5,
+      "power": 20,
+      "element": "light",
+      "range": "reach"
+    }
+  ],
   "affinity": "none", "weakness": "none",
   "weapon_type": "staff", "weapon_name": "tongkat sihir"
 }

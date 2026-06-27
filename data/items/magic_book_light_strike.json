@@ -1,0 +1,10 @@
+{
+    "id": "magic_book_light_strike",
+    "name": "Buku Sihir: Light Strike",
+    "description": "Sihir cahaya dasar. Kekuatan 18, Elemen Light. (Sekali Pakai)",
+    "type": "consumable",
+    "value": 30,
+    "on_use": [
+        "learn_magic light_strike magic_book_light_strike"
+    ]
+}

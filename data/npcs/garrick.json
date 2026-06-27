@@ -13,7 +13,17 @@
   "quests": [],
   "str": 25, "cons": 20, "agi": 15, "intl": 8, "wis": 8,
   "level": 8, "max_hp": 250, "max_mp": 50,
-  "magics": [],
+  "magics": [
+    {
+      "id": "mag_garrick_mighty_blow",
+      "name": "Mighty Blow",
+      "type": "attacking",
+      "mana_cost": 8,
+      "power": 20,
+      "element": "none",
+      "range": "direct"
+    }
+  ],
   "affinity": "none", "weakness": "none",
   "weapon_type": "sword", "weapon_name": "pedang besar"
 }

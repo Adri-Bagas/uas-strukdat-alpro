@@ -3,7 +3,7 @@
     "name": "Buku Sihir: Fire Bolt",
     "description": "Sihir api dasar. Kekuatan 20, Elemen Fire. (Sekali Pakai)",
     "type": "consumable",
-    "value": 50,
+    "value": 25,
     "on_use": [
         "learn_magic fire_bolt magic_book_fire_bolt"
     ]

@@ -41,6 +41,15 @@
       "power": 25,
       "element": "wind",
       "range": "reach"
+    },
+    {
+      "id": "mag_arthur_light_strike",
+      "name": "Light Strike",
+      "type": "attacking",
+      "mana_cost": 8,
+      "power": 20,
+      "element": "light",
+      "range": "direct"
     }
   ],
   "special_move": {

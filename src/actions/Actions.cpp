@@ -273,6 +273,16 @@ Action::Action(GameEngine* eng) : engine(eng) {
             m.power = 18; m.mana_cost = 10; m.elem = Element::FIRE; m.range = TargetRange::REACH;
             p->add_magic(m);
             engine->get_dialogs().queue_popup("Mempelajari sihir: Fire Wall!");
+        } else if (magic_id == "light_strike") {
+            Magic m; m.id = "light_strike"; m.name = "Light Strike"; m.type = MagicType::ATTACKING;
+            m.power = 18; m.mana_cost = 5; m.elem = Element::LIGHT; m.range = TargetRange::DIRECT;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Light Strike!");
+        } else if (magic_id == "light_burst") {
+            Magic m; m.id = "light_burst"; m.name = "Light Burst"; m.type = MagicType::ATTACKING;
+            m.power = 32; m.mana_cost = 12; m.elem = Element::LIGHT; m.range = TargetRange::REACH;
+            p->add_magic(m);
+            engine->get_dialogs().queue_popup("Mempelajari sihir: Light Burst!");
         }
     });
 
